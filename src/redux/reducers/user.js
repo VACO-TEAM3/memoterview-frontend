@@ -1,7 +1,7 @@
 import { takeLatest } from "@redux-saga/core/effects";
 
-import { createPromiseSaga } from "../lib/asyncUtils";
 import { loginAPI } from "../lib/mockApi";
+import { createPromiseSaga } from "../lib/sagaUtils";
 
 
 const BASE_PATH = "USER/";
@@ -26,12 +26,12 @@ const userInitialState = {
   username: "",
   myProjects: [],
   joinedProjects: [],
-  token: "",
 };
 
 const initialState = {
   loading: false,
   user: userInitialState,
+  token: "",
   error: null,
 };
 
