@@ -1,7 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import Dummy from "../../pages/dummy";
+import Dummy from "../../pages/Dummy";
 import theme from "../../theme/theme";
 
 function App() {
