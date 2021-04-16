@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import { loginUser } from "../redux/reducers/user";
 
-
 export default function Dummy() {
   const dispatch = useDispatch();
 
