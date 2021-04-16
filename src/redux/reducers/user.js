@@ -20,9 +20,18 @@ export function* userSaga() {
   yield takeLatest(GET_TOKEN, getTokenSaga);
 }
 
+const userInitialState = {
+  email: "",
+  avatar: "",
+  username: "",
+  myProjects: [],
+  joinedProjects: [],
+  token: "",
+};
+
 const initialState = {
   loading: false,
-  user: null, // { myProject: [], joinedProject: [] }
+  user: userInitialState,
   error: null,
 };
 
@@ -39,7 +48,7 @@ export default function user(state = initialState, action) {
     case GET_TOKEN_SUCCESS:
       return {
         loading: false,
-        user: action.payload,
+        user: { ...action.payload },
         error: null, 
       };
     case GET_TOKEN_ERROR:
