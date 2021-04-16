@@ -2,7 +2,7 @@ import { takeLatest } from "@redux-saga/core/effects";
 
 import { loginAPI } from "../lib/mockApi";
 import { createPromiseSaga } from "../lib/sagaUtils";
-
+import { ADD_MY_PROJECT_SUCCESS } from "./projects";
 
 const BASE_PATH = "USER/";
 
@@ -56,6 +56,16 @@ export default function user(state = initialState, action) {
         loading: false,
         user: null,
         error: action.payload,
+      };
+    case ADD_MY_PROJECT_SUCCESS:
+      const ids = action.payload.map(item => item.id);
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          myProjects: state.user.myProjects.concat(ids),
+        },
       };
     default:
       return state;

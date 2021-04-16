@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
+import { addMyProjects, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 import { loginUser } from "../redux/reducers/user";
 
 export default function Dummy() {
@@ -15,19 +15,32 @@ export default function Dummy() {
     }));
   }
 
-  function handleGetMyPorjectsClick() {
+  function handleGetMyProjectsClick() {
     dispatch(getMyProjects("userId"));
   }
 
-  function handleGetJoinedPorjectsClick() {
+  function handleGetJoinedProjectsClick() {
     dispatch(getJoinedProjects("userId"));
+  }
+
+  function handleAddMyProjectsClick() {
+    dispatch(addMyProjects({
+      userId: "asdfasdf",
+      newProject: {
+        title: "test",
+        filter: ["컬쳐핏", "커뮤니케이션"],
+        creator: "asdfasdf",
+        participants: ["interviewer1", "interviewer2"],
+      },
+    }));
   }
 
   return (
     <div>
       <button onClick={handleLoginClick}>login</button>
-      <button onClick={handleGetMyPorjectsClick}>get my projects</button>
-      <button onClick={handleGetJoinedPorjectsClick}>get joined project</button>
+      <button onClick={handleGetMyProjectsClick}>get my projects</button>
+      <button onClick={handleGetJoinedProjectsClick}>get joined project</button>
+      <button onClick={handleAddMyProjectsClick}>add my project</button>
     </div>
   );
 }
