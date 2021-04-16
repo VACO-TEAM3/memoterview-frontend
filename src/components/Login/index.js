@@ -10,7 +10,6 @@ export default function Login() {
     const { profileObj } = data;
 
     await login(profileObj);
-
     history.push("/");
   }
 
