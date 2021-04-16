@@ -56,3 +56,23 @@ export function getJoinedProjectsAPI(userId) {
     }, 1000);
   });
 };
+
+export function addProjectAPI({ userId, newProject }) {
+  console.log("addProjectAPI", userId, newProject);
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const createdProject = {
+        id: "projectId",
+        title: "프론트엔드 주니어 채용",
+        filters: ["컬쳐핏", "커뮤니케이션"],
+        creator: "dfsdslfawef34",
+        participants: ["sdfsdfsdf334", "fewifjeio23r35"],
+        candidateNum: 0,
+        createAt: "2021-04-10",
+      };
+
+      // 객체 1개짜리는 [] 배열로 감싸주어야 한다.
+      resolve([createdProject]);
+    });
+  });
+}
