@@ -14,10 +14,11 @@ export default function Login() {
     history.push("/");
   }
 
-  function onFailure(ev) {
+  function onFailure() {
+    alert("fail!");
     history.push("/login");
   }
-  
+
   return (
     <GoogleLogin
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
