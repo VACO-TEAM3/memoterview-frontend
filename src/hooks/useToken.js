@@ -5,15 +5,15 @@ export default function useToken() {
 
   function getToken() {
     const tokenString = localStorage.getItem("accessToken");
-    const userToken = JSON.parse(tokenString);
+    const accessToken = JSON.parse(tokenString);
 
-    return userToken;
+    return accessToken;
   }
 
-  function saveToken(userToken) {
-    localStorage.setItem("accessToken", JSON.stringify(userToken));
+  function saveToken(accessToken) {
+    localStorage.setItem("accessToken", JSON.stringify(accessToken));
 
-    setToken(userToken);
+    setToken(accessToken);
   }
 
   return {
