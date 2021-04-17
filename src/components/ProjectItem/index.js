@@ -1,7 +1,7 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
+
+import ProjectDeleteButton from "../ProjectDeleteButton";
 
 const ProjectItemWrapper = styled.div`
   position: relative;
@@ -28,27 +28,17 @@ const ColumnItem = styled.span`
   font-size: 1rem;
 `;
 
-const DeleteButton = styled.div`
-  display: flex;
-  align-items: center;
-  width: 10%;
-  height: 100%;
-  font-size: 1.5rem;
-
-  &:hover {
-    color: ${({ theme }) => `${theme.Aero}`}
+export default function ProjectItem({ project, onDeleteBtnClick }) {
+  function handleDeleteButtonClick() {
+    onDeleteBtnClick && onDeleteBtnClick(project.id);
   }
-`;
 
-export default function ProjectItem({ project }) {
   return (
     <ProjectItemWrapper>
       <ColumnItem>{project.title}</ColumnItem>
       <ColumnItem>{project.candidateNum}</ColumnItem>
       <ColumnItem>{project.createAt}</ColumnItem>
-      <DeleteButton>
-        <FontAwesomeIcon icon={faTimes}/>
-      </DeleteButton>
+      <ProjectDeleteButton onClick={handleDeleteButtonClick}/>
     </ProjectItemWrapper>
   );
 }

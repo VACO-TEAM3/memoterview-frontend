@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 
@@ -10,12 +9,20 @@ const ProjectsContentWrapper = styled.div`
   padding: 20px;
 `;
 
-export default function ProjectsContent({ onStatusMenuChange, projects, onProjectAddBtnClick }) {
+export default function ProjectsContent({
+  onStatusMenuChange,
+  projects,
+  onProjectAddBtnClick,
+  onProjectDeleteBtnClick,
+}) {
   return (
     <ProjectsContentWrapper>
       <ProjectStatusMenus onStatusMenuChange={onStatusMenuChange} />
-      <ProjectsEntry projects={projects}/>
-      <ProjectAddButton onClick={onProjectAddBtnClick}/>
+      <ProjectsEntry
+        projects={projects}
+        onProjectDeleteBtnClick={onProjectDeleteBtnClick}
+      />
+      <ProjectAddButton onClick={onProjectAddBtnClick} />
     </ProjectsContentWrapper>
   );
 }
