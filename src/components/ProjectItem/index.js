@@ -28,13 +28,18 @@ const ColumnItem = styled.span`
   font-size: 1rem;
 `;
 
-export default function ProjectItem({ project, onDeleteBtnClick }) {
-  function handleDeleteButtonClick() {
+export default function ProjectItem({ project, onClick, onDeleteBtnClick }) {
+  function handleProjectItemClick() {
+    onClick && onClick(project.id);
+  }
+  
+  function handleDeleteButtonClick(e) {
+    e.stopPropagation();
     onDeleteBtnClick && onDeleteBtnClick(project.id);
   }
 
   return (
-    <ProjectItemWrapper>
+    <ProjectItemWrapper onClick={handleProjectItemClick}>
       <ColumnItem>{project.title}</ColumnItem>
       <ColumnItem>{project.candidateNum}</ColumnItem>
       <ColumnItem>{project.createAt}</ColumnItem>

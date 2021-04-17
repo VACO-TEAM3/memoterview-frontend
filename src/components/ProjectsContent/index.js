@@ -12,6 +12,7 @@ const ProjectsContentWrapper = styled.div`
 export default function ProjectsContent({
   onStatusMenuChange,
   projects,
+  onProjectItemClick,
   onProjectAddBtnClick,
   onProjectDeleteBtnClick,
 }) {
@@ -20,6 +21,7 @@ export default function ProjectsContent({
       <ProjectStatusMenus onStatusMenuChange={onStatusMenuChange} />
       <ProjectsEntry
         projects={projects}
+        onProjectItemClick={onProjectItemClick}
         onProjectDeleteBtnClick={onProjectDeleteBtnClick}
       />
       <ProjectAddButton onClick={onProjectAddBtnClick} />
