@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { STATUS_MENUS } from "../../constants/projects";
-import { checkActive } from "../../utils";
+import useMenus from "../../hooks/useMenus";
 
 const ProjectStatusMenusWrapper = styled.div`
   display: flex;
@@ -19,30 +19,24 @@ const StatusMenu = styled.span`
 `;
 
 export default function ProjectStatusMenus({ onStatusMenuChange }) {
-  const [state, setState] = useState(STATUS_MENUS.ACTIVE);
-
-  function handleStatusMenuClick(e) {
-    const selectMenu = e.target.dataset.menu;
-
-    if (state !== selectMenu) {
-      setState(selectMenu);
-      onStatusMenuChange && onStatusMenuChange(selectMenu);
-    }
-  }
+  const { menuState, handleMenuClick, checkActive } = useMenus({
+    defaultMenus: STATUS_MENUS.ACTIVE,
+    onMenuChange: onStatusMenuChange,
+  });
 
   return (
     <ProjectStatusMenusWrapper>
       <StatusMenu
-        active={checkActive(state, STATUS_MENUS.ACTIVE)}
+        active={checkActive(menuState, STATUS_MENUS.ACTIVE)}
         data-menu={STATUS_MENUS.ACTIVE}
-        onClick={handleStatusMenuClick}
+        onClick={handleMenuClick}
       >
         {STATUS_MENUS.ACTIVE}
       </StatusMenu>
       <StatusMenu
-        active={checkActive(state, STATUS_MENUS.CLOSED)}
+        active={checkActive(menuState, STATUS_MENUS.CLOSED)}
         data-menu={STATUS_MENUS.CLOSED}
-        onClick={handleStatusMenuClick}
+        onClick={handleMenuClick}
       >
         {STATUS_MENUS.CLOSED}
       </StatusMenu>
