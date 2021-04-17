@@ -10,7 +10,7 @@ export default function LoginPageContainer() {
     token: user,
   }));
   const history = useHistory();
-  console.log(token);
+  
   function onSuccess(data) {
     const { profileObj } = data;
 
@@ -23,7 +23,7 @@ export default function LoginPageContainer() {
     alert("fail!");
     history.push("/login");
   }
-  console.log(token);
+
   return (
     <LoginPage onSuccess={onSuccess} onFailure={onFailure} />
   );
