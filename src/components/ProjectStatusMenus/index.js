@@ -8,6 +8,7 @@ const ProjectStatusMenusWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   padding-left: 50px;
+  padding-bottom: 10px;
   height: 40px;
 `;
 
