@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { MENU_TITLE,MENUS } from "../../constants/projects";
+import { MENU_TITLE, MENUS } from "../../constants/projects";
+import { checkActive } from "../../utils/index";
 
 const MenuWrapper = styled.div`
   text-align: center;
@@ -18,14 +19,9 @@ const Menu = styled.div`
 export default function ProjectsSideNavMenu({ onMenuChange }) {
   const [state, setState] = useState(MENUS.MY);
 
-  function checkActive(state, menu) {
-    return state === menu;
-  }
-
   function handleMenuClick(e) {
-    const title = e.target.textContent;
-    const selectMenu = Object.keys(MENU_TITLE).find(key => MENU_TITLE[key] === title);
-    
+    const selectMenu = e.target.dataset.menu;
+
     if (state !== selectMenu) {
       setState(selectMenu);
       onMenuChange && onMenuChange(selectMenu);
@@ -34,8 +30,20 @@ export default function ProjectsSideNavMenu({ onMenuChange }) {
 
   return (
     <MenuWrapper>
-      <Menu active={checkActive(state, MENUS.MY)} onClick={handleMenuClick}>{MENU_TITLE[MENUS.MY]}</Menu>
-      <Menu active={checkActive(state, MENUS.JOIND)} onClick={handleMenuClick}>{MENU_TITLE[MENUS.JOIND]}</Menu>
+      <Menu
+        active={checkActive(state, MENUS.MY)}
+        data-menu={MENUS.MY}
+        onClick={handleMenuClick}
+      >
+        {MENU_TITLE[MENUS.MY]}
+      </Menu>
+      <Menu
+        active={checkActive(state, MENUS.JOINED)}
+        data-menu={MENUS.JOINED}
+        onClick={handleMenuClick}
+      >
+        {MENU_TITLE[MENUS.JOINED]}
+      </Menu>
     </MenuWrapper>
   );
 }
