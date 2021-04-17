@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import Modal from "../../components/Modal";
+import ProjectAddModalView from "../../components/ProjectAddModalView";
 import ProjectsContent from "../../components/ProjectsContent";
 import ProjectsSideNavBar from "../../components/ProjectsSideNavBar";
 
@@ -12,26 +14,28 @@ const SplitLayout = styled.div`
 
 const projectMockData = [
   {
-    "id": "sfsdfdsfafewf",
-    "title": "Frontend 주니어 채용",
-    "candidateNum": 30,
-    "filters": ["컬쳐핏", "커뮤니케이션"],
-    "creator": "dfsdslfawef34",
-    "participants": ["sdfsdfsdf334", "fewifjeio23r35"],
-    "createAt": "2021-04-10",
+    id: "sfsdfdsfafewf",
+    title: "Frontend 주니어 채용",
+    candidateNum: 30,
+    filters: ["컬쳐핏", "커뮤니케이션"],
+    creator: "dfsdslfawef34",
+    participants: ["sdfsdfsdf334", "fewifjeio23r35"],
+    createAt: "2021-04-10",
   },
   {
-    "id": "fdfsdfdsfsdf",
-    "title": "Backend 주니어 채용",
-    "candidateNum": 14,
-    "filters": ["컬쳐핏", "커뮤니케이션"],
-    "creator": "dfsdslfawef34",
-    "participants": ["sdfsdfsdf334", "fewifjeio23r35"],
-    "createAt": "2021-04-10",
+    id: "fdfsdfdsfsdf",
+    title: "Backend 주니어 채용",
+    candidateNum: 14,
+    filters: ["컬쳐핏", "커뮤니케이션"],
+    creator: "dfsdslfawef34",
+    participants: ["sdfsdfsdf334", "fewifjeio23r35"],
+    createAt: "2021-04-10",
   }
 ];
 
 export default function Projects() {
+  const [modalFlag, setModalFlag] = useState(false);
+
   const userInfoSample = {
     userName: "최하영",
     userEmail: "hayeong28@naver.com",
@@ -51,6 +55,7 @@ export default function Projects() {
 
   function handleProjectAddBtnClick() {
     console.log("click project add button");
+    openAddProjectModal();
   }
 
   function handleProjectDeleteBtnClick(projectId) {
@@ -61,20 +66,35 @@ export default function Projects() {
     console.log("click project item", projectId);
   }
 
+  function closeAddProjectModal() {
+    setModalFlag(false);
+  }
+
+  function openAddProjectModal() {
+    setModalFlag(true);
+  }
+
   return (
-    <SplitLayout>
-      <ProjectsSideNavBar
-        userInfo={userInfoSample}
-        onSideMenuChange={handleSideMenuChange}
-        onLogoutBtnClick={handleLogoutBtnClick}
-      />
-      <ProjectsContent 
-        onStatusMenuChange={handleStatusMenuChange}
-        onProjectItemClick={handleProjectItemClick}
-        onProjectAddBtnClick={handleProjectAddBtnClick}
-        onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
-        projects={projectMockData}
-      />
-    </SplitLayout>
+    <>
+      {modalFlag && (
+        <Modal onClick={closeAddProjectModal}>
+          <ProjectAddModalView />
+        </Modal>
+      )}
+      <SplitLayout>
+        <ProjectsSideNavBar
+          userInfo={userInfoSample}
+          onSideMenuChange={handleSideMenuChange}
+          onLogoutBtnClick={handleLogoutBtnClick}
+        />
+        <ProjectsContent
+          onStatusMenuChange={handleStatusMenuChange}
+          onProjectItemClick={handleProjectItemClick}
+          onProjectAddBtnClick={handleProjectAddBtnClick}
+          onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
+          projects={projectMockData}
+        />
+      </SplitLayout>
+    </>
   );
 }
