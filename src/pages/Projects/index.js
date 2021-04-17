@@ -6,7 +6,7 @@ import ProjectsSideNavBar from "../../components/ProjectsSideNavBar";
 
 const SplitLayout = styled.div`
   display: grid;
-  grid-template-columns: 300px .75fr;
+  grid-template-columns: 300px 1fr;
   height: 100vh;
 `;
 
@@ -16,9 +16,13 @@ export default function Projects() {
     userEmail: "hayeong28@naver.com",
   };
 
+  function handleSideMenuChange(menu) {
+    console.log(menu);
+  }
+
   return (
     <SplitLayout>
-      <ProjectsSideNavBar userInfo={userInfoSample}/>
+      <ProjectsSideNavBar userInfo={userInfoSample} onSideMenuChange={handleSideMenuChange}/>
       <ProjectsContent />
     </SplitLayout>
   );
