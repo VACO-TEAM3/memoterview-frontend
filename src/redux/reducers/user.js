@@ -1,7 +1,7 @@
 import { takeLatest } from "@redux-saga/core/effects";
 
-import { loginAPI } from "../lib/mockApi";
-import { createPromiseSaga } from "../lib/sagaUtils";
+import { login } from "../../api";
+import { createAuthorizePromiseSaga } from "../lib/sagaUtils";
 import { ADD_MY_PROJECT_SUCCESS } from "./projects";
 
 const BASE_PATH = "USER/";
@@ -14,7 +14,7 @@ export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
 
 export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
 
-const getTokenSaga = createPromiseSaga(GET_TOKEN, login);
+const getTokenSaga = createAuthorizePromiseSaga(GET_TOKEN, login);
 
 export function* userSaga() {
   yield takeLatest(GET_TOKEN, getTokenSaga);
@@ -30,7 +30,7 @@ const userInitialState = {
 
 const initialState = {
   loading: false,
-  user: userInitialState,
+  userData: userInitialState,
   token: "",
   error: null,
 };
@@ -42,19 +42,22 @@ export default function user(state = initialState, action) {
     case GET_TOKEN:
       return {
         loading: true,
-        user: null,
+        userData: null,
+        token: "",
         error: null,
       };
     case GET_TOKEN_SUCCESS:
       return {
         loading: false,
-        user: { ...action.payload },
+        userData: { ...action.payload.user },
+        token: action.payload.token,
         error: null, 
       };
     case GET_TOKEN_ERROR:
       return {
         loading: false,
-        user: null,
+        userData: null,
+        token: "",
         error: action.payload,
       };
     case ADD_MY_PROJECT_SUCCESS:
@@ -62,7 +65,7 @@ export default function user(state = initialState, action) {
 
       return {
         ...state,
-        user: {
+        userData: {
           ...state.user,
           myProjects: state.user.myProjects.concat(ids),
         },

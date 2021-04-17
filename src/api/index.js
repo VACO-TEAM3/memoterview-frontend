@@ -14,5 +14,5 @@ export async function login({ email, imageUrl, name }) {
 
   const { result, data: { token, user } } = await response.json();
 
-  return { user, token };
+  return { user, token, result };
 }
