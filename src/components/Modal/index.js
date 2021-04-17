@@ -10,7 +10,7 @@ const ModalWrapper = styled.header`
     width: 100vw;
     height: 100vh;
     background: ${({ theme }) => theme.ModalBackground};
-    z-index: -1;
+    z-index: 1;
     overflow: hidden;
   }
 
@@ -22,7 +22,7 @@ const ModalWrapper = styled.header`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 2;
   }
 `;
 
