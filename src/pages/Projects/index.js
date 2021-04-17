@@ -11,9 +11,14 @@ const SplitLayout = styled.div`
 `;
 
 export default function Projects() {
+  const userInfoSample = {
+    userName: "최하영",
+    userEmail: "hayeong28@naver.com",
+  };
+
   return (
     <SplitLayout>
-      <ProjectsSideNavBar />
+      <ProjectsSideNavBar userInfo={userInfoSample}/>
       <ProjectsContent />
     </SplitLayout>
   );

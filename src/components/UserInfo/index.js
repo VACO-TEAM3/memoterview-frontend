@@ -11,11 +11,22 @@ const UserInfoWrapper = styled.div`
   width: 100%;
 `;
 
-export default function UserInfo() {
+const UserName = styled.div`
+  margin-top: 20px;
+  font-size: 1.2rem;
+`;
+
+const UserEmail = styled.div`
+  margin-top: 5px;
+  font-size: 1rem;
+`;
+
+export default function UserInfo({ userInfo }) {
   return (
     <UserInfoWrapper>
       <UserIcon />
-      
+      <UserName>{userInfo.userName}</UserName>
+      <UserEmail>{userInfo.userEmail}</UserEmail>
     </UserInfoWrapper>
   );
 }
