@@ -1,9 +1,9 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+import LoginPageContainer from "../../containers/LoginPageContainer";
 import Dummy from "../../pages/dummy";
 import theme from "../../theme/theme";
-import Login from "../Login";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           <Dummy />
         </Route>
         <Route path="/login">
-          <Login />
+          <LoginPageContainer />
         </Route>
         <Route path="/interview">
           <Dummy />
