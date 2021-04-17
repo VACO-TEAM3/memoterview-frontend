@@ -20,9 +20,17 @@ export default function Projects() {
     console.log(menu);
   }
 
+  function handleLogoutBtnClick() {
+    console.log("click logout");
+  }
+
   return (
     <SplitLayout>
-      <ProjectsSideNavBar userInfo={userInfoSample} onSideMenuChange={handleSideMenuChange}/>
+      <ProjectsSideNavBar
+        userInfo={userInfoSample}
+        onSideMenuChange={handleSideMenuChange}
+        onLogoutBtnClick={handleLogoutBtnClick}
+      />
       <ProjectsContent />
     </SplitLayout>
   );
