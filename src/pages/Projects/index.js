@@ -24,6 +24,10 @@ export default function Projects() {
     console.log("click logout");
   }
 
+  function handleStatusMenuChange(statusMenu) {
+    console.log(statusMenu);
+  }
+
   return (
     <SplitLayout>
       <ProjectsSideNavBar
@@ -31,7 +35,9 @@ export default function Projects() {
         onSideMenuChange={handleSideMenuChange}
         onLogoutBtnClick={handleLogoutBtnClick}
       />
-      <ProjectsContent />
+      <ProjectsContent 
+        onStatusMenuChange={handleStatusMenuChange}
+      />
     </SplitLayout>
   );
 }
