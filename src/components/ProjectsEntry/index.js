@@ -1,18 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+import ProjectItem from "../ProjectItem";
 import ProjectsColumnHeader from "../ProjectsColumnHeader";
 
-const ProjectsEntryWrapper = styled.div`
-
-`;
+const ProjectsEntryWrapper = styled.div``;
 
 function ProjectsEntry({ projects }) {
   const columnTitles = ["Job title", "Candidates", "Created at"];
 
-  return (<ProjectsEntryWrapper>
-    <ProjectsColumnHeader columnTitles={columnTitles}/>
-  </ProjectsEntryWrapper>);
+  return (
+    <div>
+      <ProjectsColumnHeader columnTitles={columnTitles} />
+      <ProjectsEntryWrapper>
+        {projects.map((project) => <ProjectItem project={project} />)}
+      </ProjectsEntryWrapper>
+    </div>
+  );
 }
 
 ProjectsEntry.defaultProps = {
