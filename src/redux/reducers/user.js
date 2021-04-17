@@ -14,7 +14,7 @@ export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
 
 export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
 
-const getTokenSaga = createPromiseSaga(GET_TOKEN, loginAPI);
+const getTokenSaga = createPromiseSaga(GET_TOKEN, login);
 
 export function* userSaga() {
   yield takeLatest(GET_TOKEN, getTokenSaga);
