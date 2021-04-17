@@ -7,6 +7,7 @@ const Wrapper = styled.div``;
 
 const Input = styled.input`
   margin: 5px 20px;
+  padding: 3px 10px 0;
   width: 80%;
   height: 30px;
   font-size: 1rem;
@@ -17,20 +18,33 @@ const PlusButton = styled.span`
   cursor: pointer;
 `;
 
-export default function ProjectEvaluationOptionAddBar({ onEvaluationOptionAdd }) {
+export default function ProjectEvaluationOptionAddBar({ enalbe, onEvaluationOptionAdd }) {
   const [inputValue, setInputValue] = useState("");
 
   function handleInputValueChange(e) {
     setInputValue(e.target.value);
   }
 
+  function addInputValue() {
+    if (inputValue) {
+      onEvaluationOptionAdd(inputValue);
+      setInputValue("");
+    }
+  }
+
   function handleInputValueAddBtnClick() {
-    onEvaluationOptionAdd(inputValue);
+    addInputValue();
+  }
+
+  function handleInputValueKeyDown(e) {
+    if (e.key === "Enter") {
+      addInputValue();
+    }
   }
 
   return (
     <Wrapper>
-      <Input value={inputValue} onChange={handleInputValueChange}/>
+      <Input value={inputValue} onChange={handleInputValueChange} onKeyDown={handleInputValueKeyDown}/>
       <PlusButton onClick={handleInputValueAddBtnClick}>
         <FontAwesomeIcon icon={faPlus}/>
       </PlusButton>
