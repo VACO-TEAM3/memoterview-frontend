@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import UserIcon from "../UserIcon";
+
 const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,7 +14,8 @@ const UserInfoWrapper = styled.div`
 export default function UserInfo() {
   return (
     <UserInfoWrapper>
-      <h1>userInfo</h1>
+      <UserIcon />
+      
     </UserInfoWrapper>
   );
 }

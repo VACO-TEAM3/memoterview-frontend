@@ -2,7 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import LoginPageContainer from "../../containers/LoginPageContainer";
-import { Layout } from "../../Layout";
+import Layout from "../../Layout";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Projects from "../../pages/Projects";
