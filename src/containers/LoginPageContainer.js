@@ -19,7 +19,7 @@ export default function LoginPageContainer() {
     alert("fail!");
     history.push("/login");
   }
-
+  
   return (
     <LoginPage onSuccess={onSuccess} onFailure={onFailure} />
   );
