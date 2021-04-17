@@ -19,7 +19,7 @@ const ColumnTitle = styled.span`
 export default function ProjectsColumnHeader({ columnTitles }) {
   return (
     <ProjectsColumnHeaderWrapeer>
-      {columnTitles.map((title) => <ColumnTitle>{title}</ColumnTitle>)}
+      {columnTitles.map((title) => <ColumnTitle key={title}>{title}</ColumnTitle>)}
     </ProjectsColumnHeaderWrapeer>
   );
 }

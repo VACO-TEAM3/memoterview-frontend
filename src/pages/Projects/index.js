@@ -53,6 +53,10 @@ export default function Projects() {
     console.log("click project add button");
   }
 
+  function handleProjectDeleteBtnClick(projectId) {
+    console.log("click project delete button", projectId);
+  }
+
   return (
     <SplitLayout>
       <ProjectsSideNavBar
@@ -63,6 +67,7 @@ export default function Projects() {
       <ProjectsContent 
         onStatusMenuChange={handleStatusMenuChange}
         onProjectAddBtnClick={handleProjectAddBtnClick}
+        onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
         projects={projectMockData}
       />
     </SplitLayout>
