@@ -8,7 +8,11 @@ const ProjectsEntryWrapper = styled.div`
   padding: 20px;
 `;
 
-function ProjectsEntry({ projects, onProjectDeleteBtnClick }) {
+function ProjectsEntry({
+  projects,
+  onProjectItemClick,
+  onProjectDeleteBtnClick,
+}) {
   const columnTitles = ["Job title", "Candidates", "Created at"];
 
   return (
@@ -19,6 +23,7 @@ function ProjectsEntry({ projects, onProjectDeleteBtnClick }) {
           <ProjectItem
             key={project.id}
             project={project}
+            onClick={onProjectItemClick}
             onDeleteBtnClick={onProjectDeleteBtnClick}
           />
         ))}
