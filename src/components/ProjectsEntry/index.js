@@ -4,7 +4,9 @@ import styled from "styled-components";
 import ProjectItem from "../ProjectItem";
 import ProjectsColumnHeader from "../ProjectsColumnHeader";
 
-const ProjectsEntryWrapper = styled.div``;
+const ProjectsEntryWrapper = styled.div`
+  padding: 20px;
+`;
 
 function ProjectsEntry({ projects }) {
   const columnTitles = ["Job title", "Candidates", "Created at"];
