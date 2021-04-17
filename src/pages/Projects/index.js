@@ -49,6 +49,10 @@ export default function Projects() {
     console.log(statusMenu);
   }
 
+  function handleProjectAddBtnClick() {
+    console.log("click project add button");
+  }
+
   return (
     <SplitLayout>
       <ProjectsSideNavBar
@@ -58,6 +62,7 @@ export default function Projects() {
       />
       <ProjectsContent 
         onStatusMenuChange={handleStatusMenuChange}
+        onProjectAddBtnClick={handleProjectAddBtnClick}
         projects={projectMockData}
       />
     </SplitLayout>
