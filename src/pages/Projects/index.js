@@ -10,6 +10,27 @@ const SplitLayout = styled.div`
   height: 100vh;
 `;
 
+const projectMockData = [
+  {
+    "id": "sfsdfdsfafewf",
+    "title": "Frontend 주니어 채용",
+    "candidateNum": 30,
+    "filters": ["컬쳐핏", "커뮤니케이션"],
+    "creator": "dfsdslfawef34",
+    "participants": ["sdfsdfsdf334", "fewifjeio23r35"],
+    "createAt": "2021-04-10",
+  },
+  {
+    "id": "fdfsdfdsfsdf",
+    "title": "Backend 주니어 채용",
+    "candidateNum": 14,
+    "filters": ["컬쳐핏", "커뮤니케이션"],
+    "creator": "dfsdslfawef34",
+    "participants": ["sdfsdfsdf334", "fewifjeio23r35"],
+    "createAt": "2021-04-10",
+  }
+];
+
 export default function Projects() {
   const userInfoSample = {
     userName: "최하영",
@@ -37,6 +58,7 @@ export default function Projects() {
       />
       <ProjectsContent 
         onStatusMenuChange={handleStatusMenuChange}
+        projects={projectMockData}
       />
     </SplitLayout>
   );
