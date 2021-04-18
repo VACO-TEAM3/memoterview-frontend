@@ -10,6 +10,7 @@ import Projects from "../../pages/Projects";
 function App() {
   return (
     <ThemeProvider theme={theme}>
+<<<<<<< HEAD
       <Layout>
         <Switch>
           <Route path="/" exact>
@@ -33,6 +34,29 @@ function App() {
           <Redirect to="/login" />
         </Switch>
       </Layout>
+=======
+      <Switch>
+        <Route path="/" exact>
+          <LoginPageContainer />
+        </Route>
+        <AuthRoute path="/projects">
+          <Dummy />
+        </AuthRoute>
+        <AuthRoute path="/projects/:id">
+          <Dummy />
+        </AuthRoute>
+        <AuthRoute path="/result/:id">
+          <Dummy />
+        </AuthRoute>
+        <AuthRoute path="/interview">
+          <Dummy />
+        </AuthRoute>
+        <AuthRoute path="/search">
+          <Dummy />
+        </AuthRoute>
+        <Redirect to="/" />
+      </Switch>
+>>>>>>> [ADD] auth router
     </ThemeProvider>
   );
 }

@@ -4,13 +4,8 @@ import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 
 import reducer, { rootSaga } from "./redux/reducers";
-import history from "./utils/history";
 
-const sagaMiddleware = createSagaMiddleware({
-  context: {
-    history,
-  },
-});
+const sagaMiddleware = createSagaMiddleware();
 
 const middleware = [sagaMiddleware];
 
