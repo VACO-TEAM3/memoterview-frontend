@@ -14,6 +14,7 @@ export default function Video() {
     ],
   };
   const mediaConfiguration = { video: true, audio: true };
+
   const { localStream } = useUserMedia(mediaConfiguration);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
 
@@ -32,8 +33,10 @@ export default function Video() {
     handleSignalingData(fromId, data);
   });
 
+  socket.emit("join", { room: "chat" });
+
   useEffect(() => {
-    socket.emit("join", { room: "chat" });
+    console.log(25);
   }, [peers]);
 
   function onIceCandidate(id) {
@@ -113,22 +116,21 @@ export default function Video() {
 
         sendAnswer(sid);
         addPendingCandidates(sid);
-
         break;
       case "answer":
         peers[sid].setRemoteDescription(new RTCSessionDescription(data));
-
         break;
       case "candidate":
         if (peers.hasOwnProperty(sid)) {
           peers[sid].addIceCandidate(new RTCIceCandidate(data.candidate));
-        } else {
-          if (!pendingCandidates.hasOwnProperty(sid)) {
-            pendingCandidates[sid] = [];
-          }
-          pendingCandidates[sid].push(data.candidate);
+          break;
         }
 
+        if (!pendingCandidates.hasOwnProperty(sid)) {
+          pendingCandidates[sid] = [];
+        }
+
+        pendingCandidates[sid].push(data.candidate);
         break;
       default:
         break;
@@ -147,100 +149,9 @@ export default function Video() {
     }
     setIsVideoMuted(!isVideoMuted);
   }
-  
-  // const videoRef = useRef(null);
-  // const videoRef2 = useRef(null);
-
-  // try {
-  //   async function getMediaStream() {
-  //     const constraints = { video: true, audio: true };
-  //     const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
-  //     mediaStream.getTracks().forEach((track) => {
-  //       track.enabled = false;
-  //     });
-      
-  //     const video = videoRef.current;
-      
-  //     // video.srcObject = mediaStream;
-  //     // console.log(video.srcObject);
-  //     const connections = {};
-  //     const socket = io("http://localhost:5000", {
-  //       transports: ["websocket"],
-  //     }).connect();
-      
-  //     const configuration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
-
-  //     socket.emit("join", { room: "chat" });
-  //     socket.on("join", async (id, members) => {
-  //       console.log(connections);
-
-  //       if (!connections.hasOwnProperty(id)) {
-  //         connections[id] = new RTCPeerConnection(configuration);
-  //       }
-
-  //       connections[id].onicecandidate = (ev) => {
-  //         if (ev.candidate) {
-  //           socket.emit("message", id, { type: "iceCandidate", iceCandidate: ev.candidate });
-  //         }
-  //       };
-
-  //       connections[id].onaddstream = (event) => {
-  //         if (video.srcObject) {
-  //           videoRef2.current.srcObject = event.stream;
-  //         } else {
-  //           video.srcObject = event.stream;
-  //         }
-  //       };
-
-  //       connections[id].addStream(mediaStream);
-
-  //       if (members.length > 1) {
-  //         const offer = await connections[id].createOffer();
-
-  //         await connections[id].setLocalDescription(offer);
-  //         socket.emit("message", id, offer);
-  //       }
-  //     });
-
-  //     socket.on("message", async (fromId, message) => {
-  //       console.log(message);
-  //       if (message?.type === "answer") {
-  //         const remoteDescription = new RTCSessionDescription(message);
-          
-  //         await connections[fromId]?.setRemoteDescription(remoteDescription);
-  //       }
-
-  //       if (message?.type === "offer") {
-  //         const remoteDescription = new RTCSessionDescription(message);
-
-  //         await connections[fromId]?.setRemoteDescription(remoteDescription);
-
-  //         const answer = await connections[fromId]?.createAnswer();
-          
-  //         await connections[fromId]?.setLocalDescription(answer);
-          
-  //         socket.emit("message", socket.id, answer);
-  //       }
-
-  //       if (message?.type === "iceCandidate") {
-  //         const candidate = new RTCIceCandidate({
-  //           ...message.iceCandidate,
-  //         });
-
-  //         await connections[fromId]?.addIceCandidate(candidate);
-  //       }
-  //     });
-  //   }
-
-  //   getMediaStream(); // 왜 이렇게 해야 비동기 작업이 되는건지 영문을 모르겠네..?  
-  // } catch (error) {
-  //   console.error(error);
-  // }
 
   return (
     <div className="peers" ref={ref}>
-      {/* <video ref={videoRef2} autoPlay playsInline controls={false}></video>
-      <video ref={videoRef} autoPlay playsInline controls={false}></video> */}
     </div>
   );
 }
