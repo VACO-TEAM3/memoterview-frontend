@@ -16,3 +16,9 @@ export async function login({ email, imageUrl, name }) {
 
   return { user, token, result };
 }
+
+export async function getSpeechToTextToken() {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/speech-to-text/credentials`);
+
+  return await response.json();
+}
