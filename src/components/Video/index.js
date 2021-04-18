@@ -1,45 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
+import useUserMedia from "../../hooks/useUserMedia";
+
 export default function Video() {
   const ref = useRef(null);
   const peers = {};
   const pendingCandidates = {};
-  const configuration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
-  let localStream;
+  const configuration = {
+    iceServers: [
+      { url: "stun:stun.l.google.com:19302" },
+      { url: "stun:stun3.l.google.com:19302" }
+    ],
+  };
+  const mediaConfiguration = { video: true, audio: true };
+  const { localStream } = useUserMedia(mediaConfiguration);
+  const [isVideoMuted, setIsVideoMuted] = useState(false);
 
   const socket = io("http://localhost:5000", {
     transports: ["websocket"],
   }).connect();
 
-  socket.emit("join", { room: "chat" });
   socket.on("join", (id, members) => {
+    console.log(members);
     peers[id] = createPeerConnection(id);
     sendOffer(id);
     addPendingCandidates(id);
   });
 
-  socket.on("message", (sid, data) => {
-    handleSignalingData(sid, data);
+  socket.on("message", (fromId, data) => {
+    handleSignalingData(fromId, data);
   });
 
-  function getLocalStream() {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then((stream) => {
-        console.log("Stream found");
-        localStream = stream;
-        // Connect after making sure thzat local stream is availble
-      })
-      .catch((error) => {
-        console.error("Stream not found: ", error);
-      });
-  }
+  useEffect(() => {
+    socket.emit("join", { room: "chat" });
+  }, [peers]);
 
   function onIceCandidate(id) {
     return function (event) {
       if (event.candidate) {
-        console.log("ICE candidate");
         socket.emit("message", id, {
           type: "candidate",
           candidate: event.candidate,
@@ -53,49 +52,51 @@ export default function Video() {
     
     newRemoteStreamElem.autoplay = true;
     newRemoteStreamElem.srcObject = event.stream;
+
     ref.current?.appendChild(newRemoteStreamElem);
   }
 
   function createPeerConnection(id) {
-    const pc = new RTCPeerConnection(configuration);
+    const peerConnection = new RTCPeerConnection(configuration);
     
-    pc.onicecandidate = onIceCandidate(id);
-    pc.onaddstream = onAddStream;
+    peerConnection.onicecandidate = onIceCandidate(id);
+    peerConnection.onaddstream = onAddStream;
 
     if (localStream) {
-      pc.addStream(localStream);
+      peerConnection.addStream(localStream);
     }
-    console.log("PeerConnection created");
-    return pc;
+    
+    return peerConnection;
+  }
+  
+  async function sendOffer(sid) {
+    try {
+      const remoteDescription = await peers[sid].createOffer();
+    
+      setAndSendLocalDescription(sid, remoteDescription);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  function sendOffer(sid) {
-    console.log("Send offer");
-    peers[sid].createOffer().then(
-      (sdp) => setAndSendLocalDescription(sid, sdp),
-      (error) => {
-        console.error("Send offer failed: ", error);
-      }
-    );
-  }
+  async function sendAnswer(sid) {
+    try {
+      const remoteDescription = await peers[sid].createAnswer();
 
-  function sendAnswer(sid) {
-    console.log("Send answer");
-    peers[sid].createAnswer().then(
-      (sdp) => setAndSendLocalDescription(sid, sdp),
-      (error) => {
-        console.error("Send answer failed: ", error);
-      }
-    );
+      setAndSendLocalDescription(sid, remoteDescription);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function setAndSendLocalDescription(sid, sessionDescription) {
     peers[sid].setLocalDescription(sessionDescription);
+
     socket.emit("message", sid, { type: sessionDescription.type, sdp: sessionDescription.sdp });
   }
 
   function addPendingCandidates(sid) {
-    if (sid in pendingCandidates) {
+    if (pendingCandidates.hasOwnProperty(sid)) {
       pendingCandidates[sid].forEach((candidate) => {
         peers[sid].addIceCandidate(new RTCIceCandidate(candidate));
       });
@@ -109,26 +110,44 @@ export default function Video() {
       case "offer":
         peers[sid] = createPeerConnection(sid);
         peers[sid].setRemoteDescription(new RTCSessionDescription(data));
+
         sendAnswer(sid);
         addPendingCandidates(sid);
+
         break;
       case "answer":
         peers[sid].setRemoteDescription(new RTCSessionDescription(data));
+
         break;
       case "candidate":
-        if (sid in peers) {
+        if (peers.hasOwnProperty(sid)) {
           peers[sid].addIceCandidate(new RTCIceCandidate(data.candidate));
         } else {
-          if (!(sid in pendingCandidates)) {
+          if (!pendingCandidates.hasOwnProperty(sid)) {
             pendingCandidates[sid] = [];
           }
           pendingCandidates[sid].push(data.candidate);
         }
+
+        break;
+      default:
         break;
     }
-  };
-  // Start connection
-  getLocalStream();
+  }
+
+  function muteVideo() {
+    if (!isVideoMuted) {
+      localStream?.getTracks()
+        .filter((track) => track.kind === "video")
+        .forEach((track) => {
+          track.enabled = false;
+        });
+    } else {
+      localStream.getTracks()[1].enabled = true;
+    }
+    setIsVideoMuted(!isVideoMuted);
+  }
+  
   // const videoRef = useRef(null);
   // const videoRef2 = useRef(null);
 
