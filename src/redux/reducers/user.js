@@ -8,9 +8,12 @@ const BASE_PATH = "USER/";
 
 // action types
 export const CLEAR_USER = BASE_PATH + "CLEAR_USER";
+
 export const GET_TOKEN = BASE_PATH + "GET_TOKEN";
 export const GET_TOKEN_SUCCESS = BASE_PATH + "GET_TOKEN_SUCCESS";
 export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
+
+const SET_USER = BASE_PATH + "SET_USER";
 
 export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
 
@@ -18,6 +21,10 @@ const getTokenSaga = createAuthorizePromiseSaga(GET_TOKEN, login);
 
 export function* userSaga() {
   yield takeLatest(GET_TOKEN, getTokenSaga);
+}
+
+function setUserSaga() {
+
 }
 
 const userInitialState = {
