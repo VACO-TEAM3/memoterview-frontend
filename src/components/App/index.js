@@ -6,11 +6,11 @@ import Layout from "../../Layout";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Projects from "../../pages/Projects";
+import VoiceToTextTestPage from "../../pages/VoiceToTextTestPage";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-<<<<<<< HEAD
       <Layout>
         <Switch>
           <Route path="/" exact>
@@ -31,32 +31,12 @@ function App() {
           <Route path="/result/:id">
             <Dummy />
           </Route>
+          <Route path="/voiceTest">
+            <VoiceToTextTestPage />
+          </Route>
           <Redirect to="/login" />
         </Switch>
       </Layout>
-=======
-      <Switch>
-        <Route path="/" exact>
-          <LoginPageContainer />
-        </Route>
-        <AuthRoute path="/projects">
-          <Dummy />
-        </AuthRoute>
-        <AuthRoute path="/projects/:id">
-          <Dummy />
-        </AuthRoute>
-        <AuthRoute path="/result/:id">
-          <Dummy />
-        </AuthRoute>
-        <AuthRoute path="/interview">
-          <Dummy />
-        </AuthRoute>
-        <AuthRoute path="/search">
-          <Dummy />
-        </AuthRoute>
-        <Redirect to="/" />
-      </Switch>
->>>>>>> [ADD] auth router
     </ThemeProvider>
   );
 }
