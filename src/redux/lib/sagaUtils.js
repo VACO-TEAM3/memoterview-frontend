@@ -9,6 +9,7 @@ export const createPromiseSaga = (type, promiseCreator) => {
   return function* saga(action) {
     try {
       const payload = yield call(promiseCreator, action.payload);
+
       yield put({ type: SUCCESS, payload });
     } catch (error) {
       yield put({ type: ERROR, error: true, payload: error });
@@ -22,6 +23,7 @@ export const createAuthorizePromiseSaga = (type, promiseCreator) => {
   return function* saga(action) {
     try {
       const payload = yield call(promiseCreator, action.payload);
+
       yield call(setToken, payload.token);
       yield put({ type: SUCCESS, payload });
     } catch (error) {
@@ -39,7 +41,7 @@ export const createPromiseSagaById = (type, promiseCreator) => {
       const payload = yield call(promiseCreator, action.payload);
       yield put({ type: SUCCESS, payload, meta: id });
     } catch (error) {
-      yield put({ type: ERROR, error: error, meta: id });
+      yield put({ type: ERROR, error, meta: id });
     }
   };
 };

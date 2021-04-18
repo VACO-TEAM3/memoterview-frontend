@@ -34,7 +34,7 @@ const PageWrapper = styled.div`
     width: 60em;
   }
 
-  .content-left {
+  .content-side {
     display: flex;
     height: 100%;
     margin-right: 5rem;
@@ -70,7 +70,7 @@ export default function LoginPage({ onSuccess, onFailure }) {
         </div>
       </Header>
       <div className="content">
-        <div className="content-left">
+        <div className="content-side">
           <div className="content-text">
             <h1 className="content-text-style">Remember your interviewee</h1>
             <h4 className="content-text-style">Boost your Hire with Memoterview</h4>
