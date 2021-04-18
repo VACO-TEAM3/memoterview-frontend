@@ -3,7 +3,6 @@ import { ThemeProvider } from "styled-components";
 
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
-import Layout from "../../Layout";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Interview from "../../pages/Interview";
