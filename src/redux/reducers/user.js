@@ -83,7 +83,7 @@ export default function user(state = initialState, action) {
       return {
         ...state,
         userData: {
-          ...state.user,
+          ...state.userData,
           myProjects: state.userData.myProjects.filter((projectId) => projectId !== id),
           joinedProjects: state.userData.joinedProjects.filter((projectId) => projectId !== id),
         },

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import ProjectAddButton from "../ProjectAddButton";
+import ProjectsColumnHeader from "../ProjectsColumnHeader";
 import ProjectsEntry from "../ProjectsEntry";
 import ProjectStatusMenus from "../ProjectStatusMenus";
 
