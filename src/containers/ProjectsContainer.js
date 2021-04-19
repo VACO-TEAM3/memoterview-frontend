@@ -8,11 +8,17 @@ import { changeDateFormat } from "../utils/date";
 
 export default function ProjectsPageContainer() {
   const dispatch = useDispatch();
-  const { user: { token, userData: { id } } } = useSelector(({ user }) => ({ user }));
+  const { user: { token, userData: { id, username, email } } } = useSelector(({ user }) => ({ user }));
   const { projects: { byId, visibleProjects } } = useSelector(({ projects }) => ({ projects }));
 
   const [projects, setProjects] = useState(PROJECT_TYPES.MY_PROJECTS);
   const currentDisplayingField = visibleProjects[projects];
+
+  const userInfo = {
+    userName: username,
+    userEmail: email,
+  };
+
 
   useEffect(() => {
     dispatch(getMyProjects({ userId: id, token }));
@@ -48,6 +54,7 @@ export default function ProjectsPageContainer() {
   return (
     <>
       <Projects
+        userInfo={userInfo}
         projects={setProjectFormat(currentDisplayingField)}
         handleStatusMenuChange={() => {}}
         handleSideMenuChange={handleSideMenuChange}
