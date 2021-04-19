@@ -12,3 +12,8 @@ export const STATUS_MENUS = {
   ACTIVE: "Active",
   CLOSED: "Closed",
 };
+
+export const PROJECT_TYPES = {
+  MY_PROJECTS: "MyProjects",
+  JOINED_PROJECTS: "JoinedProjects",
+};
