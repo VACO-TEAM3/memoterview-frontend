@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 import styled from "styled-components";
 
 import useUserMedia from "../hooks/useUserMedia";
@@ -15,79 +15,83 @@ const Container = styled.div`
 `;
 
 const StyledVideo = styled.video`
-  height: 40%;
-  width: 50%;
+  height: 100px;
+  width: 200px;
 `;
 
 function Video({ peer }) {
   const ref = useRef();
 
   useEffect(() => {
+    if (!peer) {
+      return;
+    }
+
     peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
-  }, []);
+  }, [peer]);
 
   return (
-    <StyledVideo playsInline autoPlay ref={ref} />
+    <video playsInline autoPlay ref={ref} />
   );
 }
 
 export default function InterviewPageContainer() {
+  const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const roomId = "hello";
-
-  // const { localStream } = useUserMedia({ video: {
-  //   height: window.innerHeight / 2,
-  //   width: window.innerWidth / 2,
-  // }, audio: true });
-
-  const socket = io("http://localhost:5000", {
-    transports: ["websocket"],
-  }).connect();
+  const peerList = [];
+  const roomID = "happy";
+  const socket = io.connect("http://localhost:5000");
+  const { localStream } = useUserMedia({ video: true, audio: true });
 
   useEffect(() => {
-    let localStream;
-    console.log(localStream);
-    async function getLocalStream(constraints) {
-      try {  
-        localStream = await navigator.mediaDevices.getUserMedia(constraints);
-        userVideo.current.srcObject = localStream;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getLocalStream({ video: {
-      height: window.innerHeight / 2,
-      width: window.innerWidth / 2,
-    }, audio: true });
-
-    socket.emit("join room", { room: roomId });
+    socket.emit("join room", roomID);
     socket.on("all users", (users) => {
-      const peers = [];
-
-      users.forEach(async (userId) => {
-        const peer = await createPeer(userId, socket.id, localStream);
+      users.forEach((userID) => {
+        const peer = createPeer(userID, socket.id, localStream);
 
         peersRef.current.push({
-          peerId: userId,
+          peerID: userID,
           peer,
         });
 
-        peers.push(peer);
+        peerList.push(peer);
       });
-
-      setPeers(peers);
     });
 
+    function createPeer(userToSignal, callerID, stream) {
+      const peer = new Peer({
+        initiator: true,
+        trickle: false,
+        stream,
+      });
+
+      peer.on("signal", (signal) => {
+        socket.emit("sending signal", { userToSignal, callerID, signal });
+      });
+
+      return peer;
+    }
+
+    setPeers(peerList);
+    setIsStreaming(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isStreaming || !localStream) {
+      return;
+    }
+
+    userVideo.current.srcObject = localStream;
+
     socket.on("user joined", (payload) => {
-      const peer = addPeer(payload.signal, payload.callerId, localStream);
+      const peer = addPeer(payload.signal, payload.callerID, localStream);
 
       peersRef.current.push({
-        peerId: payload.callerId,
+        peerID: payload.callerID,
         peer,
       });
 
@@ -95,26 +99,12 @@ export default function InterviewPageContainer() {
     });
 
     socket.on("receiving returned signal", (payload) => {
-      const item = peersRef.current.find((p) => p.peerId === payload.id);
-      item.peer._debug = console.log;
+      const item = peersRef.current.find((p) => p.peerID === payload.id);
+
       item.peer.signal(payload.signal);
     });
 
-    function createPeer(userToSignal, callerId, stream) {
-      const peer = new Peer({
-        initiator: true,
-        trickle: false,
-        stream,
-      });
-  
-      peer.on("signal", (signal) => {
-        socket.emit("sending signal", { userToSignal, callerId, signal });
-      });
-  
-      return peer;
-    }
-
-    function addPeer(incomingSignal, callerId, stream) {
+    function addPeer(incomingSignal, callerID, stream) {
       const peer = new Peer({
         initiator: false,
         trickle: false,
@@ -122,18 +112,18 @@ export default function InterviewPageContainer() {
       });
 
       peer.on("signal", (signal) => {
-        socket.emit("returning signal", { signal, callerId });
+        socket.emit("returning signal", { signal, callerID });
       });
 
       peer.signal(incomingSignal);
 
       return peer;
     }
-  }, []);
-  
+  }, [isStreaming]);
+
   return (
     <Container>
-      <StyledVideo ref={userVideo} autoPlay playsInline />
+      <video ref={userVideo} autoPlay playsInline />
       {peers.map((peer, index) => {
         return (
           <Video key={index} peer={peer} />
@@ -142,4 +132,3 @@ export default function InterviewPageContainer() {
     </Container>
   );
 }
-
