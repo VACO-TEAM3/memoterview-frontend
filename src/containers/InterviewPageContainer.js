@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
-import { io } from "socket.io-client";
+import io from "socket.io-client";
 import styled from "styled-components";
 
-import { mediaConfiguration } from "../constants/config";
 import useUserMedia from "../hooks/useUserMedia";
 
 const Container = styled.div`
@@ -20,11 +19,11 @@ const StyledVideo = styled.video`
   width: 50%;
 `;
 
-function Video(props) {
+function Video({ peer }) {
   const ref = useRef();
 
   useEffect(() => {
-    props.peer.on("stream", (stream) => {
+    peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
   }, []);
@@ -39,20 +38,39 @@ export default function InterviewPageContainer() {
   const userVideo = useRef();
   const peersRef = useRef([]);
   const roomId = "hello";
-  const { localStream } = useUserMedia(mediaConfiguration);
+
+  // const { localStream } = useUserMedia({ video: {
+  //   height: window.innerHeight / 2,
+  //   width: window.innerWidth / 2,
+  // }, audio: true });
+
   const socket = io("http://localhost:5000", {
     transports: ["websocket"],
   }).connect();
 
   useEffect(() => {
-    userVideo.current.srcObject = localStream;
+    let localStream;
+    console.log(localStream);
+    async function getLocalStream(constraints) {
+      try {  
+        localStream = await navigator.mediaDevices.getUserMedia(constraints);
+        userVideo.current.srcObject = localStream;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getLocalStream({ video: {
+      height: window.innerHeight / 2,
+      width: window.innerWidth / 2,
+    }, audio: true });
 
     socket.emit("join room", { room: roomId });
     socket.on("all users", (users) => {
       const peers = [];
 
-      users.forEach((userId) => {
-        const peer = createPeer(userId, socket.id, localStream);
+      users.forEach(async (userId) => {
+        const peer = await createPeer(userId, socket.id, localStream);
 
         peersRef.current.push({
           peerId: userId,
@@ -76,9 +94,9 @@ export default function InterviewPageContainer() {
       setPeers((users) => [...users, peer]);
     });
 
-    socket.on("receiving returned signal", payload => {
+    socket.on("receiving returned signal", (payload) => {
       const item = peersRef.current.find((p) => p.peerId === payload.id);
-
+      item.peer._debug = console.log;
       item.peer.signal(payload.signal);
     });
 
@@ -112,7 +130,7 @@ export default function InterviewPageContainer() {
       return peer;
     }
   }, []);
-  console.log(userVideo);
+  
   return (
     <Container>
       <StyledVideo ref={userVideo} autoPlay playsInline />
