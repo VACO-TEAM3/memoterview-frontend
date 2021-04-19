@@ -28,7 +28,7 @@ const ColumnItem = styled.span`
   font-size: 1rem;
 `;
 
-export default function ProjectItem({ project, onClick, onDeleteBtnClick }) {
+function ProjectItem({ project, onClick, onDeleteBtnClick }) {
   function handleProjectItemClick() {
     onClick && onClick(project.id);
   }
@@ -47,3 +47,5 @@ export default function ProjectItem({ project, onClick, onDeleteBtnClick }) {
     </ProjectItemWrapper>
   );
 }
+
+export default React.memo(ProjectItem);

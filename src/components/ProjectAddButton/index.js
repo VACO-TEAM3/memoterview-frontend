@@ -25,10 +25,12 @@ const ProjectAddButtonWrapper = styled.div`
   }
 `;
 
-export default function ProjectAddButton({ onClick }) {
+function ProjectAddButton({ onClick }) {
   return (
     <ProjectAddButtonWrapper onClick={onClick}>
       <FontAwesomeIcon icon={faPlus}/>
     </ProjectAddButtonWrapper>
   );
 }
+
+export default React.memo(ProjectAddButton);

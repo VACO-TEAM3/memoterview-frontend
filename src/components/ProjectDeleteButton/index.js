@@ -16,10 +16,12 @@ const DeleteButton = styled.div`
   }
 `;
 
-export default function ProjectDeleteButton({ onClick }) {
+function ProjectDeleteButton({ onClick }) {
   return (
     <DeleteButton onClick={onClick}>
       <FontAwesomeIcon icon={faTimes}/>
     </DeleteButton>
   );
 }
+
+export default React.memo(ProjectDeleteButton);
