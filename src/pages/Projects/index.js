@@ -12,7 +12,9 @@ const SplitLayout = styled.div`
   height: 100vh;
 `;
 
-export default function Projects({ userInfo, projects, handleStatusMenuChange, handleSideMenuChange, handleProjectDeleteBtnClick }) {
+export default function Projects({
+  userInfo, projects, handleStatusMenuChange, handleSideMenuChange, handleProjectDeleteBtnClick,
+}) {
   const [modalFlag, setModalFlag] = useState(false);
 
   function handleLogoutBtnClick() {

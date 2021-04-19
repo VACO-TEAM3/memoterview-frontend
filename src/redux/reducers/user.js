@@ -2,7 +2,7 @@ import { takeLatest } from "@redux-saga/core/effects";
 
 import { login } from "../../api";
 import { createAuthorizePromiseSaga } from "../lib/sagaUtils";
-import { ADD_MY_PROJECT_SUCCESS } from "./projects";
+import { ADD_MY_PROJECT_SUCCESS, DELETE_PROJECT_SUCCESS } from "./projects";
 
 const BASE_PATH = "USER/";
 
@@ -75,6 +75,17 @@ export default function user(state = initialState, action) {
         userData: {
           ...state.user,
           myProjects: state.user.myProjects.concat(ids),
+        },
+      };
+    case DELETE_PROJECT_SUCCESS:
+      const id = action.payload;
+
+      return {
+        ...state,
+        userData: {
+          ...state.user,
+          myProjects: state.userData.myProjects.filter((projectId) => projectId !== id),
+          joinedProjects: state.userData.joinedProjects.filter((projectId) => projectId !== id),
         },
       };
     default:
