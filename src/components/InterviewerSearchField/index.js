@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import SearchItem from "./SearchItem";
+
 const SearchBarWrapper = styled.div`
+  position: relative;
   svg {
     font-size: 1.2rem;
   }
@@ -18,7 +21,10 @@ const Input = styled.input`
 `;
 
 const SearchListWrapper = styled.div`
-
+  position: absolute;
+  top: 42px;
+  margin: 0 20px;
+  width: 80%;
 `;
 
 export default function InterviewerSearchField({ onSearchInputChange }) {
@@ -47,7 +53,7 @@ export default function InterviewerSearchField({ onSearchInputChange }) {
       <Input value={inputValue} onChange={handleInputChange} />
       <FontAwesomeIcon icon={faSearch} />
       <SearchListWrapper>
-        {searchResultList.map((searchItem) => <div>{searchItem.name}</div>)}
+        {searchResultList.map((searchItem) => <SearchItem key={searchItem.id} item={searchItem} />)}
       </SearchListWrapper>
     </SearchBarWrapper>
   );
