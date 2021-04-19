@@ -1,11 +1,10 @@
 import { takeLatest, takeLeading } from "redux-saga/effects";
 
 import { getJoinedProjectsAPI,getMyProjectsAPI } from "../../api";
+import { PROJECT_TYPES } from "../../constants/projects";
 import { addProjectAPI } from "../lib/mockApi";
 import { getProjectsByProjectType, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
-import {
-  createPromiseSaga,
-} from "../lib/sagaUtils";
+import { createPromiseSaga } from "../lib/sagaUtils";
 
 const GET_MY_PROJECTS = "GET_MY_PROJECTS";
 const GET_MY_PROJECTS_SUCCESS = "GET_MY_PROJECTS_SUCCESS";
@@ -72,13 +71,13 @@ export default function projects(state = initialState, action) {
     case GET_MY_PROJECTS:
     case GET_MY_PROJECTS_SUCCESS:
     case GET_MY_PROJECTS_ERROR: {
-      const newState = getProjectsByProjectType(state, action, "myProjects");
+      const newState = getProjectsByProjectType(state, action, PROJECT_TYPES.MY_PROJECTS);
       return  handleAsyncUpdateStateActionsWithNormalize(GET_MY_PROJECTS, true)(newState, action);
     }
     case GET_JOINED_PROJECTS:
     case GET_JOINED_PROJECTS_SUCCESS:
     case GET_JOINED_PROJECTS_ERROR: {
-      const newState = getProjectsByProjectType(state, action, "joinedProjects");
+      const newState = getProjectsByProjectType(state, action, PROJECT_TYPES.JOINED_PROJECTS);
       return handleAsyncUpdateStateActionsWithNormalize(GET_JOINED_PROJECTS, true)(newState, action);
     }
     case ADD_MY_PROJECT:
