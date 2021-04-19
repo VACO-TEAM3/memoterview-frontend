@@ -87,7 +87,7 @@ export const getProjectsByProjectType = (state, action, type) => {
   return state;
 };
 
-export const deleteProjectByProjectId = (state, action, type) => {
+export const deleteProjectByProjectId = (state, action) => {
   if (action.type.includes("SUCCESS")) {
     const projectIds = action.payload;
 
