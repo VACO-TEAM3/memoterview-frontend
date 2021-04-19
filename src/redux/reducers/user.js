@@ -15,7 +15,7 @@ export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
 
 const SET_USER = BASE_PATH + "SET_USER";
 
-export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
+export const loginUser = (user) => ({ type: GET_TOKEN, payload: user, meta: user });
 
 const getTokenSaga = createAuthorizePromiseSaga(GET_TOKEN, login);
 
