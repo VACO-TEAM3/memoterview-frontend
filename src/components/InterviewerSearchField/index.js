@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import SearchItem from "./SearchItem";
+import SearchList from "./SearchList";
+
 
 const SearchBarWrapper = styled.div`
   position: relative;
@@ -20,22 +21,16 @@ const Input = styled.input`
   font-size: 1rem;
 `;
 
-const SearchListWrapper = styled.div`
-  position: absolute;
-  top: 42px;
-  margin: 0 20px;
-  width: 80%;
-`;
 
 export default function InterviewerSearchField({ onSearchInputChange }) {
   const [inputValue, setInputValue] = useState("");
-  const [searchResultList, setSearchResultList] = useState([]);
+  const [searchViewList, setSearchViewList] = useState([]);
 
   function handleInputChange(event) {
-    const value = event.target.value;
+    const value = event.target.value.trim();
 
     if (!value) {
-      setSearchResultList([]);
+      setSearchViewList([]);
       setInputValue("");
       return;
     }
@@ -45,16 +40,14 @@ export default function InterviewerSearchField({ onSearchInputChange }) {
   }
 
   function viewSearchList(searchList) {
-    setSearchResultList(searchList);
+    setSearchViewList(searchList);
   }
 
   return (
     <SearchBarWrapper>
       <Input value={inputValue} onChange={handleInputChange} />
       <FontAwesomeIcon icon={faSearch} />
-      <SearchListWrapper>
-        {searchResultList.map((searchItem) => <SearchItem key={searchItem.id} item={searchItem} />)}
-      </SearchListWrapper>
+      <SearchList searchList={searchViewList} />
     </SearchBarWrapper>
   );
 }
