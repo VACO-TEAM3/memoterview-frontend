@@ -24,6 +24,7 @@
     "prefer-arrow-callback": "error", // Require using arrow functions for callbacks
     "require-await": "error",
     // "arrow-parens": ["error", "as-needed"], // a => {}
+    "default-case": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-unused-expressions": ["error", {
       "allowTernary": true,      // a || b
