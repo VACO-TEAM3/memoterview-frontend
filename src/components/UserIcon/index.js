@@ -29,4 +29,4 @@ UserIcon.defaultProps = {
   iconSize: "30px",
 };
 
-export default UserIcon;
+export default React.memo(UserIcon);

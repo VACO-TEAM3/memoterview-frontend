@@ -21,7 +21,7 @@ const UserEmail = styled.div`
   font-size: 1rem;
 `;
 
-export default function UserInfo({ userInfo }) {
+function UserInfo({ userInfo }) {
   return (
     <UserInfoWrapper>
       <UserIcon />
@@ -30,3 +30,5 @@ export default function UserInfo({ userInfo }) {
     </UserInfoWrapper>
   );
 }
+
+export default React.memo(UserInfo);
