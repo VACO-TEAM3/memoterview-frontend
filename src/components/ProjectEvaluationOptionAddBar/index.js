@@ -18,11 +18,11 @@ const PlusButton = styled.span`
   cursor: pointer;
 `;
 
-export default function ProjectEvaluationOptionAddBar({ enalbe, onEvaluationOptionAdd }) {
+export default function ProjectEvaluationOptionAddBar({ onEvaluationOptionAdd }) {
   const [inputValue, setInputValue] = useState("");
 
-  function handleInputValueChange(e) {
-    setInputValue(e.target.value);
+  function handleInputValueChange(event) {
+    setInputValue(event.target.value);
   }
 
   function addInputValue() {
@@ -36,15 +36,15 @@ export default function ProjectEvaluationOptionAddBar({ enalbe, onEvaluationOpti
     addInputValue();
   }
 
-  function handleInputValueKeyDown(e) {
-    if (e.key === "Enter") {
+  function handleInputValueKeyDown(event) {
+    if (event.key === "Enter") {
       addInputValue();
     }
   }
 
   return (
     <Wrapper>
-      <Input value={inputValue} onChange={handleInputValueChange} onKeyDown={handleInputValueKeyDown}/>
+      <Input value={inputValue} onChange={handleInputValueChange} onKeyPress={handleInputValueKeyDown}/>
       <PlusButton onClick={handleInputValueAddBtnClick}>
         <FontAwesomeIcon icon={faPlus}/>
       </PlusButton>
