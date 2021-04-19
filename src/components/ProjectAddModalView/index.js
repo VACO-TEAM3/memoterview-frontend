@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 import { searchInterviewers } from "../../api";
 import useToken from "../../hooks/useToken";
-import InterviewerSearchField from "../InterviewerSearchField";
 import ModalView from "../ModalView";
 import ProjectEvaluationOptionAddBar from "../ProjectEvaluationOptionAddBar";
 import ProjectOptionItem from "../ProjectOptionItem";
+import SearchField from "../SearchField";
 
 const EditField = styled.div`
   margin: 50px;
@@ -34,7 +34,6 @@ export default function ProjectAddModalView() {
   const [participants, setParticipants] = useState([]);
   const { token } = useToken();
 
-
   function handleTitleChange(e) {
     setTitle(e.target.value);
   }
@@ -50,10 +49,17 @@ export default function ProjectAddModalView() {
   }
 
   async function handleSearchInputChange(searchValue, viewSearchList) {
+    // todo. debounce
     const result = await searchInterviewers({ email: searchValue, token });
     const searchList = result.data;
 
     viewSearchList(searchList);
+  }
+
+  function handleSelectInterviewer(interviewer) {
+    // todo. 중복체크
+    console.log(interviewer);
+    setParticipants(participants.concat(interviewer));
   }
 
   //todo. modalview padding, width, height 상수화
@@ -81,7 +87,14 @@ export default function ProjectAddModalView() {
       </EditField>
       <EditField>
         <Label>참여 면접관</Label>
-        <InterviewerSearchField onSearchInputChange={handleSearchInputChange}/>
+        <SearchField onSearchInputChange={handleSearchInputChange} onSelectSearchResult={handleSelectInterviewer}/>
+        {participants.map((participant) => (
+          <ProjectOptionItem
+            key={participant.id}
+            option={participant.name}
+            onOptionDelete={handleEvaluationOptionDelete}
+          />
+        ))}
       </EditField>
       <BtnGroup></BtnGroup>
     </ModalView>
