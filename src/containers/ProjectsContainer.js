@@ -9,6 +9,16 @@ import { getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 export default function ProjectsPageContainer() {
   const dispatch = useDispatch();
   const { user: { token, userData: { id } } } = useSelector(({ user }) => ({ user }));
+  // const {
+  //   projects: {
+  //     byId,
+  //     visibleProjects: {
+  //       myProjects,
+  //       joinedProjects,
+  //     },
+  //   },
+  // } = useSelector(({ projects }) => ({ projects }));
+
   const { projects: { byId, visibleProjects: { myProjects, joinedProjects } } } = useSelector(({ projects }) => ({ projects }));
 
   const [projects, setProjects] = useState(myProjects);
@@ -19,11 +29,14 @@ export default function ProjectsPageContainer() {
 
   useEffect(() => {
     const myFilter = setProjectFormat(myProjects);
+    console.log(myFilter, "filter...");
     setProjects(myFilter);
+    console.log(1);
   }, [myProjects]);
 
   useEffect(() => {
     const joinedFilter = setProjectFormat(joinedProjects);
+    console.log(joinedFilter, "filter..2.");
     setProjects(joinedFilter);
   }, [joinedProjects]);
 
@@ -46,17 +59,17 @@ export default function ProjectsPageContainer() {
       const myfilter = setProjectFormat(myProjects);
       setProjects(myfilter);
       return;
-    }
+    } else {
+      if (!joinedProjects.length){
+        dispatch(getJoinedProjects({ userId: id, token }));
 
-    if (!joinedProjects.length){
-      dispatch(getJoinedProjects({ userId: id, token }));
+        const joinedfilter = setProjectFormat(joinedProjects);
+        setProjects(joinedfilter);
+      }
 
       const joinedfilter = setProjectFormat(joinedProjects);
       setProjects(joinedfilter);
     }
-
-    const joinedfilter = setProjectFormat(joinedProjects);
-    setProjects(joinedfilter);
   }
 
   return (

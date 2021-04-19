@@ -14,6 +14,6 @@ export const STATUS_MENUS = {
 };
 
 export const PROJECT_TYPES = {
-  MY_PROJECTS: "MyProjects",
-  JOINED_PROJECTS: "JoinedProjects",
+  MY_PROJECTS: "myProjects",
+  JOINED_PROJECTS: "joinedProjects",
 };
