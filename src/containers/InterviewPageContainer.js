@@ -1,23 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
-import styled from "styled-components";
 
-import useUserMedia from "../hooks/useUserMedia";
-
-const Container = styled.div`
-  padding: 20px;
-  display: flex;
-  height: 100vh;
-  width: 90%;
-  margin: auto;
-  flex-wrap: wrap;
-`;
-
-const StyledVideo = styled.video`
-  height: 100px;
-  width: 200px;
-`;
+import { mediaStreaming } from "../utils/media";
 
 function Video({ peer }) {
   const ref = useRef();
@@ -40,18 +25,25 @@ function Video({ peer }) {
 export default function InterviewPageContainer() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
+  const [members, setMembers] = useState({});
   const userVideo = useRef();
   const peersRef = useRef([]);
   const peerList = [];
   const roomID = "happy";
   const socket = io.connect("http://localhost:5000");
-  const { localStream } = useUserMedia({ video: true, audio: true });
 
   useEffect(() => {
-    socket.emit("join room", roomID);
+    socket.emit("join room", roomID, async () => {
+      const stream = await mediaStreaming.Initialize();
+      userVideo.current.srcObject = stream;
+      setIsStreaming(true);
+      // setMembers((prev) => ({ ...prev, [socket.id]: socket.id }));
+    });
+
     socket.on("all users", (users) => {
+      console.log(users);
       users.forEach((userID) => {
-        const peer = createPeer(userID, socket.id, localStream);
+        const peer = createPeer(userID, socket.id, mediaStreaming.getStream());
 
         peersRef.current.push({
           peerID: userID,
@@ -70,6 +62,7 @@ export default function InterviewPageContainer() {
       });
 
       peer.on("signal", (signal) => {
+        console.log(signal);
         socket.emit("sending signal", { userToSignal, callerID, signal });
       });
 
@@ -77,18 +70,16 @@ export default function InterviewPageContainer() {
     }
 
     setPeers(peerList);
-    setIsStreaming(true);
   }, []);
 
   useEffect(() => {
-    if (!isStreaming || !localStream) {
+    if (!isStreaming) {
       return;
     }
 
-    userVideo.current.srcObject = localStream;
-
     socket.on("user joined", (payload) => {
-      const peer = addPeer(payload.signal, payload.callerID, localStream);
+      console.log(payload);
+      const peer = addPeer(payload.signal, payload.callerID, mediaStreaming.getStream());
 
       peersRef.current.push({
         peerID: payload.callerID,
@@ -122,13 +113,11 @@ export default function InterviewPageContainer() {
   }, [isStreaming]);
 
   return (
-    <Container>
+    <>
       <video ref={userVideo} autoPlay playsInline />
-      {peers.map((peer, index) => {
-        return (
-          <Video key={index} peer={peer} />
-        );
-      })}
-    </Container>
+      {peers.map((peer, index) => (
+        <Video key={index} peer={peer} />
+      ))}
+    </>
   );
 }
