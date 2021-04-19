@@ -33,6 +33,23 @@ export async function getMyProjectsAPI({ userId, token }) {
     },
   });
 
+  console.log("hi");
+
+  const { data } = await response.json();
+
+  return data;
+}
+
+export async function getJoinedProjectsAPI({ userId, token }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewer/${userId}/joined_projects`, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+  });
+
   const { data } = await response.json();
 
   return data;

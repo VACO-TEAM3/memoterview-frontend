@@ -58,12 +58,14 @@ export const reducerUtils = {
     allIds: prevState ? prevState.allIds : null,
     error: null,
   }),
-  update: (payload, prevState = null) => ({
-    loading: false,
-    byId: prevState ? addById(payload, prevState) : payload,
-    allIds: prevState ? addIdInAllIds(payload, prevState) : getAllIds(payload),
-    error: null,
-  }),
+  update: (payload, prevState = null) => {
+    return {
+      loading: false,
+      byId: prevState ? addById(payload, prevState) : payload,
+      allIds: prevState ? addIdInAllIds(payload, prevState) : getAllIds(payload),
+      error: null,
+    };
+  },
   delete: (payload, state) => ({
     loading: false,
     byId: removeById(payload, state),
@@ -78,15 +80,24 @@ export const reducerUtils = {
   }),
 };
 
+export const getProjectsByProjectType = (state, action, type) => {
+  if (action.type.includes("SUCCESS")) {
+    const myProjectIds = action.payload.map(payload => payload.id);
+    return { ...state, visibleProjects: { ...state.visibleProjects, [type]: myProjectIds } };
+  }
+
+  return state;
+};
+
 export const handleAsyncUpdateStateActionsWithNormalize = (type, keepData = false) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
 
   return (state, action) => {
     switch (action.type) {
       case type:
-        return reducerUtils.loading(keepData ? state : null);
+        return { ...state, ...reducerUtils.loading(keepData ? state : null) };
       case SUCCESS:
-        return reducerUtils.update(action.payload, keepData ? state : null);
+        return { ...state, ...reducerUtils.update(action.payload, keepData ? state : null) };
       case ERROR:
         return reducerUtils.error(action.payload, keepData ? state : null);
       default:

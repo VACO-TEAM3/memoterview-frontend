@@ -15,6 +15,6 @@ export default function useMenus({ defaultMenus, onMenuChange }) {
   function checkActive(state, menuState) {
     return state === menuState;
   }
-  
+
   return { menuState, handleMenuClick, checkActive };
 }

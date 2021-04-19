@@ -9,7 +9,6 @@ export const createPromiseSaga = (type, promiseCreator) => {
   return function* saga(action) {
     try {
       const payload = yield call(promiseCreator, action.payload);
-
       yield put({ type: SUCCESS, payload });
     } catch (error) {
       yield put({ type: ERROR, error: true, payload: error });
@@ -34,7 +33,7 @@ export const createAuthorizePromiseSaga = (type, promiseCreator) => {
 
 export const createPromiseSagaById = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
-  
+
   return function* saga(action) {
     const id = action.meta;
     try {

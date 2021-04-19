@@ -12,28 +12,7 @@ const SplitLayout = styled.div`
   height: 100vh;
 `;
 
-const projectMockData = [
-  {
-    id: "sfsdfdsfafewf",
-    title: "Frontend 주니어 채용",
-    candidateNum: 30,
-    filters: ["컬쳐핏", "커뮤니케이션"],
-    creator: "dfsdslfawef34",
-    participants: ["sdfsdfsdf334", "fewifjeio23r35"],
-    createAt: "2021-04-10",
-  },
-  {
-    id: "fdfsdfdsfsdf",
-    title: "Backend 주니어 채용",
-    candidateNum: 14,
-    filters: ["컬쳐핏", "커뮤니케이션"],
-    creator: "dfsdslfawef34",
-    participants: ["sdfsdfsdf334", "fewifjeio23r35"],
-    createAt: "2021-04-10",
-  }
-];
-
-export default function Projects({ projects }) {
+export default function Projects({ projects, handleStatusMenuChange, handleSideMenuChange }) {
   const [modalFlag, setModalFlag] = useState(false);
 
   const userInfoSample = {
@@ -41,16 +20,8 @@ export default function Projects({ projects }) {
     userEmail: "hayeong28@naver.com",
   };
 
-  function handleSideMenuChange(menu) {
-    console.log(menu);
-  }
-
   function handleLogoutBtnClick() {
     console.log("click logout");
-  }
-
-  function handleStatusMenuChange(statusMenu) {
-    console.log(statusMenu);
   }
 
   function handleProjectAddBtnClick() {
