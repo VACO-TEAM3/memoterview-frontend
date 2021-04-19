@@ -1,81 +1,54 @@
-import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { MENU_TITLE, MENUS } from "../constants/projects";
+import { MENUS, PROJECT_TYPES } from "../constants/projects";
 import Projects from "../pages/Projects";
 import { getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
+import { changeDateFormat } from "../utils/date";
 
 export default function ProjectsPageContainer() {
   const dispatch = useDispatch();
   const { user: { token, userData: { id } } } = useSelector(({ user }) => ({ user }));
-  // const {
-  //   projects: {
-  //     byId,
-  //     visibleProjects: {
-  //       myProjects,
-  //       joinedProjects,
-  //     },
-  //   },
-  // } = useSelector(({ projects }) => ({ projects }));
+  const { projects: { byId, visibleProjects } } = useSelector(({ projects }) => ({ projects }));
 
-  const { projects: { byId, visibleProjects: { myProjects, joinedProjects } } } = useSelector(({ projects }) => ({ projects }));
-
-  const [projects, setProjects] = useState(myProjects);
+  const [projects, setProjects] = useState(PROJECT_TYPES.MY_PROJECTS);
+  const currentDisplayingField = visibleProjects[projects];
 
   useEffect(() => {
     dispatch(getMyProjects({ userId: id, token }));
   }, []);
 
-  useEffect(() => {
-    const myFilter = setProjectFormat(myProjects);
-    console.log(myFilter, "filter...");
-    setProjects(myFilter);
-    console.log(1);
-  }, [myProjects]);
-
-  useEffect(() => {
-    const joinedFilter = setProjectFormat(joinedProjects);
-    console.log(joinedFilter, "filter..2.");
-    setProjects(joinedFilter);
-  }, [joinedProjects]);
-
   function setProjectFormat(projects) {
     return projects.map(projectId => {
       const { id, title, candidateNum, createAt } = byId[projectId];
-      const parsedDate = parseISO(createAt);
+      const formattedDate = changeDateFormat(createAt, "yyyy-MM-dd");
 
       return {
         id,
         title,
         candidateNum,
-        createAt: format(parsedDate, "yyyy-MM-dd"),
+        createAt: formattedDate,
       };
     });
   }
 
   function handleSideMenuChange(menu) {
     if (menu === MENUS.MY) {
-      const myfilter = setProjectFormat(myProjects);
-      setProjects(myfilter);
-      return;
+      return setProjects(PROJECT_TYPES.MY_PROJECTS);
     } else {
-      if (!joinedProjects.length){
+      if (!visibleProjects[PROJECT_TYPES.JOINED_PROJECTS].length){
         dispatch(getJoinedProjects({ userId: id, token }));
-
-        const joinedfilter = setProjectFormat(joinedProjects);
-        setProjects(joinedfilter);
+        return setProjects(PROJECT_TYPES.JOINED_PROJECTS);
       }
 
-      const joinedfilter = setProjectFormat(joinedProjects);
-      setProjects(joinedfilter);
+      setProjects(PROJECT_TYPES.JOINED_PROJECTS);
     }
   }
 
   return (
     <>
       <Projects
-        projects={projects}
+        projects={setProjectFormat(currentDisplayingField)}
         handleStatusMenuChange={() => {}}
         handleSideMenuChange={handleSideMenuChange}
       />
