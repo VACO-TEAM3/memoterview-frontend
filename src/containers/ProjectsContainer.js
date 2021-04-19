@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { MENUS, PROJECT_TYPES } from "../constants/projects";
 import Projects from "../pages/Projects";
-import { getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
+import { deleteProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 import { changeDateFormat } from "../utils/date";
 
 export default function ProjectsPageContainer() {
@@ -18,7 +18,6 @@ export default function ProjectsPageContainer() {
     userName: username,
     userEmail: email,
   };
-
 
   useEffect(() => {
     dispatch(getMyProjects({ userId: id, token }));
@@ -51,6 +50,10 @@ export default function ProjectsPageContainer() {
     }
   }
 
+  function handleProjectDeleteBtnClick(projectId) {
+    dispatch(deleteProject({ projectId: projectId, token }));
+  }
+
   return (
     <>
       <Projects
@@ -58,6 +61,7 @@ export default function ProjectsPageContainer() {
         projects={setProjectFormat(currentDisplayingField)}
         handleStatusMenuChange={() => {}}
         handleSideMenuChange={handleSideMenuChange}
+        handleProjectDeleteBtnClick={handleProjectDeleteBtnClick}
       />
     </>
   );

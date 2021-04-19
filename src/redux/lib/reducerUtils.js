@@ -16,12 +16,10 @@ const addById = (newByIdList, state) => {
   };
 };
 
-const removeById = (deleteIds, state) => {
+const removeById = (deleteId, state) => {
   const deletedByIdList = { ...state.byId };
 
-  for (const deleteId of deleteIds) {
-    delete deletedByIdList[deleteId];
-  }
+  delete deletedByIdList[deleteId];
 
   return deletedByIdList;
 };
@@ -32,9 +30,9 @@ const addIdInAllIds = (newByIdList, state) => {
   return Array.from(removedDupulicateIds);
 };
 
-const removeIdInAllIds = (deleteIds, state) => {
+const removeIdInAllIds = (deleteId, state) =>{
   const newAllIdsSet = new Set(state.allIds);
-  const deleteIdsSet = new Set(deleteIds);
+  const deleteIdsSet = new Set([deleteId]);
 
   for (const id of newAllIdsSet) {
     if (deleteIdsSet.has(id)) {
@@ -89,6 +87,41 @@ export const getProjectsByProjectType = (state, action, type) => {
   return state;
 };
 
+export const deleteProjectByProjectId = (state, action, type) => {
+  if (action.type.includes("SUCCESS")) {
+    const projectIds = action.payload;
+
+    const myProjects = state.visibleProjects.myProjects.filter(
+      myProject => myProject !== projectIds
+    );
+
+    const joinedProjects = state.visibleProjects.joinedProjects.filter(
+      joinedProject => joinedProject !== projectIds
+    );
+
+    return { ...state, visibleProjects: { myProjects, joinedProjects } };
+  }
+
+  return state;
+};
+
+export const handleAsyncRemoveStateActionsWithNormalize = type => {
+  const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
+
+  return (state, action) => {
+    switch (action.type) {
+      case type:
+        return { ...state, ...reducerUtils.loading(state) };
+      case SUCCESS:
+        return { ...state, ...reducerUtils.delete(action.payload, state) };
+      case ERROR:
+        return reducerUtils.error(action.payload, state);
+      default:
+        return state;
+    }
+  };
+};
+
 export const handleAsyncUpdateStateActionsWithNormalize = (type, keepData = false) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
 
@@ -100,23 +133,6 @@ export const handleAsyncUpdateStateActionsWithNormalize = (type, keepData = fals
         return { ...state, ...reducerUtils.update(action.payload, keepData ? state : null) };
       case ERROR:
         return reducerUtils.error(action.payload, keepData ? state : null);
-      default:
-        return state;
-    }
-  };
-};
-
-export const handleAsyncRemoveStateActionsWithNormalize = type => {
-  const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
-
-  return (state, action) => {
-    switch (action.type) {
-      case type:
-        return reducerUtils.loading(state);
-      case SUCCESS:
-        return reducerUtils.delete(action.payload, state);
-      case ERROR:
-        return reducerUtils.error(action.payload, state);
       default:
         return state;
     }

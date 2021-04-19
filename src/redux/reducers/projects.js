@@ -1,9 +1,14 @@
 import { takeLatest, takeLeading } from "redux-saga/effects";
 
-import { getJoinedProjectsAPI,getMyProjectsAPI } from "../../api";
+import { deleteProjectAPI, getJoinedProjectsAPI, getMyProjectsAPI } from "../../api";
 import { PROJECT_TYPES } from "../../constants/projects";
 import { addProjectAPI } from "../lib/mockApi";
-import { getProjectsByProjectType, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
+import {
+  deleteProjectByProjectId,
+  getProjectsByProjectType,
+  handleAsyncRemoveStateActionsWithNormalize,
+  handleAsyncUpdateStateActionsWithNormalize,
+} from "../lib/reducerUtils";
 import { createPromiseSaga } from "../lib/sagaUtils";
 
 const GET_MY_PROJECTS = "GET_MY_PROJECTS";
@@ -18,30 +23,44 @@ const ADD_MY_PROJECT = "ADD_MY_PROJECTS";
 export const ADD_MY_PROJECT_SUCCESS = "ADD_MY_PROJECTS_SUCCESS";
 const ADD_MY_PROJECT_ERROR = "ADD_MY_PROJECTS_ERROR";
 
+const DELETE_PROJECT = "DELETE_PROJECT";
+const DELETE_PROJECT_SUCCESS = "DELETE_PROJECT_SUCCESS";
+const DELETE_PROJECT_ERROR = "DELETE_PROJECT_ERROR";
+
 export const getMyProjects = ({ userId, token }) => ({
   type: GET_MY_PROJECTS,
   payload: { userId, token },
   meta: userId,
 });
+
 export const getJoinedProjects = ({ userId, token }) => ({
   type: GET_JOINED_PROJECTS,
   payload: { userId, token },
   meta: userId,
 });
+
 export const addMyProjects = ({ userId, newProject }) => ({
   type: ADD_MY_PROJECT,
   payload: { userId, newProject },
   meta: { userId, newProject },
 });
 
+export const deleteProject = ({ projectId, token }) => ({
+  type: DELETE_PROJECT,
+  payload: { projectId, token },
+  meta: projectId,
+});
+
 const getMyProjectsSaga = createPromiseSaga(GET_MY_PROJECTS, getMyProjectsAPI);
 const getJoinedProjectsSaga = createPromiseSaga(GET_JOINED_PROJECTS, getJoinedProjectsAPI);
 const addMyProjectSaga = createPromiseSaga(ADD_MY_PROJECT, addProjectAPI);
+const deleteProjectSaga = createPromiseSaga(DELETE_PROJECT, deleteProjectAPI);
 
 export function* projectsSaga() {
   yield takeLeading(GET_MY_PROJECTS, getMyProjectsSaga);
   yield takeLeading(GET_JOINED_PROJECTS, getJoinedProjectsSaga);
   yield takeLatest(ADD_MY_PROJECT, addMyProjectSaga);
+  yield takeLatest(DELETE_PROJECT, deleteProjectSaga);
 }
 
 const projectInitialState = {
@@ -82,8 +101,15 @@ export default function projects(state = initialState, action) {
     }
     case ADD_MY_PROJECT:
     case ADD_MY_PROJECT_SUCCESS:
-    case ADD_MY_PROJECT_ERROR:
+    case ADD_MY_PROJECT_ERROR: {
       return handleAsyncUpdateStateActionsWithNormalize(ADD_MY_PROJECT, true)(state, action);
+    }
+    case DELETE_PROJECT:
+    case DELETE_PROJECT_SUCCESS:
+    case DELETE_PROJECT_ERROR: {
+      const newState = deleteProjectByProjectId(state, action);
+      return handleAsyncRemoveStateActionsWithNormalize(DELETE_PROJECT, true)(newState, action);
+    }
     default:
       return state;
   }
