@@ -16,7 +16,7 @@ const Menu = styled.div`
   cursor: pointer;
 `;
 
-export default function ProjectsSideNavMenu({ onMenuChange }) {
+function ProjectsSideNavMenu({ onMenuChange }) {
   const { menuState, handleMenuClick, checkActive } = useMenus({
     defaultMenus: MENUS.MY,
     onMenuChange: onMenuChange,
@@ -41,3 +41,5 @@ export default function ProjectsSideNavMenu({ onMenuChange }) {
     </MenuWrapper>
   );
 }
+
+export default React.memo(ProjectsSideNavMenu);

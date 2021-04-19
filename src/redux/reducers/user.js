@@ -58,7 +58,7 @@ export default function user(state = initialState, action) {
         loading: false,
         userData: { ...action.payload.user },
         token: action.payload.token,
-        error: null, 
+        error: null,
       };
     case GET_TOKEN_ERROR:
       return {

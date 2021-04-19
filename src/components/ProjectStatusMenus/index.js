@@ -19,7 +19,7 @@ const StatusMenu = styled.span`
   cursor: pointer;
 `;
 
-export default function ProjectStatusMenus({ onStatusMenuChange }) {
+function ProjectStatusMenus({ onStatusMenuChange }) {
   const { menuState, handleMenuClick, checkActive } = useMenus({
     defaultMenus: STATUS_MENUS.ACTIVE,
     onMenuChange: onStatusMenuChange,
@@ -44,3 +44,5 @@ export default function ProjectStatusMenus({ onStatusMenuChange }) {
     </ProjectStatusMenusWrapper>
   );
 }
+
+export default React.memo(ProjectStatusMenus);

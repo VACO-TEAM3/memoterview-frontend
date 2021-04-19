@@ -16,10 +16,12 @@ const ColumnTitle = styled.span`
   font-size: 1.1rem;
 `;
 
-export default function ProjectsColumnHeader({ columnTitles }) {
+function ProjectsColumnHeader({ columnTitles }) {
   return (
     <ProjectsColumnHeaderWrapeer>
       {columnTitles.map((title) => <ColumnTitle key={title}>{title}</ColumnTitle>)}
     </ProjectsColumnHeaderWrapeer>
   );
 }
+
+export default React.memo(ProjectsColumnHeader);
