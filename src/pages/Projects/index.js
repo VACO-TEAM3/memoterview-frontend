@@ -12,7 +12,7 @@ const SplitLayout = styled.div`
   height: 100vh;
 `;
 
-export default function Projects({ userInfo, projects, handleStatusMenuChange, handleSideMenuChange }) {
+export default function Projects({ userInfo, projects, handleStatusMenuChange, handleSideMenuChange, handleProjectDeleteBtnClick }) {
   const [modalFlag, setModalFlag] = useState(false);
 
   function handleLogoutBtnClick() {
@@ -22,10 +22,6 @@ export default function Projects({ userInfo, projects, handleStatusMenuChange, h
   function handleProjectAddBtnClick() {
     console.log("click project add button");
     openAddProjectModal();
-  }
-
-  function handleProjectDeleteBtnClick(projectId) {
-    console.log("click project delete button", projectId);
   }
 
   function handleProjectItemClick(projectId) {
