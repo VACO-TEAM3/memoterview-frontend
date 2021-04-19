@@ -5,6 +5,7 @@ import LoginPageContainer from "../../containers/LoginPageContainer";
 import Layout from "../../Layout";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
+import Interview from "../../pages/Interview";
 import Projects from "../../pages/Projects";
 import VoiceToTextTestPage from "../../pages/VoiceToTextTestPage";
 
@@ -19,11 +20,11 @@ function App() {
           <Route path="/login">
             <LoginPageContainer />
           </Route>
-          <Route path="/projects">
+          <Route path="/projects" exact>
             <Projects />
           </Route>
-          <Route path="/project/:id">
-            <Dummy />
+          <Route path="/projects/:id">
+            <Interview />
           </Route>
           <Route path="/search">
             <Dummy />
