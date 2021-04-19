@@ -5,16 +5,16 @@ export default function useUserMedia(mediaOption) {
 
   useEffect(() => {
     async function getLocalStream(constraints) {
-      try {  
+      try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    
+
         setLocalStream(stream);
         navigator.mediaDevices.getUserMedia(constraints);
       } catch (error) {
         console.error(error);
       }
     }
-    console.log(localStream);
+
     if (!localStream) {
       getLocalStream(mediaOption);
 
