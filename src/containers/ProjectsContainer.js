@@ -6,13 +6,25 @@ import ProjectAddModalView from "../components/ProjectAddModalView";
 import { MENUS, PROJECT_TYPES } from "../constants/projects";
 import useToken from "../hooks/useToken";
 import Projects from "../pages/Projects";
-import { addMyProject, deleteProject, getJoinedProjects, getMyProjects, projectIdsToByIdObjs } from "../redux/reducers/projects";
+import {
+  addMyProject,
+  deleteProject,
+  getJoinedProjects,
+  getMyProjects,
+  projectIdsToByIdObjs,
+} from "../redux/reducers/projects";
 
 export default function ProjectsPageContainer() {
   const { token } = useToken();
   const dispatch = useDispatch();
-  const { user: { userData: { id, username, email } } } = useSelector(({ user }) => ({ user }));
-  const { projects: { byId, visibleProjects } } = useSelector(({ projects }) => ({ projects }));
+  const {
+    user: {
+      userData: { id, username, email },
+    },
+  } = useSelector(({ user }) => ({ user }));
+  const {
+    projects: { byId, visibleProjects },
+  } = useSelector(({ projects }) => ({ projects }));
 
   const [projectType, setProjectType] = useState(PROJECT_TYPES.MY_PROJECTS);
   const [modalFlag, setModalFlag] = useState(false);
@@ -33,7 +45,7 @@ export default function ProjectsPageContainer() {
     if (menu === MENUS.MY) {
       return setProjectType(PROJECT_TYPES.MY_PROJECTS);
     } else {
-      if (!visibleProjects[PROJECT_TYPES.JOINED_PROJECTS].length){
+      if (!visibleProjects[PROJECT_TYPES.JOINED_PROJECTS].length) {
         dispatch(getJoinedProjects({ userId: id, token }));
         return setProjectType(PROJECT_TYPES.JOINED_PROJECTS);
       }
@@ -59,6 +71,18 @@ export default function ProjectsPageContainer() {
     setModalFlag(true);
   }
 
+  function handleLogoutBtnClick() {
+    console.log("click logout");
+  }
+
+  function handleProjectItemClick(projectId) {
+    console.log("click project item", projectId);
+  }
+
+  function handleStatusMenuChange(statusMenuType) {
+    console.log(statusMenuType, `clicked status menu ${statusMenuType}`);
+  }
+
   return (
     <>
       {modalFlag && (
@@ -75,6 +99,9 @@ export default function ProjectsPageContainer() {
         onSideMenuChange={handleSideMenuChange}
         onProjectAddBtnClick={handleProjectAddBtnClick}
         onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
+        onLogoutBtnClick={handleLogoutBtnClick}
+        onProjectItemClick={handleProjectItemClick}
+        onStatusMenuChange={handleStatusMenuChange}
       />
     </>
   );
