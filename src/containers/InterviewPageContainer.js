@@ -16,14 +16,15 @@ export default function InterviewPageContainer() {
   const [errorMessage, setErrorMessage] = useState("");
   const userVideo = useRef();
   const peersRef = useRef([]);
-  let stream;
+  const [stream, setStream] = useState(null);
+  // let stream;
 
   useEffect(() => {
     (async function getStreaming() {
       try {
-        stream = await mediaStreaming.Initialize();
-        userVideo.current.srcObject = stream;
-
+        const localStream = await mediaStreaming.Initialize();
+        userVideo.current.srcObject = localStream;
+        setStream(localStream);
         setIsStreaming(true);
       } catch (error) {
         setErrorMessage(error);
@@ -35,10 +36,10 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-
+    console.log(stream);
     socket.emit("requestJoinRoom", { roomID, userData });
 
-    socket.once("successJoinUser", (targetUsers) => {
+    socket.on("successJoinUser", (targetUsers) => {
       targetUsers.forEach((user) => {
         const peer = new Peer({
           initiator: true,
@@ -60,7 +61,7 @@ export default function InterviewPageContainer() {
       });
     });
 
-    socket.once("joinNewUser", ({ caller, signal }) => {
+    socket.on("joinNewUser", ({ caller, signal }) => {
       const peer = new Peer({
         initiator: false,
         trickle: false,
@@ -82,7 +83,7 @@ export default function InterviewPageContainer() {
       setPeers((prev) => [...prev, peer]);
     });
 
-    socket.once("receiveReturnSignal", ({ id, signal }) => {
+    socket.on("receiveReturnSignal", ({ id, signal }) => {
       const { peer } = peersRef.current.find((p) => p.peerID === id);
 
       peer.signal(signal);
