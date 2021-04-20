@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Modal from "../components/Modal";
+import ProjectAddModalView from "../components/ProjectAddModalView";
 import { MENUS, PROJECT_TYPES } from "../constants/projects";
+import useToken from "../hooks/useToken";
 import Projects from "../pages/Projects";
-import { deleteProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
+import { addMyProject, deleteProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 import { changeDateFormat } from "../utils/date";
 
 export default function ProjectsPageContainer() {
+  const { token } = useToken();
   const dispatch = useDispatch();
-  const { user: { token, userData: { id, username, email } } } = useSelector(({ user }) => ({ user }));
+  const { user: { userData: { id, username, email } } } = useSelector(({ user }) => ({ user }));
   const { projects: { byId, visibleProjects } } = useSelector(({ projects }) => ({ projects }));
 
   const [projects, setProjects] = useState(PROJECT_TYPES.MY_PROJECTS);
   const currentDisplayingField = visibleProjects[projects];
+  const [modalFlag, setModalFlag] = useState(false);
 
   const userInfo = {
     userName: username,
@@ -21,7 +26,7 @@ export default function ProjectsPageContainer() {
 
   useEffect(() => {
     dispatch(getMyProjects({ userId: id, token }));
-  }, []);
+  }, [dispatch, id, token]);
 
   function setProjectFormat(projects) {
     return projects.map(projectId => {
@@ -54,13 +59,35 @@ export default function ProjectsPageContainer() {
     dispatch(deleteProject({ projectId: projectId, token }));
   }
 
+  function handleProjectCreateBtnClick(newProject) {
+    dispatch(addMyProject({ userId: id, newProject, token }));
+    setModalFlag(false);
+  }
+
+  function closeAddProjectModal() {
+    setModalFlag(false);
+  }
+
+  function handleProjectAddBtnClick() {
+    setModalFlag(true);
+  }
+
   return (
     <>
+      {modalFlag && (
+        <Modal onBackgroundClick={closeAddProjectModal}>
+          <ProjectAddModalView
+            onCancelBtnClick={closeAddProjectModal}
+            onCreateBtnClick={handleProjectCreateBtnClick}
+          />
+        </Modal>
+      )}
       <Projects
         userInfo={userInfo}
         projects={setProjectFormat(currentDisplayingField)}
-        handleSideMenuChange={handleSideMenuChange}
-        handleProjectDeleteBtnClick={handleProjectDeleteBtnClick}
+        onSideMenuChange={handleSideMenuChange}
+        onProjectAddBtnClick={handleProjectAddBtnClick}
+        onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
       />
     </>
   );

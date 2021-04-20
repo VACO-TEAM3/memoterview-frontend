@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import Modal from "../../components/Modal";
-import ProjectAddModalView from "../../components/ProjectAddModalView";
 import ProjectsContent from "../../components/ProjectsContent";
 import ProjectsSideNavBar from "../../components/ProjectsSideNavBar";
 
@@ -13,60 +11,37 @@ const SplitLayout = styled.div`
 `;
 
 export default function Projects({
-  userInfo, projects, handleSideMenuChange, handleProjectDeleteBtnClick,
+  userInfo,
+  projects,
+  onSideMenuChange,
+  onProjectDeleteBtnClick,
+  onProjectAddBtnClick,
 }) {
-  const [modalFlag, setModalFlag] = useState(false);
-
   function handleLogoutBtnClick() {
     console.log("click logout");
-  }
-
-  function handleProjectAddBtnClick() {
-    console.log("click project add button");
-    openAddProjectModal();
   }
 
   function handleProjectItemClick(projectId) {
     console.log("click project item", projectId);
   }
 
-  function closeAddProjectModal() {
-    setModalFlag(false);
-  }
-
-  function openAddProjectModal() {
-    setModalFlag(true);
-  }
-
   function handleStatusMenuChange(statusMenuType) {
     console.log(statusMenuType, `clicked status menu ${statusMenuType}`);
   }
 
-  function handleProjectCreateBtnClick(newProject) {
-    console.log(newProject);
-  }
-
   return (
     <>
-      {modalFlag && (
-        <Modal onClick={closeAddProjectModal}>
-          <ProjectAddModalView
-            onCancelBtnClick={closeAddProjectModal}
-            onCreateBtnClick={handleProjectCreateBtnClick}
-          />
-        </Modal>
-      )}
       <SplitLayout>
         <ProjectsSideNavBar
           userInfo={userInfo}
-          onSideMenuChange={handleSideMenuChange}
+          onSideMenuChange={onSideMenuChange}
           onLogoutBtnClick={handleLogoutBtnClick}
         />
         <ProjectsContent
           onStatusMenuChange={handleStatusMenuChange}
           onProjectItemClick={handleProjectItemClick}
-          onProjectAddBtnClick={handleProjectAddBtnClick}
-          onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
+          onProjectAddBtnClick={onProjectAddBtnClick}
+          onProjectDeleteBtnClick={onProjectDeleteBtnClick}
           projects={projects}
         />
       </SplitLayout>
