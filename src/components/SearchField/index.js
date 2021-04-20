@@ -22,7 +22,13 @@ const Input = styled.input`
 `;
 
 export default function SearchField({ onSearchInputChange, onSelectSearchResult }) {
-  const { searchState, handleInputChange, handleKeyDown } = useSearchField({ onSearchInputChange, onSelectSearchResult });
+  const {
+    searchState,
+    handleInputChange,
+    handleKeyDown,
+    handleSearchItemClick,
+    handleSearchItemMouseOver,
+  } = useSearchField({ onSearchInputChange, onSelectSearchResult });
 
   return (
     <SearchBarWrapper>
@@ -32,10 +38,14 @@ export default function SearchField({ onSearchInputChange, onSelectSearchResult 
         onKeyDown={handleKeyDown}
       />
       <FontAwesomeIcon icon={faSearch} />
-      {searchState.inputValue && <SearchList
-        searchList={searchState.searchViewList}
-        focusIndex={searchState.searchItemFocusIndex}
-      />}
+      {searchState.inputValue && (
+        <SearchList
+          searchList={searchState.searchViewList}
+          focusIndex={searchState.searchItemFocusIndex}
+          onSearchItemClick={handleSearchItemClick}
+          onSearchItemMouseOver={handleSearchItemMouseOver}
+        />
+      )}
     </SearchBarWrapper>
   );
 }

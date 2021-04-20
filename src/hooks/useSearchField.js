@@ -54,9 +54,19 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
         });
 
       case "Enter":
-        setSearchState(initialState);
-        onSelectSearchResult(searchState.searchViewList[currentFocusIndex]);
+        selectSearchResult(currentFocusIndex);
     }
+  }
+
+  function handleSearchItemClick(clickedIndex) {
+    selectSearchResult(clickedIndex);
+  }
+
+  function handleSearchItemMouseOver(index) {
+    return setSearchState({
+      ...searchState,
+      searchItemFocusIndex: index,
+    });
   }
 
   function viewSearchList(searchViewList) {
@@ -66,5 +76,10 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
     }));
   }
 
-  return { searchState, handleInputChange, handleKeyDown };
+  function selectSearchResult(index) {
+    setSearchState(initialState);
+    onSelectSearchResult(searchState.searchViewList[index]);
+  }
+
+  return { searchState, handleInputChange, handleKeyDown, handleSearchItemClick, handleSearchItemMouseOver };
 }
