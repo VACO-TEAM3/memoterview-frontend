@@ -1,11 +1,11 @@
 import { ACTION_TYPES_INCLUDED } from "../../constants/projects";
 
-export const makeRelatedActionTypes = type => {
+export const makeRelatedActionTypes = (type) => {
   return [`${type}_SUCCESS`, `${type}_ERROR`];
 };
 
-const getAllIds = byIdList => {
-  return byIdList.map(item => item.id);
+const getAllIds = (byIdList) => {
+  return byIdList.map((item) => item.id);
 };
 
 const addById = (newByIdList, state) => {
@@ -56,10 +56,13 @@ export const reducerUtils = {
     error: null,
   }),
   update: (payload, prevState = null) => {
+    const dataList = Array.isArray(payload) ? payload : [payload];
     return {
       loading: false,
-      byId: prevState ? addById(payload, prevState) : payload,
-      allIds: prevState ? addIdInAllIds(payload, prevState) : getAllIds(payload),
+      byId: prevState ? addById(dataList, prevState) : dataList,
+      allIds: prevState
+        ? addIdInAllIds(dataList, prevState)
+        : getAllIds(dataList),
       error: null,
     };
   },
@@ -79,8 +82,13 @@ export const reducerUtils = {
 
 export const getProjectsByProjectType = (state, action, type) => {
   if (action.type.includes(ACTION_TYPES_INCLUDED.SUCCESS)) {
-    const myProjectIds = action.payload.map(payload => payload.id);
-    return { ...state, visibleProjects: { ...state.visibleProjects, [type]: myProjectIds } };
+    const payload = action.payload;
+    const dataList = Array.isArray(payload) ? payload : [payload];
+    const myProjectIds = dataList.map((data) => data.id);
+    return {
+      ...state,
+      visibleProjects: { ...state.visibleProjects, [type]: myProjectIds },
+    };
   }
 
   return state;
@@ -91,11 +99,11 @@ export const deleteProjectByProjectId = (state, action) => {
     const projectIds = action.payload;
 
     const myProjects = state.visibleProjects.myProjects.filter(
-      myProject => myProject !== projectIds
+      (myProject) => myProject !== projectIds
     );
 
     const joinedProjects = state.visibleProjects.joinedProjects.filter(
-      joinedProject => joinedProject !== projectIds
+      (joinedProject) => joinedProject !== projectIds
     );
 
     return { ...state, visibleProjects: { myProjects, joinedProjects } };
@@ -104,7 +112,22 @@ export const deleteProjectByProjectId = (state, action) => {
   return state;
 };
 
-export const handleAsyncRemoveStateActionsWithNormalize = type => {
+export const addProjectsByProjectId = (state, action) => {
+  if (action.type.includes(ACTION_TYPES_INCLUDED.SUCCESS)) {
+    const projectId = action.payload.id;
+
+    const myProjects = state.visibleProjects.myProjects.concat(projectId);
+
+    return {
+      ...state,
+      visibleProjects: { ...state.visibleProjects, myProjects },
+    };
+  }
+
+  return state;
+};
+
+export const handleAsyncRemoveStateActionsWithNormalize = (type) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
 
   return (state, action) => {
@@ -121,7 +144,10 @@ export const handleAsyncRemoveStateActionsWithNormalize = type => {
   };
 };
 
-export const handleAsyncUpdateStateActionsWithNormalize = (type, keepData = false) => {
+export const handleAsyncUpdateStateActionsWithNormalize = (
+  type,
+  keepData = false
+) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
 
   return (state, action) => {
@@ -129,9 +155,15 @@ export const handleAsyncUpdateStateActionsWithNormalize = (type, keepData = fals
       case type:
         return { ...state, ...reducerUtils.loading(keepData ? state : null) };
       case SUCCESS:
-        return { ...state, ...reducerUtils.update(action.payload, keepData ? state : null) };
+        return {
+          ...state,
+          ...reducerUtils.update(action.payload, keepData ? state : null),
+        };
       case ERROR:
-        return reducerUtils.error(action.payload, keepData ? state : null);
+        return {
+          ...state,
+          ...reducerUtils.error(action.payload, keepData ? state : null),
+        };
       default:
         return state;
     }

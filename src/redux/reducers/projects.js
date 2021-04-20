@@ -1,9 +1,9 @@
 import { takeLatest, takeLeading } from "redux-saga/effects";
 
-import { deleteProjectAPI, getJoinedProjectsAPI, getMyProjectsAPI } from "../../api";
+import { addMyProjectAPI, deleteProjectAPI, getJoinedProjectsAPI, getMyProjectsAPI } from "../../api";
 import { PROJECT_TYPES } from "../../constants/projects";
-import { addProjectAPI } from "../lib/mockApi";
 import {
+  addProjectsByProjectId,
   deleteProjectByProjectId,
   getProjectsByProjectType,
   handleAsyncRemoveStateActionsWithNormalize,
@@ -39,9 +39,9 @@ export const getJoinedProjects = ({ userId, token }) => ({
   meta: userId,
 });
 
-export const addMyProjects = ({ userId, newProject }) => ({
+export const addMyProject = ({ userId, newProject, token }) => ({
   type: ADD_MY_PROJECT,
-  payload: { userId, newProject },
+  payload: { userId, newProject, token },
   meta: { userId, newProject },
 });
 
@@ -53,7 +53,7 @@ export const deleteProject = ({ projectId, token }) => ({
 
 const getMyProjectsSaga = createPromiseSaga(GET_MY_PROJECTS, getMyProjectsAPI);
 const getJoinedProjectsSaga = createPromiseSaga(GET_JOINED_PROJECTS, getJoinedProjectsAPI);
-const addMyProjectSaga = createPromiseSaga(ADD_MY_PROJECT, addProjectAPI);
+const addMyProjectSaga = createPromiseSaga(ADD_MY_PROJECT, addMyProjectAPI);
 const deleteProjectSaga = createPromiseSaga(DELETE_PROJECT, deleteProjectAPI);
 
 export function* projectsSaga() {
@@ -102,7 +102,8 @@ export default function projects(state = initialState, action) {
     case ADD_MY_PROJECT:
     case ADD_MY_PROJECT_SUCCESS:
     case ADD_MY_PROJECT_ERROR: {
-      return handleAsyncUpdateStateActionsWithNormalize(ADD_MY_PROJECT, true)(state, action);
+      const newState = addProjectsByProjectId(state, action, PROJECT_TYPES.MY_PROJECTS);
+      return handleAsyncUpdateStateActionsWithNormalize(ADD_MY_PROJECT, true)(newState, action);
     }
     case DELETE_PROJECT:
     case DELETE_PROJECT_SUCCESS:
