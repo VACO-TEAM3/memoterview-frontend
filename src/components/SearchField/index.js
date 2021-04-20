@@ -52,6 +52,7 @@ export default function SearchField({ onSearchInputChange, onSelectSearchResult 
 
         setSearchItemFocusIndex(prevFocusIndex);
         break;
+
       case "ArrowDown":
         event.preventDefault();
         const nextFocusIndex =
@@ -61,6 +62,7 @@ export default function SearchField({ onSearchInputChange, onSelectSearchResult 
 
         setSearchItemFocusIndex(nextFocusIndex);
         break;
+
       case "Enter":
         setInputValue("");
         setSearchItemFocusIndex(-1);

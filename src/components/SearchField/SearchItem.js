@@ -7,7 +7,7 @@ const SearchItemWrapper = styled.li`
   border: .5px solid black;
   border-radius: 2px;
   font-size: .9rem;
-  background-color: ${(props) => props.focus ? props.theme.Aero : "transparent"};
+  background-color: ${(props) => props.focus ? props.theme.Aero : "white"};
 
   &:hover {
     background-color: ${({ theme }) => theme.Aero};

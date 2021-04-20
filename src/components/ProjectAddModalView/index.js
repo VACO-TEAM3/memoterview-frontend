@@ -57,9 +57,9 @@ export default function ProjectAddModalView() {
   }
 
   function handleSelectInterviewer(interviewer) {
-    // todo. 중복체크
-    console.log(interviewer);
-    setParticipants(participants.concat(interviewer));
+    if (!participants.find((participant) => participant.id === interviewer.id)) {
+      setParticipants(participants.concat(interviewer));
+    }
   }
 
   //todo. modalview padding, width, height 상수화
