@@ -2,6 +2,7 @@ import { takeLatest, takeLeading } from "redux-saga/effects";
 
 import { addMyProjectAPI, deleteProjectAPI, getJoinedProjectsAPI, getMyProjectsAPI } from "../../api";
 import { PROJECT_TYPES } from "../../constants/projects";
+import { changeDateFormat } from "../../utils/date";
 import {
   addProjectsByProjectId,
   deleteProjectByProjectId,
@@ -114,4 +115,18 @@ export default function projects(state = initialState, action) {
     default:
       return state;
   }
+}
+
+export function projectIdsToByIdObjs(ids, projectByIds) {
+  return ids.map(projectId => {
+    const { id, title, candidateNum, createAt } = projectByIds[projectId];
+    const formattedDate = changeDateFormat(createAt, "yyyy-MM-dd");
+
+    return {
+      id,
+      title,
+      candidateNum,
+      createAt: formattedDate,
+    };
+  });
 }
