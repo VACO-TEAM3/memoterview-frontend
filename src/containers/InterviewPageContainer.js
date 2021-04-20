@@ -13,7 +13,6 @@ export default function InterviewPageContainer() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [members, setMembers] = useState([]);
   const userVideo = useRef();
   const peersRef = useRef([]);
   const peerList = [];
@@ -32,16 +31,16 @@ export default function InterviewPageContainer() {
       setIsStreaming(true);
     });
 
-    return () => {
-      socket.emit("leaveRoom");
-    };
+    // return () => {
+    //   socket.emit("leaveRoom");
+    // };
   }, []);
 
   useEffect(() => {
     if (!isStreaming) {
       return;
     }
-
+    console.log(25);
     socket.on("successJoin", (members) => {
       console.log(members);
       members.forEach((memberID) => {
