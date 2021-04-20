@@ -11,7 +11,7 @@ const MenuWrapper = styled.div`
 
 const Menu = styled.div`
   margin: 30px 0;
-  color: ${(props) => (props.active ? props.theme.spanishBlue : "black")};
+  color: ${(props) => (props.active ? props.theme.SpanishBlue : "black")};
   font-size: 1rem;
   cursor: pointer;
 `;

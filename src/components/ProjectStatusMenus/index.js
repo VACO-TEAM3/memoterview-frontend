@@ -14,7 +14,7 @@ const ProjectStatusMenusWrapper = styled.div`
 
 const StatusMenu = styled.span`
   margin: 0 40px;
-  color: ${(props) => (props.active ? props.theme.spanishBlue : "black")};
+  color: ${(props) => (props.active ? props.theme.SpanishBlue : "black")};
   font-size: 1.3rem;
   cursor: pointer;
 `;
