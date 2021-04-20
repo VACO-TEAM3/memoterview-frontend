@@ -17,3 +17,7 @@ export const PROJECT_TYPES = {
   MY_PROJECTS: "myProjects",
   JOINED_PROJECTS: "joinedProjects",
 };
+
+export const ACTION_TYPES_INCLUDED = {
+  SUCCESS: "SUCCESS",
+};

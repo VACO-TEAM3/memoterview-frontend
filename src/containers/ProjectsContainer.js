@@ -59,7 +59,6 @@ export default function ProjectsPageContainer() {
       <Projects
         userInfo={userInfo}
         projects={setProjectFormat(currentDisplayingField)}
-        handleStatusMenuChange={() => {}}
         handleSideMenuChange={handleSideMenuChange}
         handleProjectDeleteBtnClick={handleProjectDeleteBtnClick}
       />
