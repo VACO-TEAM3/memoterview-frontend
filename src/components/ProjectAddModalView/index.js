@@ -43,24 +43,36 @@ export default function ProjectAddModalView() {
     setEvaluationOptions(evaluationOptions.concat(evaluationOption));
   }
 
-  function handleEvaluationOptionDelete(deleteOption) {
+  function handleEvaluationOptionDelete(deleteOptionId) {
     setEvaluationOptions(
-      evaluationOptions.filter((option) => option !== deleteOption)
+      evaluationOptions.filter((option) => option !== deleteOptionId)
     );
   }
 
   function handleSelectInterviewer(interviewer) {
-    if (!participants.find((participant) => participant.id === interviewer.id)) {
+    if (
+      !participants.find((participant) => participant.id === interviewer.id)
+    ) {
       setParticipants(participants.concat(interviewer));
     }
   }
 
-  const handleSearchInputChange = debounce(async (searchValue, viewSearchList) => {
-    const result = await searchInterviewers({ email: searchValue, token });
-    const searchList = result.data;
+  const handleSearchInputChange = debounce(
+    async (searchValue, viewSearchList) => {
+      const result = await searchInterviewers({ email: searchValue, token });
+      const searchList = result.data;
 
-    viewSearchList(searchList);
-  }, 200);
+      viewSearchList(searchList);
+    },
+    200
+  );
+
+  function handleParticipantOptionDelete(deleteOptionId) {
+    console.log(deleteOptionId, participants);
+    setParticipants(
+      participants.filter((participant) => participant.id !== deleteOptionId)
+    );
+  }
 
   //todo. modalview padding, width, height 상수화
   // 최대 평가옵션, 면접관 상수화
@@ -80,6 +92,7 @@ export default function ProjectAddModalView() {
         {evaluationOptions.map((evaluationOption) => (
           <ProjectOptionItem
             key={evaluationOption + evaluationOptions.length}
+            id={evaluationOption}
             option={evaluationOption}
             onOptionDelete={handleEvaluationOptionDelete}
           />
@@ -87,12 +100,16 @@ export default function ProjectAddModalView() {
       </EditField>
       <EditField>
         <Label>참여 면접관</Label>
-        <SearchField onSearchInputChange={handleSearchInputChange} onSelectSearchResult={handleSelectInterviewer}/>
-        {participants.map((participant) => (
+        <SearchField
+          onSearchInputChange={handleSearchInputChange}
+          onSelectSearchResult={handleSelectInterviewer}
+        />
+        {participants.length < 4 && participants.map((participant) => (
           <ProjectOptionItem
             key={participant.id}
+            id={participant.id}
             option={participant.name}
-            onOptionDelete={handleEvaluationOptionDelete}
+            onOptionDelete={handleParticipantOptionDelete}
           />
         ))}
       </EditField>
