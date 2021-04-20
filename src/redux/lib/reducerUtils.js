@@ -34,12 +34,9 @@ const addIdInAllIds = (newByIdList, state) => {
 
 const removeIdInAllIds = (deleteId, state) => {
   const newAllIdsSet = new Set(state.allIds);
-  const deleteIdsSet = new Set([deleteId]);
 
-  for (const id of newAllIdsSet) {
-    if (deleteIdsSet.has(id)) {
-      newAllIdsSet.delete(id);
-    }
+  if (newAllIdsSet.has(deleteId)) {
+    newAllIdsSet.delete(deleteId);
   }
 
   return Array.from(newAllIdsSet);
