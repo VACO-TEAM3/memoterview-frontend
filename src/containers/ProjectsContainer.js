@@ -6,8 +6,7 @@ import ProjectAddModalView from "../components/ProjectAddModalView";
 import { MENUS, PROJECT_TYPES } from "../constants/projects";
 import useToken from "../hooks/useToken";
 import Projects from "../pages/Projects";
-import { addMyProject, deleteProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
-import { changeDateFormat } from "../utils/date";
+import { addMyProject, deleteProject, getJoinedProjects, getMyProjects, projectIdsToByIdObjs } from "../redux/reducers/projects";
 
 export default function ProjectsPageContainer() {
   const { token } = useToken();
@@ -15,9 +14,11 @@ export default function ProjectsPageContainer() {
   const { user: { userData: { id, username, email } } } = useSelector(({ user }) => ({ user }));
   const { projects: { byId, visibleProjects } } = useSelector(({ projects }) => ({ projects }));
 
-  const [projects, setProjects] = useState(PROJECT_TYPES.MY_PROJECTS);
-  const currentDisplayingField = visibleProjects[projects];
+  const [projectType, setProjectType] = useState(PROJECT_TYPES.MY_PROJECTS);
   const [modalFlag, setModalFlag] = useState(false);
+
+  //todo. active closed 구분하기
+  const projects = projectIdsToByIdObjs(visibleProjects[projectType], byId);
 
   const userInfo = {
     userName: username,
@@ -28,30 +29,16 @@ export default function ProjectsPageContainer() {
     dispatch(getMyProjects({ userId: id, token }));
   }, [dispatch, id, token]);
 
-  function setProjectFormat(projects) {
-    return projects.map(projectId => {
-      const { id, title, candidateNum, createAt } = byId[projectId];
-      const formattedDate = changeDateFormat(createAt, "yyyy-MM-dd");
-
-      return {
-        id,
-        title,
-        candidateNum,
-        createAt: formattedDate,
-      };
-    });
-  }
-
   function handleSideMenuChange(menu) {
     if (menu === MENUS.MY) {
-      return setProjects(PROJECT_TYPES.MY_PROJECTS);
+      return setProjectType(PROJECT_TYPES.MY_PROJECTS);
     } else {
       if (!visibleProjects[PROJECT_TYPES.JOINED_PROJECTS].length){
         dispatch(getJoinedProjects({ userId: id, token }));
-        return setProjects(PROJECT_TYPES.JOINED_PROJECTS);
+        return setProjectType(PROJECT_TYPES.JOINED_PROJECTS);
       }
 
-      setProjects(PROJECT_TYPES.JOINED_PROJECTS);
+      setProjectType(PROJECT_TYPES.JOINED_PROJECTS);
     }
   }
 
@@ -84,7 +71,7 @@ export default function ProjectsPageContainer() {
       )}
       <Projects
         userInfo={userInfo}
-        projects={setProjectFormat(currentDisplayingField)}
+        projects={projects}
         onSideMenuChange={handleSideMenuChange}
         onProjectAddBtnClick={handleProjectAddBtnClick}
         onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
