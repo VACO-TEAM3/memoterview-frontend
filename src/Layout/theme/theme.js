@@ -3,9 +3,10 @@ const theme = {
   SideBarBackground: "#EBEBEB",
   BabyPowder: "#f9f8f5",
   Aero: "#76b9e4",
-  littleBoyBlue: "#69A3DB",
-  spanishBlue: "#2c72b5",
-  orangeYelloCrayola: "#efcb68",
+  LittleBoyBlue: "#69A3DB",
+  SpanishBlue: "#2c72b5",
+  OrangeYelloCrayola: "#efcb68",
+  CongoPink: "#FF928B",
 };
 
 export default theme;

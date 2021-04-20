@@ -14,13 +14,13 @@ const ProjectAddButtonWrapper = styled.div`
   height: 40px;
   font-size: 1.2rem;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.spanishBlue};
+  background-color: ${({ theme }) => theme.SpanishBlue};
   color: white;
   cursor: pointer;
   transition: transform .3s linear;
 
   &:hover {
-    background-color: ${({ theme }) => theme.littleBoyBlue};
+    background-color: ${({ theme }) => theme.LittleBoyBlue};
     transform: rotate(90deg);
   }
 `;
