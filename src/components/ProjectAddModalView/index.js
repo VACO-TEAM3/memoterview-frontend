@@ -27,7 +27,8 @@ const Input = styled.input`
   font-size: 1rem;
 `;
 
-const BtnGroup = styled.div``;
+const BtnGroup = styled.div`
+`;
 
 export default function ProjectAddModalView() {
   const [title, setTitle] = useState("");
@@ -40,7 +41,9 @@ export default function ProjectAddModalView() {
   }
 
   function handleEvaluationOptionAdd(evaluationOption) {
-    setEvaluationOptions(evaluationOptions.concat(evaluationOption));
+    if (!evaluationOptions.find((option) => option === evaluationOption)){
+      setEvaluationOptions(evaluationOptions.concat(evaluationOption));
+    }
   }
 
   function handleEvaluationOptionDelete(deleteOptionId) {
@@ -68,7 +71,6 @@ export default function ProjectAddModalView() {
   );
 
   function handleParticipantOptionDelete(deleteOptionId) {
-    console.log(deleteOptionId, participants);
     setParticipants(
       participants.filter((participant) => participant.id !== deleteOptionId)
     );
@@ -89,9 +91,9 @@ export default function ProjectAddModalView() {
             onEvaluationOptionAdd={handleEvaluationOptionAdd}
           />
         )}
-        {evaluationOptions.map((evaluationOption) => (
+        {evaluationOptions.map((evaluationOption, index) => (
           <ProjectOptionItem
-            key={evaluationOption + evaluationOptions.length}
+            key={evaluationOption + index}
             id={evaluationOption}
             option={evaluationOption}
             onOptionDelete={handleEvaluationOptionDelete}
@@ -100,11 +102,13 @@ export default function ProjectAddModalView() {
       </EditField>
       <EditField>
         <Label>참여 면접관</Label>
-        <SearchField
-          onSearchInputChange={handleSearchInputChange}
-          onSelectSearchResult={handleSelectInterviewer}
-        />
-        {participants.length < 4 && participants.map((participant) => (
+        {participants.length < 4 && (
+          <SearchField
+            onSearchInputChange={handleSearchInputChange}
+            onSelectSearchResult={handleSelectInterviewer}
+          />
+        )}
+        {participants.map((participant) => (
           <ProjectOptionItem
             key={participant.id}
             id={participant.id}

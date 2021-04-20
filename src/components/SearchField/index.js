@@ -20,72 +20,83 @@ const Input = styled.input`
   font-size: 1rem;
 `;
 
+const initialState = {
+  inputValue: "",
+  searchViewList: [],
+  searchItemFocusIndex: -1,
+};
+
 export default function SearchField({ onSearchInputChange, onSelectSearchResult }) {
-  // todo. state 하나로 합치기
-  const [inputValue, setInputValue] = useState("");
-  const [searchViewList, setSearchViewList] = useState([]);
-  const [searchItemFocusIndex, setSearchItemFocusIndex] = useState(-1);
+  const [state, setState] = useState(initialState);
 
   function handleInputChange(event) {
-    const value = event.target.value.trim();
+    const inputValue = event.target.value.trim();
 
-    if (!value) {
-      setSearchViewList([]);
-      setInputValue("");
-      return;
+    if (!inputValue) {
+      return setState(initialState);
     }
 
-    setInputValue(value);
-    setSearchItemFocusIndex(0);
-    onSearchInputChange(value, viewSearchList);
+    setState({
+      ...state,
+      inputValue,
+      searchItemFocusIndex: 0,
+    });
+
+    onSearchInputChange(inputValue, viewSearchList);
   }
 
   function handleKeyDown(event) {
     const key = event.key;
-    const maximumIndex = searchViewList.length - 1;
+    const currentFocusIndex = state.searchItemFocusIndex;
+    const maximumIndex = state.searchViewList.length - 1;
 
     switch (key) {
       case "ArrowUp":
         event.preventDefault();
         const prevFocusIndex =
-          searchItemFocusIndex > -1 ? searchItemFocusIndex - 1 : -1;
+        currentFocusIndex > -1 ? currentFocusIndex - 1 : -1;
 
-        setSearchItemFocusIndex(prevFocusIndex);
-        break;
+        return setState({
+          ...state,
+          searchItemFocusIndex: prevFocusIndex,
+        });
 
       case "ArrowDown":
         event.preventDefault();
         const nextFocusIndex =
-          searchItemFocusIndex < maximumIndex
-            ? searchItemFocusIndex + 1
+          currentFocusIndex < maximumIndex
+            ? currentFocusIndex + 1
             : maximumIndex;
 
-        setSearchItemFocusIndex(nextFocusIndex);
-        break;
+        return setState({
+          ...state,
+          searchItemFocusIndex: nextFocusIndex,
+        });
 
       case "Enter":
-        setInputValue("");
-        setSearchItemFocusIndex(-1);
-        setSearchViewList([]);
-        onSelectSearchResult(searchViewList[searchItemFocusIndex]);
+        setState(initialState);
+        onSelectSearchResult(state.searchViewList[currentFocusIndex]);
     }
   }
 
-  function viewSearchList(searchList) {
-    setSearchViewList(searchList);
+  function viewSearchList(searchViewList) {
+    setState({
+      ...state,
+      searchViewList,
+    });
   }
 
   return (
     <SearchBarWrapper>
       <Input
-        value={inputValue}
+        value={state.inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
       <FontAwesomeIcon icon={faSearch} />
       <SearchList
-        searchList={searchViewList}
-        focusIndex={searchItemFocusIndex}
+        searchList={state.searchViewList}
+        focusIndex={state.searchItemFocusIndex}
       />
     </SearchBarWrapper>
   );
