@@ -27,7 +27,7 @@ const ModalWrapper = styled.header`
 `;
 
 // children안에 들어갈 컴포넌트가 color, width, height 지정하면 됨
-export default function Modal({ children, onClick }) {
+export default function Modal({ children, onBackgroundClick }) {
   useEffect(() => {
     document.body.classList.add("hidden");
 
@@ -38,7 +38,7 @@ export default function Modal({ children, onClick }) {
 
   return (
     <ModalWrapper>
-      <div className="modal-background" onClick={onClick} />
+      <div className="modal-background" onClick={onBackgroundClick} />
       <div className="content">{children}</div>
     </ModalWrapper>
   );

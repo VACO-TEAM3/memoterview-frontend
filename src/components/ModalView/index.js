@@ -8,4 +8,5 @@ export default styled.div`
   box-sizing: border-box;
   background-color: white;
   border-radius: 5px;
+  overflow-y: scroll;
 `;
