@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { searchInterviewers } from "../../api";
+import useToken from "../../hooks/useToken";
+import InterviewerSearchField from "../InterviewerSearchField";
 import ModalView from "../ModalView";
 import ProjectEvaluationOptionAddBar from "../ProjectEvaluationOptionAddBar";
 import ProjectOptionItem from "../ProjectOptionItem";
@@ -29,6 +32,8 @@ export default function ProjectAddModalView() {
   const [title, setTitle] = useState("");
   const [evaluationOptions, setEvaluationOptions] = useState([]);
   const [participants, setParticipants] = useState([]);
+  const { token } = useToken();
+
 
   function handleTitleChange(e) {
     setTitle(e.target.value);
@@ -42,6 +47,13 @@ export default function ProjectAddModalView() {
     setEvaluationOptions(
       evaluationOptions.filter((option) => option !== deleteOption)
     );
+  }
+
+  async function handleSearchInputChange(searchValue, viewSearchList) {
+    const result = await searchInterviewers({ email: searchValue, token });
+    const searchList = result.data;
+
+    viewSearchList(searchList);
   }
 
   //todo. modalview padding, width, height 상수화
@@ -69,7 +81,7 @@ export default function ProjectAddModalView() {
       </EditField>
       <EditField>
         <Label>참여 면접관</Label>
-        <Input />
+        <InterviewerSearchField onSearchInputChange={handleSearchInputChange}/>
       </EditField>
       <BtnGroup></BtnGroup>
     </ModalView>
