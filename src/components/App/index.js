@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
+import TotalResultContainer from "../../containers/TotalResultContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Projects from "../../pages/Projects";
@@ -24,7 +25,7 @@ export default function App() {
           <InterviewPageContainer />
         </AuthRoute>
         <AuthRoute path="/result/:id">
-          <Dummy />
+          <TotalResultContainer />
         </AuthRoute>
         <AuthRoute path="/interview">
           <Dummy />
