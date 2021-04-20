@@ -15,7 +15,11 @@ export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
 
 const SET_USER = BASE_PATH + "SET_USER";
 
-export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
+export const loginUser = (user) => ({
+  type: GET_TOKEN,
+  payload: user,
+  meta: user,
+});
 
 const getTokenSaga = createAuthorizePromiseSaga(GET_TOKEN, login);
 
@@ -23,9 +27,7 @@ export function* userSaga() {
   yield takeLatest(GET_TOKEN, getTokenSaga);
 }
 
-function setUserSaga() {
-
-}
+function setUserSaga() {}
 
 const userInitialState = {
   email: "",
@@ -44,50 +46,60 @@ const initialState = {
 
 export default function user(state = initialState, action) {
   switch (action.type) {
-    case CLEAR_USER:
+    case CLEAR_USER: {
       return initialState;
-    case GET_TOKEN:
+    }
+    case GET_TOKEN: {
       return {
         loading: true,
         userData: null,
         token: "",
         error: null,
       };
-    case GET_TOKEN_SUCCESS:
+    }
+    case GET_TOKEN_SUCCESS: {
       return {
         loading: false,
         userData: { ...action.payload.user },
         token: action.payload.token,
         error: null,
       };
-    case GET_TOKEN_ERROR:
+    }
+    case GET_TOKEN_ERROR: {
       return {
         loading: false,
         userData: null,
         token: "",
         error: action.payload,
       };
-    case ADD_MY_PROJECT_SUCCESS:
-      const ids = action.payload.map(item => item.id);
+    }
+    case ADD_MY_PROJECT_SUCCESS: {
+      const id = action.payload.id;
 
       return {
         ...state,
         userData: {
-          ...state.user,
-          myProjects: state.user.myProjects.concat(ids),
+          ...state.userData,
+          myProjects: state.userData.myProjects.concat(id),
         },
       };
-    case DELETE_PROJECT_SUCCESS:
+    }
+    case DELETE_PROJECT_SUCCESS: {
       const id = action.payload;
 
       return {
         ...state,
         userData: {
           ...state.userData,
-          myProjects: state.userData.myProjects.filter((projectId) => projectId !== id),
-          joinedProjects: state.userData.joinedProjects.filter((projectId) => projectId !== id),
+          myProjects: state.userData.myProjects.filter(
+            (projectId) => projectId !== id
+          ),
+          joinedProjects: state.userData.joinedProjects.filter(
+            (projectId) => projectId !== id
+          ),
         },
       };
+    }
     default:
       return state;
   }

@@ -101,7 +101,7 @@ export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick
   function handleOkBtnClick() {
     const newProject = {
       title,
-      filter: evaluationOptions,
+      filters: evaluationOptions,
       participants: participants.map((participant) => participant.id),
     };
 

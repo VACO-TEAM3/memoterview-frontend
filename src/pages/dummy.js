@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { addMyProjects, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
+import { addMyProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 import { loginUser } from "../redux/reducers/user";
 
 export default function Dummy() {
@@ -23,8 +23,8 @@ export default function Dummy() {
     dispatch(getJoinedProjects("userId"));
   }
 
-  function handleAddMyProjectsClick() {
-    dispatch(addMyProjects({
+  function handleAddMyProjectClick() {
+    dispatch(addMyProject({
       userId: "asdfasdf",
       newProject: {
         title: "test",
@@ -40,7 +40,7 @@ export default function Dummy() {
       <button onClick={handleLoginClick}>login</button>
       <button onClick={handleGetMyProjectsClick}>get my projects</button>
       <button onClick={handleGetJoinedProjectsClick}>get joined project</button>
-      <button onClick={handleAddMyProjectsClick}>add my project</button>
+      <button onClick={handleAddMyProjectClick}>add my project</button>
     </div>
   );
 }
