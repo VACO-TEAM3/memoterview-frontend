@@ -25,9 +25,9 @@ const DeleteButton = styled.span`
   }
 `;
 
-export default function ProjectOptionItem({ option, onOptionDelete }) {
+export default function ProjectOptionItem({ id, option, onOptionDelete }) {
   function handleOptionDeleteBtnClick() {
-    onOptionDelete(option);
+    onOptionDelete(id);
   }
 
   return (
