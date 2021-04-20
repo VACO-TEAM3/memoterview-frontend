@@ -49,7 +49,6 @@ export default function ProjectsPageContainer() {
     } else {
       if (!visibleProjects[PROJECT_TYPES.JOINED_PROJECTS].length) {
         dispatch(getJoinedProjects({ userId: id, token }));
-        return setProjectType(PROJECT_TYPES.JOINED_PROJECTS);
       }
 
       setProjectType(PROJECT_TYPES.JOINED_PROJECTS);
