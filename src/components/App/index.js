@@ -5,6 +5,7 @@ import IntervieweePageContainer from "../../containers/IntervieweePageContainer"
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
+import TotalResultContainer from "../../containers/TotalResultContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Projects from "../../pages/Projects";
@@ -28,7 +29,7 @@ export default function App() {
           <IntervieweePageContainer />
         </AuthRoute>
         <AuthRoute path="/result/:id">
-          <Dummy />
+          <TotalResultContainer />
         </AuthRoute>
         <AuthRoute path="/interview/:projectId/:intervieweeId">
           <Dummy />
