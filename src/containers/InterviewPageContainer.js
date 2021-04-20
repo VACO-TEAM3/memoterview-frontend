@@ -32,10 +32,6 @@ export default function InterviewPageContainer() {
       setIsStreaming(true);
     });
 
-    socket.on("successJoin", (users) => {
-      setMembers(users);
-    });
-
     return () => {
       socket.emit("leaveRoom");
     };
@@ -45,42 +41,45 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-    
-    members.forEach((memberID) => {
-      const peer = new Peer({
-        initiator: true,
-        trickle: false,
-        stream: mediaStreaming.getStream(),
-      });
 
-      peer.on("signal", (signal) => {
-        console.log("sendingSignal", socket.id);
-        socket.emit("sendingSignal", { calleeID: memberID, callerID: socket.id, signal });
+    socket.on("successJoin", (members) => {
+      console.log(members);
+      members.forEach((memberID) => {
+        const peer = new Peer({
+          initiator: true,
+          trickle: false,
+          stream: mediaStreaming.getStream(),
+        });
+  
+        peer.on("signal", (signal) => {
+          socket.emit("sendingSignal", { calleeID: memberID, callerID: socket.id, signal });
+        });
+  
+        peersRef.current.push({
+          peerID: memberID,
+          peer,
+        });
+  
+        peerList.push(peer);
       });
-
-      peersRef.current.push({
-        peerID: memberID,
-        peer,
-      });
-
-      peerList.push(peer);
+  
+      setPeers(peerList);
     });
-
-    setPeers(peerList);
-
+    
     socket.on("sendingForUsers", ({ signal, callerID }) => {
-      console.log("sendingForServer", callerID);
+      console.log(signal);
       const peer = new Peer({
         initiator: false,
         trickle: false,
         stream: mediaStreaming.getStream(),
       });
 
-      peer.signal(signal);
-
       peer.on("signal", (signal) => {
+        console.log("signal", callerID);
         socket.emit("returningSignal", { signal, callerID });
       });
+
+      peer.signal(signal);
 
       peersRef.current.push({
         peerID: callerID,
