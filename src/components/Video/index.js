@@ -384,7 +384,7 @@ export default function Video({ peer }) {
     if (!peer) {
       return;
     }
-
+    console.log(peer.on);
     peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
