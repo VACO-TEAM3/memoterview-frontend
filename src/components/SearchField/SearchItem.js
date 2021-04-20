@@ -8,12 +8,16 @@ const SearchItemWrapper = styled.li`
   border-radius: 2px;
   font-size: .9rem;
   background-color: ${(props) => props.focus ? props.theme.Aero : "white"};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.Aero};
-  }
 `;
 
-export default function SearchItem({ text, focus }) {
-  return <SearchItemWrapper focus={focus}>{text}</SearchItemWrapper>;
+export default function SearchItem({ text, focus, index, onClick, onMouseOver }) {
+  function handleClick() {
+    onClick(index);
+  }
+
+  function handleMouseOver() {
+    onMouseOver(index);
+  }
+
+  return <SearchItemWrapper focus={focus} onClick={handleClick} onMouseOver={handleMouseOver}>{text}</SearchItemWrapper>;
 }

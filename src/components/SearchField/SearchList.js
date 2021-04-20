@@ -12,7 +12,7 @@ const SearchListWrapper = styled.ul`
   list-style-type: none;
 `;
 
-export default function SearchList({ searchList, focusIndex }) {
+export default function SearchList({ searchList, focusIndex, onSearchItemClick , onSearchItemMouseOver }) {
   return (
     focusIndex !== -1 && (
       <SearchListWrapper>
@@ -20,7 +20,10 @@ export default function SearchList({ searchList, focusIndex }) {
           <SearchItem
             key={searchItem.id}
             text={searchItem.name}
+            index={index}
             focus={index === focusIndex}
+            onClick={onSearchItemClick}
+            onMouseOver={onSearchItemMouseOver}
           />
         ))}
       </SearchListWrapper>
