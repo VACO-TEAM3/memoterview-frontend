@@ -4,9 +4,14 @@ const initialState = {
   inputValue: "",
   searchViewList: [],
   searchItemFocusIndex: -1,
+  isListVisible: false,
+  isSearchItemMouseOver: false,
 };
 
-export default function useSearchField({ onSearchInputChange, onSelectSearchResult }) {
+export default function useSearchField({
+  onSearchInputChange,
+  onSelectSearchResult,
+}) {
   const [searchState, setSearchState] = useState(initialState);
 
   function handleInputChange(event) {
@@ -19,13 +24,14 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
     setSearchState({
       ...searchState,
       inputValue,
-      searchItemFocusIndex: 0,
+      searchItemFocusIndex: -1,
+      isListVisible: true,
     });
 
     onSearchInputChange(inputValue, viewSearchList);
   }
 
-  function handleKeyDown(event) {
+  function handleInputKeyDown(event) {
     const key = event.key;
     const currentFocusIndex = searchState.searchItemFocusIndex;
     const maximumIndex = searchState.searchViewList.length - 1;
@@ -34,11 +40,12 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
       case "ArrowUp":
         event.preventDefault();
         const prevFocusIndex =
-        currentFocusIndex > -1 ? currentFocusIndex - 1 : -1;
+          currentFocusIndex > -1 ? currentFocusIndex - 1 : -1;
 
         return setSearchState({
           ...searchState,
           searchItemFocusIndex: prevFocusIndex,
+          isListVisible: prevFocusIndex > -1,
         });
 
       case "ArrowDown":
@@ -51,6 +58,7 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
         return setSearchState({
           ...searchState,
           searchItemFocusIndex: nextFocusIndex,
+          isListVisible: true,
         });
 
       case "Enter":
@@ -58,14 +66,40 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
     }
   }
 
+  function handleBlur() {
+    if (searchState.isSearchItemMouseOver) {
+      return selectSearchResult(searchState.searchItemFocusIndex);
+    }
+
+    setSearchState({
+      ...searchState,
+      isListVisible: false,
+    });
+  }
+
+  function handleFocus() {
+    setSearchState({
+      ...searchState,
+      isListVisible: true,
+    });
+  }
+
   function handleSearchItemClick(clickedIndex) {
     selectSearchResult(clickedIndex);
   }
 
   function handleSearchItemMouseOver(index) {
-    return setSearchState({
+    setSearchState({
       ...searchState,
       searchItemFocusIndex: index,
+      isSearchItemMouseOver: true,
+    });
+  }
+
+  function handleSearchItemMouseLeave() {
+    return setSearchState({
+      ...searchState,
+      isSearchItemMouseOver: false,
     });
   }
 
@@ -81,5 +115,14 @@ export default function useSearchField({ onSearchInputChange, onSelectSearchResu
     onSelectSearchResult(searchState.searchViewList[index]);
   }
 
-  return { searchState, handleInputChange, handleKeyDown, handleSearchItemClick, handleSearchItemMouseOver };
+  return {
+    searchState,
+    handleFocus,
+    handleBlur,
+    handleInputChange,
+    handleInputKeyDown,
+    handleSearchItemClick,
+    handleSearchItemMouseOver,
+    handleSearchItemMouseLeave,
+  };
 }
