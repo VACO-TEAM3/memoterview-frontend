@@ -12,9 +12,16 @@ const SearchListWrapper = styled.ul`
   list-style-type: none;
 `;
 
-export default function SearchList({ searchList, focusIndex, onSearchItemClick , onSearchItemMouseOver }) {
+export default function SearchList({
+  isVisible,
+  searchList,
+  focusIndex,
+  onSearchItemClick,
+  onSearchItemMouseOver,
+  onSearchItemMouseLeave,
+}) {
   return (
-    focusIndex !== -1 && (
+    isVisible && (
       <SearchListWrapper>
         {searchList.map((searchItem, index) => (
           <SearchItem
@@ -24,6 +31,7 @@ export default function SearchList({ searchList, focusIndex, onSearchItemClick ,
             focus={index === focusIndex}
             onClick={onSearchItemClick}
             onMouseOver={onSearchItemMouseOver}
+            onMouseLeave={onSearchItemMouseLeave}
           />
         ))}
       </SearchListWrapper>

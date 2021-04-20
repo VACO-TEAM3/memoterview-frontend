@@ -21,31 +21,42 @@ const Input = styled.input`
   font-size: 1rem;
 `;
 
-export default function SearchField({ onSearchInputChange, onSelectSearchResult }) {
+export default function SearchField({
+  onSearchInputChange,
+  onSelectSearchResult,
+}) {
   const {
     searchState,
     handleInputChange,
-    handleKeyDown,
+    handleInputKeyDown,
+    handleBlur,
+    handleFocus,
     handleSearchItemClick,
     handleSearchItemMouseOver,
+    handleSearchItemMouseLeave,
   } = useSearchField({ onSearchInputChange, onSelectSearchResult });
 
   return (
-    <SearchBarWrapper>
+    <SearchBarWrapper
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+    >
       <Input
         value={searchState.inputValue}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleInputKeyDown}
       />
       <FontAwesomeIcon icon={faSearch} />
-      {searchState.inputValue && (
+      {
         <SearchList
+          isVisible={searchState.isListVisible}
           searchList={searchState.searchViewList}
           focusIndex={searchState.searchItemFocusIndex}
           onSearchItemClick={handleSearchItemClick}
           onSearchItemMouseOver={handleSearchItemMouseOver}
+          onSearchItemMouseLeave={handleSearchItemMouseLeave}
         />
-      )}
+      }
     </SearchBarWrapper>
   );
 }
