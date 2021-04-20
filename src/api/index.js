@@ -74,6 +74,22 @@ export async function deleteProjectAPI({ projectId, token }) {
   return data._id;
 };
 
+export async function addMyProjectAPI({ userId, newProject, token }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects`, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({ ...newProject, creator: userId }),
+  });
+
+  const { data } = await response.json();
+
+  return data;
+}
+
 export async function searchInterviewers({ email, token }) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewers/search?email=${email}`, {
     method: "GET",
