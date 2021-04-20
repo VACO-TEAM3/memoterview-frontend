@@ -13,7 +13,7 @@ const SplitLayout = styled.div`
 `;
 
 export default function Projects({
-  userInfo, projects, handleStatusMenuChange, handleSideMenuChange, handleProjectDeleteBtnClick,
+  userInfo, projects, handleSideMenuChange, handleProjectDeleteBtnClick,
 }) {
   const [modalFlag, setModalFlag] = useState(false);
 
@@ -36,6 +36,10 @@ export default function Projects({
 
   function openAddProjectModal() {
     setModalFlag(true);
+  }
+
+  function handleStatusMenuChange(statusMenuType) {
+    console.log(statusMenuType, `clicked status menu ${statusMenuType}`);
   }
 
   return (

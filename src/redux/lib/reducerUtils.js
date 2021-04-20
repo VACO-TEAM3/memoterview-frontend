@@ -1,3 +1,5 @@
+import { ACTION_TYPES_INCLUDED } from "../../constants/projects";
+
 export const makeRelatedActionTypes = type => {
   return [`${type}_SUCCESS`, `${type}_ERROR`];
 };
@@ -30,7 +32,7 @@ const addIdInAllIds = (newByIdList, state) => {
   return Array.from(removedDupulicateIds);
 };
 
-const removeIdInAllIds = (deleteId, state) =>{
+const removeIdInAllIds = (deleteId, state) => {
   const newAllIdsSet = new Set(state.allIds);
   const deleteIdsSet = new Set([deleteId]);
 
@@ -79,7 +81,7 @@ export const reducerUtils = {
 };
 
 export const getProjectsByProjectType = (state, action, type) => {
-  if (action.type.includes("SUCCESS")) {
+  if (action.type.includes(ACTION_TYPES_INCLUDED.SUCCESS)) {
     const myProjectIds = action.payload.map(payload => payload.id);
     return { ...state, visibleProjects: { ...state.visibleProjects, [type]: myProjectIds } };
   }
@@ -88,7 +90,7 @@ export const getProjectsByProjectType = (state, action, type) => {
 };
 
 export const deleteProjectByProjectId = (state, action) => {
-  if (action.type.includes("SUCCESS")) {
+  if (action.type.includes(ACTION_TYPES_INCLUDED.SUCCESS)) {
     const projectIds = action.payload;
 
     const myProjects = state.visibleProjects.myProjects.filter(
