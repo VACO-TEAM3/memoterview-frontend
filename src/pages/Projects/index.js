@@ -16,30 +16,21 @@ export default function Projects({
   onSideMenuChange,
   onProjectDeleteBtnClick,
   onProjectAddBtnClick,
+  onLogoutBtnClick,
+  onProjectItemClick,
+  onStatusMenuChange,
 }) {
-  function handleLogoutBtnClick() {
-    console.log("click logout");
-  }
-
-  function handleProjectItemClick(projectId) {
-    console.log("click project item", projectId);
-  }
-
-  function handleStatusMenuChange(statusMenuType) {
-    console.log(statusMenuType, `clicked status menu ${statusMenuType}`);
-  }
-
   return (
     <>
       <SplitLayout>
         <ProjectsSideNavBar
           userInfo={userInfo}
           onSideMenuChange={onSideMenuChange}
-          onLogoutBtnClick={handleLogoutBtnClick}
+          onLogoutBtnClick={onLogoutBtnClick}
         />
         <ProjectsContent
-          onStatusMenuChange={handleStatusMenuChange}
-          onProjectItemClick={handleProjectItemClick}
+          onStatusMenuChange={onStatusMenuChange}
+          onProjectItemClick={onProjectItemClick}
           onProjectAddBtnClick={onProjectAddBtnClick}
           onProjectDeleteBtnClick={onProjectDeleteBtnClick}
           projects={projects}
