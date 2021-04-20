@@ -1,3 +1,4 @@
+import debounce from "lodash.debounce";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -48,19 +49,18 @@ export default function ProjectAddModalView() {
     );
   }
 
-  async function handleSearchInputChange(searchValue, viewSearchList) {
-    // todo. debounce
-    const result = await searchInterviewers({ email: searchValue, token });
-    const searchList = result.data;
-
-    viewSearchList(searchList);
-  }
-
   function handleSelectInterviewer(interviewer) {
     if (!participants.find((participant) => participant.id === interviewer.id)) {
       setParticipants(participants.concat(interviewer));
     }
   }
+
+  const handleSearchInputChange = debounce(async (searchValue, viewSearchList) => {
+    const result = await searchInterviewers({ email: searchValue, token });
+    const searchList = result.data;
+
+    viewSearchList(searchList);
+  }, 200);
 
   //todo. modalview padding, width, height 상수화
   // 최대 평가옵션, 면접관 상수화
