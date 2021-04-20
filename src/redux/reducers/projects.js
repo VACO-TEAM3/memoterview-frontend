@@ -1,6 +1,7 @@
 import { takeLatest, takeLeading } from "redux-saga/effects";
 
-import { addProjectAPI, getJoinedProjectsAPI, getMyProjectsAPI } from "../lib/mockApi";
+import { getMyProjectsAPI } from "../../api";
+import { addProjectAPI, getJoinedProjectsAPI } from "../lib/mockApi";
 import { handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import {
   createPromiseSaga,
@@ -18,7 +19,7 @@ const ADD_MY_PROJECT = "ADD_MY_PROJECTS";
 export const ADD_MY_PROJECT_SUCCESS = "ADD_MY_PROJECTS_SUCCESS";
 const ADD_MY_PROJECT_ERROR = "ADD_MY_PROJECTS_ERROR";
 
-export const getMyProjects = userId => ({ type: GET_MY_PROJECTS, payload: userId, meta: userId });
+export const getMyProjects = ({ userId, token }) => ({ type: GET_MY_PROJECTS, payload: { userId, token }, meta: userId });
 export const getJoinedProjects = userId => ({ type: GET_JOINED_PROJECTS, payload: userId, meta: userId });
 export const addMyProjects = ({ userId, newProject }) => ({ type: ADD_MY_PROJECT, payload: { userId, newProject }, meta: { userId, newProject } });
 

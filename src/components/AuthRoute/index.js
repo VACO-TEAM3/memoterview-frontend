@@ -8,8 +8,8 @@ export default function AuthRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-    > 
+    >
       {token ? children : <Redirect to={{ pathname: "/login", state: { from: rest.path } }} />}
     </Route>
   );
-};  
+};

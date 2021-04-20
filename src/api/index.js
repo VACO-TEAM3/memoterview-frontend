@@ -1,5 +1,5 @@
 export async function login({ email, imageUrl, name }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/login`, { 
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/login`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -21,4 +21,19 @@ export async function getSpeechToTextToken() {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/speech-to-text/credentials`);
 
   return await response.json();
+}
+
+export async function getMyProjectsAPI({ userId, token }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewer/${userId}/my_projects`, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+  });
+
+  const { data } = await response.json();
+
+  return data;
 }

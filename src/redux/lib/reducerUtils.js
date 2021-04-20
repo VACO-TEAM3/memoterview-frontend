@@ -97,7 +97,7 @@ export const handleAsyncUpdateStateActionsWithNormalize = (type, keepData = fals
 
 export const handleAsyncRemoveStateActionsWithNormalize = type => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
-  
+
   return (state, action) => {
     switch (action.type) {
       case type:

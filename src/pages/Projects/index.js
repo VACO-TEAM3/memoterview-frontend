@@ -33,7 +33,7 @@ const projectMockData = [
   }
 ];
 
-export default function Projects() {
+export default function Projects({ projects }) {
   const [modalFlag, setModalFlag] = useState(false);
 
   const userInfoSample = {
@@ -92,7 +92,7 @@ export default function Projects() {
           onProjectItemClick={handleProjectItemClick}
           onProjectAddBtnClick={handleProjectAddBtnClick}
           onProjectDeleteBtnClick={handleProjectDeleteBtnClick}
-          projects={projectMockData}
+          projects={projects}
         />
       </SplitLayout>
     </>
