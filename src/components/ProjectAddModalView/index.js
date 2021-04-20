@@ -28,9 +28,31 @@ const Input = styled.input`
 `;
 
 const BtnGroup = styled.div`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
 `;
 
-export default function ProjectAddModalView() {
+const Button = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 5px;
+  width: 80px;
+  height: 40px;
+  background-color: ${(props) => props.buttonType === "ok" ? props.theme.LittleBoyBlue : props.theme.CongoPink};
+  box-sizing: border-box;
+  transition: opacity .3s linear;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick }) {
   const [title, setTitle] = useState("");
   const [evaluationOptions, setEvaluationOptions] = useState([]);
   const [participants, setParticipants] = useState([]);
@@ -76,10 +98,21 @@ export default function ProjectAddModalView() {
     );
   }
 
-  //todo. modalview padding, width, height 상수화
+  function handleOkBtnClick() {
+    const newProject = {
+      title,
+      filter: evaluationOptions,
+      participants: participants.map((participant) => participant.id),
+    };
+
+    onCreateBtnClick(newProject);
+  }
+
+  // todo. modalview padding, width, height 상수화
   // 최대 평가옵션, 면접관 상수화
+  // 컴포넌트 나누기
   return (
-    <ModalView padding="20px" width="700px" height="600px">
+    <ModalView padding="20px" width="700px" height="650px">
       <EditField>
         <Label>인터뷰 제목</Label>
         <Input value={title} onChange={handleTitleChange} />
@@ -117,7 +150,10 @@ export default function ProjectAddModalView() {
           />
         ))}
       </EditField>
-      <BtnGroup></BtnGroup>
+      <BtnGroup>
+        <Button buttonType="cancel" onClick={onCancelBtnClick}>취소</Button>
+        <Button buttonType="ok" onClick={handleOkBtnClick}>생성</Button>
+      </BtnGroup>
     </ModalView>
   );
 }

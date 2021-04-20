@@ -42,11 +42,18 @@ export default function Projects({
     console.log(statusMenuType, `clicked status menu ${statusMenuType}`);
   }
 
+  function handleProjectCreateBtnClick(newProject) {
+    console.log(newProject);
+  }
+
   return (
     <>
       {modalFlag && (
         <Modal onClick={closeAddProjectModal}>
-          <ProjectAddModalView />
+          <ProjectAddModalView
+            onCancelBtnClick={closeAddProjectModal}
+            onCreateBtnClick={handleProjectCreateBtnClick}
+          />
         </Modal>
       )}
       <SplitLayout>

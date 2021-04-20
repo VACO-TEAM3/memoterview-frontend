@@ -62,7 +62,9 @@ export default function useSearchField({
         });
 
       case "Enter":
-        selectSearchResult(currentFocusIndex);
+        if (searchState.inputValue) {
+          selectSearchResult(currentFocusIndex);
+        }
     }
   }
 
