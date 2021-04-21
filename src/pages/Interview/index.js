@@ -4,7 +4,7 @@ export default function Interview({ peers, videoRef, isInterviewer }) {
   return (
     <>
       {peers?.map((peer) => (
-        <video srcObject={peer} playsInline autoPlay></video>
+        <Video srcObject={peer} playsInline autoPlay></Video>
       ))}
     </>
   );
