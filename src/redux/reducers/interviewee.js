@@ -9,11 +9,18 @@ import { createPromiseSaga } from "../lib/sagaUtils";
 
 const BASE_PATH = "INTERVIWEE/";
 
+// interviewee들 가져오기.. project로 populate
+export const GET_INTERVIEWEES = BASE_PATH + "GET_INTERVIEWEES";
+export const GET_INTERVIEWEES_SUCCESS = BASE_PATH + "GET_INTERVIEWEES_SUCCESS";
+export const GET_INTERVIEWEES_ERROR = BASE_PATH + "GET_INTERVIEWEES_ERROR";
+
+// interviewee 추가 -> 
 export const ADD_NEW_INTERVIEWEE = BASE_PATH + "ADD_NEW_INTERVIEWEE";
 export const ADD_NEW_INTERVIEWEE_SUCCESS = BASE_PATH + "ADD_NEW_INTERVIEWEE_SUCCESS";
 <<<<<<< HEAD
 export const ADD_NEW_INTERVIEWEE_ERROR = BASE_PATH + "ADD_NEW_INTERVIEWEE_ERROR";
 
+// interview룸 오픈 -> project isopened로 바뀌어야..
 export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
 export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
 export const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
@@ -25,11 +32,34 @@ export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCC
 export const OPEM_INTERVIEW_ROOM_FAILURE = BASE_PATH + "OPEN_INTERVIEW_ROOM_FAILURE";
 >>>>>>> 5eeecc3... [ADD] interviewee redux init
 
-export const openInterviewRoom = (interviewee) => ({ type: OPEN_INTERVIEW_ROOM, payload: interviewee, meta: interviewee });
-export const addNewInterviewee = (interviewee) => ({ type: ADD_NEW_INTERVIEWEE, payload: interviewee, meta: interviewee });
+// interviewee의 이력서 가져오기
+export const GET_RESUME = BASE_PATH + "GET_RESUME";
+export const GET_RESUME_SUCCESS = BASE_PATH + "GET_RESUME_SUCCESS";
+export const GET_RESUME_ERROR = BASE_PATH + "GET_RESUME_ERROR";
 
+// interview 끝내기 -> interviewee 정보 저장 + interviewed true
+export const FINISH_INTERVIEW = BASE_PATH + "FINISH_INTERVIEW";
+export const FINISH_INTERVIEW_SUCCESS = BASE_PATH + "FINISH_INTERVIEW_SUCCESS";
+export const FINISH_INTERVIEW_ERROR = BASE_PATH + "FINISH_INTERVIEW_ERROR";
+
+// interview룸 닫기 -> project id를 통해 isopend false
+export const CLOSE_INTERVIEW_ROOM = BASE_PATH + "CLOSE_INTERVIEW_ROOM";
+export const CLOSE_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "CLOSE_INTERVIEW_ROOM_SUCCESS";
+export const CLOSE_INTERVIEW_ROOM_ERROR = BASE_PATH + "CLOSE_INTERVIEW_ROOM_ERROR";
+
+export const getInterviewees = ({ projectId, token }) => ({ type: GET_INTERVIEWEES, payload: { projectId, token }, meta: projectId });
+export const addNewInterviewee = (interviewee) => ({ type: ADD_NEW_INTERVIEWEE, payload: interviewee, meta: interviewee });
+export const openInterviewRoom = (projectId) => ({ type: OPEN_INTERVIEW_ROOM, payload: projectId, meta: projectId });
+export const getResume = (intervieweeId) => ({ type: GET_RESUME, payload: intervieweeId, meta: intervieweeId });
+export const finishInterview = (interviewee) => ({ type: FINISH_INTERVIEW, payload: interviewee, meta: interviewee });
+export const closeInterviewRoom = (projectId) => ({ type: GET_RESUME, payload: projectId, meta: projectId });
+
+export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES);
 export const openInterviewRoomSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
 export const addNewIntervieweeSaga = createPromiseSaga(OPEN_INTERVIEW_ROOM);
+export const getResumeSaga = createPromiseSaga(GET_RESUME);
+export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW);
+export const closeInterviewRoomSaga = createPromiseSaga(GET_RESUME);
 
 export function* intervieweeSaga() {
   yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
