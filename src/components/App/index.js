@@ -32,6 +32,9 @@ function App() {
         <AuthRoute path="/search">
           <Dummy />
         </AuthRoute>
+        <Route path="/voiceTest">
+          <VoiceToTextTestPage />
+        </Route>
         <Redirect to="/" />
       </Switch>
     </ThemeProvider>
