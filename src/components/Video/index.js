@@ -364,8 +364,14 @@ export default function Video() {
 =======
 export default function Video({ peers, videoRef }) {
   return (
+<<<<<<< HEAD
     <div className="peers" ref={videoRef}>
 >>>>>>> [REFACTOR] separate rtc directory
     </div>
+=======
+    <video playsInline autoPlay ref={videoRef}>
+      <div>hi friend</div>
+    </video>
+>>>>>>> [FIX] multiple user error
   );
 }
