@@ -10,8 +10,9 @@ import Timer from "../../components/Timer";
 
 const PageWrapper = styled.div`
   display: flex;
-  width: 100%;
-  min-height: 100%;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   justify-content: center;
   justify-items: center;
@@ -53,7 +54,7 @@ export default function Interview({
   
   function handleAudio() {
     onAudioBtnClick(isOnAudio);
-    onVideoBtnClick((prev) => !prev);
+    setIsOnAudio((prev) => !prev);
   }
   
   function handleVideo() {
@@ -68,7 +69,7 @@ export default function Interview({
   function handleBackBtn() {
     if (isStart) {
       setModalFlag(true);
-      
+
       return;
     }
     setModalFlag(true);
@@ -77,26 +78,28 @@ export default function Interview({
   }
 
   return (
-    <PageWrapper>
-      <button onClick={handleBackBtn}>BACK</button>
+    <>
       {modalFlag && (
         <Modal onClick={closeAddProjectModal}>
           <InterviewTotalEvaluationModalView />
         </Modal>
       )}
-      <Timer />
-      <VideoContent>
-        <div classname="main-video">
-          <MainVideo videoRef={user} />
-          <button onClick={handleAudio}>audio</button>
-          <button onClick={handleVideo}>video</button>
-        </div>
-        <div classname="sub-videos">
-          {interviewers?.map((peer, index) => (
-            <SubVideo key={index} peer={peer} />
-          ))}
-        </div>
-      </VideoContent>
-    </PageWrapper>
+      <PageWrapper>
+        <button onClick={handleBackBtn}>BACK</button>
+        <Timer />
+        <VideoContent>
+          <div classname="main-video">
+            <MainVideo videoRef={user} />
+            <button onClick={handleAudio}>audio</button>
+            <button onClick={handleVideo}>video</button>
+          </div>
+          <div classname="sub-videos">
+            {interviewers?.map((peer, index) => (
+              <SubVideo key={index} peer={peer} />
+            ))}
+          </div>
+        </VideoContent>
+      </PageWrapper>
+    </>
   );
 }
