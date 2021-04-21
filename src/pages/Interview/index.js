@@ -24,6 +24,10 @@ export default function Interview() {
 export default function Interview({ peers, videoRef, isInterviewer }) {
 >>>>>>> [REFACTOR] separate rtc directory
   return (
-    <Video peers={peers} videoRef={videoRef} />
+    <>
+      {peers?.map((peer) => (
+        <video srcObject={peer} playsInline autoPlay></video>
+      ))}
+    </>
   );
 }
