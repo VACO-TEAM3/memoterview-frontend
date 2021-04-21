@@ -5,6 +5,7 @@ const MainWrapper = styled.div`
 `;
 
 export default function MainVideo({ videoRef }) {
+  console.log(videoRef);
   return (
     <MainWrapper>
       <video ref={videoRef} autoPlay playsInline />

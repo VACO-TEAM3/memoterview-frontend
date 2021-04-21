@@ -28,15 +28,15 @@ const VideoContent = styled.div`
   }
 `;
 
-export default function Interview({ peers, videoRef }) {
+export default function Interview({ interviewers, user }) {
   return (
     <PageWrapper>
       <VideoContent>
         <div classname="main-video">
-          <MainVideo videoRef={videoRef} />
+          <MainVideo videoRef={user} />
         </div>
         <div classname="sub-videos">
-          {peers?.map((peer, index) => (
+          {interviewers?.map((peer, index) => (
             <SubVideo key={index} peer={peer} />
           ))}
         </div>

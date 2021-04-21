@@ -13,6 +13,7 @@ export default function InterviewPageContainer() {
   const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
+  const [interviewee, setInterviewee] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
@@ -24,7 +25,7 @@ export default function InterviewPageContainer() {
         const localStream = await mediaStream();
 
         userVideo.current.srcObject = localStream;
-        
+
         setStream(localStream);
         setIsStreaming(true);
       } catch (error) {
@@ -69,7 +70,6 @@ export default function InterviewPageContainer() {
       });
 
       peer.on("signal", (signal) => {
-        console.log("I Got Signal");
         socket.emit("returnSignal", { signal, caller });
       });
 
@@ -91,6 +91,6 @@ export default function InterviewPageContainer() {
   }, [isStreaming]);
 
   return (
-    <Interview peers={peers} videoRef={userVideo} />
+    <Interview user={userVideo} interviewers={peers} />
   );
 }
