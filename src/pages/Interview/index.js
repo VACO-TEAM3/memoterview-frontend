@@ -37,6 +37,7 @@ const VideoContent = styled.div`
 export default function Interview({ interviewers, user }) {
   return (
     <PageWrapper>
+      <Timer />
       <VideoContent>
         <div classname="main-video">
           <MainVideo videoRef={user} />
@@ -47,7 +48,6 @@ export default function Interview({ interviewers, user }) {
           ))}
         </div>
       </VideoContent>
-      <Timer />
     </PageWrapper>
   );
 }
