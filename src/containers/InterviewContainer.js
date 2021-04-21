@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
@@ -8,18 +8,22 @@ import Interview from "../pages/Interview";
 
 export default function InterviewContainer() {
   const { state } = useSelector(state => ({ state }));
-  const [isInterviewer, setIsInterviewer] = useState(false);
+  const [isInterviewee, setIsInterviewee] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
-  const ref = useRef(null);
+  const videoRef = useRef(null);
   const peers = useRef({});
   const pendingCandidates = useRef({});
   console.log(state);
   const { localStream } = useUserMedia(mediaConfiguration);
 
-  const socket = io("http://localhost:5000", {
-    transports: ["websocket"],
-  }).connect();
-
+  const socket = useMemo(
+    () =>
+      io("http://localhost:5000", {
+        transports: ["websocket"],
+      }).connect(),
+    [peers]
+  );
+  
   socket.on("join", (id, members) => {
     console.log(members);
     peers.current[id] = createPeerConnection(id);
@@ -54,7 +58,7 @@ export default function InterviewContainer() {
     newRemoteStreamElem.autoplay = true;
     newRemoteStreamElem.srcObject = event.stream;
 
-    ref.current?.appendChild(newRemoteStreamElem);
+    videoRef.current?.appendChild(newRemoteStreamElem);
   }
 
   function createPeerConnection(id) {
@@ -149,6 +153,6 @@ export default function InterviewContainer() {
   }
 
   return (
-    <Interview peers={peers} videoRef={ref} />
+    <Interview peers={peers} videoRef={videoRef} />
   );
 }
