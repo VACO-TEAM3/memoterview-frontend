@@ -92,12 +92,14 @@ export default function projects(state = initialState, action) {
     case GET_MY_PROJECTS_SUCCESS:
     case GET_MY_PROJECTS_ERROR: {
       const newState = getProjectsByProjectType(state, action, PROJECT_TYPES.MY_PROJECTS);
+
       return  handleAsyncUpdateStateActionsWithNormalize(GET_MY_PROJECTS, true)(newState, action);
     }
     case GET_JOINED_PROJECTS:
     case GET_JOINED_PROJECTS_SUCCESS:
     case GET_JOINED_PROJECTS_ERROR: {
       const newState = getProjectsByProjectType(state, action, PROJECT_TYPES.JOINED_PROJECTS);
+
       return handleAsyncUpdateStateActionsWithNormalize(GET_JOINED_PROJECTS, true)(newState, action);
     }
     case ADD_MY_PROJECT:
@@ -110,6 +112,7 @@ export default function projects(state = initialState, action) {
     case DELETE_PROJECT_SUCCESS:
     case DELETE_PROJECT_ERROR: {
       const newState = deleteProjectByProjectId(state, action);
+      
       return handleAsyncRemoveStateActionsWithNormalize(DELETE_PROJECT, true)(newState, action);
     }
     default:

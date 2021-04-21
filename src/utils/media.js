@@ -10,3 +10,18 @@ export async function mediaStream() {
     console.error(error);
   }
 }
+
+export const mediaOptions = {
+  audioOff(stream) {
+    return stream.getAudioTracks()[0].stop();
+  },
+  audioOn(stream) {
+    return stream.getAudioTrack()[0].enable();
+  },
+  videoOff(stream) {
+    return stream.getVideoTracks()[0].stop();
+  },
+  videoOn(stream) {
+    return stream.getVideoTracks()[0].enable();
+  },
+};

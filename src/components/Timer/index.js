@@ -4,7 +4,7 @@ export default function Timer({ onToggle }) {
   const { time: { hour, min }, handleStart, handleStop } = useTimer();
 
   return (
-    <div>
+    <div onClick={handleStart}>
       {`${hour}:${min}`}
     </div>
   );
