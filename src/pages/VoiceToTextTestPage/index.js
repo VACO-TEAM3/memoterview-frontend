@@ -1,22 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-const RECORD_STATE_TYPE = {
-  INTERVIEW_BEFORE: 0,
-  QUESTION_BEFORE: 1,
-  QUESTIONING: 2,
-  ANSWER_BEFORE: 3,
-  ANSWERING: 4,
-  SAVING: 5,
-};
-
-const BUTTON_NAME = {
-  [RECORD_STATE_TYPE.INTERVIEW_BEFORE]: "면접 시작",
-  [RECORD_STATE_TYPE.QUESTION_BEFORE]: "질문 하기",
-  [RECORD_STATE_TYPE.QUESTIONING]: "질문 종료",
-  [RECORD_STATE_TYPE.ANSWER_BEFORE]: "답변 하기",
-  [RECORD_STATE_TYPE.ANSWERING]: "답변 완료",
-  [RECORD_STATE_TYPE.SAVING]: "저장 중...",
-};
+import { BUTTON_NAME, RECORD_STATE_TYPE } from "../../constants/recordState";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -25,6 +9,7 @@ export default function VoiceToTextTestPage() {
   const [question, setQuestion] = useState([]);
   const [answer, setAnswer] = useState([]);
   const isRecordingRef = useRef(false);
+  const recognitionRef = useRef(null);
   const [recordBtnState, setRecordBtnState] = useState(RECORD_STATE_TYPE.INTERVIEW_BEFORE);
 
   const setNextRecordBtnState = useCallback(() => {
@@ -73,8 +58,6 @@ export default function VoiceToTextTestPage() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
-
-  let recognitionRef = useRef(null);
 
   // Speech Recognition 관련 Side Effect
   useEffect(() => {
@@ -129,12 +112,6 @@ export default function VoiceToTextTestPage() {
       recognitionRef.current = null;
       console.log(`else Record State ${recordBtnState}`);
     }
-
-    return () => {
-      if (!recordBtnState === RECORD_STATE_TYPE.QUESTIONING && !recordBtnState === RECORD_STATE_TYPE.ANSWERING) {
-        
-      }
-    };
   }, [answer, question, recordBtnState]);
 
   return (
