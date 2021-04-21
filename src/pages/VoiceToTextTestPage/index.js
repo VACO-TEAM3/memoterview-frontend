@@ -9,13 +9,11 @@ window.SpeechRecognition || window.webkitSpeechRecognition;
 export default function VoiceToTextTestPage() {
   const socket = useMemo(() => io.connect("http://localhost:5000"), []);
 
-  const [question, setQuestion] = useState([]);
-  const [answer, setAnswer] = useState([]);
-
   const [recogText, setRecogText] = useState([]);
 
   const recordsGlobalsRef = useRef({
     recogText,
+    questionText: "",
     isRecording: false,
     recognition: null,
     isInterviewee: false,
@@ -84,6 +82,7 @@ export default function VoiceToTextTestPage() {
       case RECORD_STATE_TYPE.QUESTIONING:
         setRecordBtnState(RECORD_STATE_TYPE.ANSWER_BEFORE);
         stopRecognitionRecord();
+        recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText.join(" ");
         break;
       case RECORD_STATE_TYPE.ANSWER_BEFORE:
         setRecordBtnState(RECORD_STATE_TYPE.ANSWERING);
@@ -127,8 +126,19 @@ export default function VoiceToTextTestPage() {
 
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
       if (questionerId === recordsGlobalsRef.current.userId) {
-        console.log("questioner receive Answer", answer);
+        console.log("questioner receive Answer uploading...");
+        console.log("question", recordsGlobalsRef.current.questionText);
+        console.log("answer", answer.join(" "));
+        console.log("uploading work...");
+
+        setTimeout(() => {
+          socket.emit("uploadComplete");
+        }, 1500);
       }
+    });
+
+    socket.on("enableButton", () => {
+      recordBtnElement.current.disabled = false;
     });
 
     socket.on("error", ({ message }) => {
