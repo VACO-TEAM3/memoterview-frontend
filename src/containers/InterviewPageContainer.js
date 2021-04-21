@@ -4,7 +4,7 @@ import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
 import Interview from "../pages/Interview";
-import { mediaStream } from "../utils/media";
+import { mediaOptions, mediaStream } from "../utils/media";
 
 export default function InterviewPageContainer() {
   const socket = io.connect("http://localhost:5000");
@@ -89,7 +89,28 @@ export default function InterviewPageContainer() {
     });
   }, [isStreaming]);
 
+  function handleVideo(state) {
+    if (state) {
+      mediaOptions.videoOff(stream);
+    } else {
+      mediaOptions.videoOn(stream);
+    }
+  }
+
+  function handleAudio(state) {
+    if (state) {
+      mediaOptions.audioOff(stream);
+    } else {
+      mediaOptions.audioOn(stream);
+    }
+  }
+
   return (
-    <Interview user={userVideo} interviewers={peers} />
+    <Interview 
+      user={userVideo} 
+      interviewers={peers} 
+      onVideoBtnClick={handleVideo} 
+      onAudioBtnClick={handleAudio} 
+    />
   );
 }

@@ -1,6 +1,10 @@
+import { useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import MainVideo from "../../components/MainVideo";
+import Modal from "../../components/Modal";
 import SubVideo from "../../components/SubVideo";
 import Timer from "../../components/Timer";
 
@@ -34,13 +38,58 @@ const VideoContent = styled.div`
   }
 `;
 
-export default function Interview({ interviewers, user }) {
+export default function Interview({ 
+  interviewers, 
+  user, 
+  onAudioBtnClick, 
+  onVideoBtnClick,
+  isStart,
+}) {
+  const [isOnVideo, setIsOnVideo] = useState(true);
+  const [isOnAudio, setIsOnAudio] = useState(true);
+  const [modalFlag, setModalFlag] = useState(false);
+  const history = useHistory();
+  const { projectId, intervieweeId } = useParams();
+  
+  function handleAudio() {
+    onAudioBtnClick(isOnAudio);
+    onVideoBtnClick((prev) => !prev);
+  }
+  
+  function handleVideo() {
+    onVideoBtnClick(isOnVideo);
+    setIsOnVideo((prev) => !prev);
+  }
+
+  function closeAddProjectModal() {
+    setModalFlag(false);
+  }
+
+  function handleBackBtn() {
+    if (isStart) {
+      setModalFlag(true);
+      
+      return;
+    }
+    setModalFlag(true);
+    console.log(modalFlag);
+    // history.push(`/projects/${intervieweeId}`);
+  }
+
   return (
     <PageWrapper>
+      <button onClick={handleBackBtn}>BACK</button>
+      {modalFlag && (
+        <Modal onClick={closeAddProjectModal}>
+          <InterviewTotalEvaluationModalView />
+        </Modal>
+      )}
       <Timer />
       <VideoContent>
         <div classname="main-video">
           <MainVideo videoRef={user} />
+          <button onClick={handleAudio}>audio</button>
+          <button onClick={handleVideo}>video</button>
         </div>
         <div classname="sub-videos">
           {interviewers?.map((peer, index) => (
