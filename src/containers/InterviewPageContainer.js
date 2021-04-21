@@ -13,7 +13,6 @@ export default function InterviewPageContainer() {
   const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
-  const [interviewee, setInterviewee] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
