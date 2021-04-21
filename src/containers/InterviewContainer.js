@@ -13,7 +13,7 @@ export default function InterviewContainer() {
   const ref = useRef(null);
   const peers = useRef({});
   const pendingCandidates = useRef({});
-
+  console.log(state);
   const { localStream } = useUserMedia(mediaConfiguration);
 
   const socket = io("http://localhost:5000", {
