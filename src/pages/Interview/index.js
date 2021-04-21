@@ -5,6 +5,7 @@ import styled from "styled-components";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
+import QuestionBoard from "../../components/QuestionBoard";
 import SubVideo from "../../components/SubVideo";
 import Timer from "../../components/Timer";
 
@@ -47,22 +48,24 @@ export default function Interview({
   isStart,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
-  const [isOnVideo, setIsOnVideo] = useState(true);
-  const [isOnAudio, setIsOnAudio] = useState(true);
+  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [isAudioOn, setIsAudioOn] = useState(true);
   const [modalFlag, setModalFlag] = useState(false);
   const [isResumeOpen, setIsResumeOpend] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [questions, setQuestions] = useState([]);
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
   
   function handleAudio() {
-    onAudioBtnClick(isOnAudio);
-    setIsOnAudio((prev) => !prev);
+    onAudioBtnClick(isAudioOn);
+    setIsAudioOn((prev) => !prev);
   }
   
   function handleVideo() {
-    onVideoBtnClick(isOnVideo);
-    setIsOnVideo((prev) => !prev);
+    onVideoBtnClick(isVideoOn);
+    setIsVideoOn((prev) => !prev);
   }
 
   function closeTotalResultModal() {
@@ -86,6 +89,20 @@ export default function Interview({
     setIsQuestionBoardOpen((prev) => !prev);
   }
 
+
+  function handleSubmit(ev) {
+    ev.preventDefault();
+
+    setQuestions((prev) => [...prev, question]);
+    setQuestion("");
+  }
+
+  function handleInputChange(ev) {
+    const { target: { value } } = ev;
+
+    setQuestion(value);
+  }
+
   return (
     <>
       {modalFlag && (
@@ -98,7 +115,14 @@ export default function Interview({
         <button onClick={handleOpenResumeButton}>이력서</button>
         {isResumeOpen && <div>이력서다!</div>}
         <button onClick={handleOpenQuestionBoardOpen}>질문</button>
-        {isQuestionBoardOpen && <div>질문이다!</div>}
+        {isQuestionBoardOpen && 
+          <QuestionBoard 
+            question={question} 
+            questions={questions} 
+            onChange={handleInputChange} 
+            onSubmit={handleSubmit} 
+          />
+        }
         <Timer />
         <VideoContent>
           <div classname="main-video">
