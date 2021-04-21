@@ -73,6 +73,7 @@ export default function VoiceToTextTestPage() {
     switch (recordBtnState) {
       case RECORD_STATE_TYPE.INTERVIEW_BEFORE:
         setRecordBtnState(RECORD_STATE_TYPE.QUESTION_BEFORE);
+        socket.emit("startInterview");
         break;
       case RECORD_STATE_TYPE.QUESTION_BEFORE:
         setRecordBtnState(RECORD_STATE_TYPE.QUESTIONING);
@@ -103,6 +104,13 @@ export default function VoiceToTextTestPage() {
 
   useEffect(() => {
     console.log("set Socket Event");
+
+    socket.on("startInterview", () => {
+      if (!recordsGlobalsRef.current.isInterviewee) {
+        setRecordBtnState(RECORD_STATE_TYPE.QUESTION_BEFORE);
+      }
+      console.log("timer start");
+    });
 
     socket.on("preventButton", () => {
       recordBtnElement.current.disabled = true;
