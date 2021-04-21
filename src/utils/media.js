@@ -1,8 +1,6 @@
-let stream;
-
-async function mediaStream() {
+export async function mediaStream() {
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
+    const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     });
@@ -12,12 +10,3 @@ async function mediaStream() {
     console.error(error);
   }
 }
-
-export const mediaStreaming = {
-  Initialize() {
-    return mediaStream();
-  },
-  getStream() {
-    return stream;
-  },
-};
