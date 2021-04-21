@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
@@ -156,26 +157,237 @@ export default function Video() {
     </div>
 =======
 import { useRef } from "react";
+=======
+import { useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
+>>>>>>> [ADD] success multiple peer connetion
 
 export default function Video() {
-  const videoRef = useRef(null);
+  const ref = useRef(null);
+  const peers = {};
+  const pendingCandidates = {};
+  const configuration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+  let localStream;
 
-  try {
-    async function getMediaStream() {
-      const constraints = { video: true, audio: true };
-      const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+  const socket = io("http://localhost:5000", {
+    transports: ["websocket"],
+  }).connect();
 
-      const video = videoRef.current;
-      
-      video.srcObject = mediaStream;
-    }
+  socket.emit("join", { room: "chat" });
+  socket.on("join", (id, members) => {
+    peers[id] = createPeerConnection(id);
+    sendOffer(id);
+    addPendingCandidates(id);
+  });
 
-    getMediaStream(); // 왜 이렇게 해야 비동기 작업이 되는건지 영문을 모르겠네..?
-  } catch (error) {
-    console.error(error);
+  socket.on("message", (sid, data) => {
+    handleSignalingData(sid, data);
+  });
+
+  function getLocalStream() {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true, video: true })
+      .then((stream) => {
+        console.log("Stream found");
+        localStream = stream;
+        // Connect after making sure thzat local stream is availble
+      })
+      .catch((error) => {
+        console.error("Stream not found: ", error);
+      });
   }
+
+  function onIceCandidate(id) {
+    return function (event) {
+      if (event.candidate) {
+        console.log("ICE candidate");
+        socket.emit("message", id, {
+          type: "candidate",
+          candidate: event.candidate,
+        });
+      }
+    };
+  }
+
+  function onAddStream(event) {
+    const newRemoteStreamElem = document.createElement("video");
+    
+    newRemoteStreamElem.autoplay = true;
+    newRemoteStreamElem.srcObject = event.stream;
+    ref.current?.appendChild(newRemoteStreamElem);
+  }
+
+  function createPeerConnection(id) {
+    const pc = new RTCPeerConnection(configuration);
+    
+    pc.onicecandidate = onIceCandidate(id);
+    pc.onaddstream = onAddStream;
+
+    if (localStream) {
+      pc.addStream(localStream);
+    }
+    console.log("PeerConnection created");
+    return pc;
+  }
+
+  function sendOffer(sid) {
+    console.log("Send offer");
+    peers[sid].createOffer().then(
+      (sdp) => setAndSendLocalDescription(sid, sdp),
+      (error) => {
+        console.error("Send offer failed: ", error);
+      }
+    );
+  }
+
+  function sendAnswer(sid) {
+    console.log("Send answer");
+    peers[sid].createAnswer().then(
+      (sdp) => setAndSendLocalDescription(sid, sdp),
+      (error) => {
+        console.error("Send answer failed: ", error);
+      }
+    );
+  }
+
+  function setAndSendLocalDescription(sid, sessionDescription) {
+    peers[sid].setLocalDescription(sessionDescription);
+    socket.emit("message", sid, { type: sessionDescription.type, sdp: sessionDescription.sdp });
+  }
+
+  function addPendingCandidates(sid) {
+    if (sid in pendingCandidates) {
+      pendingCandidates[sid].forEach((candidate) => {
+        peers[sid].addIceCandidate(new RTCIceCandidate(candidate));
+      });
+    }
+  }
+
+  function handleSignalingData(sid, data) {
+    delete data.sid;
+    
+    switch (data.type) {
+      case "offer":
+        peers[sid] = createPeerConnection(sid);
+        peers[sid].setRemoteDescription(new RTCSessionDescription(data));
+        sendAnswer(sid);
+        addPendingCandidates(sid);
+        break;
+      case "answer":
+        peers[sid].setRemoteDescription(new RTCSessionDescription(data));
+        break;
+      case "candidate":
+        if (sid in peers) {
+          peers[sid].addIceCandidate(new RTCIceCandidate(data.candidate));
+        } else {
+          if (!(sid in pendingCandidates)) {
+            pendingCandidates[sid] = [];
+          }
+          pendingCandidates[sid].push(data.candidate);
+        }
+        break;
+    }
+  };
+  // Start connection
+  getLocalStream();
+  // const videoRef = useRef(null);
+  // const videoRef2 = useRef(null);
+
+  // try {
+  //   async function getMediaStream() {
+  //     const constraints = { video: true, audio: true };
+  //     const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     mediaStream.getTracks().forEach((track) => {
+  //       track.enabled = false;
+  //     });
+      
+  //     const video = videoRef.current;
+      
+  //     // video.srcObject = mediaStream;
+  //     // console.log(video.srcObject);
+  //     const connections = {};
+  //     const socket = io("http://localhost:5000", {
+  //       transports: ["websocket"],
+  //     }).connect();
+      
+  //     const configuration = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+
+  //     socket.emit("join", { room: "chat" });
+  //     socket.on("join", async (id, members) => {
+  //       console.log(connections);
+
+  //       if (!connections.hasOwnProperty(id)) {
+  //         connections[id] = new RTCPeerConnection(configuration);
+  //       }
+
+  //       connections[id].onicecandidate = (ev) => {
+  //         if (ev.candidate) {
+  //           socket.emit("message", id, { type: "iceCandidate", iceCandidate: ev.candidate });
+  //         }
+  //       };
+
+  //       connections[id].onaddstream = (event) => {
+  //         if (video.srcObject) {
+  //           videoRef2.current.srcObject = event.stream;
+  //         } else {
+  //           video.srcObject = event.stream;
+  //         }
+  //       };
+
+  //       connections[id].addStream(mediaStream);
+
+  //       if (members.length > 1) {
+  //         const offer = await connections[id].createOffer();
+
+  //         await connections[id].setLocalDescription(offer);
+  //         socket.emit("message", id, offer);
+  //       }
+  //     });
+
+  //     socket.on("message", async (fromId, message) => {
+  //       console.log(message);
+  //       if (message?.type === "answer") {
+  //         const remoteDescription = new RTCSessionDescription(message);
+          
+  //         await connections[fromId]?.setRemoteDescription(remoteDescription);
+  //       }
+
+  //       if (message?.type === "offer") {
+  //         const remoteDescription = new RTCSessionDescription(message);
+
+  //         await connections[fromId]?.setRemoteDescription(remoteDescription);
+
+  //         const answer = await connections[fromId]?.createAnswer();
+          
+  //         await connections[fromId]?.setLocalDescription(answer);
+          
+  //         socket.emit("message", socket.id, answer);
+  //       }
+
+  //       if (message?.type === "iceCandidate") {
+  //         const candidate = new RTCIceCandidate({
+  //           ...message.iceCandidate,
+  //         });
+
+  //         await connections[fromId]?.addIceCandidate(candidate);
+  //       }
+  //     });
+  //   }
+
+  //   getMediaStream(); // 왜 이렇게 해야 비동기 작업이 되는건지 영문을 모르겠네..?  
+  // } catch (error) {
+  //   console.error(error);
+  // }
+
   return (
+<<<<<<< HEAD
     <video ref={videoRef} autoPlay playsInline controls="false"></video>
 >>>>>>> [ADD] connect to camera
+=======
+    <div className="peers" ref={ref}>
+      {/* <video ref={videoRef2} autoPlay playsInline controls={false}></video>
+      <video ref={videoRef} autoPlay playsInline controls={false}></video> */}
+    </div>
+>>>>>>> [ADD] success multiple peer connetion
   );
 }

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Video from "../../components/Video";
 
 export default function Interview() {
@@ -13,6 +14,11 @@ export default function Interview() {
   console.log(params);
   console.log(25);
 >>>>>>> [ADD] connect to camera
+=======
+import Video from "../../components/Video";
+
+export default function Interview() {
+>>>>>>> [ADD] success multiple peer connetion
   return (
     <Video />
   );
