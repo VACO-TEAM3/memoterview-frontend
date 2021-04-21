@@ -9,90 +9,84 @@ import { mediaStreaming } from "../utils/media";
 export default function InterviewPageContainer() {
   const socket = io.connect("http://localhost:5000");
 
-  const { id } = useParams();
+  const { id: roomID } = useParams();
+  const userData = Math.random();
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const peerList = [];
+  let stream;
 
   useEffect(() => {
-    // 리덕스에서 받아온 is opened가 FALSE일 경우
-    // socket.emit("createRoom", ({ creatorID, intervieweeID, id }));
-    socket.emit("requestJoin", id, async (error) => {
-      if (error) {
+    (async function getStreaming() {
+      try {
+        stream = await mediaStreaming.Initialize();
+        userVideo.current.srcObject = stream;
+
+        setIsStreaming(true);
+      } catch (error) {
         setErrorMessage(error);
       }
-
-      const stream = await mediaStreaming.Initialize();
-      userVideo.current.srcObject = stream;
-
-      setIsStreaming(true);
-    });
-
-    // return () => {
-    //   socket.emit("leaveRoom");
-    // };
+    })();
   }, []);
 
   useEffect(() => {
     if (!isStreaming) {
       return;
     }
-    console.log(25);
-    socket.on("successJoin", (members) => {
-      console.log(members);
-      members.forEach((memberID) => {
+
+    socket.emit("requestJoinRoom", { roomID, userData });
+
+    socket.once("successJoinUser", (targetUsers) => {
+      targetUsers.forEach((user) => {
         const peer = new Peer({
           initiator: true,
           trickle: false,
-          stream: mediaStreaming.getStream(),
+          stream,
         });
-  
+
         peer.on("signal", (signal) => {
-          socket.emit("sendingSignal", { calleeID: memberID, callerID: socket.id, signal });
+          socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
         });
-  
+
         peersRef.current.push({
-          peerID: memberID,
+          peerID: user.socketID,
           peer,
         });
-  
-        peerList.push(peer);
+
+        setPeers((prev) => [...prev, peer]);
+        console.log(socket.id, peers);
       });
-  
-      setPeers(peerList);
     });
-    
-    socket.on("sendingForUsers", ({ signal, callerID }) => {
-      console.log(signal);
+
+    socket.once("joinNewUser", ({ caller, signal }) => {
       const peer = new Peer({
         initiator: false,
         trickle: false,
-        stream: mediaStreaming.getStream(),
+        stream,
       });
-
+      console.log("hi user");
       peer.on("signal", (signal) => {
-        console.log("signal", callerID);
-        socket.emit("returningSignal", { signal, callerID });
+        console.log("I Got Signal");
+        socket.emit("returnSignal", { signal, caller });
       });
 
       peer.signal(signal);
 
       peersRef.current.push({
-        peerID: callerID,
+        peerID: caller,
         peer,
       });
 
-      setPeers((users) => [...users, peer]);
+      setPeers((prev) => [...prev, peer]);
     });
 
-    socket.on("receivingReturnedSignal", ({ signal, calleeID }) => {
-      console.log("receiving", calleeID);
-      const item = peersRef.current.find((p) => p.peerID === calleeID);
-      console.log(item);
-      item.peer.signal(signal);
+    socket.once("receiveReturnSignal", ({ id, signal }) => {
+      const { peer } = peersRef.current.find((p) => p.peerID === id);
+
+      peer.signal(signal);
+      console.log("i Got Signal Too!");
     });
   }, [isStreaming]);
 
