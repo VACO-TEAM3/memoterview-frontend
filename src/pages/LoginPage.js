@@ -58,29 +58,29 @@ const PageWrapper = styled.div`
 export default function LoginPage({ onSuccess, onFailure }) {
   function customButton({ onClick, disabled }) {
     return (
-      <button classname="header-button" onClick={onClick} disabled={disabled}>Start</button>
+      <button className="header-button" onClick={onClick} disabled={disabled}>Start</button>
     );
   }
 
   return (
     <PageWrapper>
       <Header>
-        <div classname="header-right">
+        <div className="header-right">
           <LoginButton onSuccess={onSuccess} onFailure={onFailure} customStyle={customButton} />
         </div>
       </Header>
-      <div classname="content">
-        <div classname="content-side">
-          <div classname="content-text">
-            <h1 classname="content-text-style">Remember your interviewee</h1>
-            <h4 classname="content-text-style">Boost your Hire with Memoterview</h4>
-            <h4 classname="content-text-style">Save your interviewee, remind your interview</h4>
+      <div className="content">
+        <div className="content-side">
+          <div className="content-text">
+            <h1 className="content-text-style">Remember your interviewee</h1>
+            <h4 className="content-text-style">Boost your Hire with Memoterview</h4>
+            <h4 className="content-text-style">Save your interviewee, remind your interview</h4>
           </div>
-          <div classname="content-button">
+          <div className="content-button">
             <LoginButton onSuccess={onSuccess} onFailure={onFailure} />
           </div>
         </div>
-        <img classname="main-image" src={image} alt="interviewing people" />
+        <img className="main-image" src={image} alt="interviewing people" />
       </div>
     </PageWrapper>
   );
