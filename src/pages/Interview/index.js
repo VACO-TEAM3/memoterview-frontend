@@ -46,9 +46,12 @@ export default function Interview({
   onVideoBtnClick,
   isStart,
 }) {
+  // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isOnVideo, setIsOnVideo] = useState(true);
   const [isOnAudio, setIsOnAudio] = useState(true);
   const [modalFlag, setModalFlag] = useState(false);
+  const [isResumeOpen, setIsResumeOpend] = useState(false);
+  const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
   
@@ -62,30 +65,40 @@ export default function Interview({
     setIsOnVideo((prev) => !prev);
   }
 
-  function closeAddProjectModal() {
+  function closeTotalResultModal() {
     setModalFlag(false);
   }
 
   function handleBackBtn() {
     if (isStart) {
       setModalFlag(true);
-
       return;
     }
-    setModalFlag(true);
-    console.log(modalFlag);
-    // history.push(`/projects/${intervieweeId}`);
+
+    history.push(`/projects/${projectId}`);
+  }
+
+  function handleOpenResumeButton() {
+    setIsResumeOpend((prev) => !prev);
+  }
+  
+  function handleOpenQuestionBoardOpen() {
+    setIsQuestionBoardOpen((prev) => !prev);
   }
 
   return (
     <>
       {modalFlag && (
-        <Modal onClick={closeAddProjectModal}>
+        <Modal onBackgroundClick={closeTotalResultModal}>
           <InterviewTotalEvaluationModalView />
         </Modal>
       )}
       <PageWrapper>
         <button onClick={handleBackBtn}>BACK</button>
+        <button onClick={handleOpenResumeButton}>이력서</button>
+        {isResumeOpen && <div>이력서다!</div>}
+        <button onClick={handleOpenQuestionBoardOpen}>질문</button>
+        {isQuestionBoardOpen && <div>질문이다!</div>}
         <Timer />
         <VideoContent>
           <div classname="main-video">
