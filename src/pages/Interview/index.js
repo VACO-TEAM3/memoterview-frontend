@@ -1,7 +1,7 @@
 import Video from "../../components/Video";
 
-export default function Interview() {
+export default function Interview({ peers, videoRef, isInterviewer }) {
   return (
-    <Video />
+    <Video peers={peers} videoRef={videoRef} />
   );
 }

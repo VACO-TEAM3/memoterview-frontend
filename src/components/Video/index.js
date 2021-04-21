@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 <<<<<<< HEAD
@@ -360,6 +361,11 @@ export default function Video() {
       {/* <video ref={videoRef2} autoPlay playsInline controls={false}></video>
       <video ref={videoRef} autoPlay playsInline controls={false}></video> */}
 >>>>>>> [ADD] success multiple peer connetion
+=======
+export default function Video({ peers, videoRef }) {
+  return (
+    <div className="peers" ref={videoRef}>
+>>>>>>> [REFACTOR] separate rtc directory
     </div>
   );
 }
