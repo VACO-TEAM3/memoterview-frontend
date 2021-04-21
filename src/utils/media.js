@@ -13,15 +13,15 @@ export async function mediaStream() {
 
 export const mediaOptions = {
   audioOff(stream) {
-    return stream.getAudioTracks()[0].stop();
+    return stream.getAudioTracks().forEach((track) => (track.enabled = false));
   },
   audioOn(stream) {
-    return stream.getAudioTrack()[0].enable();
+    return stream.getAudioTrack().forEach((track) => (track.enabled = true));
   },
   videoOff(stream) {
-    return stream.getVideoTracks()[0].stop();
+    return stream.getVideoTracks().forEach((track) => (track.enabled = false));
   },
   videoOn(stream) {
-    return stream.getVideoTracks()[0].enable();
+    return stream.getVideoTracks().forEach((track) => (track.enabled = true));
   },
 };
