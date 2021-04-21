@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import MainVideo from "../../components/MainVideo";
 import SubVideo from "../../components/SubVideo";
+import Timer from "../../components/Timer";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -16,7 +17,12 @@ const VideoContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 35%;
+  width: 640px;
+  
+  .main-video {
+    width: 640px;
+    height: 480px;
+  }
 
   .sub-videos {
     display: grid;
@@ -41,6 +47,7 @@ export default function Interview({ interviewers, user }) {
           ))}
         </div>
       </VideoContent>
+      <Timer />
     </PageWrapper>
   );
 }
