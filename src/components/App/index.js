@@ -13,6 +13,7 @@ import AuthRoute from "../AuthRoute";
 function App() {
   return (
     <ThemeProvider theme={theme}>
+<<<<<<< HEAD
       <Switch>
         <Route path="/" exact>
           <LoginPageContainer />
@@ -34,6 +35,31 @@ function App() {
         </AuthRoute>
         <Redirect to="/" />
       </Switch>
+=======
+      <Layout>
+        <Switch>
+          <Route path="/" exact>
+            <Dummy />
+          </Route>
+          <Route path="/login">
+            <LoginPageContainer />
+          </Route>
+          <Route path="/projects" exact>
+            <Projects />
+          </Route>
+          <Route path="/projects/:id">
+            <Interview />
+          </Route>
+          <Route path="/search">
+            <Dummy />
+          </Route>
+          <Route path="/result/:id">
+            <Dummy />
+          </Route>
+          <Redirect to="/login" />
+        </Switch>
+      </Layout>
+>>>>>>> [ADD] connect to camera
     </ThemeProvider>
   );
 }
