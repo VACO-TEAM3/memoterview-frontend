@@ -1,87 +1,55 @@
-import React, { useState } from "react";
-import { ReactMic } from "react-mic";
-import recognizeMicrophone from "watson-speech/speech-to-text/recognize-microphone";
-
-import { getSpeechToTextToken } from "../../api";
+import React, { useEffect, useState } from "react";
 
 export default function VoiceToTextTestPage() {
   const [text, setText] = useState([]);
   const [record, setRecord] = useState(false);
 
-  function onClickKaKaoButton() {
-    setRecord(!record);
-  }
+  // Speech Recognition 관련 Side Effect
+  useEffect(() => {
+    if (record) {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      let recognition = null;
 
-  function onData(recordedBlob) {
-    console.log("chunk of real-time data is: ", recordedBlob);
-  }
+      if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
 
-  async function onStop(recordedBlob) {
-    console.log("recordedBlob is: ", recordedBlob);
+        recognition.onstart = function () {
+          console.log(
+            "Voice recognition started. Try speaking into the microphone."
+          );
+        };
 
-    console.log(JSON.stringify(recordedBlob));
+        recognition.lang = "ko";
+        recognition.continuous = true;
+        recognition.interimResults = true;
 
-    let form = new FormData();
-    form.append("file", recordedBlob.blob);
+        recognition.onresult = function (event) {
+          const transcript = [...event.results].reduce(
+            (acc, result) => acc + result[0].transcript,
+            ""
+          );
+          setText(text.concat(transcript));
+        };
 
-    console.log(form);
+        recognition.start();
+      } else {
+        console.error("Speech recognition not supported 😢 (Use Chrome Browser)");
+      }
 
-    const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/speech-to-text/kakao`, {
-      method: "POST",
-      body: form,
-    });
-  }
-
-
-  async function onClickIBMButton() {
-    const { accessToken, serviceUrl } = await getSpeechToTextToken();
-
-    const micRecognizer = recognizeMicrophone({
-      accessToken,
-      model: "ko-KR_BroadbandModel", //ko-KR_NarrowbandModel
-      objectMode: true,
-      format: true,
-      timestamps: true,
-      url: serviceUrl,
-    });
-
-    micRecognizer.on("data", (data) => {
-      console.log(data);
-      const msg = data.results[0].alternatives[0].transcript;
-      setText(text.concat(msg));
-    });
-
-    micRecognizer.on("error", (err) => {
-      console.log(err);
-    });
-  }
+      return () => recognition.stop();
+    }
+  }, [record, text]);
 
   return (
     <div>
-      <button id="button" onClick={onClickIBMButton}>
-        IBM 실시간 음성인식
-      </button>
-      <button id="button" onClick={onClickKaKaoButton}>
-        {record ? "카카오 음성인식 종료" : "카카오 음성인식 시작"}
+      <button id="button" onClick={handleClickRecord}>
+        {record ? "녹음 시작" : "녹음 종료"}
       </button>
       {/* <button id="button" onClick={onClickGoogleButton}>
         {record ? "구글 음성인식 종료" : "구글 음성인식 시작"}
       </button> */}
-      <ReactMic
-        record={record} // defaults -> false.  Set to true to begin recording
-        visualSetting="sinewave" // defaults -> "sinewave".  Other option is "frequencyBars"
-        onStop={onStop} // required - called when audio stops recording
-        onData={onData} // optional - called when chunk of audio data is available
-        strokeColor="#000000" // sinewave or frequency bar color
-        backgroundColor="#FF4081" // background color
-        mimeType="audio/wav" // defaults -> "audio/webm".  Set to "audio/wav" for WAV or "audio/mp3" for MP3 audio format (available in React-Mic-Gold)
-        // echoCancellation={true} // defaults -> false
-        // noiseSuppression={true} // defaults -> false
-        channelCount={1} // defaults -> 2 (stereo).  Specify 1 for mono.
-        // bitRate={256000} // defaults -> 128000 (128kbps).  React-Mic-Gold only.
-        sampleRate={16000} // defaults -> 44100 (44.1 kHz).  It accepts values only in range: 22050 to 96000 (available in React-Mic-Gold)
-        // timeSlice={3000} // defaults -> 4000 milliseconds.  The interval at which captured audio is returned to onData callback (available in React-Mic-Gold).
-      />
+
       <h1>{text.join(" ")}</h1>
     </div>
   );
