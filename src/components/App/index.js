@@ -17,9 +17,9 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
-        {/* <AuthRoute path="/projects">
+        <AuthRoute path="/projects">
           <ProjectsContainer />
-        </AuthRoute> */}
+        </AuthRoute>
         <AuthRoute path="/projects/:id">
           <InterviewPageContainer />
         </AuthRoute>

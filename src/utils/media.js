@@ -16,7 +16,7 @@ export const mediaOptions = {
     return stream.getAudioTracks().forEach((track) => (track.enabled = false));
   },
   audioOn(stream) {
-    return stream.getAudioTrack().forEach((track) => (track.enabled = true));
+    return stream.getAudioTracks().forEach((track) => (track.enabled = true));
   },
   videoOff(stream) {
     return stream.getVideoTracks().forEach((track) => (track.enabled = false));
