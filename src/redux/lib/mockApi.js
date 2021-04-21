@@ -76,3 +76,21 @@ export function addProjectAPI({ userId, newProject }) {
     });
   });
 }
+
+export function addNewIntervieweeAPI({ userId, interviwerInfo }) {
+  console.log("openInterviewRoomApi", userId, interviwerInfo);
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const newInterviewee = {
+        email: "chewchewchew3@gmail.com",
+        name: "jieun mine",
+        interviewData: new Date(),
+        resumePath: "/somewhare",
+        isInterviewed: false,
+      };
+
+      // 객체 1개짜리는 [] 배열로 감싸주어야 한다.
+      resolve([newInterviewee]);
+    });
+  });
+}
