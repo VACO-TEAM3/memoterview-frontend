@@ -14,10 +14,9 @@ export default function InterviewPageContainer() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const [stream, setStream] = useState(null);
-  // let stream;
 
   useEffect(() => {
     (async function getStreaming() {
@@ -67,7 +66,7 @@ export default function InterviewPageContainer() {
         trickle: false,
         stream,
       });
-      console.log("hi user");
+
       peer.on("signal", (signal) => {
         console.log("I Got Signal");
         socket.emit("returnSignal", { signal, caller });
@@ -87,7 +86,6 @@ export default function InterviewPageContainer() {
       const { peer } = peersRef.current.find((p) => p.peerID === id);
 
       peer.signal(signal);
-      console.log("i Got Signal Too!");
     });
   }, [isStreaming]);
 
