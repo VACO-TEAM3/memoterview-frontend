@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
@@ -399,5 +400,24 @@ export default function Video() {
       <div>hi friend</div>
     </video>
 >>>>>>> [FIX] multiple user error
+=======
+import { useEffect, useRef } from "react";
+
+export default function Video({ peer }) {
+  const ref = useRef();
+
+  useEffect(() => {
+    if (!peer) {
+      return;
+    }
+
+    peer.on("stream", (stream) => {
+      ref.current.srcObject = stream;
+    });
+  }, [peer]);
+
+  return (
+    <video playsInline autoPlay ref={ref} />
+>>>>>>> [ADD] Video component
   );
 }

@@ -2,30 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
+import { Video } from "../components/Video";
 import { mediaStreaming } from "../utils/media";
-
-function Video({ peer }) {
-  const ref = useRef();
-
-  useEffect(() => {
-    if (!peer) {
-      return;
-    }
-
-    peer.on("stream", (stream) => {
-      ref.current.srcObject = stream;
-    });
-  }, [peer]);
-
-  return (
-    <video playsInline autoPlay ref={ref} />
-  );
-}
 
 export default function InterviewPageContainer() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
-  const [members, setMembers] = useState({});
   const userVideo = useRef();
   const peersRef = useRef([]);
   const peerList = [];
@@ -37,7 +19,6 @@ export default function InterviewPageContainer() {
       const stream = await mediaStreaming.Initialize();
       userVideo.current.srcObject = stream;
       setIsStreaming(true);
-      // setMembers((prev) => ({ ...prev, [socket.id]: socket.id }));
     });
 
     socket.on("all users", (users) => {
@@ -90,6 +71,7 @@ export default function InterviewPageContainer() {
     });
 
     socket.on("receiving returned signal", (payload) => {
+      console.log(payload);
       const item = peersRef.current.find((p) => p.peerID === payload.id);
 
       item.peer.signal(payload.signal);
@@ -103,6 +85,7 @@ export default function InterviewPageContainer() {
       });
 
       peer.on("signal", (signal) => {
+        console.log(signal);
         socket.emit("returning signal", { signal, callerID });
       });
 
