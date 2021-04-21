@@ -1,11 +1,11 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
-import Interview from "../../pages/Interview";
 import Projects from "../../pages/Projects";
 import VoiceToTextTestPage from "../../pages/VoiceToTextTestPage";
 import AuthRoute from "../AuthRoute";
@@ -17,11 +17,11 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
-        <AuthRoute path="/projects">
+        {/* <AuthRoute path="/projects">
           <ProjectsContainer />
-        </AuthRoute>
+        </AuthRoute> */}
         <AuthRoute path="/projects/:id">
-          <Dummy />
+          <InterviewPageContainer />
         </AuthRoute>
         <AuthRoute path="/result/:id">
           <Dummy />

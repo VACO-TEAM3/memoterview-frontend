@@ -1,11 +1,46 @@
-import Video from "../../components/Video";
+import styled from "styled-components";
 
-export default function Interview({ peers, videoRef, isInterviewer }) {
+import MainVideo from "../../components/MainVideo";
+import SubVideo from "../../components/SubVideo";
+
+const PageWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  justify-content: center;
+  justify-items: center;
+`;
+
+const VideoContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 35%;
+
+  .sub-videos {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 15rem);
+    grid-column-gap: 15%;
+    justify-items: center;
+    justify-content: center;    
+  }
+`;
+
+export default function Interview({ peers, videoRef }) {
   return (
-    <>
-      {peers?.map((peer) => (
-        <Video srcObject={peer} playsInline autoPlay></Video>
-      ))}
-    </>
+    <PageWrapper>
+      <VideoContent>
+        <div classname="main-video">
+          <MainVideo videoRef={videoRef} />
+        </div>
+        <div classname="sub-videos">
+          {peers?.map((peer, index) => (
+            <SubVideo key={index} peer={peer} />
+          ))}
+        </div>
+      </VideoContent>
+    </PageWrapper>
   );
 }
