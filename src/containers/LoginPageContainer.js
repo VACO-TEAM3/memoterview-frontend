@@ -20,8 +20,6 @@ export default function LoginPageContainer() {
     alert("fail!");
   }
 
-  console.log(token, "token?");
-
   return (
     <>
       <LoginPage onSuccess={onSuccess} onFailure={onFailure} />
