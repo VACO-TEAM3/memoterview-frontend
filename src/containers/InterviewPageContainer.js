@@ -4,7 +4,7 @@ import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
 import Video from "../components/Video";
-import { mediaStreaming } from "../utils/media";
+import { mediaStream } from "../utils/media";
 
 export default function InterviewPageContainer() {
   const socket = io.connect("http://localhost:5000");
@@ -21,8 +21,10 @@ export default function InterviewPageContainer() {
   useEffect(() => {
     (async function getStreaming() {
       try {
-        const localStream = await mediaStreaming.Initialize();
+        const localStream = await mediaStream();
+
         userVideo.current.srcObject = localStream;
+        
         setStream(localStream);
         setIsStreaming(true);
       } catch (error) {
