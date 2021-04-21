@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
@@ -152,8 +153,11 @@ export default function Video() {
     setIsVideoMuted(!isVideoMuted);
   }
 
+=======
+export default function Video({ peers, videoRef }) {
+>>>>>>> [REFACTOR] separate rtc directory
   return (
-    <div className="peers" ref={ref}>
+    <div className="peers" ref={videoRef}>
     </div>
 =======
 import { useRef } from "react";

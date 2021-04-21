@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 import Video from "../../components/Video";
 
+<<<<<<< HEAD
 export default function Interview() {
 =======
 import { useParams } from "react-router-dom";
@@ -19,7 +20,10 @@ import Video from "../../components/Video";
 
 export default function Interview() {
 >>>>>>> [ADD] success multiple peer connetion
+=======
+export default function Interview({ peers, videoRef, isInterviewer }) {
+>>>>>>> [REFACTOR] separate rtc directory
   return (
-    <Video />
+    <Video peers={peers} videoRef={videoRef} />
   );
 }
