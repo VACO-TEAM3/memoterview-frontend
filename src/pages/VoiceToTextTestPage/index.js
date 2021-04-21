@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const RECORD_STATE_TYPE = {
   INTERVIEW_BEFORE: 0,
@@ -24,6 +24,7 @@ const SpeechRecognition =
 export default function VoiceToTextTestPage() {
   const [question, setQuestion] = useState([]);
   const [answer, setAnswer] = useState([]);
+  const isRecordingRef = useRef(false);
   const [recordBtnState, setRecordBtnState] = useState(RECORD_STATE_TYPE.INTERVIEW_BEFORE);
 
   const setNextRecordBtnState = useCallback(() => {
@@ -56,7 +57,7 @@ export default function VoiceToTextTestPage() {
     setNextRecordBtnState();
   }
 
-  const handleKeyPress = useCallback(
+  const handleKeyDown = useCallback(
     (event) => {
       if (event.key === " " || event.key === "Spacebar") {
         setNextRecordBtnState();
@@ -66,12 +67,14 @@ export default function VoiceToTextTestPage() {
   );
 
   useEffect(() => {
-    document.addEventListener("keypress", handleKeyPress);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("keypress", handleKeyPress);
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyDown]);
+
+  let recognitionRef = useRef(null);
 
   // Speech Recognition 관련 Side Effect
   useEffect(() => {
@@ -80,10 +83,14 @@ export default function VoiceToTextTestPage() {
       return;
     }
 
-    let recognition = null;
-
     if (recordBtnState === RECORD_STATE_TYPE.QUESTIONING || recordBtnState === RECORD_STATE_TYPE.ANSWERING) {
-      recognition = new SpeechRecognition();
+      if (isRecordingRef.current) {
+        return;
+      }
+
+      console.log("rerendering");
+
+      const recognition = new SpeechRecognition();
 
       recognition.lang = "ko";
       recognition.continuous = true;
@@ -112,11 +119,22 @@ export default function VoiceToTextTestPage() {
       };
 
       recognition.start();
+
+      recognitionRef.current = recognition;
+      isRecordingRef.current = true;
     } else {
+      console.log("recog stop!!!");
+      isRecordingRef.current = false;
+      recognitionRef.current && recognitionRef.current.stop();
+      recognitionRef.current = null;
       console.log(`else Record State ${recordBtnState}`);
     }
 
-    return () => recognition && recognition.stop();
+    return () => {
+      if (!recordBtnState === RECORD_STATE_TYPE.QUESTIONING && !recordBtnState === RECORD_STATE_TYPE.ANSWERING) {
+        
+      }
+    };
   }, [answer, question, recordBtnState]);
 
   return (
