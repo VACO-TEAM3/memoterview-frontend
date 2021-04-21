@@ -1,11 +1,11 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+import InterviewPageContainer from "../../containers/InterviewContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
-import Interview from "../../pages/Interview";
 import Projects from "../../pages/Projects";
 import VoiceToTextTestPage from "../../pages/VoiceToTextTestPage";
 import AuthRoute from "../AuthRoute";
@@ -48,7 +48,7 @@ function App() {
             <Projects />
           </Route>
           <Route path="/projects/:id">
-            <Interview />
+            <InterviewPageContainer />
           </Route>
           <Route path="/search">
             <Dummy />
