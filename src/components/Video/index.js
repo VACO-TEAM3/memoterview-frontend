@@ -402,6 +402,12 @@ export default function Video() {
 >>>>>>> [FIX] multiple user error
 =======
 import { useEffect, useRef } from "react";
+import styled from "styled-components";
+
+const StyledVideo = styled.video`
+  height: 40%;
+  width: 50%;
+`;
 
 export default function Video({ peer }) {
   const ref = useRef();
@@ -410,14 +416,18 @@ export default function Video({ peer }) {
     if (!peer) {
       return;
     }
-    console.log(peer.on);
+    console.log(peer);
     peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
   }, [peer]);
 
   return (
+<<<<<<< HEAD
     <video playsInline autoPlay ref={ref} />
 >>>>>>> [ADD] Video component
+=======
+    <StyledVideo playsInline autoPlay ref={ref} />
+>>>>>>> [REFACTOR] check pair with socket
   );
 }
