@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
-import Video from "../components/Video";
+import Interview from "../pages/Interview";
 import { mediaStream } from "../utils/media";
 
 export default function InterviewPageContainer() {
   const socket = io.connect("http://localhost:5000");
 
   const { id: roomID } = useParams();
-  const userData = Math.random();
+  const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,7 +37,7 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-    console.log(stream);
+
     socket.emit("requestJoinRoom", { roomID, userData });
 
     socket.on("successJoinUser", (targetUsers) => {
@@ -58,7 +58,6 @@ export default function InterviewPageContainer() {
         });
 
         setPeers((prev) => [...prev, peer]);
-        console.log(socket.id, peers);
       });
     });
 
@@ -92,11 +91,6 @@ export default function InterviewPageContainer() {
   }, [isStreaming]);
 
   return (
-    <>
-      <video ref={userVideo} autoPlay playsInline />
-      {peers.map((peer, index) => (
-        <Video key={index} peer={peer} />
-      ))}
-    </>
+    <Interview peers={peers} videoRef={userVideo} />
   );
 }
