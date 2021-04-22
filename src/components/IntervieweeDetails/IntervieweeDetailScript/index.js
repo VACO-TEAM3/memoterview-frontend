@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
-
 const ScriptWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,7 +16,6 @@ const ScriptHeader = styled.div`
   height: 5vh;
   background-color: blueviolet;
 `;
-
 
 function IntervieweeDetailScript({ questions }) {
   return (

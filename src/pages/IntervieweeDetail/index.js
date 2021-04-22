@@ -27,22 +27,6 @@ const Main = styled.div`
   background-color: green;
 `;
 
-const ScriptWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 85%;
-  height: 60%;
-  background-color: white;
-`;
-
-const ScriptHeader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5vh;
-  background-color: blueviolet;
-`;
-
 export default function IntervieweeDetail() {
   const userInfo = {
     name: "ri",
