@@ -29,7 +29,7 @@ const VideoContent = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 640px;
-  
+
   .main-video {
     width: 640px;
     height: 480px;
@@ -41,14 +41,14 @@ const VideoContent = styled.div`
     grid-template-columns: repeat(4, 15rem);
     grid-column-gap: 15%;
     justify-items: center;
-    justify-content: center;    
+    justify-content: center;
   }
 `;
 
-export default function Interview({ 
-  interviewers, 
-  user, 
-  onAudioBtnClick, 
+export default function Interview({
+  interviewers,
+  user,
+  onAudioBtnClick,
   onVideoBtnClick,
   isStart = false,
 }) {
@@ -62,12 +62,12 @@ export default function Interview({
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
-  
+
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
   }
-  
+
   function handleVideo() {
     onVideoBtnClick(isVideoOn);
     setIsVideoOn((prev) => !prev);
@@ -89,7 +89,7 @@ export default function Interview({
   function handleOpenResumeButton() {
     setIsResumeOpend((prev) => !prev);
   }
-  
+
   function handleOpenQuestionBoardOpen() {
     setIsQuestionBoardOpen((prev) => !prev);
   }
@@ -119,22 +119,22 @@ export default function Interview({
         <button onClick={handleOpenResumeButton}>이력서</button>
         {isResumeOpen && <div>이력서다!</div>}
         <button onClick={handleOpenQuestionBoardOpen}>질문</button>
-        {isQuestionBoardOpen && 
-          <QuestionBoard 
-            question={question} 
-            questions={questions} 
-            onChange={handleInputChange} 
-            onSubmit={handleSubmit} 
+        {isQuestionBoardOpen &&
+          <QuestionBoard
+            question={question}
+            questions={questions}
+            onChange={handleInputChange}
+            onSubmit={handleSubmit}
           />
         }
         <Timer />
         <VideoContent>
-          <div classname="main-video">
+          <div className="main-video">
             <MainVideo videoRef={user} />
             <button onClick={handleAudio}>audio</button>
             <button onClick={handleVideo}>video</button>
           </div>
-          <div classname="sub-videos">
+          <div className="sub-videos">
             {interviewers?.map((peer, index) => (
               <SubVideo key={index} peer={peer} />
             ))}
