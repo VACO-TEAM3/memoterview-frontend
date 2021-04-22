@@ -5,7 +5,7 @@ import IntervieweeResumeModalView from "../components/IntervieweeResumeModalView
 import Modal from "../components/Modal";
 import Interview from "../pages/Interview";
 
-export default function InterviewContainer() {
+export default function InterviewContainerHelper() {
   const [modalFlag, setModalFlag] = useState(false);
 
   function handleIntervieweeResumeShowingBtnClick() {
