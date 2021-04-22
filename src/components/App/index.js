@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+import InterviewContainer from "../../containers/interviewContainerHelper";
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
@@ -24,11 +25,11 @@ export default function App() {
         <AuthRoute path="/projects/:id">
           <InterviewPageContainer />
         </AuthRoute>
-        <AuthRoute path="/result/:id">
+        <AuthRoute path="/result/:projectId">
           <TotalResultContainer />
         </AuthRoute>
-        <AuthRoute path="/interview">
-          <Dummy />
+        <AuthRoute path="/interview/:projectId/:intervieweeId">
+          <InterviewContainer />
         </AuthRoute>
         <AuthRoute path="/search">
           <Dummy />

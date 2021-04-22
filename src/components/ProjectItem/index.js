@@ -28,7 +28,7 @@ const ColumnItem = styled.span`
   font-size: 1rem;
 `;
 
-function ProjectItem({ project, onClick, onDeleteBtnClick }) {
+function ProjectItem({ project, onClick, onDeleteBtnClick, handleProjectItemClick }) {
   function handleProjectItemClick() {
     onClick && onClick(project.id);
   }

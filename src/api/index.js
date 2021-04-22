@@ -102,3 +102,51 @@ export async function searchInterviewers({ email, token }) {
 
   return await response.json();
 }
+
+export async function getIntervieweeResumeAPI(projectId, intervieweeId, token) {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/${intervieweeId}`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${token}`,
+        },
+      }
+    );
+
+    const result = await response.json();
+    console.log(result, "result?");
+    const resumePdfUrl = result.url;
+    console.log(resumePdfUrl, "url");
+
+    return resumePdfUrl;
+  } catch (error) {
+    console.warn(error);
+  }
+}
+
+export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projectId }) {
+  const { name, email } = intervieweeInfo;
+
+  const formData = new FormData();
+  formData.append("pdf", pdf);
+  formData.append("name", name);
+  formData.append("email", email);
+
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewee`, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "authorization": `Bearer ${token}`,
+      },
+    }
+  );
+
+  const result = await response.json();
+  console.log(result, "result");
+
+  return result;
+};
