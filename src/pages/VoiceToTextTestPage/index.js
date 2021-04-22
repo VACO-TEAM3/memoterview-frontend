@@ -9,6 +9,7 @@ import { io } from "socket.io-client";
 
 import { BUTTON_NAME } from "../../constants/recordState";
 import useInterviewRecord from "../../hooks/useInterviewRecord";
+import genUuid from "../../utils/uuid";
 
 export default function VoiceToTextTestPage() {
   const socket = useMemo(() => io.connect("http://localhost:5000"), []);
@@ -56,7 +57,7 @@ export default function VoiceToTextTestPage() {
         isInterviewee: false,
       },
     });
-    const uuid = uuidv4();
+    const uuid = genUuid();
     setUserId(uuid);
     console.log("join socket as intervewer", uuid);
     alert("인터뷰어로 참가" + uuid);
@@ -96,12 +97,4 @@ export default function VoiceToTextTestPage() {
       <h1>녹음 텍스트 : {recogText}</h1>
     </div>
   );
-}
-
-function uuidv4() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    let r = (Math.random() * 16) | 0,
-      v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
 }
