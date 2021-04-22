@@ -3,17 +3,39 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import useToken from "../hooks/useToken";
-import { getInterviewees } from "../redux/reducers/interviewee";
+import { finishInterview } from "../redux/reducers/interviewee";
 import { addMyProject, closeInterviewRoom, getJoinedProjects, getMyProjects, updateInterviewRoom } from "../redux/reducers/projects";
 import { loginUser } from "../redux/reducers/user";
 
 export default function Dummy() {
   const { token, setToken } = useToken();
   console.log(token);
-  const { id } = useParams();
-
+  const { intervieweeId, projectId } = useParams();
   useEffect(() => {
-    dispatch(updateInterviewRoom({ token, projectId: id, roomState: true }));
+    const interviewee = {
+      filterScores: {
+        curtureFit: 2,
+        skill: 6,
+        tech: 10,
+      },
+      questions: [
+        {
+          question: "adfdafafa",
+          score: 24,
+          answer: "afadfafafaf",
+          questioner: "608056473ec0b1612a8ebce2",
+        }
+      ],
+      comments: [
+        {
+          comment: "adfafadfafa",
+          score: 24,
+          commentor: "608056473ec0b1612a8ebce2",
+        }
+      ],
+      isInterviewed: true,
+    };
+    dispatch(finishInterview({ token, intervieweeId: "6081800e2839d7b12f06d607", projectId, interviewee }));
     console.log(25);
   }, []);
 

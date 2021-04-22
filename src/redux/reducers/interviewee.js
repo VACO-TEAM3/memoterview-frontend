@@ -1,7 +1,7 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
-import { getIntervieweesApi, openNewInterviewRoom } from "../../api";
-import { getProjectsByProjectType, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
+import { getIntervieweesApi, updateInterviewee } from "../../api";
+import { handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import { createPromiseSaga, createPromiseSagaById } from "../lib/sagaUtils";
 
 const BASE_PATH = "INTERVIWEE/";
@@ -21,17 +21,37 @@ export const FINISH_INTERVIEW = BASE_PATH + "FINISH_INTERVIEW";
 export const FINISH_INTERVIEW_SUCCESS = BASE_PATH + "FINISH_INTERVIEW_SUCCESS";
 export const FINISH_INTERVIEW_ERROR = BASE_PATH + "FINISH_INTERVIEW_ERROR";
 
-export const getInterviewees = ({ projectId, token }) => ({ type: GET_INTERVIEWEES, payload: { projectId, token }, meta: projectId });
-export const addNewInterviewee = ({ token, interviewee, projectId }) => ({ type: ADD_NEW_INTERVIEWEE, payload: { token, interviewee, projectId }, meta: interviewee });
-export const finishInterview = (interviewee) => ({ type: FINISH_INTERVIEW, payload: interviewee, meta: interviewee });
+export const getInterviewees = ({ projectId, token }) => ({
+  type: GET_INTERVIEWEES,
+  payload: { projectId, token },
+  meta: projectId,
+});
+
+export const addNewInterviewee = ({ token, interviewee, projectId }) => ({
+  type: ADD_NEW_INTERVIEWEE,
+  payload: { token, interviewee, projectId },
+  meta: interviewee,
+});
+
+export const finishInterview = ({
+  token,
+  interviewee,
+  projectId,
+  intervieweeId,
+}) => ({
+  type: FINISH_INTERVIEW,
+  payload: { token, interviewee, projectId, intervieweeId },
+  meta: interviewee,
+});
 
 export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesApi);
 export const addNewIntervieweeSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE);
-export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW);
+export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW, updateInterviewee);
 
 export function* intervieweeSaga() {
   yield takeLeading(GET_INTERVIEWEES, getIntervieweesSaga);
-  // yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
+  // yield takeLatest(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
+  yield takeLatest(FINISH_INTERVIEW, finishInterviewSaga);
 }
 
 const commentInitialState = {
@@ -77,6 +97,10 @@ export default function interviewee(state = initialState, action) {
     case GET_INTERVIEWEES_ERROR:
       console.log(action.payload);
       return handleAsyncUpdateStateActionsWithNormalize(GET_INTERVIEWEES, true)(state, action);
+    case FINISH_INTERVIEW:
+    case FINISH_INTERVIEW_SUCCESS:
+    case FINISH_INTERVIEW_ERROR:
+      return handleAsyncUpdateStateActionsWithNormalize(FINISH_INTERVIEW, true)(state, action);
     default:
       return state;
   }
