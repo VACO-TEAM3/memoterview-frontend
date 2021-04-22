@@ -1,24 +1,15 @@
 
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
-import { createIntervieweeAPI } from "../api";
 import IntervieweeResumeModalView from "../components/IntervieweeResumeModalView";
 import Modal from "../components/Modal";
-import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
 
 export default function InterviewContainer() {
   const [modalFlag, setModalFlag] = useState(false);
-  const [url, setUrl] = useState("");
-  const { intervieweeId, projectId } = useParams();
-  const { token } = useToken();
 
-  async function handleIntervieweeResumeShowingBtnClick() {
+  function handleIntervieweeResumeShowingBtnClick() {
     openIntervieweeResumeModal();
-    const result = await createIntervieweeAPI(projectId, intervieweeId, token);
-    console.log(result, "result");
-    // setUrl(result);
   }
 
   function closeIntervieweeResumeModal() {
@@ -34,7 +25,6 @@ export default function InterviewContainer() {
       {modalFlag && (
         <Modal onClick={closeIntervieweeResumeModal}>
           <IntervieweeResumeModalView
-            url={url}
             onCancleBtnClick={closeIntervieweeResumeModal}
           />
         </Modal>
