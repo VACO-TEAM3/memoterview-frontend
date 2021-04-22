@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import IntervieweeDetailNavBar from "../../components/IntervieweeDetails/IntervieweeDetailNavBar";
 import UserIcon from "../../components/UserIcon";
 import UserInfo from "../../components/UserInfo";
 
@@ -35,13 +36,6 @@ const UserInfoWrapper = styled.div`
   justify-content: center;
   margin-left: 1vw;
   background-color: coral;
-`;
-
-const Navbar = styled.div`
-  display: flex;
-  width: 100%;
-  height: 5vh;
-  background-color: pink;
 `;
 
 const Main = styled.div`
@@ -160,7 +154,8 @@ export default function IntervieweeDetail() {
   return (
     <>
       <MainLayoutWrapper>
-        <Navbar />
+        <IntervieweeDetailNavBar />
+
         <Header>
           <UserIconWrapper>
             <UserIcon />
