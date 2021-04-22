@@ -135,9 +135,15 @@ export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
   return data;
 }
 
+<<<<<<< HEAD
 export async function updateInterviewRoomState({ token, projectId, roomState }) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}`, {
     method: "PATCH",
+=======
+export async function createNewInterviewees({ token, interviewee, projectId }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/interviewees`, {
+    method: "POST",
+>>>>>>> [ADD] get interviewees redux
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
