@@ -15,11 +15,8 @@ export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
 
 const SET_USER = BASE_PATH + "SET_USER";
 
-export const loginUser = (user) => ({
-  type: GET_TOKEN,
-  payload: user,
-  meta: user,
-});
+export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
+export const setUser = userInfo => ({ type: SET_USER, payload: userInfo });
 
 const getTokenSaga = createAuthorizePromiseSaga(GET_TOKEN, login);
 
@@ -97,6 +94,18 @@ export default function user(state = initialState, action) {
           joinedProjects: state.userData.joinedProjects.filter(
             (projectId) => projectId !== id
           ),
+        },
+      };
+    }
+    case SET_USER:{
+      const userInfo = action.payload;
+
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          email: userInfo.email,
+          username: userInfo.username,
         },
       };
     }

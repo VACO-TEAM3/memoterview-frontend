@@ -68,7 +68,8 @@ const Button = styled.button`
   height: 40px;
 `;
 
-export default function WelcomePage({ onAskPermissionBtnClick }) {
+export default function WelcomePage({ onAskPermissionBtnClick, onInputChange }) {
+
   return (
     <>
       <PageWrapper>
@@ -77,11 +78,11 @@ export default function WelcomePage({ onAskPermissionBtnClick }) {
           <InputWrapper>
             <EditField>
               <Label>이름: </Label>
-              <Input></Input>
+              <Input name="name" onChange={onInputChange} />
             </EditField>
             <EditField>
               <Label>이메일: </Label>
-              <Input></Input>
+              <Input name="email" onChange={onInputChange} />
             </EditField>
           </InputWrapper>
           <ButtonWrapper>
