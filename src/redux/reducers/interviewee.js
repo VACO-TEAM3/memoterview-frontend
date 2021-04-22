@@ -37,8 +37,8 @@ export const CLOSE_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "CLOSE_INTERVIEW_ROOM_SU
 export const CLOSE_INTERVIEW_ROOM_ERROR = BASE_PATH + "CLOSE_INTERVIEW_ROOM_ERROR";
 
 export const getInterviewees = ({ projectId, token }) => ({ type: GET_INTERVIEWEES, payload: { projectId, token }, meta: projectId });
-export const addNewInterviewee = (interviewee) => ({ type: ADD_NEW_INTERVIEWEE, payload: interviewee, meta: interviewee });
-export const openInterviewRoom = (projectId) => ({ type: OPEN_INTERVIEW_ROOM, payload: projectId, meta: projectId });
+export const addNewInterviewee = ({ token, interviewee, projectId }) => ({ type: ADD_NEW_INTERVIEWEE, payload: { token, interviewee, projectId }, meta: interviewee });
+export const openInterviewRoom = ({ projectId, token, intervieweeId }) => ({ type: OPEN_INTERVIEW_ROOM, payload: {  projectId, token, intervieweeId }, meta: projectId });
 export const getResume = (intervieweeId) => ({ type: GET_RESUME, payload: intervieweeId, meta: intervieweeId });
 export const finishInterview = (interviewee) => ({ type: FINISH_INTERVIEW, payload: interviewee, meta: interviewee });
 export const closeInterviewRoom = (projectId) => ({ type: GET_RESUME, payload: projectId, meta: projectId });
