@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import IntervieweePageContainer from "../../containers/IntervieweePageContainer";
 import InterviewContainerHelper from "../../containers/interviewContainerHelper";
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
+import IntervieweeDetailContainer from "../../containers/IntervieweeDetailContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
 import TotalResultContainer from "../../containers/TotalResultContainer";
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
-        <Route path="/welcome/:projectId/:intervieweeId" exact>
+        <Route path="/welcome/:projectId/:intervieweeId" >
           <WelcomeContainer />
         </Route>
         <AuthRoute path="/projects">
@@ -33,8 +34,11 @@ export default function App() {
         <AuthRoute path="/interviewee">
           <IntervieweePageContainer />
         </AuthRoute>
-        <AuthRoute path="/result/:id">
+        <AuthRoute path="/projects/:projectId">
           <TotalResultContainer />
+        </AuthRoute>
+        <AuthRoute path="/result/:intervieweeId">
+          <IntervieweeDetailContainer />
         </AuthRoute>
         <AuthRoute path="/interview/:projectId/:intervieweeId">
           <InterviewContainerHelper />
