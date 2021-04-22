@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 import { createIntervieweeAPI } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
@@ -10,6 +9,8 @@ import TotalResult from "../pages/TotalResult";
 export default function TotalResultContainer() {
   const [modalFlag, setModalFlag] = useState(false);
   const { token } = useToken();
+
+  // mock projectId
   const projectId = "607ea8dc06a4055a315ad0cc";
 
   function handleIntervieweeAddBtnClick() {
@@ -28,6 +29,7 @@ export default function TotalResultContainer() {
   async function handleFormSubmitBtnClick({ pdf, intervieweeInfo }){
     try {
       await createIntervieweeAPI({ token, projectId, pdf, intervieweeInfo });
+      closeAddIntervieweeModal();
     } catch (error) {
       console.warn(error);
     }

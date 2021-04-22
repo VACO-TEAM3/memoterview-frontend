@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { getIntervieweeResumeAPI } from "../api";
+import { createIntervieweeAPI } from "../api";
 import IntervieweeResumeModalView from "../components/IntervieweeResumeModalView";
 import Modal from "../components/Modal";
 import useToken from "../hooks/useToken";
@@ -14,10 +14,11 @@ export default function InterviewContainer() {
   const { intervieweeId, projectId } = useParams();
   const { token } = useToken();
 
-  function handleIntervieweeResumeShowingBtnClick() {
+  async function handleIntervieweeResumeShowingBtnClick() {
     openIntervieweeResumeModal();
-    //const result = await getIntervieweeResumeAPI(projectId, intervieweeId, token);
-    //setUrl(result);
+    const result = await createIntervieweeAPI(projectId, intervieweeId, token);
+    console.log(result, "result");
+    // setUrl(result);
   }
 
   function closeIntervieweeResumeModal() {
