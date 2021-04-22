@@ -56,6 +56,7 @@ export const reducerUtils = {
     error: null,
   }),
   update: (payload, prevState = null) => {
+    console.log(payload, "updata");
     const dataList = Array.isArray(payload) ? payload : [payload];
     return {
       loading: false,
@@ -85,6 +86,7 @@ export const getProjectsByProjectType = (state, action, type) => {
     const payload = action.payload;
     const dataList = Array.isArray(payload) ? payload : [payload];
     const myProjectIds = dataList.map((data) => data.id);
+
     return {
       ...state,
       visibleProjects: { ...state.visibleProjects, [type]: myProjectIds },
@@ -149,12 +151,14 @@ export const handleAsyncUpdateStateActionsWithNormalize = (
   keepData = false
 ) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
-
   return (state, action) => {
+    console.log(SUCCESS, action.type);
+    console.log(action.payload, action.type);
     switch (action.type) {
       case type:
         return { ...state, ...reducerUtils.loading(keepData ? state : null) };
       case SUCCESS:
+        console.log(action.type, action.payload);
         return {
           ...state,
           ...reducerUtils.update(action.payload, keepData ? state : null),
