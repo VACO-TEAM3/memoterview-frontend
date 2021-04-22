@@ -42,7 +42,6 @@ const Navbar = styled.div`
   width: 100%;
   height: 5vh;
   background-color: pink;
-
 `;
 
 const Main = styled.div`
@@ -85,11 +84,18 @@ const EvaluationDetailWrapper = styled.div`
 
 const ScriptWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   width: 85%;
   height: 60%;
   background-color: white;
+`;
+
+const ScriptHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  background-color: blueviolet;
 `;
 
 const Comment = styled.div`
@@ -112,8 +118,6 @@ const InterviewerInfoWrapper = styled.div`
   background-color: blue;
 `;
 
-
-
 export default function IntervieweeDetail() {
   const userInfo = {
     userName: "ri",
@@ -135,6 +139,21 @@ export default function IntervieweeDetail() {
       score: "★★★★☆",
       comment: "!!!!!!lllalalalalalala",
       commentor: { name: "3333", email: "asdftttyyyyyyfasdf@dfadf.com" },
+    }
+  ];
+
+  const questions = [
+    {
+      title: "q1",
+      answer: "aqqqqqqqqqqqqqqqqqqqqq1",
+    },
+    {
+      title: "q2",
+      answer: "aqqqqqqqqqqqqqqqqqqqqq1",
+    },
+    {
+      title: "q2",
+      answer: "aqqqqqqqqqqqqqqqqqqqqq1",
     }
   ];
 
@@ -187,7 +206,23 @@ export default function IntervieweeDetail() {
             </div>
           </EvaluationDetailWrapper>
           <ScriptWrapper>
-
+            <ScriptHeader>
+                스크립트
+            </ScriptHeader>
+            <div>
+              {
+                questions.length ?
+                  questions.map(question =>
+                    <>
+                      <ul>
+                        <li>문제: {question.title}</li>
+                        <li>답변: {question.answer}</li>
+                      </ul>
+                    </>
+                  )
+                  : "faBatteryEmpty..."
+              }
+            </div>
           </ScriptWrapper>
         </Main>
 
