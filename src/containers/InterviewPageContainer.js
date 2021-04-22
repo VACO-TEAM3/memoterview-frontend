@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
@@ -7,7 +7,7 @@ import Interview from "../pages/Interview";
 import { mediaOptions, mediaStream } from "../utils/media";
 
 export default function InterviewPageContainer() {
-  const socket = io.connect("http://localhost:5000");
+  const socket = useMemo(() => io.connect("http://localhost:5000"), []);
 
   const { id: roomID } = useParams();
   const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
@@ -106,11 +106,11 @@ export default function InterviewPageContainer() {
   }
 
   return (
-    <Interview 
-      user={userVideo} 
-      interviewers={peers} 
-      onVideoBtnClick={handleVideo} 
-      onAudioBtnClick={handleAudio} 
+    <Interview
+      user={userVideo}
+      interviewers={peers}
+      onVideoBtnClick={handleVideo}
+      onAudioBtnClick={handleAudio}
     />
   );
 }
