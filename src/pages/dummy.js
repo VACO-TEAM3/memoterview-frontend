@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getIntervieweesApi } from "../api/index";
 import useToken from "../hooks/useToken";
 import { getInterviewees } from "../redux/reducers/interviewee";
-import { addMyProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
+import { addMyProject, closeInterviewRoom, getJoinedProjects, getMyProjects, updateInterviewRoom } from "../redux/reducers/projects";
 import { loginUser } from "../redux/reducers/user";
 
 export default function Dummy() {
@@ -14,17 +13,10 @@ export default function Dummy() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getInterviewees({ token, projectId: id }));
+    dispatch(updateInterviewRoom({ token, projectId: id, roomState: true }));
     console.log(25);
   }, []);
-  console.log(id);
-  async function dummy() {
-    const data = await getIntervieweesApi({ token, projectId: id });
-    console.log(data);
 
-  }
-
-  dummy();
   const dispatch = useDispatch();
 
   function handleLoginClick() {

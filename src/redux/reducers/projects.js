@@ -2,11 +2,10 @@ import { takeLatest, takeLeading } from "redux-saga/effects";
 
 import { 
   addMyProjectAPI, 
-  closeNewInterviewRoom, 
   deleteProjectAPI, 
   getJoinedProjectsAPI, 
   getMyProjectsAPI, 
-  openNewInterviewRoom, 
+  updateInterviewRoomState, 
 } from "../../api";
 import { PROJECT_TYPES } from "../../constants/projects";
 import { changeDateFormat } from "../../utils/date";
@@ -37,15 +36,10 @@ const DELETE_PROJECT = "DELETE_PROJECT";
 export const DELETE_PROJECT_SUCCESS = "DELETE_PROJECT_SUCCESS";
 const DELETE_PROJECT_ERROR = "DELETE_PROJECT_ERROR";
 
-// interview룸 오픈 -> project isopened로 바뀌어야..
-const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
-const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
-const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
-
-// interview룸 닫기 -> project id를 통해 isopened false
-const CLOSE_INTERVIEW_ROOM = BASE_PATH + "CLOSE_INTERVIEW_ROOM";
-const CLOSE_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "CLOSE_INTERVIEW_ROOM_SUCCESS";
-const CLOSE_INTERVIEW_ROOM_ERROR = BASE_PATH + "CLOSE_INTERVIEW_ROOM_ERROR";
+// interview룸 오픈, 클로즈 -> action의 payload로 state 넣어주기
+const UPDATE_INTERVIEW_ROOM = BASE_PATH + "UPDATE_INTERVIEW_ROOM";
+const UPDATE_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "UPDATE_INTERVIEW_ROOM_SUCCESS";
+const UPDATE_INTERVIEW_ROOM_ERROR = BASE_PATH + "UPDATE_INTERVIEW_ROOM_ERROR";
 
 export const getMyProjects = ({ userId, token }) => ({
   type: GET_MY_PROJECTS,
@@ -71,33 +65,24 @@ export const deleteProject = ({ projectId, token }) => ({
   meta: projectId,
 });
 
-export const openInterviewRoom = ({ projectId, token }) => ({ 
-  type: OPEN_INTERVIEW_ROOM, 
-  payload: { projectId, token }, 
+export const updateInterviewRoom = ({ projectId, token, roomState }) => ({ 
+  type: UPDATE_INTERVIEW_ROOM, 
+  payload: { projectId, token, roomState }, 
   meta: projectId,
-});
-
-export const closeInterviewRoom = ({ projectId, token }) => ({ 
-  type: CLOSE_INTERVIEW_ROOM, 
-  payload: { token, projectId }, 
-  meta: projectId, 
 });
 
 const getMyProjectsSaga = createPromiseSaga(GET_MY_PROJECTS, getMyProjectsAPI);
 const getJoinedProjectsSaga = createPromiseSaga(GET_JOINED_PROJECTS, getJoinedProjectsAPI);
 const addMyProjectSaga = createPromiseSaga(ADD_MY_PROJECT, addMyProjectAPI);
 const deleteProjectSaga = createPromiseSaga(DELETE_PROJECT, deleteProjectAPI);
-const openInterviewRoomSaga = createPromiseSaga(OPEN_INTERVIEW_ROOM, openNewInterviewRoom);
-const closeInterviewRoomSaga = createPromiseSaga(CLOSE_INTERVIEW_ROOM, closeNewInterviewRoom);
-
+const updateInterviewRoomSaga = createPromiseSaga(UPDATE_INTERVIEW_ROOM, updateInterviewRoomState);
 
 export function* projectsSaga() {
   yield takeLeading(GET_MY_PROJECTS, getMyProjectsSaga);
   yield takeLeading(GET_JOINED_PROJECTS, getJoinedProjectsSaga);
   yield takeLatest(ADD_MY_PROJECT, addMyProjectSaga);
   yield takeLatest(DELETE_PROJECT, deleteProjectSaga);
-  yield takeLatest(OPEN_INTERVIEW_ROOM, openInterviewRoomSaga);
-  yield takeLatest(CLOSE_INTERVIEW_ROOM, closeInterviewRoomSaga);
+  yield takeLatest(UPDATE_INTERVIEW_ROOM, updateInterviewRoomSaga);
 }
 
 const projectInitialState = {
@@ -105,7 +90,7 @@ const projectInitialState = {
   title: "",
   candidates: [],
   status: "",
-  isOpend: false,
+  isOpened: false,
   creator: "",
   filters: [],
   participants: [],
@@ -151,14 +136,10 @@ export default function projects(state = initialState, action) {
       
       return handleAsyncRemoveStateActionsWithNormalize(DELETE_PROJECT, true)(newState, action);
     }
-    case OPEN_INTERVIEW_ROOM:
-    case OPEN_INTERVIEW_ROOM_SUCCESS:
-    case OPEN_INTERVIEW_ROOM_ERROR:
-      return handleAsyncUpdateStateActionsWithNormalize(OPEN_INTERVIEW_ROOM, true)(state, action);
-    case CLOSE_INTERVIEW_ROOM:
-    case CLOSE_INTERVIEW_ROOM_SUCCESS:
-    case CLOSE_INTERVIEW_ROOM_ERROR:
-      return handleAsyncUpdateStateActionsWithNormalize(CLOSE_INTERVIEW_ROOM, true)(state, action);
+    case UPDATE_INTERVIEW_ROOM:
+    case UPDATE_INTERVIEW_ROOM_SUCCESS:
+    case UPDATE_INTERVIEW_ROOM_ERROR:
+      return handleAsyncUpdateStateActionsWithNormalize(UPDATE_INTERVIEW_ROOM, true)(state, action);
     default:
       return state;
   }
