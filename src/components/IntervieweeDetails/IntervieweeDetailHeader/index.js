@@ -24,7 +24,7 @@ function IntervieweeDetailHeader({ userInfo }) {
     <Header>
       <IntervieweeDetailUserInfo userInfo={userInfo}/>
       <FinalScore>
-          최종 평가 ★★★★★
+        최종 평가 ★★★★★
       </FinalScore>
     </Header>
   );
