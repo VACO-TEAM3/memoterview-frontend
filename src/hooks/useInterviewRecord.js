@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { RECORD_STATE_TYPE } from "../constants/recordState";
-
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+import useSpeechRecognition from "./useSpeechRecognition";
 
 export default function useInterviewRecord({
   socket,
@@ -11,13 +9,12 @@ export default function useInterviewRecord({
   isInterviewee,
   userId,
 }) {
-  const [recogText, setRecogText] = useState([]);
+
+  const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
 
   const recordsGlobalsRef = useRef({
     recogText,
     questionText: "",
-    isRecording: false,
-    recognition: null,
     isInterviewee,
     userId,
   });
@@ -25,50 +22,6 @@ export default function useInterviewRecord({
   const [recordStateType, setRecordStateType] = useState(
     RECORD_STATE_TYPE.INTERVIEW_BEFORE
   );
-
-  const startRecognitionRecord = useCallback(() => {
-    if (!SpeechRecognition) {
-      console.error("Speech recognition not supported 😢 (Use Chrome Browser)");
-      return;
-    }
-
-    if (recordsGlobalsRef.current.isRecording) {
-      return;
-    }
-
-    console.log("recognition start");
-
-    const recognition = new SpeechRecognition();
-
-    recognition.lang = "ko";
-    recognition.continuous = true;
-    recognition.interimResults = true;
-
-    recognition.onstart = () => {
-      setRecogText([]);
-    };
-
-    recognition.onresult = (event) => {
-      const transcript = [...event.results].reduce(
-        (acc, result) => acc + result[0].transcript,
-        ""
-      );
-
-      setRecogText(recogText.concat(transcript));
-    };
-
-    recognition.start();
-
-    recordsGlobalsRef.current.recognition = recognition;
-    recordsGlobalsRef.current.isRecording = true;
-  }, []);
-
-  const stopRecognitionRecord = useCallback(() => {
-    recordsGlobalsRef.current.isRecording = false;
-    recordsGlobalsRef.current.recognition &&
-      recordsGlobalsRef.current.recognition.stop();
-    recordsGlobalsRef.current.recognition = null;
-  }, []);
 
   const setNextRecordStateType = useCallback(() => {
     switch (recordStateType) {
@@ -78,12 +31,12 @@ export default function useInterviewRecord({
         break;
       case RECORD_STATE_TYPE.QUESTION_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.QUESTIONING);
-        startRecognitionRecord();
+        startRecognition();
         socket.emit("question", { userId: recordsGlobalsRef.current.userId });
         break;
       case RECORD_STATE_TYPE.QUESTIONING:
         setRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
-        stopRecognitionRecord();
+        stopRecognition();
         recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText.join(
           " "
         );
@@ -103,7 +56,7 @@ export default function useInterviewRecord({
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
         break;
     }
-  }, [recordStateType, socket, startRecognitionRecord, stopRecognitionRecord]);
+  }, [recordStateType, socket, startRecognition, stopRecognition]);
 
   useEffect(() => {
     console.log("set Socket Event");
@@ -123,14 +76,14 @@ export default function useInterviewRecord({
       console.log("haha");
       if (recordsGlobalsRef.current.isInterviewee) {
         console.log("intervieweeStartAnswer, start Record");
-        startRecognitionRecord();
+        startRecognition();
       }
     });
 
     socket.on("intervieweeEndAnswer", () => {
       if (recordsGlobalsRef.current.isInterviewee) {
         console.log("intervieweeEndAnswer, stop Record");
-        stopRecognitionRecord();
+        stopRecognition();
         console.log("send Anser", recordsGlobalsRef.current.recogText);
         socket.emit("sendAnswer", {
           answer: recordsGlobalsRef.current.recogText,
@@ -158,7 +111,7 @@ export default function useInterviewRecord({
     socket.on("error", ({ message }) => {
       alert(message);
     });
-  }, [recordBtnElementRef, socket, startRecognitionRecord, stopRecognitionRecord]);
+  }, [recordBtnElementRef, socket, startRecognition, stopRecognition]);
 
   useEffect(() => {
     recordsGlobalsRef.current.recogText = recogText;
