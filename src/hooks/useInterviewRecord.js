@@ -37,9 +37,7 @@ export default function useInterviewRecord({
       case RECORD_STATE_TYPE.QUESTIONING:
         setRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
         stopRecognition();
-        recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText.join(
-          " "
-        );
+        recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText;
         break;
       case RECORD_STATE_TYPE.ANSWER_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.ANSWERING);
@@ -72,30 +70,11 @@ export default function useInterviewRecord({
       recordBtnElementRef.current.disabled = true;
     });
 
-    socket.on("intervieweeStartAnswer", () => {
-      console.log("haha");
-      if (recordsGlobalsRef.current.isInterviewee) {
-        console.log("intervieweeStartAnswer, start Record");
-        startRecognition();
-      }
-    });
-
-    socket.on("intervieweeEndAnswer", () => {
-      if (recordsGlobalsRef.current.isInterviewee) {
-        console.log("intervieweeEndAnswer, stop Record");
-        stopRecognition();
-        console.log("send Anser", recordsGlobalsRef.current.recogText);
-        socket.emit("sendAnswer", {
-          answer: recordsGlobalsRef.current.recogText,
-        });
-      }
-    });
-
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
       if (questionerId === recordsGlobalsRef.current.userId) {
         console.log("questioner receive Answer uploading...");
         console.log("question", recordsGlobalsRef.current.questionText);
-        console.log("answer", answer.join(" "));
+        console.log("answer", answer);
         console.log("uploading work...");
 
         setTimeout(() => {
@@ -111,9 +90,44 @@ export default function useInterviewRecord({
     socket.on("error", ({ message }) => {
       alert(message);
     });
-  }, [recordBtnElementRef, socket, startRecognition, stopRecognition]);
+  }, [recordBtnElementRef, socket, stopRecognition]);
 
   useEffect(() => {
+    function handleIntervieweeStartAnswerOccur() {
+      if (recordsGlobalsRef.current.isInterviewee) {
+        console.log("intervieweeStartAnswer, start Record");
+        startRecognition();
+      }
+    }
+
+    socket.on("intervieweeStartAnswer", handleIntervieweeStartAnswerOccur);
+
+    return () => {
+      socket.off("intervieweeStartAnswer", handleIntervieweeStartAnswerOccur);
+    };
+  }, [socket, startRecognition]);
+
+  useEffect(() => {
+    function handleIntervieweeEndAnswerOccur() {
+      if (recordsGlobalsRef.current.isInterviewee) {
+        console.log("intervieweeEndAnswer, stop Record");
+        stopRecognition();
+        console.log("send Anser", recogText);
+        socket.emit("sendAnswer", {
+          answer: recogText,
+        });
+      }
+    }
+
+    socket.on("intervieweeEndAnswer", handleIntervieweeEndAnswerOccur);
+
+    return () => {
+      socket.off("intervieweeEndAnswer", handleIntervieweeEndAnswerOccur);
+    };
+  }, [recogText, socket, stopRecognition]);
+
+  useEffect(() => {
+    console.log("recogText Change", recogText);
     recordsGlobalsRef.current.recogText = recogText;
   }, [recogText]);
 
