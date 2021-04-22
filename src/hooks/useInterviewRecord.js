@@ -9,7 +9,6 @@ export default function useInterviewRecord({
   isInterviewee,
   userId,
 }) {
-
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
 
   const recordsGlobalsRef = useRef({
@@ -71,6 +70,7 @@ export default function useInterviewRecord({
     });
 
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
+      console.log("questionerReceiveAnswer: userId", recordsGlobalsRef.current.userId);
       if (questionerId === recordsGlobalsRef.current.userId) {
         console.log("questioner receive Answer uploading...");
         console.log("question", recordsGlobalsRef.current.questionText);
@@ -134,10 +134,6 @@ export default function useInterviewRecord({
   useEffect(() => {
     recordsGlobalsRef.current.isInterviewee = isInterviewee;
   }, [isInterviewee]);
-
-  useEffect(() => {
-    recordsGlobalsRef.current.userId = userId;
-  }, [userId]);
 
   return { recordStateType, recogText, setNextRecordStateType };
 }
