@@ -22,36 +22,28 @@ const PageWrapper = styled.div`
   background: linear-gradient(-118deg, #A9B9C1, #20699D) fixed;
 
   .interview-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     width: 65%;
     height: 80%;
     background: white;
     border-radius: 20px;
-  }
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
-  button {
-    width: 100px;
-  }
-`;
-
-const VideoContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 640px;
-
-  .main-video {
-    width: 640px;
-    height: 480px;
-  }
-
-  .sub-videos {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(4, 15rem);
-    grid-column-gap: 15%;
-    justify-items: center;
-    justify-content: center;
+    .interview-videos-box {
+      display: grid;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+      height: 80%;
+      grid-template-columns: repeat(2, 50%);
+      grid-template-rows: repeat(2, 50%);
+      grid-row-gap: 2%;
+      grid-column-gap: 1%;
+    }
   }
 `;
 
@@ -145,19 +137,22 @@ export default function Interview({
             onSubmit={handleSubmit}
           />
         }
-        <Timer />
-        <VideoContent>
-          <div classname="main-video">
-            <button onClick={handleAudio}>audio</button>
-            <button onClick={handleVideo}>video</button>
-            <MainVideo videoRef={user} />
+        <div className="interview-content">
+          <Timer />
+          <div className="interview-videos-box">
+            <div classname="main-video">
+              <MainVideo videoRef={user} />
+              <button onClick={handleAudio}>audio</button>
+              <button onClick={handleVideo}>video</button>
+            </div>
+            <div classname="sub-videos">
+
+              {interviewers?.map((peer, index) => (
+                <SubVideo key={index} peer={peer} />
+              ))}
+            </div>
           </div>
-          <div className="sub-videos">
-            {interviewers?.map((peer, index) => (
-              <SubVideo key={index} peer={peer} />
-            ))}
-          </div>
-        </VideoContent>
+        </div>
       </PageWrapper>
     </>
   );
