@@ -1,10 +1,7 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
 import { addNewIntervieweeAPI } from "../lib/mockApi";
-<<<<<<< HEAD
 import { handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
-=======
->>>>>>> 5eeecc3... [ADD] interviewee redux init
 import { createPromiseSaga } from "../lib/sagaUtils";
 
 const BASE_PATH = "INTERVIWEE/";
@@ -14,23 +11,15 @@ export const GET_INTERVIEWEES = BASE_PATH + "GET_INTERVIEWEES";
 export const GET_INTERVIEWEES_SUCCESS = BASE_PATH + "GET_INTERVIEWEES_SUCCESS";
 export const GET_INTERVIEWEES_ERROR = BASE_PATH + "GET_INTERVIEWEES_ERROR";
 
-// interviewee 추가 -> 
+// interviewee 추가 ->
 export const ADD_NEW_INTERVIEWEE = BASE_PATH + "ADD_NEW_INTERVIEWEE";
 export const ADD_NEW_INTERVIEWEE_SUCCESS = BASE_PATH + "ADD_NEW_INTERVIEWEE_SUCCESS";
-<<<<<<< HEAD
 export const ADD_NEW_INTERVIEWEE_ERROR = BASE_PATH + "ADD_NEW_INTERVIEWEE_ERROR";
 
 // interview룸 오픈 -> project isopened로 바뀌어야..
 export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
 export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
 export const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
-=======
-export const ADD_NEW_INTERVIEWEE_FAILURE = BASE_PATH + "ADD_NEW_INTERVIEWEE_FAILURE";
-
-export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
-export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
-export const OPEM_INTERVIEW_ROOM_FAILURE = BASE_PATH + "OPEN_INTERVIEW_ROOM_FAILURE";
->>>>>>> 5eeecc3... [ADD] interviewee redux init
 
 // interviewee의 이력서 가져오기
 export const GET_RESUME = BASE_PATH + "GET_RESUME";
@@ -63,11 +52,7 @@ export const closeInterviewRoomSaga = createPromiseSaga(GET_RESUME);
 
 export function* intervieweeSaga() {
   yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
-<<<<<<< HEAD
   yield takeLeading(OPEN_INTERVIEW_ROOM); // api함수 만들어야함
-=======
-  yield takeLeading(OPEN_INTERVIEW_ROOM);
->>>>>>> 5eeecc3... [ADD] interviewee redux init
 }
 
 const commentInitialState = {
