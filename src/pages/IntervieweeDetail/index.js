@@ -23,21 +23,6 @@ const Header = styled.div`
   background-color: yellow;
 `;
 
-const UserIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 2vw;
-  background-color: white;
-`;
-
-const UserInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 1vw;
-  background-color: coral;
-`;
-
 const Main = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,7 +92,7 @@ const EvaluationDetailHeader = styled.div`
 
 const InterviewerInfoWrapper = styled.div`
   display: flex;
-  
+
   width: 40%;
   background-color: blue;
 `;
@@ -157,13 +142,15 @@ export default function IntervieweeDetail() {
         <IntervieweeDetailNavBar />
 
         <Header>
-          <UserIconWrapper>
+
+          {/* <UserIconWrapper>
             <UserIcon />
           </UserIconWrapper>
           <UserInfoWrapper>
             <UserName>유저이름..</UserName>
             <UserEmail>유저 이메일..</UserEmail>
-          </UserInfoWrapper>
+          </UserInfoWrapper> */}
+
           <FinalScore>
             최종 평가 ★★★★★
           </FinalScore>
