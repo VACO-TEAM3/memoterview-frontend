@@ -70,7 +70,7 @@ const questionInitialState = {
 const intervieweeInitialState = {
   id: "",
   name: "",
-  email: "",
+  email: "",å
   interviewDate: "",
   resumePath: "",
   filterScore: [], // 백엔드 스키마 수정해야함
@@ -92,6 +92,10 @@ export default function interviewee(state = initialState, action) {
     case ADD_NEW_INTERVIEWEE_SUCCESS:
     case ADD_NEW_INTERVIEWEE_ERROR:
       return handleAsyncUpdateStateActionsWithNormalize(ADD_NEW_INTERVIEWEE, true)(state, action);
+    case OPEN_INTERVIEW_ROOM:
+    case OPEN_INTERVIEW_ROOM_SUCCESS:
+    case OPEN_INTERVIEW_ROOM_ERROR:
+      return handleAsyncUpdateStateActionsWithNormalize(OPEN_INTERVIEW_ROOM, true)(state, action);
     case GET_INTERVIEWEES:
     case GET_INTERVIEWEES_SUCCESS:
     case GET_INTERVIEWEES_ERROR:
