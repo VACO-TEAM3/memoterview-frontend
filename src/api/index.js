@@ -135,31 +135,35 @@ export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
   return data;
 }
 
-export async function createNewInterviewees({ token, interviewee, projectId }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/interviewees`, {
-    method: "POST",
+export async function openNewInterviewRoom({ token, projectId }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}`, {
+    method: "FETCH",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "authorization": `Bearer ${token}`,
     },
-    body: JSON.stringify({ ...interviewee }),
+    body: JSON.stringify({ projectId }),
   });
 
-  return response.json();
+  const { data, result } = response.json();
+
+  return { data };
 }
 
-export async function openNewInterviewRoom({ token, intervieweeId, projectId }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/interviewees`, {
-    method: "POST",
+export async function closeNewInterviewRoom({ token, projectId }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}`, {
+    method: "FETCH",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "authorization": `Bearer ${token}`,
     },
-    body: JSON.stringify({ intervieweeId }),
+    body: JSON.stringify({ projectId }),
   });
 
-  return response.json();
+  const { data, result } = response.json();
+
+  return { data };
 }
 
