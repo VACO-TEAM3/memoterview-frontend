@@ -47,7 +47,9 @@ const Navbar = styled.div`
 
 const Main = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 85vh;
   background-color: green;
@@ -74,17 +76,67 @@ const FinalScore = styled.div`
 
 const EvaluationDetailWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 85%;
   background-color: hotpink;
 `;
 
+const ScriptWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 60%;
+  background-color: white;
+`;
+
+const Comment = styled.div`
+  display: flex;
+  width: 80vw;
+  background-color: whitesmoke;
+`;
+
+const EvaluationDetailHeader = styled.div`
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  background-color: blueviolet;
+`;
+
+const InterviewerInfoWrapper = styled.div`
+  display: flex;
+  
+  width: 40%;
+  background-color: blue;
+`;
+
+
+
 export default function IntervieweeDetail() {
   const userInfo = {
     userName: "ri",
     userEmail: "asdfadfaf@sdfaf.com",
   };
+
+  const comments = [
+    {
+      score: "★★★★☆",
+      comment: "asdfadfdafwfwefadfafdsfasfadfsafasfdsfasfd",
+      commentor: { name: "11111", email: "asdfadfsadfasdf@dfadf.com" },
+    },
+    {
+      score: "★★★★☆",
+      comment: "aasdfaaaaaaaasfasfadfsafasfdsfasfd",
+      commentor: { name: "2222", email: "dfadfafd22asdfadf@dfadf.com" },
+    },
+    {
+      score: "★★★★☆",
+      comment: "!!!!!!lllalalalalalala",
+      commentor: { name: "3333", email: "asdftttyyyyyyfasdf@dfadf.com" },
+    }
+  ];
 
   return (
     <>
@@ -104,7 +156,39 @@ export default function IntervieweeDetail() {
         </Header>
 
         <Main>
-          <EvaluationDetailWrapper />
+          <EvaluationDetailWrapper>
+            <EvaluationDetailHeader>평가 디테일</EvaluationDetailHeader>
+            <div>
+              <Comment>
+                <div>
+                  {
+                    comments.length ?
+                      comments.map(comment =>
+                        <>
+                          <InterviewerInfoWrapper>
+                            <UserIconWrapper>
+                              <UserIcon/>
+                            </UserIconWrapper>
+                            <UserInfoWrapper>
+                              <div>{comment.commentor.name}</div>
+                              <div>{comment.commentor.email}</div>
+                            </UserInfoWrapper>
+                          </InterviewerInfoWrapper>
+                          <ul>
+                            <li>총평: {comment.score}</li>
+                            <li>코멘트: {comment.comment}</li>
+                          </ul>
+                        </>
+                      )
+                      : "faBatteryEmpty..."
+                  }
+                </div>
+              </Comment>
+            </div>
+          </EvaluationDetailWrapper>
+          <ScriptWrapper>
+
+          </ScriptWrapper>
         </Main>
 
       </MainLayoutWrapper>
