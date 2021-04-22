@@ -19,6 +19,15 @@ const PageWrapper = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
+  background: linear-gradient(-118deg, #A9B9C1, #20699D) fixed;
+
+  .interview-content {
+    position: fixed;
+    width: 65%;
+    height: 80%;
+    background: white;
+    border-radius: 20px;
+  }
 
   button {
     width: 100px;
