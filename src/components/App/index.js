@@ -1,8 +1,13 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+<<<<<<< HEAD
 import InterviewContainerHelper from "../../containers/interviewContainerHelper";
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
+=======
+import InterviewContainerHelper from "../../containers/InterviewContainerHelper";
+import IntervieweeDetailContainer from "../../containers/IntervieweeDetailContainer";
+>>>>>>> 94c3d01... [ADD] userIcon, basement layout
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
 import TotalResultContainer from "../../containers/TotalResultContainer";
@@ -20,7 +25,7 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
-        <Route path="/welcome/:projectId/:intervieweeId" exact>
+        <Route path="/welcome/:projectId/:intervieweeId" >
           <WelcomeContainer />
         </Route>
         <AuthRoute path="/projects">
@@ -29,8 +34,11 @@ export default function App() {
         <AuthRoute path="/projects/:id">
           <InterviewPageContainer />
         </AuthRoute>
-        <AuthRoute path="/result/:projectId">
+        <AuthRoute path="/projects/:projectId">
           <TotalResultContainer />
+        </AuthRoute>
+        <AuthRoute path="/result/:intervieweeId">
+          <IntervieweeDetailContainer />
         </AuthRoute>
         <AuthRoute path="/interview/:projectId/:intervieweeId">
           <InterviewContainerHelper />
