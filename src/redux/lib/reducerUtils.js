@@ -56,6 +56,7 @@ export const reducerUtils = {
     error: null,
   }),
   update: (payload, prevState = null) => {
+    console.log(payload, "updata");
     const dataList = Array.isArray(payload) ? payload : [payload];
     return {
       loading: false,
