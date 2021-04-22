@@ -6,6 +6,7 @@ import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
 import TotalResultContainer from "../../containers/TotalResultContainer";
+import WelcomeContainer from "../../containers/WelcomeContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Projects from "../../pages/Projects";
@@ -19,7 +20,10 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
-        <AuthRoute path="/projects" exact>
+        <Route path="/welcome/:projectId/:intervieweeId" exact>
+          <WelcomeContainer />
+        </Route>
+        <AuthRoute path="/projects">
           <ProjectsContainer />
         </AuthRoute>
         <AuthRoute path="/projects/:id">
