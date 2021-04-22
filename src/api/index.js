@@ -104,3 +104,48 @@ export async function searchInterviewers({ email, token }) {
 
   return await response.json();
 }
+
+export async function getIntervieweesApi({ projectId, token }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/interviewees`, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+  });
+
+  const { data, result } = await response.json();
+
+  return data;
+}
+
+export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/${intervieweeId}`, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+  });
+
+  const { data, result } = await response.json();
+
+  return data;
+}
+
+export default async function createNewInterviewees({ token, interviewee, projectId }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/interviewees`, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({ ...interviewee }),
+  });
+
+  return response.json();
+}
+
