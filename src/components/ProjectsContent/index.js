@@ -15,6 +15,7 @@ export default function ProjectsContent({
   onProjectItemClick,
   onProjectAddBtnClick,
   onProjectDeleteBtnClick,
+  handleProjectItemClick,
 }) {
   return (
     <ProjectsContentWrapper>
@@ -22,6 +23,7 @@ export default function ProjectsContent({
       <ProjectsEntry
         projects={projects}
         onProjectItemClick={onProjectItemClick}
+        handleProjectItemClick={handleProjectItemClick}
         onProjectDeleteBtnClick={onProjectDeleteBtnClick}
       />
       <ProjectAddButton onClick={onProjectAddBtnClick} />

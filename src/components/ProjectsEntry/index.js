@@ -12,6 +12,7 @@ function ProjectsEntry({
   projects,
   onProjectItemClick,
   onProjectDeleteBtnClick,
+  handleProjectItemClick,
 }) {
   const columnTitles = ["Job title", "Candidates", "Created at"];
 
@@ -24,6 +25,7 @@ function ProjectsEntry({
             key={project.id}
             project={project}
             onClick={onProjectItemClick}
+            handleProjectItemClick={handleProjectItemClick}
             onDeleteBtnClick={onProjectDeleteBtnClick}
           />
         ))}
