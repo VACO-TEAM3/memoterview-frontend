@@ -2,12 +2,15 @@ import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const StyledVideo = styled.video`
-  width: 23%;
+  display: flex;
+  justify-content: center;
+  width: 85%;
+  margin: auto;
 `;
 
 export default function SubVideo({ peer }) {
   const ref = useRef();
-  
+
   useEffect(() => {
     if (!peer) {
       return;
