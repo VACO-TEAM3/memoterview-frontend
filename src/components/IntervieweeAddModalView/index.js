@@ -3,12 +3,35 @@ import styled from "styled-components";
 
 import ModalView from "../ModalView";
 
+const Title = styled.div`
+  display: flex;
+  width: 20%;
+  margin: 10px;
+  font-size: 1.5rem;
+  font-weight: 500;
+`;
+
 const EditField = styled.div`
-  margin: 20px;
+  display: flex;
+  margin: 10px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+  margin: 15px;
 `;
 
 const Label = styled.div`
-  margin: 5px;
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start;
+  width: 10%;
+  align-items: center;
+
   font-size: 1.3rem;
   font-weight: 450;
 `;
@@ -16,12 +39,24 @@ const Label = styled.div`
 const Input = styled.input`
   margin: 5px 20px;
   padding: 3px 10px 0;
-  width: 80%;
+  width: 70%;
   height: 30px;
   font-size: 1rem;
 `;
 
-const BtnGroup = styled.div``;
+const Button = styled.button`
+  width: 70px;
+  height: 40px;
+  font-size: 1rem;
+  margin: 5px;
+  cursor: pointer;
+`;
+
+const BtnGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+`;
 
 export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancleBtnClick }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -50,8 +85,9 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
   }
 
   return (
-    <ModalView padding="15px" width="800px" height="400px">
-      <form onSubmit={handleFormSubmit}>
+    <ModalView padding="40px" width="800px" height="400px">
+      <Form onSubmit={handleFormSubmit}>
+        <Title>면접자 등록</Title>
         <EditField>
           <Label>이름</Label>
           <Input name="name" value={intervieweeInfo.name} onChange={handleInputChange} />
@@ -64,9 +100,8 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
           <Label>이력서</Label>
           <Input onChange={handleFileSelected} type="file" accept="application/pdf" />
         </EditField>
-        <button type="submit">submit</button>
-      </form>
-      <BtnGroup><button onClick={onCancleBtnClick}>취소</button></BtnGroup>
+        <BtnGroup><Button type="submit">제출</Button><Button onClick={onCancleBtnClick}>취소</Button></BtnGroup>
+      </Form>
     </ModalView>
   );
 };
