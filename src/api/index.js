@@ -149,3 +149,17 @@ export default async function createNewInterviewees({ token, interviewee, projec
   return response.json();
 }
 
+export default async function openNewInterviewRoom({ token, intervieweeId, projectId }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/interviewees`, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({ ...interviewee }),
+  });
+
+  return response.json();
+}
+
