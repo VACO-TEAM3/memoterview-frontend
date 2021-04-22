@@ -147,23 +147,22 @@ export async function updateInterviewRoomState({ token, projectId, roomState }) 
   });
 
   const { data, result } = await response.json();
-  console.log(data);
+
   return data;
 }
 
-export async function closeNewInterviewRoom({ token, projectId }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}`, {
-    method: "FETCH",
+export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
+    method: "PATCH",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "authorization": `Bearer ${token}`,
     },
-    body: JSON.stringify({ projectId }),
+    body: JSON.stringify({ interviewee, intervieweeId, projectId }),
   });
 
-  const { data, result } = response.json();
+  const { data, result } = await response.json();
 
-  return { data };
+  return data;
 }
-
