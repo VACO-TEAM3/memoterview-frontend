@@ -137,10 +137,10 @@ export default function Interview({
         }
         <Timer />
         <VideoContent>
-          <div className="main-video">
-            <MainVideo videoRef={user} />
+          <div classname="main-video">
             <button onClick={handleAudio}>audio</button>
             <button onClick={handleVideo}>video</button>
+            <MainVideo videoRef={user} />
           </div>
           <div className="sub-videos">
             {interviewers?.map((peer, index) => (

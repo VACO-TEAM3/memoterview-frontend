@@ -1,3 +1,5 @@
+import { authFetch } from "../utils/authFetch";
+
 export async function login({ email, imageUrl, name }) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/login`, {
     method: "POST",
