@@ -87,12 +87,9 @@ export default function IntervieweeDetail() {
         <IntervieweeDetailNavBar />
         <IntervieweeDetailHeader userInfo={userInfo}/>
         <Main>
-          <IntervieweeDetailEvaluationEntry comments={comments} />
-
+          <IntervieweeDetailEvaluationEntry comments={comments}/>
           <ScriptWrapper>
-            <ScriptHeader>
-                스크립트
-            </ScriptHeader>
+            <ScriptHeader>스크립트</ScriptHeader>
             <div>
               {
                 questions.length ?
@@ -109,7 +106,6 @@ export default function IntervieweeDetail() {
             </div>
           </ScriptWrapper>
         </Main>
-
       </MainLayoutWrapper>
     </>
   );
