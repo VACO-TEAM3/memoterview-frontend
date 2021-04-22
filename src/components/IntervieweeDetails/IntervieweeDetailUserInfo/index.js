@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 import UserIcon from "../../UserIcon";
 
+const UserInfo = styled.div`
+  display: flex;
+`;
+
 const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,19 +32,19 @@ const UserEmail = styled.div`
   margin: 0.5vh;
 `;
 
-function intervieweeDetailNavBar({ userInfo }) {
+function intervieweeDetailUserInfo({ userInfo }) {
 
   return (
-    <>
+    <UserInfo>
       <UserIconWrapper>
         <UserIcon />
       </UserIconWrapper>
       <UserInfoWrapper>
-        <UserName>{userInfo.userName}</UserName>
-        <UserEmail>{userInfo.userEmail}</UserEmail>
+        <UserName>{userInfo.name}</UserName>
+        <UserEmail>{userInfo.email}</UserEmail>
       </UserInfoWrapper>
-    </>
+    </UserInfo>
   );
 }
 
-export default intervieweeDetailNavBar;
+export default intervieweeDetailUserInfo;
