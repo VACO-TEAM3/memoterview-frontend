@@ -20,7 +20,7 @@ export default function App() {
         <AuthRoute path="/projects" exact>
           <ProjectsContainer />
         </AuthRoute>
-        <AuthRoute path="/projects/:id">
+        <AuthRoute path="/interview/:projectId/:intervieweeId">
           <InterviewPageContainer />
         </AuthRoute>
         <AuthRoute path="/result/:id">
@@ -32,9 +32,9 @@ export default function App() {
         <AuthRoute path="/search">
           <Dummy />
         </AuthRoute>
-        <Route path="/voiceTest">
+        <AuthRoute path="/voiceTest">
           <VoiceToTextTestPage />
-        </Route>
+        </AuthRoute>
         <Redirect to="/" />
       </Switch>
     </ThemeProvider>
