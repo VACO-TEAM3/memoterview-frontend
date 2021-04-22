@@ -33,7 +33,6 @@ const UserEmail = styled.div`
 `;
 
 function intervieweeDetailUserInfo({ userInfo }) {
-
   return (
     <UserInfo>
       <UserIconWrapper>
