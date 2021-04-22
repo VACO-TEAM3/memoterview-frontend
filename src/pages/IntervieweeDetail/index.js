@@ -4,6 +4,7 @@ import styled from "styled-components";
 import IntervieweeDetailEvaluationEntry from "../../components/IntervieweeDetails/IntervieweeDetailEvaluationEntry";
 import IntervieweeDetailHeader from "../../components/IntervieweeDetails/IntervieweeDetailHeader";
 import IntervieweeDetailNavBar from "../../components/IntervieweeDetails/IntervieweeDetailNavBar";
+import IntervieweeDetailScript from "../../components/IntervieweeDetails/IntervieweeDetailScript";
 
 const MainLayoutWrapper = styled.div`
   display: flex;
@@ -88,23 +89,7 @@ export default function IntervieweeDetail() {
         <IntervieweeDetailHeader userInfo={userInfo}/>
         <Main>
           <IntervieweeDetailEvaluationEntry comments={comments}/>
-          <ScriptWrapper>
-            <ScriptHeader>스크립트</ScriptHeader>
-            <div>
-              {
-                questions.length ?
-                  questions.map(question =>
-                    <>
-                      <ul>
-                        <li>문제: {question.title}</li>
-                        <li>답변: {question.answer}</li>
-                      </ul>
-                    </>
-                  )
-                  : "faBatteryEmpty..."
-              }
-            </div>
-          </ScriptWrapper>
+          <IntervieweeDetailScript questions={questions}/>
         </Main>
       </MainLayoutWrapper>
     </>
