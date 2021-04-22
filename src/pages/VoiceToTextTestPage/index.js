@@ -93,7 +93,7 @@ export default function VoiceToTextTestPage() {
           {BUTTON_NAME[recordStateType]}
         </button>
       )}
-      <h1>녹음 텍스트 : {recogText.join(" ")}</h1>
+      <h1>녹음 텍스트 : {recogText}</h1>
     </div>
   );
 }

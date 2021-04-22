@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 console.log("useSpeechRecognition");
 
@@ -63,20 +63,23 @@ const stopSpeechRecognition = () => {
 };
 
 export default function useSpeechRecognition() {
-  const [recogText, setRecogText] = useState([]);
+  const [recogText, setRecogText] = useState();
 
   function handleRecognitionStart() {
-    setRecogText([]);
+    console.log("init recogText");
+    setRecogText("");
   }
 
-  const startRecognition = useCallback(() => {
+  function handleRecognitionResult(transcript) {
+    setRecogText(transcript);
+  }
+
+  function startRecognition() {
     startSpeechRecognition({
       onRecognitionStart: handleRecognitionStart,
-      onRecognitionResult: (transcript) => {
-        setRecogText(recogText.concat(transcript));
-      },
+      onRecognitionResult: handleRecognitionResult,
     });
-  }, []);
+  };
 
   return { recogText, startRecognition, stopRecognition: stopSpeechRecognition };
 }
