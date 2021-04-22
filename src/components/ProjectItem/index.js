@@ -28,14 +28,14 @@ const ColumnItem = styled.span`
   font-size: 1rem;
 `;
 
-function ProjectItem({ project, onClick, onDeleteBtnClick }) {
+function ProjectItem({ project, onClick = () => {}, onDeleteBtnClick = () => {} }) {
   function handleProjectItemClick() {
-    onClick && onClick(project.id);
+    onClick(project.id);
   }
 
   function handleDeleteButtonClick(e) {
     e.stopPropagation();
-    onDeleteBtnClick && onDeleteBtnClick(project.id);
+    onDeleteBtnClick(project.id);
   }
 
   return (

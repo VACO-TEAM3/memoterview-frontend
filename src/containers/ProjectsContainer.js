@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import Modal from "../components/Modal";
 import ProjectAddModalView from "../components/ProjectAddModalView";
@@ -15,6 +16,7 @@ import {
 } from "../redux/reducers/projects";
 
 export default function ProjectsPageContainer() {
+  const history = useHistory();
   const { token } = useToken();
   const dispatch = useDispatch();
   const {
@@ -76,6 +78,7 @@ export default function ProjectsPageContainer() {
   }
 
   function handleProjectItemClick(projectId) {
+    history.push(`/projects/${projectId}`);
     console.log("click project item", projectId);
   }
 

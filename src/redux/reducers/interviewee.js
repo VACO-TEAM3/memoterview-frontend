@@ -1,8 +1,8 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
-import { addNewIntervieweeAPI } from "../lib/mockApi";
-import { handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
-import { createPromiseSaga } from "../lib/sagaUtils";
+import { getIntervieweesApi } from "../../api";
+import { getProjectsByProjectType, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
+import { createPromiseSaga, createPromiseSagaById } from "../lib/sagaUtils";
 
 const BASE_PATH = "INTERVIWEE/";
 
@@ -43,16 +43,17 @@ export const getResume = (intervieweeId) => ({ type: GET_RESUME, payload: interv
 export const finishInterview = (interviewee) => ({ type: FINISH_INTERVIEW, payload: interviewee, meta: interviewee });
 export const closeInterviewRoom = (projectId) => ({ type: GET_RESUME, payload: projectId, meta: projectId });
 
-export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES);
-export const openInterviewRoomSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
+export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesApi);
+export const openInterviewRoomSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE);
 export const addNewIntervieweeSaga = createPromiseSaga(OPEN_INTERVIEW_ROOM);
 export const getResumeSaga = createPromiseSaga(GET_RESUME);
 export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW);
 export const closeInterviewRoomSaga = createPromiseSaga(GET_RESUME);
 
 export function* intervieweeSaga() {
-  yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
-  yield takeLeading(OPEN_INTERVIEW_ROOM); // api함수 만들어야함
+  yield takeLeading(GET_INTERVIEWEES, getIntervieweesSaga);
+  // yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
+  // yield takeLeading(OPEN_INTERVIEW_ROOM); // api함수 만들어야함
 }
 
 const commentInitialState = {
@@ -87,7 +88,7 @@ const initialState = {
   error: null,
 };
 
-export default function projects(state = initialState, action) {
+export default function interviewee(state = initialState, action) {
   switch (action.type) {
     case ADD_NEW_INTERVIEWEE:
     case ADD_NEW_INTERVIEWEE_SUCCESS:
@@ -97,6 +98,11 @@ export default function projects(state = initialState, action) {
     case OPEN_INTERVIEW_ROOM_SUCCESS:
     case OPEN_INTERVIEW_ROOM_ERROR:
       return handleAsyncUpdateStateActionsWithNormalize(OPEN_INTERVIEW_ROOM, true)(state, action);
+    case GET_INTERVIEWEES:
+    case GET_INTERVIEWEES_SUCCESS:
+    case GET_INTERVIEWEES_ERROR:
+      console.log(action.payload);
+      return handleAsyncUpdateStateActionsWithNormalize(GET_INTERVIEWEES, true)(state, action);
     default:
       return state;
   }

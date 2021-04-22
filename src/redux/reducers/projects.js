@@ -93,7 +93,7 @@ export default function projects(state = initialState, action) {
     case GET_MY_PROJECTS_ERROR: {
       const newState = getProjectsByProjectType(state, action, PROJECT_TYPES.MY_PROJECTS);
 
-      return  handleAsyncUpdateStateActionsWithNormalize(GET_MY_PROJECTS, true)(newState, action);
+      return handleAsyncUpdateStateActionsWithNormalize(GET_MY_PROJECTS, true)(newState, action);
     }
     case GET_JOINED_PROJECTS:
     case GET_JOINED_PROJECTS_SUCCESS:
