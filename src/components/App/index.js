@@ -30,8 +30,8 @@ export default function App() {
         <AuthRoute path="/result/:id">
           <Dummy />
         </AuthRoute>
-        <AuthRoute path="/interview">
-          <InterviewPageContainer />
+        <AuthRoute path="/interview/:projectId/:intervieweeId">
+          <Dummy />
         </AuthRoute>
         <AuthRoute path="/search">
           <Dummy />
