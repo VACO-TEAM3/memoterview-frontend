@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import styled from "styled-components";
 
-import useInput from "../hooks/useInput";
 import WelcomePage from "../pages/WelcomePage";
 import { setUser } from "../redux/reducers/user";
 
 export default function WelcomeContainer() {
-  const { user: { userData: { username, email } } } = useSelector(({ user }) => ({ user }));
   const dispatch = useDispatch();
 
   const [newUserInfo, setNewUserInfo] = useState({ email: "", name: "" });
