@@ -1,18 +1,29 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
 import { addNewIntervieweeAPI } from "../lib/mockApi";
+<<<<<<< HEAD
 import { handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
+=======
+>>>>>>> 5eeecc3... [ADD] interviewee redux init
 import { createPromiseSaga } from "../lib/sagaUtils";
 
 const BASE_PATH = "INTERVIWEE/";
 
 export const ADD_NEW_INTERVIEWEE = BASE_PATH + "ADD_NEW_INTERVIEWEE";
 export const ADD_NEW_INTERVIEWEE_SUCCESS = BASE_PATH + "ADD_NEW_INTERVIEWEE_SUCCESS";
+<<<<<<< HEAD
 export const ADD_NEW_INTERVIEWEE_ERROR = BASE_PATH + "ADD_NEW_INTERVIEWEE_ERROR";
 
 export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
 export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
 export const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
+=======
+export const ADD_NEW_INTERVIEWEE_FAILURE = BASE_PATH + "ADD_NEW_INTERVIEWEE_FAILURE";
+
+export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
+export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
+export const OPEM_INTERVIEW_ROOM_FAILURE = BASE_PATH + "OPEN_INTERVIEW_ROOM_FAILURE";
+>>>>>>> 5eeecc3... [ADD] interviewee redux init
 
 export const openInterviewRoom = (interviewee) => ({ type: OPEN_INTERVIEW_ROOM, payload: interviewee, meta: interviewee });
 export const addNewInterviewee = (interviewee) => ({ type: ADD_NEW_INTERVIEWEE, payload: interviewee, meta: interviewee });
@@ -22,7 +33,11 @@ export const addNewIntervieweeSaga = createPromiseSaga(OPEN_INTERVIEW_ROOM);
 
 export function* intervieweeSaga() {
   yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
+<<<<<<< HEAD
   yield takeLeading(OPEN_INTERVIEW_ROOM); // api함수 만들어야함
+=======
+  yield takeLeading(OPEN_INTERVIEW_ROOM);
+>>>>>>> 5eeecc3... [ADD] interviewee redux init
 }
 
 const commentInitialState = {
