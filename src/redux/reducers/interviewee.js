@@ -16,36 +16,21 @@ export const ADD_NEW_INTERVIEWEE = BASE_PATH + "ADD_NEW_INTERVIEWEE";
 export const ADD_NEW_INTERVIEWEE_SUCCESS = BASE_PATH + "ADD_NEW_INTERVIEWEE_SUCCESS";
 export const ADD_NEW_INTERVIEWEE_ERROR = BASE_PATH + "ADD_NEW_INTERVIEWEE_ERROR";
 
-// interview룸 오픈 -> project isopened로 바뀌어야..
-export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
-export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
-export const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
-
 // interview 끝내기 -> interviewee 정보 저장 + interviewed true
 export const FINISH_INTERVIEW = BASE_PATH + "FINISH_INTERVIEW";
 export const FINISH_INTERVIEW_SUCCESS = BASE_PATH + "FINISH_INTERVIEW_SUCCESS";
 export const FINISH_INTERVIEW_ERROR = BASE_PATH + "FINISH_INTERVIEW_ERROR";
 
-// interview룸 닫기 -> project id를 통해 isopened false
-export const CLOSE_INTERVIEW_ROOM = BASE_PATH + "CLOSE_INTERVIEW_ROOM";
-export const CLOSE_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "CLOSE_INTERVIEW_ROOM_SUCCESS";
-export const CLOSE_INTERVIEW_ROOM_ERROR = BASE_PATH + "CLOSE_INTERVIEW_ROOM_ERROR";
-
 export const getInterviewees = ({ projectId, token }) => ({ type: GET_INTERVIEWEES, payload: { projectId, token }, meta: projectId });
 export const addNewInterviewee = ({ token, interviewee, projectId }) => ({ type: ADD_NEW_INTERVIEWEE, payload: { token, interviewee, projectId }, meta: interviewee });
-export const openInterviewRoom = ({ projectId, token }) => ({ type: OPEN_INTERVIEW_ROOM, payload: { projectId, token }, meta: projectId });
 export const finishInterview = (interviewee) => ({ type: FINISH_INTERVIEW, payload: interviewee, meta: interviewee });
-export const closeInterviewRoom = (projectId) => ({ type: CLOSE_INTERVIEW_ROOM, payload: projectId, meta: projectId });
 
 export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesApi);
-export const addNewIntervieweeSaga = createPromiseSaga(OPEN_INTERVIEW_ROOM);
-export const openInterviewRoomSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE, openNewInterviewRoom);
+export const addNewIntervieweeSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE);
 export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW);
-export const closeInterviewRoomSaga = createPromiseSaga(CLOSE_INTERVIEW_ROOM);
 
 export function* intervieweeSaga() {
   yield takeLeading(GET_INTERVIEWEES, getIntervieweesSaga);
-  yield takeLeading(OPEN_INTERVIEW_ROOM, openInterviewRoomSaga); // api함수 만들어야함
   // yield takeLeading(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
 }
 
@@ -87,10 +72,6 @@ export default function interviewee(state = initialState, action) {
     case ADD_NEW_INTERVIEWEE_SUCCESS:
     case ADD_NEW_INTERVIEWEE_ERROR:
       return handleAsyncUpdateStateActionsWithNormalize(ADD_NEW_INTERVIEWEE, true)(state, action);
-    case OPEN_INTERVIEW_ROOM:
-    case OPEN_INTERVIEW_ROOM_SUCCESS:
-    case OPEN_INTERVIEW_ROOM_ERROR:
-      return handleAsyncUpdateStateActionsWithNormalize(OPEN_INTERVIEW_ROOM, true)(state, action);
     case GET_INTERVIEWEES:
     case GET_INTERVIEWEES_SUCCESS:
     case GET_INTERVIEWEES_ERROR:
