@@ -8,6 +8,7 @@ import Modal from "../../components/Modal";
 import QuestionBoard from "../../components/QuestionBoard";
 import SubVideo from "../../components/SubVideo";
 import Timer from "../../components/Timer";
+import { BUTTON_NAME } from "../../constants/recordState";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -46,10 +47,15 @@ const VideoContent = styled.div`
 `;
 
 export default function Interview({
-  interviewers,
   user,
+  interviewers,
+  recordBtnElementRef,
+  recordStateType,
+  recogText,
+  isInterviewee,
   onAudioBtnClick,
   onVideoBtnClick,
+  onProcessBtnClick,
   isStart = false,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
@@ -118,7 +124,9 @@ export default function Interview({
         <button onClick={handleBackBtn}>BACK</button>
         <button onClick={handleOpenResumeButton}>이력서</button>
         {isResumeOpen && <div>이력서다!</div>}
-        <button onClick={handleOpenQuestionBoardOpen}>질문</button>
+        {!isInterviewee && <button onClick={handleOpenQuestionBoardOpen}>질문</button>}
+        {!isInterviewee && <button ref={recordBtnElementRef} onClick={onProcessBtnClick}>{BUTTON_NAME[recordStateType]}</button>}
+        <p>{recogText}</p>
         {isQuestionBoardOpen &&
           <QuestionBoard
             question={question}
