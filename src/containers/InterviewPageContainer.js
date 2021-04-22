@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
+import useInterviewRecord from "../hooks/useInterviewRecord";
 import Interview from "../pages/Interview";
 import { mediaOptions, mediaStream } from "../utils/media";
+import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect("http://localhost:5000"), []);
@@ -17,6 +19,21 @@ export default function InterviewPageContainer() {
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
+
+  //////////////////////////하영작업///////////////////////
+  const recordBtnElementRef = useRef();
+  const isInterviewee = false;
+  const {
+    recordStateType,
+    recogText,
+    setNextRecordStateType,
+  } = useInterviewRecord({
+    socket,
+    recordBtnElementRef,
+    userId: genUuid(),
+    isInterviewee,
+  });
+  //////////////////////////////////////////////////////
 
   useEffect(() => {
     (async function getStreaming() {
@@ -38,7 +55,8 @@ export default function InterviewPageContainer() {
       return;
     }
 
-    socket.emit("requestJoinRoom", { roomID, userData });
+    // todo. userData -> isInterviewee 정보 포함한 userData로 받게
+    socket.emit("requestJoinRoom", { roomID, userData: { isInterviewee } });
 
     socket.on("successJoinUser", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -105,12 +123,41 @@ export default function InterviewPageContainer() {
     }
   }
 
+  function handleProcessBtnClick() {
+    setNextRecordStateType();
+  }
+
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event.key === " " || event.key === "Spacebar") {
+        setNextRecordStateType();
+      }
+    },
+    [setNextRecordStateType]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
   return (
-    <Interview
-      user={userVideo}
-      interviewers={peers}
-      onVideoBtnClick={handleVideo}
-      onAudioBtnClick={handleAudio}
-    />
+    <>
+      {"인터뷰어"}
+      <Interview
+        user={userVideo}
+        interviewers={peers}
+        recordBtnElementRef={recordBtnElementRef}
+        recordStateType={recordStateType}
+        recogText={recogText}
+        isInterviewee={isInterviewee}
+        onVideoBtnClick={handleVideo}
+        onAudioBtnClick={handleAudio}
+        onProcessBtnClick={handleProcessBtnClick}
+      />
+    </>
   );
 }
