@@ -56,7 +56,7 @@ export default function ProjectsPageContainer() {
   }
 
   function handleProjectDeleteBtnClick(projectId) {
-    dispatch(deleteProject({ projectId: projectId, token }));
+    dispatch(deleteProject({ projectId, token }));
   }
 
   function handleProjectCreateBtnClick(newProject) {
