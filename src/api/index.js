@@ -166,3 +166,27 @@ export async function updateInterviewee({ token, interviewee, projectId, intervi
 
   return data;
 }
+
+export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projectId }) {
+  const { name, email } = intervieweeInfo;
+
+  const formData = new FormData();
+  formData.append("pdf", pdf);
+  formData.append("name", name);
+  formData.append("email", email);
+
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewee`, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "authorization": `Bearer ${token}`,
+      },
+    }
+  );
+
+  const result = await response.json();
+  console.log(result, "result");
+
+  return result;
+};

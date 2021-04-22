@@ -56,6 +56,7 @@ export default function Interview({
   onAudioBtnClick,
   onVideoBtnClick,
   onProcessBtnClick,
+  onIntervieweeResumeShowingBtnClick,
   isStart = false,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
@@ -122,7 +123,7 @@ export default function Interview({
       )}
       <PageWrapper>
         <button onClick={handleBackBtn}>BACK</button>
-        <button onClick={handleOpenResumeButton}>이력서</button>
+        <button onClick={onIntervieweeResumeShowingBtnClick}>open resume modal!</button>
         {isResumeOpen && <div>이력서다!</div>}
         {!isInterviewee && <button onClick={handleOpenQuestionBoardOpen}>질문</button>}
         {!isInterviewee && <button ref={recordBtnElementRef} onClick={onProcessBtnClick}>{BUTTON_NAME[recordStateType]}</button>}

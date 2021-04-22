@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import ModalView from "../ModalView";
-import ProjectEvaluationOptionAddBar from "../ProjectEvaluationOptionAddBar";
-import ProjectOptionItem from "../ProjectOptionItem";
 
 const EditField = styled.div`
-  margin: 50px;
+  margin: 20px;
 `;
 
 const Label = styled.div`
@@ -25,53 +23,50 @@ const Input = styled.input`
 
 const BtnGroup = styled.div``;
 
-export default function ProjectAddModalView() {
-  const [title, setTitle] = useState("");
-  const [evaluationOptions, setEvaluationOptions] = useState([]);
-  const [participants, setParticipants] = useState([]);
+export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancleBtnClick }) {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [intervieweeInfo, setIntervieweeInfo] = useState({ name: "", email: "" });
 
-  function handleTitleChange(e) {
-    setTitle(e.target.value);
+  function handleInputChange(e) {
+    e.preventDefault();
+
+    const intervieweeInputType = e.target.name;
+    const value = e.target.value;
+
+    setIntervieweeInfo({
+      ...intervieweeInfo,
+      [intervieweeInputType]: value,
+    });
   }
 
-  function handleEvaluationOptionAdd(evaluationOption) {
-    setEvaluationOptions(evaluationOptions.concat(evaluationOption));
+  function handleFileSelected(e) {
+    const selectedFile = e.target.files[0];
+    setSelectedFile(selectedFile);
+  };
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    onFormSubmitBtnClick({ pdf: selectedFile, intervieweeInfo });
   }
 
-  function handleEvaluationOptionDelete(deleteOption) {
-    setEvaluationOptions(
-      evaluationOptions.filter((option) => option !== deleteOption)
-    );
-  }
-
-  //todo. modalview padding, width, height 상수화
-  // 최대 평가옵션, 면접관 상수화
   return (
-    <ModalView padding="20px" width="700px" height="600px">
-      <EditField>
-        <Label>인터뷰 제목</Label>
-        <Input value={title} onChange={handleTitleChange} />
-      </EditField>
-      <EditField>
-        <Label>평가 옵션</Label>
-        {evaluationOptions.length < 4 && (
-          <ProjectEvaluationOptionAddBar
-            onEvaluationOptionAdd={handleEvaluationOptionAdd}
-          />
-        )}
-        {evaluationOptions.map((evaluationOption) => (
-          <ProjectOptionItem
-            key={evaluationOption + evaluationOptions.length}
-            option={evaluationOption}
-            onOptionDelete={handleEvaluationOptionDelete}
-          />
-        ))}
-      </EditField>
-      <EditField>
-        <Label>참여 면접관</Label>
-        <Input />
-      </EditField>
-      <BtnGroup></BtnGroup>
+    <ModalView padding="15px" width="800px" height="400px">
+      <form onSubmit={handleFormSubmit}>
+        <EditField>
+          <Label>이름</Label>
+          <Input name="name" value={intervieweeInfo.name} onChange={handleInputChange} />
+        </EditField>
+        <EditField>
+          <Label>이메일</Label>
+          <Input name="email" value={intervieweeInfo.email} onChange={handleInputChange} />
+        </EditField>
+        <EditField>
+          <Label>이력서</Label>
+          <Input onChange={handleFileSelected} type="file" accept="application/pdf" />
+        </EditField>
+        <button type="submit">submit</button>
+      </form>
+      <BtnGroup><button onClick={onCancleBtnClick}>취소</button></BtnGroup>
     </ModalView>
   );
-}
+};
