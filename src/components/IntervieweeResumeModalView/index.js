@@ -44,7 +44,7 @@ const PageNumberText = styled.p`
 
 export default function IntervieweeResumeModalView({ onCancleBtnClick }) {
   // pdf를 위해 필요한 값
-  //: interviewee 정보에서(id로 찾아야겠지..) resumePath --> 아래 Document file에 꼽아주면 된다
+  //: 리덕스에서 interviewee 정보에서(id로 찾아야겠지..) resumePath --> 아래 Document file에 꼽아주면 된다
 
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
