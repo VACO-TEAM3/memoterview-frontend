@@ -6,7 +6,6 @@ import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 const Comments = styled.div`
   display: flex;
   width: 80vw;
-  background-color: whitesmoke;
 `;
 
 function IntervieweeDetailComments({ comments }) {
