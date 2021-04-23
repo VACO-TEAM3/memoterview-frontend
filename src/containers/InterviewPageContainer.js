@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
@@ -10,16 +11,15 @@ import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
-
+  const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { id: roomID } = useParams();
-  const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
-
+  console.log(userData);
   //////////////////////////하영작업///////////////////////
   const recordBtnElementRef = useRef();
   const isInterviewee = false;
@@ -56,7 +56,7 @@ export default function InterviewPageContainer() {
     }
 
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID, userData: { isInterviewee } });
+    socket.emit("requestJoinRoom", { roomID, userData });
 
     socket.on("successJoinUser", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -148,6 +148,7 @@ export default function InterviewPageContainer() {
     <>
       <Interview
         user={userVideo}
+        userData={userData}
         interviewers={peers}
         recordBtnElementRef={recordBtnElementRef}
         recordStateType={recordStateType}
