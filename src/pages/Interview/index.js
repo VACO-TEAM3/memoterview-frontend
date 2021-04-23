@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import CircleButton from "../../components/CircleButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
@@ -67,18 +68,6 @@ const PageWrapper = styled.div`
 
     .interview-content-bottom-bar {
       display: flex;
-
-      .interview-content-bottom-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        background: #5D5F5F;
-        opacity: 0.6;
-        color: white;
-        border-radius: 75px;
-      }
     }
   }
 `;
@@ -200,12 +189,18 @@ export default function Interview({
             ))}
           </div>
           <div className="interview-content-bottom-bar">
-            <div className="interview-content-bottom-button" onClick={handleAudio}>
-              <FontAwesomeIcon icon={isAudioOn ? faVolumeMute : faVolumeUp} />
-            </div>
-            <div className="interview-content-bottom-button" onClick={handleVideo}>
-              <FontAwesomeIcon icon={isVideoOn ? faVideoSlash : faVideo} />
-            </div>
+            <CircleButton 
+              onClick={handleAudio} 
+              isClicked={isAudioOn} 
+              clickedState={faVolumeMute} 
+              unClickedState={faVolumeUp} 
+            />
+            <CircleButton 
+              onClick={handleVideo} 
+              isClicked={isVideoOn} 
+              clickedState={faVideoSlash} 
+              unClickedState={faVideo} 
+            />
           </div>
         </div>
       </PageWrapper>
