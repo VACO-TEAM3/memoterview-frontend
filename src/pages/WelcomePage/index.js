@@ -69,27 +69,24 @@ const Button = styled.button`
 `;
 
 export default function WelcomePage({ onAskPermissionBtnClick, onInputChange }) {
-
   return (
-    <>
-      <PageWrapper>
-        <InnerPageWrapper>
-          <Title>면접방 입장을 위해 하단의 정보를 입력해주세요</Title>
-          <InputWrapper>
-            <EditField>
-              <Label>이름: </Label>
-              <Input name="name" onChange={onInputChange} />
-            </EditField>
-            <EditField>
-              <Label>이메일: </Label>
-              <Input name="email" onChange={onInputChange} />
-            </EditField>
-          </InputWrapper>
-          <ButtonWrapper>
-            <Button onClick={onAskPermissionBtnClick}>면접방 입장</Button>
-          </ButtonWrapper>
-        </InnerPageWrapper>
-      </PageWrapper>
-    </>
+    <PageWrapper>
+      <InnerPageWrapper>
+        <Title>면접방 입장을 위해 하단의 정보를 입력해주세요</Title>
+        <InputWrapper>
+          <EditField>
+            <Label>이름: </Label>
+            <Input name="name" onChange={onInputChange} />
+          </EditField>
+          <EditField>
+            <Label>이메일: </Label>
+            <Input name="email" onChange={onInputChange} />
+          </EditField>
+        </InputWrapper>
+        <ButtonWrapper>
+          <Button onClick={onAskPermissionBtnClick}>면접방 입장</Button>
+        </ButtonWrapper>
+      </InnerPageWrapper>
+    </PageWrapper>
   );
 }

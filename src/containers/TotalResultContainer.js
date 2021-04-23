@@ -15,21 +15,17 @@ export default function TotalResultContainer() {
 
   function handleIntervieweeAddBtnClick() {
     console.log("click interviewee add button");
-    openAddIntervieweeModal();
-  }
-
-  function closeAddIntervieweeModal() {
-    setModalFlag(false);
-  }
-
-  function openAddIntervieweeModal() {
     setModalFlag(true);
+  }
+
+  function handleCancleBtnClick() {
+    setModalFlag(false);
   }
 
   async function handleFormSubmitBtnClick({ pdf, intervieweeInfo }){
     try {
       await createIntervieweeAPI({ token, projectId, pdf, intervieweeInfo });
-      closeAddIntervieweeModal();
+      handleCancleBtnClick();
     } catch (error) {
       console.warn(error);
     }
@@ -38,9 +34,9 @@ export default function TotalResultContainer() {
   return (
     <>
       {modalFlag && (
-        <Modal onClick={closeAddIntervieweeModal}>
+        <Modal onClick={handleCancleBtnClick}>
           <IntervieweeAddModalView
-            onCancleBtnClick={closeAddIntervieweeModal}
+            onCancleBtnClick={handleCancleBtnClick}
             onFormSubmitBtnClick={handleFormSubmitBtnClick}
           />
         </Modal>

@@ -30,7 +30,7 @@ const ColumnItem = styled.span`
 
 function ProjectItem({ project, onClick, onDeleteBtnClick, handleProjectItemClick }) {
   function handleProjectItemClick() {
-    onClick && onClick(project.id);
+    onClick(project.id);
   }
 
   function handleDeleteButtonClick(e) {

@@ -62,11 +62,11 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
   const [selectedFile, setSelectedFile] = useState(null);
   const [intervieweeInfo, setIntervieweeInfo] = useState({ name: "", email: "" });
 
-  function handleInputChange(e) {
-    e.preventDefault();
+  function handleInputChange(event) {
+    event.preventDefault();
 
-    const intervieweeInputType = e.target.name;
-    const value = e.target.value;
+    const intervieweeInputType = event.target.name;
+    const value = event.target.value;
 
     setIntervieweeInfo({
       ...intervieweeInfo,
@@ -74,13 +74,13 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
     });
   }
 
-  function handleFileSelected(e) {
-    const selectedFile = e.target.files[0];
+  function handleFileSelected(event) {
+    const selectedFile = event.target.files[0];
     setSelectedFile(selectedFile);
   };
 
-  function handleFormSubmit(e) {
-    e.preventDefault();
+  function handleFormSubmit(event) {
+    event.preventDefault();
     onFormSubmitBtnClick({ pdf: selectedFile, intervieweeInfo });
   }
 

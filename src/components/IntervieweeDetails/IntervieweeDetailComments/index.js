@@ -14,7 +14,7 @@ function IntervieweeDetailComments({ comments }) {
       <div>
         {
           comments.length ?
-            comments.map(comment =>
+            comments.map((comment) =>
               <>
                 <IntervieweeDetailUserInfo userInfo={comment.commentor}/>
                 <ul>
