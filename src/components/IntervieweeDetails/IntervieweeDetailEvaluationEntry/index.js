@@ -9,23 +9,24 @@ const EvaluationDetailWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 85%;
-  background-color: hotpink;
 `;
 
 const EvaluationDetailHeader = styled.div`
   display: flex;
   align-items: center;
   height: 5vh;
-  background-color: blueviolet;
+`;
+
+const CommentsWrapper = styled.div`
 `;
 
 function IntervieweeDetailEvaluationEntry({ comments }) {
   return (
     <EvaluationDetailWrapper>
       <EvaluationDetailHeader>평가 디테일</EvaluationDetailHeader>
-      <div>
+      <CommentsWrapper>
         <IntervieweeDetailComments comments={comments}/>
-      </div>
+      </CommentsWrapper>
     </EvaluationDetailWrapper>
   );
 }
