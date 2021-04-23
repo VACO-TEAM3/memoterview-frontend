@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Header from "../../components/Header";
+import TotalResultContentTop from "../../components/TotalResultContentTop";
 
 const HeaderNav = styled.div`
   margin: 0 40px;
@@ -30,23 +31,6 @@ const TotalResultContentWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const TotalResultContentTop = styled.div`
-  display: grid;
-  grid-template-columns: .4fr .6fr;
-  grid-gap: 50px;
-  padding: 30px;
-  height: 50vh;
-  background-color: gray;
-  box-sizing: border-box;
-
-`;
-
-const TotalResultIntervieweeListWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-`;
-
 export default function TotalResult({ onIntervieweeAddBtnClick }) {
 
   return (
@@ -57,18 +41,7 @@ export default function TotalResult({ onIntervieweeAddBtnClick }) {
         <HeaderNav>Logout</HeaderNav>
       </Header>
       <TotalResultContentWrapper>
-        <TotalResultContentTop>
-          <div style={{ backgroundColor: "red" }}>
-
-          </div>
-          <TotalResultIntervieweeListWrapper style={{ backgroundColor: "blue" }}>
-            <div>
-
-            </div>
-            <button onClick={onIntervieweeAddBtnClick}>ADD INTERVIEWEE MODAL</button>
-          </TotalResultIntervieweeListWrapper>
-
-        </TotalResultContentTop>
+        <TotalResultContentTop onIntervieweeAddBtnClick={onIntervieweeAddBtnClick}/>
       </TotalResultContentWrapper>
     </>
   );
