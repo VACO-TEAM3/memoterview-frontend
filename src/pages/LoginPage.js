@@ -16,11 +16,16 @@ const PageWrapper = styled.div`
     height: 2rem;
     background: white;
     border: 1px solid gray;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.BabyPowder};
+    }
   }
 
   .header-right {
-    margin-top: 0.7rem;
-    margin-right: 1rem;
+    margin-right: 1em;
+    margin-left: auto;
     text-align: end;
   }
 
