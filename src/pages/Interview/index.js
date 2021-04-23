@@ -19,7 +19,7 @@ const PageWrapper = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  background: linear-gradient(-118deg, #A9B9C1, #20699D) fixed;
+  background: linear-gradient(-60deg, #358EC1, #B2E3EA) fixed;
 
   .interview-content {
     display: flex;
@@ -27,7 +27,7 @@ const PageWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     position: fixed;
-    width: 65%;
+    width: 55%;
     height: 80%;
     background: white;
     border-radius: 20px;
@@ -35,14 +35,15 @@ const PageWrapper = styled.div`
 
     .interview-videos-box {
       display: grid;
+      width: 75%;
+      margin-top: 8%;
       justify-content: center;
       align-content: center;
-      width: 100%;
-      height: 80%;
-      grid-template-columns: repeat(2, 50%);
-      grid-template-rows: repeat(2, 50%);
-      grid-row-gap: 2%;
-      grid-column-gap: 1%;
+      align-items: center;
+      grid-template-rows: repeat(2, auto);
+      grid-template-columns: repeat(2, auto);
+      grid-row-gap: 4%;
+      grid-column-gap: 4%;
     }
   }
 `;
