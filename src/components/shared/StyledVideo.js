@@ -6,7 +6,7 @@ const StyledVideo = styled.video`
   width: 100%;
   margin: auto;
   border-radius: 15px;
-  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15), 0 12px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2), 0 12px 12px rgba(0, 0, 0, 0.15);
 `;
 
 export default StyledVideo;
