@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
 import InterviewSideBarButton from "../../components/IconButton";
+import InterviewButton from "../../components/InterviewButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
@@ -24,7 +25,7 @@ const PageWrapper = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  background: linear-gradient(50deg, #1978AB, #8CCED7) fixed;
+  background: linear-gradient(50deg, #1572B2, #8CCED7) fixed;
 
   .interview-sidebar-icons {
     display: flex;
@@ -58,16 +59,22 @@ const PageWrapper = styled.div`
 
     .interview-content-bottom-bar {
       display: flex;
+      width: 18%;
+      height: 7%;
+      align-items: center;
+      justify-content: space-evenly;
+      justify-items: center;
+      margin-top: 1%;
     }
   }
 `;
 
 export default function Interview({
   user,
+  userData,
   interviewers,
   recordBtnElementRef,
   recordStateType,
-  recogText,
   isInterviewee,
   onAudioBtnClick,
   onVideoBtnClick,
@@ -85,7 +92,7 @@ export default function Interview({
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
-
+  console.log(userData);
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
@@ -174,11 +181,11 @@ export default function Interview({
               unClickedState={faVolumeUp} 
             />
             {!isInterviewee && 
-            <button 
-              ref={recordBtnElementRef} 
-              onClick={onProcessBtnClick}
-            >{BUTTON_NAME[recordStateType].state}
-            </button>
+              <InterviewButton 
+                videoRef={recordBtnElementRef} 
+                onClick={onProcessBtnClick}
+                state={BUTTON_NAME[recordStateType]}
+              />
             }
             <CircleButton 
               onClick={handleVideo} 

@@ -8,7 +8,7 @@ import Interview from "../pages/Interview";
 import { mediaOptions, mediaStream } from "../utils/media";
 
 export default function InterviewPageContainer() {
-  const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER), []);
+  const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
 
   const { id: roomID } = useParams();
   const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
