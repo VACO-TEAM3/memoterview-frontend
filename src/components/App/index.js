@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/welcome/:projectId/:intervieweeId" >
           <WelcomeContainer />
         </Route>
-        <AuthRoute path="/projects">
+        <AuthRoute path="/projects" exact>
           <ProjectsContainer />
         </AuthRoute>
         <AuthRoute path="/interview/:projectId/:intervieweeId">
