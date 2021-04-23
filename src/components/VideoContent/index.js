@@ -5,8 +5,9 @@ import SubVideo from "../SubVideo";
 
 const VideoContentWrapper = styled.div`
   display: grid;
-  width: 72%;
-  margin-top: 15%;
+  width: 65%;
+  height: 62%;
+  margin-top: 12%;
   justify-content: center;
   align-content: center;
   align-items: center;
