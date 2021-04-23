@@ -21,6 +21,10 @@ export const FINISH_INTERVIEW = BASE_PATH + "FINISH_INTERVIEW";
 export const FINISH_INTERVIEW_SUCCESS = BASE_PATH + "FINISH_INTERVIEW_SUCCESS";
 export const FINISH_INTERVIEW_ERROR = BASE_PATH + "FINISH_INTERVIEW_ERROR";
 
+export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
+export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
+export const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
+
 export const getInterviewees = ({ projectId, token }) => ({
   type: GET_INTERVIEWEES,
   payload: { projectId, token },
@@ -70,7 +74,7 @@ const questionInitialState = {
 const intervieweeInitialState = {
   id: "",
   name: "",
-  email: "",å
+  email: "",
   interviewDate: "",
   resumePath: "",
   filterScore: [], // 백엔드 스키마 수정해야함
