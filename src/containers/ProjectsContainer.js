@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import Loading from "../components/Loading";
 import Modal from "../components/Modal";
 import ProjectAddModalView from "../components/ProjectAddModalView";
 import { MENUS, PROJECT_TYPES } from "../constants/projects";
@@ -25,7 +26,7 @@ export default function ProjectsPageContainer() {
     },
   } = useSelector(({ user }) => ({ user }));
   const {
-    projects: { byId, visibleProjects },
+    projects: { byId, visibleProjects, loading },
   } = useSelector(({ projects }) => ({ projects }));
 
   const [projectType, setProjectType] = useState(PROJECT_TYPES.MY_PROJECTS);
@@ -87,6 +88,7 @@ export default function ProjectsPageContainer() {
 
   return (
     <>
+      {loading && <Loading />}
       {modalFlag && (
         <Modal onBackgroundClick={closeAddProjectModal}>
           <ProjectAddModalView
