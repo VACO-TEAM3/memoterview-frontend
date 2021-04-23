@@ -32,6 +32,11 @@ const PageWrapper = styled.div`
     flex-direction: column;
   }
 
+  .interview-icon {
+    color: #3193C4;
+    z-index: 2;
+  }
+
   .interview-content {
     display: flex;
     justify-content: center;
@@ -133,9 +138,7 @@ export default function Interview({
       )}
       <PageWrapper>
         <SideBar>
-          <div className="interview-sidebar-icons">
-            <InterviewSideBarButton icon={faChevronLeft} onClick={handleBackBtn} />
-            <InterviewSideBarButton icon={faFile} onClick={handleOpenResumeButton} />
+          <div className="interview-sidebar-icons">            
             {isResumeOpen && <div>이력서다!</div>}
             <InterviewSideBarButton icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
             {isQuestionBoardOpen &&
@@ -148,6 +151,8 @@ export default function Interview({
             }
           </div>
         </SideBar>
+        <InterviewSideBarButton className="interview-icon" icon={faFile} onClick={handleOpenResumeButton} />
+        <InterviewSideBarButton className="interview-icon" icon={faChevronLeft} onClick={handleBackBtn} />
         <Profile />
         <Timer />
         <div className="interview-content">
