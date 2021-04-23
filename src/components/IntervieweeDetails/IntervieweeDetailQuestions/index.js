@@ -2,11 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Questions = styled.div`
-
 `;
 
 const Question = styled.div`
-
 `;
 
 function IntervieweeDetailScript({ questions }) {

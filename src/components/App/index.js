@@ -1,13 +1,9 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-<<<<<<< HEAD
 import InterviewContainerHelper from "../../containers/interviewContainerHelper";
-import InterviewPageContainer from "../../containers/InterviewPageContainer";
-=======
-import InterviewContainerHelper from "../../containers/InterviewContainerHelper";
 import IntervieweeDetailContainer from "../../containers/IntervieweeDetailContainer";
->>>>>>> 94c3d01... [ADD] userIcon, basement layout
+import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
 import TotalResultContainer from "../../containers/TotalResultContainer";

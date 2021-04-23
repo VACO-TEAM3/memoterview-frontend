@@ -11,10 +11,8 @@ const MainLayoutWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: pink;
   width: 100%;
   height: 100vh;
-  background-color: blue;
 `;
 
 const Main = styled.div`
@@ -24,7 +22,6 @@ const Main = styled.div`
   align-items: center;
   width: 100%;
   height: 85vh;
-  background-color: green;
 `;
 
 export default function IntervieweeDetail() {

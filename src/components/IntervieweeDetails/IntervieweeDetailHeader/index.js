@@ -7,7 +7,6 @@ const Header = styled.div`
   display: flex;
   width: 85%;
   height: 10vh;
-  background-color: yellow;
 `;
 
 const FinalScore = styled.div`
@@ -16,7 +15,6 @@ const FinalScore = styled.div`
   align-items: center;
   width: 80%;
   font-size: 1rem;
-  background-color: skyblue;
 `;
 
 function IntervieweeDetailHeader({ userInfo }) {
