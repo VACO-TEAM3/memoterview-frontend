@@ -12,7 +12,7 @@ import useInterviewRecord from "../../hooks/useInterviewRecord";
 import genUuid from "../../utils/uuid";
 
 export default function VoiceToTextTestPage() {
-  const socket = useMemo(() => io.connect("http://localhost:5000"), []);
+  const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER_DEVELOPMENT), []);
   const recordBtnElementRef = useRef();
 
   const [isInterviewee, setIsInterviewee] = useState(false);
