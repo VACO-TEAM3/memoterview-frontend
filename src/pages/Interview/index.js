@@ -9,6 +9,7 @@ import InterviewSideBarButton from "../../components/IconButton";
 import InterviewButton from "../../components/InterviewButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
+import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
 import SideBar from "../../components/SideBar";
 import Timer from "../../components/Timer";
@@ -37,8 +38,8 @@ const PageWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     position: fixed;
-    width: 50%;
-    height: 83%;
+    width: 60%;
+    height: 82%;
     background: white;
     border-radius: 20px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -50,7 +51,7 @@ const PageWrapper = styled.div`
       align-items: center;
       justify-content: space-evenly;
       justify-items: center;
-      margin-top: 3%;
+      margin-top: 5%;
     }
   }
 `;
@@ -78,7 +79,7 @@ export default function Interview({
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
-  console.log(userData);
+  
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
@@ -147,6 +148,7 @@ export default function Interview({
             }
           </div>
         </SideBar>
+        <Profile />
         <Timer />
         <div className="interview-content">
           <VideoContent interviewers={interviewers} user={user} />
