@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
+import InterviewSideBarButton from "../../components/InterviewSideBarButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
@@ -23,22 +24,11 @@ const PageWrapper = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  background: linear-gradient(50deg, #2B90BF, #8CCED7) fixed;
+  background: linear-gradient(50deg, #1978AB, #8CCED7) fixed;
 
   .interview-sidebar-icons {
     display: flex;
     flex-direction: column;
-    
-    .interview-sidebar-icon {
-      margin-top: 30%;
-      margin-left: 15%;
-      font-size: 30px;
-      color: transparent;
-
-      :hover {
-        color: transparent;
-      }
-    }
   }
 
   .interview-content {
@@ -150,22 +140,10 @@ export default function Interview({
       <PageWrapper>
         <SideBar>
           <div className="interview-sidebar-icons">
-            <FontAwesomeIcon 
-              className="interview-sidebar-icon" 
-              icon={faChevronLeft} 
-              onClick={handleBackBtn} 
-            />
-            <FontAwesomeIcon 
-              className="interview-sidebar-icon" 
-              icon={faFile} 
-              onClick={handleOpenResumeButton} 
-            />
+            <InterviewSideBarButton icon={faChevronLeft} onClick={handleBackBtn} />
+            <InterviewSideBarButton icon={faFile} onClick={handleOpenResumeButton} />
             {isResumeOpen && <div>이력서다!</div>}
-            <FontAwesomeIcon 
-              className="interview-sidebar-icon" 
-              icon={faQuestion} 
-              onClick={handleOpenQuestionBoardOpen} 
-            />
+            <InterviewSideBarButton icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
             {isQuestionBoardOpen &&
               <QuestionBoard
                 question={question}
