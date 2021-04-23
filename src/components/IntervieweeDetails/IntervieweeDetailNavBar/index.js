@@ -6,7 +6,6 @@ const Navbar = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 5vh;
-  background-color: pink;
 `;
 
 function intervieweeDetailNavBar() {

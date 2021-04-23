@@ -6,7 +6,6 @@ const ScriptWrapper = styled.div`
   flex-direction: column;
   width: 85%;
   height: 60%;
-  background-color: white;
 `;
 
 const ScriptHeader = styled.div`
@@ -14,7 +13,6 @@ const ScriptHeader = styled.div`
   justify-content: center;
   align-items: center;
   height: 5vh;
-  background-color: blueviolet;
 `;
 
 function IntervieweeDetailScript({ questions }) {

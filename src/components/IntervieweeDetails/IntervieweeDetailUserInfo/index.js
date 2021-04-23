@@ -12,14 +12,12 @@ const UserInfoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-left: 1vw;
-  background-color: coral;
 `;
 
 const UserIconWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-left: 2vw;
-  background-color: white;
 `;
 
 const UserName = styled.div`
