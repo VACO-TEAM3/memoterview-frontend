@@ -40,9 +40,6 @@ export default function App() {
         <AuthRoute path="/result/:intervieweeId">
           <IntervieweeDetailContainer />
         </AuthRoute>
-        <AuthRoute path="/interview/:projectId/:intervieweeId">
-          <InterviewPageContainer />
-        </AuthRoute>
         <AuthRoute path="/search">
           <Dummy />
         </AuthRoute>
