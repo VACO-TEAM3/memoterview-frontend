@@ -32,6 +32,7 @@ const userInitialState = {
   username: "",
   myProjects: [],
   joinedProjects: [],
+  isInterviewer: true,
 };
 
 const initialState = {
