@@ -24,7 +24,27 @@ const HeaderNav = styled.div`
 `;
 
 const TotalResultContentWrapper = styled.div`
-  margin-top: 4.5rem;
+  margin: 4.5rem auto 0;
+  min-width: 1200px;
+  max-width: 1600px;
+  box-sizing: border-box;
+`;
+
+const TotalResultContentTop = styled.div`
+  display: grid;
+  grid-template-columns: .4fr .6fr;
+  grid-gap: 50px;
+  padding: 30px;
+  height: 50vh;
+  background-color: gray;
+  box-sizing: border-box;
+
+`;
+
+const TotalResultIntervieweeListWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 export default function TotalResult({ onIntervieweeAddBtnClick }) {
@@ -37,7 +57,18 @@ export default function TotalResult({ onIntervieweeAddBtnClick }) {
         <HeaderNav>Logout</HeaderNav>
       </Header>
       <TotalResultContentWrapper>
-        <div><button onClick={onIntervieweeAddBtnClick}>ADD INTERVIEWEE MODAL</button></div>
+        <TotalResultContentTop>
+          <div style={{ backgroundColor: "red" }}>
+
+          </div>
+          <TotalResultIntervieweeListWrapper style={{ backgroundColor: "blue" }}>
+            <div>
+
+            </div>
+            <button onClick={onIntervieweeAddBtnClick}>ADD INTERVIEWEE MODAL</button>
+          </TotalResultIntervieweeListWrapper>
+
+        </TotalResultContentTop>
       </TotalResultContentWrapper>
     </>
   );
