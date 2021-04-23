@@ -41,7 +41,7 @@ export default function App() {
           <IntervieweeDetailContainer />
         </AuthRoute>
         <AuthRoute path="/interview/:projectId/:intervieweeId">
-          <InterviewContainerHelper />
+          <InterviewPageContainer />
         </AuthRoute>
         <AuthRoute path="/search">
           <Dummy />

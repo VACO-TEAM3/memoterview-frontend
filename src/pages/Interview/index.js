@@ -1,3 +1,5 @@
+import { faChevronLeft, faFile, faQuestion, faVideo, faVideoSlash, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -20,7 +22,23 @@ const PageWrapper = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  background: linear-gradient(-60deg, #358EC1, #B2E3EA) fixed;
+  background: linear-gradient(50deg, #2B90BF, #8CCED7) fixed;
+
+  .interview-sidebar-icons {
+    display: flex;
+    flex-direction: column;
+    
+    .interview-sidebar-icon {
+      margin-top: 30%;
+      margin-left: 15%;
+      font-size: 30px;
+      color: transparent;
+
+      :hover {
+        color: transparent;
+      }
+    }
+  }
 
   .interview-content {
     display: flex;
@@ -45,6 +63,22 @@ const PageWrapper = styled.div`
       grid-template-columns: repeat(2, auto);
       grid-row-gap: 4%;
       grid-column-gap: 4%;
+    }
+
+    .interview-content-bottom-bar {
+      display: flex;
+
+      .interview-content-bottom-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: #5D5F5F;
+        opacity: 0.6;
+        color: white;
+        border-radius: 75px;
+      }
     }
   }
 `;
@@ -125,33 +159,52 @@ export default function Interview({
         </Modal>
       )}
       <PageWrapper>
-        <button onClick={handleBackBtn}>BACK</button>
-        <button onClick={onIntervieweeResumeShowingBtnClick}>open resume modal!</button>
-        {isResumeOpen && <div>이력서다!</div>}
-        {!isInterviewee && <button onClick={handleOpenQuestionBoardOpen}>질문</button>}
-        {!isInterviewee && <button ref={recordBtnElementRef} onClick={onProcessBtnClick}>{BUTTON_NAME[recordStateType]}</button>}
-        <p>{recogText}</p>
-        {isQuestionBoardOpen &&
-          <QuestionBoard
-            question={question}
-            questions={questions}
-            onChange={handleInputChange}
-            onSubmit={handleSubmit}
-          />
-        }
+        <SideBar>
+          <div className="interview-sidebar-icons">
+            <FontAwesomeIcon 
+              className="interview-sidebar-icon" 
+              icon={faChevronLeft} 
+              onClick={handleBackBtn} 
+            />
+            <FontAwesomeIcon 
+              className="interview-sidebar-icon" 
+              icon={faFile} 
+              onClick={handleOpenResumeButton} 
+            />
+            {isResumeOpen && <div>이력서다!</div>}
+            <FontAwesomeIcon 
+              className="interview-sidebar-icon" 
+              icon={faQuestion} 
+              onClick={handleOpenQuestionBoardOpen} 
+            />
+            {isQuestionBoardOpen &&
+              <QuestionBoard
+                question={question}
+                questions={questions}
+                onChange={handleInputChange}
+                onSubmit={handleSubmit}
+              />
+            }
+          </div>
+        </SideBar>
+        <Timer />
         <div className="interview-content">
-          <Timer />
           <div className="interview-videos-box">
             <div classname="main-video">
               <MainVideo videoRef={user} />
-              <button onClick={handleAudio}>audio</button>
-              <button onClick={handleVideo}>video</button>
             </div>
-            <div classname="sub-videos">
-
-              {interviewers?.map((peer, index) => (
+            {interviewers?.map((peer, index) => (
+              <div classname="sub-videos">
                 <SubVideo key={index} peer={peer} />
-              ))}
+              </div>
+            ))}
+          </div>
+          <div className="interview-content-bottom-bar">
+            <div className="interview-content-bottom-button" onClick={handleAudio}>
+              <FontAwesomeIcon icon={isAudioOn ? faVolumeMute : faVolumeUp} />
+            </div>
+            <div className="interview-content-bottom-button" onClick={handleVideo}>
+              <FontAwesomeIcon icon={isVideoOn ? faVideoSlash : faVideo} />
             </div>
           </div>
         </div>
