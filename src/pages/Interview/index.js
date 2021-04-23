@@ -6,6 +6,7 @@ import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEv
 import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
 import QuestionBoard from "../../components/QuestionBoard";
+import SideBar from "../../components/SideBar";
 import SubVideo from "../../components/SubVideo";
 import Timer from "../../components/Timer";
 import { BUTTON_NAME } from "../../constants/recordState";
