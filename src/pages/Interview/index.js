@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
-import InterviewSideBarButton from "../../components/InterviewSideBarButton";
+import InterviewSideBarButton from "../../components/IconButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
