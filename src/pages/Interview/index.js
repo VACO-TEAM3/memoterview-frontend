@@ -173,6 +173,13 @@ export default function Interview({
               clickedState={faVolumeMute} 
               unClickedState={faVolumeUp} 
             />
+            {!isInterviewee && 
+            <button 
+              ref={recordBtnElementRef} 
+              onClick={onProcessBtnClick}
+            >{BUTTON_NAME[recordStateType].state}
+            </button>
+            }
             <CircleButton 
               onClick={handleVideo} 
               isClicked={isVideoOn} 
