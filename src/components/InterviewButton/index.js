@@ -13,6 +13,13 @@ const ButtonWrapper = styled.div`
   color: white;
   border-radius: 30px;
 
+  :hover {
+    background: white;
+    color: ${({ color }) => color};
+    opacity: 0.6;
+    border: 1px solid #B6BFC4;
+  }
+
   .button-content {
     display: flex;
     flex-direction: column;

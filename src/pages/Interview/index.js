@@ -8,12 +8,11 @@ import CircleButton from "../../components/CircleButton";
 import InterviewSideBarButton from "../../components/IconButton";
 import InterviewButton from "../../components/InterviewButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
-import MainVideo from "../../components/MainVideo";
 import Modal from "../../components/Modal";
 import QuestionBoard from "../../components/QuestionBoard";
 import SideBar from "../../components/SideBar";
-import SubVideo from "../../components/SubVideo";
 import Timer from "../../components/Timer";
+import VideoContent from "../../components/VideoContent";
 import { BUTTON_NAME } from "../../constants/recordState";
 
 const PageWrapper = styled.div`
@@ -38,24 +37,11 @@ const PageWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     position: fixed;
-    width: 55%;
-    height: 80%;
+    width: 50%;
+    height: 83%;
     background: white;
     border-radius: 20px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-
-    .interview-videos-box {
-      display: grid;
-      width: 75%;
-      margin-top: 8%;
-      justify-content: center;
-      align-content: center;
-      align-items: center;
-      grid-template-rows: repeat(2, auto);
-      grid-template-columns: repeat(2, auto);
-      grid-row-gap: 4%;
-      grid-column-gap: 4%;
-    }
 
     .interview-content-bottom-bar {
       display: flex;
@@ -64,7 +50,7 @@ const PageWrapper = styled.div`
       align-items: center;
       justify-content: space-evenly;
       justify-items: center;
-      margin-top: 1%;
+      margin-top: 3%;
     }
   }
 `;
@@ -163,16 +149,7 @@ export default function Interview({
         </SideBar>
         <Timer />
         <div className="interview-content">
-          <div className="interview-videos-box">
-            <div classname="main-video">
-              <MainVideo videoRef={user} />
-            </div>
-            {interviewers?.map((peer, index) => (
-              <div classname="sub-videos">
-                <SubVideo key={index} peer={peer} />
-              </div>
-            ))}
-          </div>
+          <VideoContent interviewers={interviewers} user={user} />
           <div className="interview-content-bottom-bar">
             <CircleButton 
               onClick={handleAudio} 
