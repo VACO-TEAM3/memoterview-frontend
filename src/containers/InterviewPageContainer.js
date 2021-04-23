@@ -9,7 +9,7 @@ import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
-  const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER), []);
+  const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
 
   const { id: roomID } = useParams();
   const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
@@ -146,7 +146,6 @@ export default function InterviewPageContainer() {
 
   return (
     <>
-      {"인터뷰어"}
       <Interview
         user={userVideo}
         interviewers={peers}
