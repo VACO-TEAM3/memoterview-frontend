@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-const IndexButtonWrapper = styled.div`
+const TabButtonWrapper = styled.div`
   width: 1.2rem;
+  min-height: 5rem;
   color: #3193C4;
   z-index: 2;
   background: white;
   margin-bottom: 0.6rem;
   padding: 0.3rem 0;
   border-radius: 0 5px 5px 0;
+  box-shadow: 10px 15px 12px -5px rgba(0, 0, 0, 0.22);
   cursor: pointer;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 
   :hover {
     color: white;
@@ -33,15 +34,15 @@ const IndexButtonWrapper = styled.div`
   }
 `;
 
-export default function IndexButton({ icon, onClick, name }) {
+export default function TabButton({ icon, onClick, name }) {
   return (
-    <IndexButtonWrapper onClick={onClick}>
+    <TabButtonWrapper onClick={onClick}>
       <div className="icon">
         <FontAwesomeIcon icon={icon} />
       </div>
       <div className="icon-name">
         {name}
       </div>
-    </IndexButtonWrapper>
+    </TabButtonWrapper>
   );
 }

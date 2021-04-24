@@ -5,15 +5,16 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
-import IndexButton from "../../components/IndexButton";
 import InterviewButton from "../../components/InterviewButton";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
+import InterviewTab from "../../components/InterviewTab";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import SideBar from "../../components/SideBar";
+import TabButton from "../../components/TabButton";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 import { BUTTON_NAME } from "../../constants/recordState";
@@ -126,17 +127,17 @@ export default function Interview({
       <PageWrapper>
         <SideBar>
           <InterviewMenuButton name="BACK" onClick={handleBackBtn} icon={faChevronLeft} />
-          <IndexButton name="Resume" icon={faFile} onClick={handleOpenResumeButton} />
-          {isResumeOpen && <div>이력서다!</div>}
-          <IndexButton name="Questions" icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
-          {isQuestionBoardOpen &&
+          <InterviewTab tabName="Resume" tabIcon={faFile} onClick={handleOpenResumeButton} isOpened={isResumeOpen}>
+            <div>이력서다!</div>
+          </InterviewTab>
+          <InterviewTab tabName="Questions" tabIcon={faQuestion} onClick={handleOpenQuestionBoardOpen} isOpened={isQuestionBoardOpen}>
             <QuestionBoard
               question={question}
               questions={questions}
               onChange={handleInputChange}
               onSubmit={handleSubmit}
             />
-          }
+          </InterviewTab>
         </SideBar>
         <Profile />
         <Timer />
