@@ -13,7 +13,7 @@ export default function WelcomeContainer() {
   const { projectId, intervieweeId } = useParams();
   const history = useHistory();
 
-  function getRandomUserAvatar() {
+  function getRandomLegoAvatar() {
     const randomIdx = Math.floor(Math.random() * 9);
     const randomPickLegoAvatar = legos[randomIdx];
 
@@ -21,7 +21,7 @@ export default function WelcomeContainer() {
   }
 
   useEffect(() => {
-    getRandomUserAvatar();
+    getRandomLegoAvatar();
   }, []);
 
   function handleInputChange(event) {
