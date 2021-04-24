@@ -106,6 +106,7 @@ export default function user(state = initialState, action) {
           ...state.userData,
           email: userInfo.email,
           username: userInfo.username,
+          avatar: userInfo.avatar,
         },
       };
     }
