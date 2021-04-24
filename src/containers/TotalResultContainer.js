@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 
 import { requestSendEmailToInterviewee } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
@@ -14,11 +14,13 @@ import {
   getInterviewees,
   intervieweeIdsToByIdObjs,
 } from "../redux/reducers/interviewee";
+import { getInterviewRoomLink, getWelcomLink } from "../utils/path";
 
 export default function TotalResultContainer() {
   const [modalFlag, setModalFlag] = useState(false);
   const { projectId } = useParams();
   const { token } = useToken();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const { loading, error, interviewees } = useSelector(
@@ -67,11 +69,10 @@ export default function TotalResultContainer() {
 
   function handleIntervieweeInviteBtnClick({ intervieweeId, intervieweeEmail }) {
     console.log("Invite interviewee", intervieweeId);
-    const interviewRoomLink = `${window.location.origin}/welcome/${projectId}/${intervieweeId}`;
-    console.log(interviewRoomLink);
+    const welcomePageLink = getWelcomLink({ intervieweeId, projectId });
 
     try {
-      requestSendEmailToInterviewee({ token, projectId, intervieweeEmail, interviewRoomLink });
+      requestSendEmailToInterviewee({ token, projectId, intervieweeEmail, welcomePageLink });
     } catch (error){
       console.error(error);
     }
@@ -79,6 +80,8 @@ export default function TotalResultContainer() {
 
   function handleInterviewRoomEnterBtnClick({ intervieweeId }) {
     console.log("enter interview room", intervieweeId);
+    const interviewRoomLink = getInterviewRoomLink({ intervieweeId, projectId });
+    history.push(interviewRoomLink);
   }
 
   return (
