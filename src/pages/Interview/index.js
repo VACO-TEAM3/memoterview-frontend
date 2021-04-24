@@ -11,6 +11,7 @@ import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEv
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
+import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import SideBar from "../../components/SideBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
@@ -28,15 +29,6 @@ const PageWrapper = styled.div`
   overflow: hidden;
   background: linear-gradient(50deg, #1572B2, #8CCED7) fixed;
 
-  .interview-sidebar-icons {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .interview-icon {
-
-  }
-
   .interview-content {
     display: flex;
     justify-content: center;
@@ -50,13 +42,7 @@ const PageWrapper = styled.div`
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
     .interview-content-bottom-bar {
-      display: flex;
-      width: 18%;
-      height: 7%;
-      align-items: center;
-      justify-content: space-evenly;
-      justify-items: center;
-      margin-top: 5%;
+      
     }
   }
 `;
@@ -138,25 +124,24 @@ export default function Interview({
       )}
       <PageWrapper>
         <SideBar>
-          <div className="interview-sidebar-icons">
-            <IconButton icon={faChevronLeft} onClick={handleBackBtn} />          
-            {isResumeOpen && <div>이력서다!</div>}
-            {isQuestionBoardOpen &&
-              <QuestionBoard
-                question={question}
-                questions={questions}
-                onChange={handleInputChange}
-                onSubmit={handleSubmit}
-              />
-            }
-          </div>
+          <IconButton name="Back" icon={faChevronLeft} onClick={handleBackBtn} />          
+          {isResumeOpen && <div>이력서다!</div>}
+          {isQuestionBoardOpen &&
+            <QuestionBoard
+              question={question}
+              questions={questions}
+              onChange={handleInputChange}
+              onSubmit={handleSubmit}
+            />
+          }
+          <IconButton name="Resume" icon={faFile} onClick={handleOpenResumeButton} />
+          <IconButton name="Questions" icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
         </SideBar>
         <Profile />
         <Timer />
         <div className="interview-content">
           <VideoContent interviewers={interviewers} user={user} />
-          <div className="interview-content-bottom-bar">
-            <IconButton icon={faFile} onClick={handleOpenResumeButton} />
+          <StyledVideoBottomBar>
             <CircleButton 
               onClick={handleAudio} 
               isClicked={isAudioOn} 
@@ -176,8 +161,7 @@ export default function Interview({
               clickedState={faVideoSlash} 
               unClickedState={faVideo} 
             />
-            <IconButton icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
-          </div>
+          </StyledVideoBottomBar>
         </div>
       </PageWrapper>
     </>

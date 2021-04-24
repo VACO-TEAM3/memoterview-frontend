@@ -19,8 +19,8 @@ const PageWrapper = styled.div`
   }
 
   .header-right {
-    margin-top: 0.7em;
-    margin-right: 1em;
+    margin-top: 0.7rem;
+    margin-right: 1rem;
     text-align: end;
   }
 

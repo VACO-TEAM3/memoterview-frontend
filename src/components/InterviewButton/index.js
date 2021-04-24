@@ -12,6 +12,7 @@ const ButtonWrapper = styled.div`
   opacity: 0.6;
   color: white;
   border-radius: 30px;
+  z-index: 2;
 
   :hover {
     background: white;
@@ -29,12 +30,12 @@ const ButtonWrapper = styled.div`
     .button-icon {
       width: 1.2rem;
       height: 1.2rem;
-      margin-bottom: 0.2em;
+      margin-bottom: 0.2rem;
       top: 30%;
     }
 
     .button-name {
-      font-size: 0.5em;
+      font-size: 0.5rem;
     }
   }
 `;
