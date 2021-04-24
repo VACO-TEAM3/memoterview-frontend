@@ -77,6 +77,8 @@ export async function deleteProjectAPI({ projectId, token }) {
 };
 
 export async function addMyProjectAPI({ userId, newProject, token }) {
+  console.log(newProject, userId, "????");
+
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects`, {
     method: "POST",
     headers: {
