@@ -13,6 +13,25 @@ export default function TotalResultContainer() {
   // mock projectId
   const projectId = "607ea8dc06a4055a315ad0cc";
 
+  const interviewees = [
+    {
+      name: "이아무개",
+      email: "leeamugae@gmail.com",
+    },
+    {
+      name: "김아무개",
+      email: "kimamugae@gmail.com",
+    },
+    {
+      name: "최아무개",
+      email: "choiamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    }
+  ];
+
   function handleIntervieweeAddBtnClick() {
     console.log("click interviewee add button");
     openAddIntervieweeModal();
@@ -45,7 +64,7 @@ export default function TotalResultContainer() {
           />
         </Modal>
       )}
-      <TotalResult onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick}/>
+      <TotalResult onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick} interviewees={interviewees}/>
     </>
   );
 };
