@@ -12,6 +12,7 @@ const ButtonWrapper = styled.div`
   border-radius: 75px;
   z-index: 2;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
 
   :hover {
     background: #5D5F5F;
