@@ -1,4 +1,4 @@
-import { faHourglassHalf, faPlayCircle, faQuestionCircle, faRecordVinyl, faVoicemail } from "@fortawesome/free-solid-svg-icons";
+import { faHourglassHalf, faPlay, faQuestionCircle, faRecordVinyl, faVoicemail } from "@fortawesome/free-solid-svg-icons";
 
 export const RECORD_STATE_TYPE = {
   INTERVIEW_BEFORE: 0,
@@ -13,7 +13,7 @@ export const BUTTON_NAME = {
   [RECORD_STATE_TYPE.INTERVIEW_BEFORE]: {
     state: "START",
     message: "버튼을 눌러 면접을 시작하세요",
-    icon: faPlayCircle,
+    icon: faPlay,
     color: "#2181B1",
   },
   [RECORD_STATE_TYPE.QUESTION_BEFORE]: {

@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
-import InterviewSideBarButton from "../../components/IconButton";
+import IconButton from "../../components/IconButton";
 import InterviewButton from "../../components/InterviewButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
@@ -34,8 +34,7 @@ const PageWrapper = styled.div`
   }
 
   .interview-icon {
-    color: #3193C4;
-    z-index: 2;
+
   }
 
   .interview-content {
@@ -139,9 +138,9 @@ export default function Interview({
       )}
       <PageWrapper>
         <SideBar>
-          <div className="interview-sidebar-icons">            
+          <div className="interview-sidebar-icons">
+            <IconButton icon={faChevronLeft} onClick={handleBackBtn} />          
             {isResumeOpen && <div>이력서다!</div>}
-            <InterviewSideBarButton icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
             {isQuestionBoardOpen &&
               <QuestionBoard
                 question={question}
@@ -152,13 +151,12 @@ export default function Interview({
             }
           </div>
         </SideBar>
-        <InterviewSideBarButton className="interview-icon" icon={faFile} onClick={handleOpenResumeButton} />
-        <InterviewSideBarButton className="interview-icon" icon={faChevronLeft} onClick={handleBackBtn} />
         <Profile />
         <Timer />
         <div className="interview-content">
           <VideoContent interviewers={interviewers} user={user} />
           <div className="interview-content-bottom-bar">
+            <IconButton icon={faFile} onClick={handleOpenResumeButton} />
             <CircleButton 
               onClick={handleAudio} 
               isClicked={isAudioOn} 
@@ -178,6 +176,7 @@ export default function Interview({
               clickedState={faVideoSlash} 
               unClickedState={faVideo} 
             />
+            <IconButton icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
           </div>
         </div>
       </PageWrapper>
