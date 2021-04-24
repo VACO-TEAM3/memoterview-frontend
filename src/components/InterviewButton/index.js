@@ -11,9 +11,10 @@ const ButtonWrapper = styled.div`
   background: ${({ color }) => color.normalColor};
   opacity: 0.6;
   color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 30px;
   z-index: 2;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
 
   :hover {
     background: ${({ color }) => color.hoverColor};
