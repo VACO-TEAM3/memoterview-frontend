@@ -34,7 +34,7 @@ export default function App() {
         <AuthRoute path="/interviewee">
           <IntervieweePageContainer />
         </AuthRoute>
-        <AuthRoute path="/projects/:projectId">
+        <AuthRoute path="/projects/:projectId" exact>
           <TotalResultContainer />
         </AuthRoute>
         <AuthRoute path="/result/:intervieweeId">
@@ -42,6 +42,12 @@ export default function App() {
         </AuthRoute>
         <AuthRoute path="/search">
           <Dummy />
+        </AuthRoute>
+        <AuthRoute path="/projects/:projectId/search">
+          <Dummy />
+        </AuthRoute>
+        <AuthRoute path="/projects/:projectId/result/:intervieweeId">
+          <IntervieweeDetailContainer />
         </AuthRoute>
         <AuthRoute path="/voiceTest">
           <VoiceToTextTestPage />
