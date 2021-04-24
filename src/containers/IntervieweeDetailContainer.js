@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
-import { generatePdfAPI } from "../api";
 import { STARS } from "../constants/interviewee";
 import useToken from "../hooks/useToken";
 import IntervieweeDetail from "../pages/IntervieweeDetail";
@@ -67,16 +66,8 @@ export default function IntervieweeDetailContainer() {
     };
   };
 
-  async function handleGeneratePdfBtnClick() {
-    try {
-      const result = await generatePdfAPI();
-      const final = await result.json();
-
-      console.log(final, "final");
-
-    } catch (error) {
-      console.warn(error);
-    }
+  function handleGeneratePdfBtnClick(e) {
+    console.log("pdf btn clicked");
   }
 
   useEffect(() => {

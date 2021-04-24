@@ -1,5 +1,4 @@
 import React from "react";
-import Pdf from "react-to-pdf";
 import styled from "styled-components";
 
 import IntervieweeDetailEvaluationEntry from "../../components/IntervieweeDetails/IntervieweeDetailEvaluationEntry";
@@ -12,8 +11,10 @@ const MainLayoutWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 95%;
   height: 100vh;
+  margin: 2.5vw;
+  background-color: yellow;
 `;
 
 const Main = styled.div`
@@ -23,6 +24,7 @@ const Main = styled.div`
   align-items: center;
   width: 100%;
   height: 85vh;
+  background-color: blue;
 `;
 
 export default function IntervieweeDetail({
@@ -36,9 +38,6 @@ export default function IntervieweeDetail({
 
   return (
     <>
-      {/* <Pdf filename="code-example.pdf">
-        {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
-      </Pdf> */}
       <MainLayoutWrapper>
         <IntervieweeDetailNavBar
           onGoBackButtonClick={onGoBackButtonClick}
