@@ -8,13 +8,26 @@ const EvaluationDetailWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 85%;
+  width: 90vw;
+`;
+
+const Label = styled.p`
+  display: flex;
+  width: 20%;
+  margin: 1vh 3vh;
+  font-size: 1.5rem;
+
 `;
 
 const EvaluationDetailHeader = styled.div`
-  display: flex;
+  display: flex-start;
+  justify-content: center;
   align-items: center;
-  height: 5vh;
+  width: 85%;
+  margin: 3vh 2vh;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  font-size: 1.3rem;
 `;
 
 const CommentsWrapper = styled.div`
@@ -23,7 +36,9 @@ const CommentsWrapper = styled.div`
 export default function IntervieweeDetailEvaluationEntry({ createStars, comments }) {
   return (
     <EvaluationDetailWrapper>
-      <EvaluationDetailHeader>평가 디테일</EvaluationDetailHeader>
+      <EvaluationDetailHeader>
+        <Label>평가 디테일</Label>
+      </EvaluationDetailHeader>
       <CommentsWrapper>
         <IntervieweeDetailComments createStars={createStars} comments={comments}/>
       </CommentsWrapper>
