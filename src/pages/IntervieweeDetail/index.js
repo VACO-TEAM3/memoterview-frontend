@@ -13,8 +13,7 @@ const MainLayoutWrapper = styled.div`
   justify-content: center;
   width: 95%;
   height: 100vh;
-  margin: 2.5vw;
-  background-color: yellow;
+  margin: 2vw;
 `;
 
 const Main = styled.div`
@@ -24,7 +23,6 @@ const Main = styled.div`
   align-items: center;
   width: 100%;
   height: 85vh;
-  background-color: blue;
 `;
 
 export default function IntervieweeDetail({
