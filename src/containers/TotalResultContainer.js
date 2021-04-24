@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router";
 
 import { createIntervieweeAPI } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
@@ -8,57 +9,52 @@ import TotalResult from "../pages/TotalResult";
 
 export default function TotalResultContainer() {
   const [modalFlag, setModalFlag] = useState(false);
+  const { projectId } = useParams();
   const { token } = useToken();
-
-  // mock projectId
-  const projectId = "607ea8dc06a4055a315ad0cc";
 
   const interviewees = [
     {
-      name: "이아무개",
-      email: "leeamugae@gmail.com",
+      id: 1,
+      name: "정아무개",
+      email: "chungamugae@gmail.com",
     },
     {
-      name: "김아무개",
-      email: "kimamugae@gmail.com",
-    },
-    {
+      id: 3,
       name: "최아무개",
       email: "choiamugae@gmail.com",
     },
     {
+      id: 4,
       name: "민아무개",
       email: "minamugae@gmail.com",
     },
     {
+      id: 5,
       name: "민아무개",
       email: "minamugae@gmail.com",
     },
     {
+      id: 6,
       name: "민아무개",
       email: "minamugae@gmail.com",
     },
     {
+      id: 7,
       name: "민아무개",
       email: "minamugae@gmail.com",
     },
     {
+      id: 8,
       name: "민아무개",
       email: "minamugae@gmail.com",
     },
     {
+      id: 9,
       name: "민아무개",
       email: "minamugae@gmail.com",
     },
     {
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
+      id: 10,
       name: "민아무개",
       email: "minamugae@gmail.com",
     }
@@ -79,7 +75,9 @@ export default function TotalResultContainer() {
 
   async function handleFormSubmitBtnClick({ pdf, intervieweeInfo }){
     try {
-      await createIntervieweeAPI({ token, projectId, pdf, intervieweeInfo });
+      console.log(pdf, intervieweeInfo);
+      const result = await createIntervieweeAPI({ token, projectId, pdf, intervieweeInfo });
+      console.log("returned", result);
       closeAddIntervieweeModal();
     } catch (error) {
       console.warn(error);
@@ -89,7 +87,7 @@ export default function TotalResultContainer() {
   return (
     <>
       {modalFlag && (
-        <Modal onClick={closeAddIntervieweeModal}>
+        <Modal onBackgroundClick={closeAddIntervieweeModal}>
           <IntervieweeAddModalView
             onCancleBtnClick={closeAddIntervieweeModal}
             onFormSubmitBtnClick={handleFormSubmitBtnClick}
