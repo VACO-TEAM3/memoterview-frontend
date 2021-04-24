@@ -14,7 +14,7 @@ const TotalResultIntervieweeListWrapper = styled.div`
 
 export default function TotalResultIntervieweeList({ onAddBtnClick, interviewees }) {
   return (
-    <TotalResultIntervieweeListWrapper style={{ backgroundColor: "blue" }}>
+    <TotalResultIntervieweeListWrapper >
       <TotalResultIntervieweeListHeader onAddBtnClick={onAddBtnClick} />
       <TotalResultIntervieweeEntry interviewees={interviewees}/>
     </TotalResultIntervieweeListWrapper>

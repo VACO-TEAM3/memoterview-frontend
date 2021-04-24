@@ -5,8 +5,7 @@ import TotalResultIntervieweeItem from "../TotalResultIntervieweeItem";
 
 const TotalResultIntervieweeEntryWrapper = styled.div`
   width: 100%;
-  height: calc(100% - 40px);
-  background-color: green;
+  height: calc(320px - 40px);
   overflow-y: scroll;
 `;
 
