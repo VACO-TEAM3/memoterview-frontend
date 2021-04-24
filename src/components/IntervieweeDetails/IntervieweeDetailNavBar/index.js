@@ -26,7 +26,7 @@ const PdfBtn = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: ${props => props.iconSize};
-  margin: 1vh 4vw 0 0;
+  margin: 1vh 3vw 0 0;
   cursor: pointer;
 `;
 
