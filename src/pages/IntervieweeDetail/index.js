@@ -24,21 +24,22 @@ const Main = styled.div`
   height: 85vh;
 `;
 
-export default function IntervieweeDetail({ createTotalScoreStars, createStars, onGoBackButtonClick, intervieweeInfo }) {
+export default function IntervieweeDetail({
+  createStars,
+  intervieweeInfo,
+  onGoBackButtonClick,
+  createFinalScoreStars,
+}) {
   const { email, name, comments, questions } = intervieweeInfo;
-
-  // let initialScore = 0;
-  // const totalScore = comments && comments.forEach(comment => {
-  //   console.log(comment, "cccc");
-  //   initialScore += comment.score;
-  // });
-
-  // console.log(initialScore, "33");
 
   return (
     <MainLayoutWrapper>
       <IntervieweeDetailNavBar onGoBackButtonClick={onGoBackButtonClick} />
-      <IntervieweeDetailHeader comments={comments} createTotalScoreStars={createTotalScoreStars} email={email} name={name}/>
+      <IntervieweeDetailHeader
+        comments={comments}
+        createFinalScoreStars={createFinalScoreStars}
+        email={email}
+        name={name}/>
       <Main>
         <IntervieweeDetailEvaluationEntry createStars={createStars} comments={comments}/>
         <IntervieweeDetailScript questions={questions}/>
