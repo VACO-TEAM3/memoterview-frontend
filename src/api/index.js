@@ -176,7 +176,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
   formData.append("email", email);
 
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewee`, {
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees`, {
       method: "POST",
       body: formData,
       headers: {
@@ -204,4 +204,23 @@ export async function updateIntervieweeAnswer({ intervieweeId, question, token }
   const { data, result } = await response.json();
 
   return data;
+};
+
+export async function requestSendEmailToInterviewee({ token, projectId, intervieweeEmail, interviewRoomLink }) {
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/:interviewee_id/invite`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userEmail: intervieweeEmail,
+        interviewRoomLink: interviewRoomLink,
+      }),
+    }
+  );
+
+  return await response.json();
 }
