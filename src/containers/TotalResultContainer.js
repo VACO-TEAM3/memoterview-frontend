@@ -10,6 +10,7 @@ import useToken from "../hooks/useToken";
 import TotalResult from "../pages/TotalResult";
 import {
   addNewInterviewee,
+  deleteInterviewee,
   extractIntervieweesByInterviewed,
   getInterviewees,
   intervieweeIdsToByIdObjs,
@@ -46,6 +47,7 @@ export default function TotalResultContainer() {
 
   function handleIntervieweeDeleteBtnClick({ intervieweeId }) {
     console.log("item delete", intervieweeId);
+    dispatch(deleteInterviewee({ projectId, intervieweeId, token }));
   }
 
   function closeAddIntervieweeModal() {
@@ -72,7 +74,7 @@ export default function TotalResultContainer() {
     const welcomePageLink = getWelcomLink({ intervieweeId, projectId });
 
     try {
-      requestSendEmailToInterviewee({ token, projectId, intervieweeEmail, welcomePageLink });
+      requestSendEmailToInterviewee({ token, projectId, intervieweeId, intervieweeEmail, welcomePageLink });
     } catch (error){
       console.error(error);
     }
