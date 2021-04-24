@@ -8,8 +8,8 @@ const TimerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  top: 23%;
-  width: 4%;
+  top: 23.5%;
+  width: 5%;
   height: 3%;
   background: transparent;
   font-weight: bold;
