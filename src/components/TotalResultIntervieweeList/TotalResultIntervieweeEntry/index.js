@@ -12,7 +12,7 @@ export default function TotalResultIntervieweeEntry({ Interviewees }) {
 
   return (
     <TotalResultIntervieweeEntryWrapper>
-
+      
     </TotalResultIntervieweeEntryWrapper>
   );
 }

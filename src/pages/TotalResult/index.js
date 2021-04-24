@@ -31,7 +31,7 @@ const TotalResultContentWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResult({ onIntervieweeAddBtnClick }) {
+export default function TotalResult({ onIntervieweeAddBtnClick, interviewees }) {
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function TotalResult({ onIntervieweeAddBtnClick }) {
         <HeaderNav>Logout</HeaderNav>
       </Header>
       <TotalResultContentWrapper>
-        <TotalResultContentTop onIntervieweeAddBtnClick={onIntervieweeAddBtnClick}/>
+        <TotalResultContentTop onIntervieweeAddBtnClick={onIntervieweeAddBtnClick} interviewees={interviewees}/>
       </TotalResultContentWrapper>
     </>
   );
