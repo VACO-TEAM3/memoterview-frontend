@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { io } from "socket.io-client";
 
-import { BUTTON_NAME } from "../../constants/recordState";
+import { INTERVIEW_STATE } from "../../constants/recordState";
 import useInterviewRecord from "../../hooks/useInterviewRecord";
 import genUuid from "../../utils/uuid";
 
@@ -91,7 +91,7 @@ export default function VoiceToTextTestPage() {
           onClick={handleClickRecord}
           ref={recordBtnElementRef}
         >
-          {BUTTON_NAME[recordStateType]}
+          {INTERVIEW_STATE[recordStateType]}
         </button>
       )}
       <h1>녹음 텍스트 : {recogText}</h1>
