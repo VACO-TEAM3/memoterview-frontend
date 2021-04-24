@@ -4,6 +4,15 @@ import QuestionForm from "../QuestionForm";
 
 const BoardWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+
+  .question-list {
+    margin-left: 1rem;
+
+    .question-list-content {
+      display: flex;
+    }
+  }
 `;
 
 export default function QuestionBoard({ question, questions, onChange, onSubmit }) {
@@ -14,9 +23,9 @@ export default function QuestionBoard({ question, questions, onChange, onSubmit 
         value={question} 
         onChange={onChange} 
       />
-      <div>
+      <div className="question-list">
         {questions?.map((question, index) => (
-          <div key={index}>
+          <div className="question-list-content" key={index}>
             <input type="checkbox" />
             <div>{question}</div>
           </div>
