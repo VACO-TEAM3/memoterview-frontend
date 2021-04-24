@@ -41,6 +41,10 @@ export default function TotalResultContainer() {
     openAddIntervieweeModal();
   }
 
+  function handleIntervieweeDeleteBtnClick(intervieweeId) {
+    console.log("item delete", intervieweeId);
+  }
+
   function closeAddIntervieweeModal() {
     setModalFlag(false);
   }
@@ -60,6 +64,14 @@ export default function TotalResultContainer() {
     console.log("logoutClick");
   }
 
+  function handleIntervieweeInviteBtnClick(intervieweeId) {
+    console.log("Invite interviewee", intervieweeId);
+  }
+
+  function handleInterviewRoomEnterBtnClick(intervieweeId) {
+    console.log("enter interview room", intervieweeId);
+  }
+
   return (
     <>
       {loading && <Loading />}
@@ -72,10 +84,13 @@ export default function TotalResultContainer() {
         </Modal>
       )}
       <TotalResult
-        projectId={projectId}
-        onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick}
         interviewees={waitingInterviewees}
         resultInterviewees={resultInterviewees}
+        projectId={projectId}
+        onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick}
+        onIntervieweeDeleteBtnClick={handleIntervieweeDeleteBtnClick}
+        onIntervieweeInviteBtnClick={handleIntervieweeInviteBtnClick}
+        onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
       />
     </>

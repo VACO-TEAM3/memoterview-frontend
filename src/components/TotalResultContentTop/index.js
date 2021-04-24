@@ -12,11 +12,23 @@ const TotalResultContentTopWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResultContentTop({ onIntervieweeAddBtnClick, interviewees }) {
+export default function TotalResultContentTop({
+  interviewees,
+  onIntervieweeAddBtnClick,
+  onIntervieweeDeleteBtnClick,
+  onIntervieweeInviteBtnClick,
+  onInterviewRoomEnterBtnClick,
+}) {
   return (
     <TotalResultContentTopWrapper>
       <Calendar />
-      <TotalResultIntervieweeList onAddBtnClick={onIntervieweeAddBtnClick} interviewees={interviewees}/>
+      <TotalResultIntervieweeList
+        interviewees={interviewees}
+        onAddBtnClick={onIntervieweeAddBtnClick}
+        onItemDeleteBtnClick={onIntervieweeDeleteBtnClick}
+        onItemInviteBtnClick={onIntervieweeInviteBtnClick}
+        onItemRoomEnterBtnClick={onInterviewRoomEnterBtnClick}
+      />
     </TotalResultContentTopWrapper>
   );
 }
