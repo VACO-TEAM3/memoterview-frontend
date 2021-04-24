@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 
-import interviewee, { intervieweeSaga } from "./interviewee";
+import interviewees, { intervieweeSaga } from "./interviewee";
 import projects, { projectsSaga } from "./projects";
 import user, { userSaga } from "./user";
 
 const rootReducer = combineReducers({
   user,
   projects,
-  interviewee,
+  interviewees,
 });
 
 export function* rootSaga() {
