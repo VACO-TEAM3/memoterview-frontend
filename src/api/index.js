@@ -206,9 +206,9 @@ export async function updateIntervieweeAnswer({ intervieweeId, question, token }
   return data;
 };
 
-export async function requestSendEmailToInterviewee({ token, projectId, intervieweeEmail, interviewRoomLink }) {
+export async function requestSendEmailToInterviewee({ token, projectId, intervieweeId, intervieweeEmail, welcomePageLink }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/:interviewee_id/invite`, {
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}/invite`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -217,10 +217,27 @@ export async function requestSendEmailToInterviewee({ token, projectId, intervie
       },
       body: JSON.stringify({
         userEmail: intervieweeEmail,
-        interviewRoomLink: interviewRoomLink,
+        welcomePageLink: welcomePageLink,
       }),
     }
   );
 
   return await response.json();
+}
+
+export async function deleteIntervieweeAPI({ token, projectId, intervieweeId }) {
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
+      method: "DELETE",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`,
+      },
+    }
+  );
+
+  const { data } = await response.json();
+
+  return data._id;
 }
