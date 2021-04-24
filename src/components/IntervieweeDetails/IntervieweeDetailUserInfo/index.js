@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { legos } from "../../../constants/legos";
 import UserIcon from "../../UserIcon";
 
 const UserInfo = styled.div`
@@ -31,7 +32,10 @@ const UserEmail = styled.div`
 `;
 
 function intervieweeDetailUserInfo({ name, email, commenterInfo }) {
-  const avatar = commenterInfo ? commenterInfo.avatar : null;
+  // mock intervieweeAvatar
+  const intervieweeAvatar = legos[1];
+
+  const avatar = commenterInfo ? commenterInfo.avatar : intervieweeAvatar;
   const displayingName = commenterInfo ? commenterInfo.username : name;
 
   return (
