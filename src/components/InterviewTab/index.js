@@ -10,7 +10,6 @@ const TabWrapper = styled.div`
     min-height: 1rem;
     padding-bottom: 2rem;
     background: white;
-    z-index: 2;
     border-radius: 0 0 3px 0;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
   }
