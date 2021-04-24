@@ -12,11 +12,11 @@ const TotalResultContentTopWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResultContentTop({ onIntervieweeAddBtnClick }) {
+export default function TotalResultContentTop({ onIntervieweeAddBtnClick, interviewees }) {
   return (
     <TotalResultContentTopWrapper>
       <Calendar />
-      <TotalResultIntervieweeList onAddBtnClick={onIntervieweeAddBtnClick}/>
+      <TotalResultIntervieweeList onAddBtnClick={onIntervieweeAddBtnClick} interviewees={interviewees}/>
     </TotalResultContentTopWrapper>
   );
 }

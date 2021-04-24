@@ -12,11 +12,11 @@ const TotalResultIntervieweeListWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResultIntervieweeList({ onAddBtnClick }) {
+export default function TotalResultIntervieweeList({ onAddBtnClick, interviewees }) {
   return (
     <TotalResultIntervieweeListWrapper style={{ backgroundColor: "blue" }}>
       <TotalResultIntervieweeListHeader onAddBtnClick={onAddBtnClick} />
-      <TotalResultIntervieweeEntry />
+      <TotalResultIntervieweeEntry interviewees={interviewees}/>
     </TotalResultIntervieweeListWrapper>
   );
 }
