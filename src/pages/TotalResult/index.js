@@ -26,9 +26,15 @@ const HeaderNav = styled.div`
 
   a {
     text-decoration: none;
-    &:link { color: black;}
-    &:visited { color: black;}
-    &:hover { color: ${({ theme }) => theme.Aero};}
+    &:link {
+      color: black;
+    }
+    &:visited {
+      color: black;
+    }
+    &:hover {
+      color: ${({ theme }) => theme.Aero};
+    }
   }
 `;
 
@@ -39,16 +45,34 @@ const TotalResultContentWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResult({ onIntervieweeAddBtnClick, interviewees, projectId, onLogoutClick }) {
+export default function TotalResult({
+  interviewees,
+  projectId,
+  onIntervieweeAddBtnClick,
+  onIntervieweeDeleteBtnClick,
+  onIntervieweeInviteBtnClick,
+  onInterviewRoomEnterBtnClick,
+  onLogoutClick,
+}) {
   return (
     <>
       <Header>
-        <HeaderNav><Link to={"/projects"}>Interviews</Link></HeaderNav>
-        <HeaderNav><Link to={`/projects/${projectId}/search`}>Search</Link></HeaderNav>
+        <HeaderNav>
+          <Link to={"/projects"}>Interviews</Link>
+        </HeaderNav>
+        <HeaderNav>
+          <Link to={`/projects/${projectId}/search`}>Search</Link>
+        </HeaderNav>
         <HeaderNav onClick={onLogoutClick}>Logout</HeaderNav>
       </Header>
       <TotalResultContentWrapper>
-        <TotalResultContentTop onIntervieweeAddBtnClick={onIntervieweeAddBtnClick} interviewees={interviewees}/>
+        <TotalResultContentTop
+          interviewees={interviewees}
+          onIntervieweeAddBtnClick={onIntervieweeAddBtnClick}
+          onIntervieweeDeleteBtnClick={onIntervieweeDeleteBtnClick}
+          onIntervieweeInviteBtnClick={onIntervieweeInviteBtnClick}
+          onInterviewRoomEnterBtnClick={onInterviewRoomEnterBtnClick}
+        />
       </TotalResultContentWrapper>
     </>
   );

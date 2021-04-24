@@ -9,11 +9,22 @@ const TotalResultIntervieweeEntryWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-export default function TotalResultIntervieweeEntry({ interviewees }) {
+export default function TotalResultIntervieweeEntry({
+  interviewees,
+  onItemDeleteBtnClick,
+  onItemInviteBtnClick,
+  onItemRoomEnterBtnClick,
+}) {
   return (
     <TotalResultIntervieweeEntryWrapper>
       {interviewees.map((interviewee) => (
-        <TotalResultIntervieweeItem key={interviewee.id} interviewee={interviewee} />
+        <TotalResultIntervieweeItem
+          key={interviewee.id}
+          interviewee={interviewee}
+          onDeleteBtnClick={onItemDeleteBtnClick}
+          onInviteBtnClick={onItemInviteBtnClick}
+          onRoomEnterBtnClick={onItemRoomEnterBtnClick}
+        />
       ))}
     </TotalResultIntervieweeEntryWrapper>
   );
