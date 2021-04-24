@@ -10,12 +10,20 @@ const StyledSideBar = styled.nav`
   :hover {
     background: rgba(239, 241, 241, 0.5);
   }
+  
+  .sidebar-icons {
+    display: flex;
+    flex-direction: column;
+  }
+
 `;
 
 export default function SideBar({ children }) {
   return (
     <StyledSideBar>
-      {children}
+      <div className="sidebar-icons">
+        {children}
+      </div>
     </StyledSideBar>
   );
 }
