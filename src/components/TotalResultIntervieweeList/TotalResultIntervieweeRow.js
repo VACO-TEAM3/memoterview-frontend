@@ -5,5 +5,10 @@ export default styled.div`
   grid-template-columns: 0.25fr 0.3fr 0.4fr 0.05fr;
   height: 40px;
   width: 100%;
-  background-color: red;
+  border: 1px solid gray;
+  box-sizing: border-box;
+
+  &:not(:first-child) {
+    border-top: none;
+  }
 `;

@@ -29,6 +29,38 @@ export default function TotalResultContainer() {
     {
       name: "민아무개",
       email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
+    },
+    {
+      name: "민아무개",
+      email: "minamugae@gmail.com",
     }
   ];
 
