@@ -156,15 +156,18 @@ export async function updateInterviewRoomState({ token, projectId, intervieweeId
 }
 
 export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
-    method: "PATCH",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "authorization": `Bearer ${token}`,
-    },
-    body: JSON.stringify({ interviewee, intervieweeId, projectId }),
-  });
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({ interviewee, intervieweeId, projectId }),
+    }
+  );
 
   const { data, result } = await response.json();
 
