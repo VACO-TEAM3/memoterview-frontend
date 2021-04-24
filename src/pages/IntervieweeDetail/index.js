@@ -24,12 +24,12 @@ const Main = styled.div`
   height: 85vh;
 `;
 
-export default function IntervieweeDetail({ intervieweeInfo }) {
+export default function IntervieweeDetail({ onGoBackButtonClick, intervieweeInfo }) {
   const { email, name, comments, questions } = intervieweeInfo;
 
   return (
     <MainLayoutWrapper>
-      <IntervieweeDetailNavBar />
+      <IntervieweeDetailNavBar onGoBackButtonClick={onGoBackButtonClick} />
       <IntervieweeDetailHeader email={email} name={name}/>
       <Main>
         <IntervieweeDetailEvaluationEntry comments={comments}/>
