@@ -25,6 +25,7 @@ const PageWrapper = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
+  overflow: hidden;
   background: linear-gradient(50deg, #1572B2, #8CCED7) fixed;
 
   .interview-sidebar-icons {
