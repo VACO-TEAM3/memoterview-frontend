@@ -21,10 +21,6 @@ export const FINISH_INTERVIEW = BASE_PATH + "FINISH_INTERVIEW";
 export const FINISH_INTERVIEW_SUCCESS = BASE_PATH + "FINISH_INTERVIEW_SUCCESS";
 export const FINISH_INTERVIEW_ERROR = BASE_PATH + "FINISH_INTERVIEW_ERROR";
 
-export const OPEN_INTERVIEW_ROOM = BASE_PATH + "OPEN_INTERVIEW_ROOM";
-export const OPEN_INTERVIEW_ROOM_SUCCESS = BASE_PATH + "OPEN_INTERVIEW_ROOM_SUCCESS";
-export const OPEN_INTERVIEW_ROOM_ERROR = BASE_PATH + "OPEN_INTERVIEW_ROOM_ERROR";
-
 export const getInterviewees = ({ projectId, token }) => ({
   type: GET_INTERVIEWEES,
   payload: { projectId, token },
@@ -96,10 +92,6 @@ export default function interviewee(state = initialState, action) {
     case ADD_NEW_INTERVIEWEE_SUCCESS:
     case ADD_NEW_INTERVIEWEE_ERROR:
       return handleAsyncUpdateStateActionsWithNormalize(ADD_NEW_INTERVIEWEE, true)(state, action);
-    case OPEN_INTERVIEW_ROOM:
-    case OPEN_INTERVIEW_ROOM_SUCCESS:
-    case OPEN_INTERVIEW_ROOM_ERROR:
-      return handleAsyncUpdateStateActionsWithNormalize(OPEN_INTERVIEW_ROOM, true)(state, action);
     case GET_INTERVIEWEES:
     case GET_INTERVIEWEES_SUCCESS:
     case GET_INTERVIEWEES_ERROR:
