@@ -15,7 +15,7 @@ import StyledSideBar from "../../components/shared/StyledSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
-import { BUTTON_NAME } from "../../constants/recordState";
+import { INTERVIEW_STATE } from "../../constants/recordState";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -162,7 +162,7 @@ export default function Interview({
               <InterviewButton 
                 videoRef={recordBtnElementRef} 
                 onClick={onProcessBtnClick}
-                state={BUTTON_NAME[recordStateType]}
+                state={INTERVIEW_STATE[recordStateType]}
               />
             }
             <CircleButton 

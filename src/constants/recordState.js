@@ -9,7 +9,7 @@ export const RECORD_STATE_TYPE = {
   SAVING: 5,
 };
 
-export const BUTTON_NAME = {
+export const INTERVIEW_STATE = {
   [RECORD_STATE_TYPE.INTERVIEW_BEFORE]: {
     state: "START",
     message: "버튼을 눌러 면접을 시작하세요",
