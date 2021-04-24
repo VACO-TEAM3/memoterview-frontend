@@ -185,7 +185,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
     }
   );
 
-  const result = await response.json();
+  const { data, result } = await response.json();
 
   return result;
 }

@@ -1,64 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 
-import { createIntervieweeAPI } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
+import Loading from "../components/Loading";
 import Modal from "../components/Modal";
 import useToken from "../hooks/useToken";
 import TotalResult from "../pages/TotalResult";
+import { addNewInterviewee, extractIntervieweesByInterviewed, getInterviewees, intervieweeIdsToByIdObjs } from "../redux/reducers/interviewee";
 
 export default function TotalResultContainer() {
   const [modalFlag, setModalFlag] = useState(false);
   const { projectId } = useParams();
   const { token } = useToken();
+  const dispatch = useDispatch();
+  const {
+    interviewees: {
+      loading,
+      byId,
+      allIds,
+    },
+  } = useSelector(({ projects, interviewees }) => ({ projects, interviewees }));
 
-  const interviewees = [
-    {
-      id: 1,
-      name: "정아무개",
-      email: "chungamugae@gmail.com",
-    },
-    {
-      id: 3,
-      name: "최아무개",
-      email: "choiamugae@gmail.com",
-    },
-    {
-      id: 4,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      id: 5,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      id: 6,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      id: 7,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      id: 8,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      id: 9,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    },
-    {
-      id: 10,
-      name: "민아무개",
-      email: "minamugae@gmail.com",
-    }
-  ];
+  const interviewees = intervieweeIdsToByIdObjs(allIds, byId);
+  const { waitingInterviewees, resultInterviewees } = extractIntervieweesByInterviewed(interviewees);
+
+  useEffect(() => {
+    dispatch(getInterviewees({ token, projectId }));
+  }, [dispatch, projectId, token]);
 
   function handleIntervieweeAddBtnClick() {
     console.log("click interviewee add button");
@@ -76,7 +45,7 @@ export default function TotalResultContainer() {
   async function handleFormSubmitBtnClick({ pdf, intervieweeInfo }){
     try {
       console.log(pdf, intervieweeInfo);
-      const result = await createIntervieweeAPI({ token, projectId, pdf, intervieweeInfo });
+      const result = await dispatch(addNewInterviewee({ token, projectId, pdf, intervieweeInfo }));
       console.log("returned", result);
       closeAddIntervieweeModal();
     } catch (error) {
@@ -86,6 +55,7 @@ export default function TotalResultContainer() {
 
   return (
     <>
+      {loading && <Loading />}
       {modalFlag && (
         <Modal onBackgroundClick={closeAddIntervieweeModal}>
           <IntervieweeAddModalView
@@ -94,7 +64,7 @@ export default function TotalResultContainer() {
           />
         </Modal>
       )}
-      <TotalResult onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick} interviewees={interviewees}/>
+      <TotalResult onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick} interviewees={waitingInterviewees}/>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
-import { getIntervieweesApi, updateInterviewee } from "../../api";
+import { createIntervieweeAPI, getIntervieweesApi, updateInterviewee } from "../../api";
 import { handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import { createPromiseSaga, createPromiseSagaById } from "../lib/sagaUtils";
 
@@ -27,10 +27,10 @@ export const getInterviewees = ({ projectId, token }) => ({
   meta: projectId,
 });
 
-export const addNewInterviewee = ({ token, interviewee, projectId }) => ({
+export const addNewInterviewee = ({ token, intervieweeInfo, pdf, projectId }) => ({
   type: ADD_NEW_INTERVIEWEE,
-  payload: { token, interviewee, projectId },
-  meta: interviewee,
+  payload: { token, intervieweeInfo, pdf, projectId },
+  meta: projectId,
 });
 
 export const finishInterview = ({
@@ -45,12 +45,12 @@ export const finishInterview = ({
 });
 
 export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesApi);
-export const addNewIntervieweeSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE);
+export const addNewIntervieweeSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE, createIntervieweeAPI);
 export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW, updateInterviewee);
 
 export function* intervieweeSaga() {
   yield takeLeading(GET_INTERVIEWEES, getIntervieweesSaga);
-  // yield takeLatest(ADD_NEW_INTERVIEWEE, addNewIntervieweeAPI);
+  yield takeLatest(ADD_NEW_INTERVIEWEE, addNewIntervieweeSaga);
   yield takeLatest(FINISH_INTERVIEW, finishInterviewSaga);
 }
 
@@ -67,7 +67,7 @@ const questionInitialState = {
   questioner: "",
 };
 
-const intervieweeInitialState = {
+const intervieweesInitialState = {
   id: "",
   name: "",
   email: "",
@@ -86,7 +86,7 @@ const initialState = {
   error: null,
 };
 
-export default function interviewee(state = initialState, action) {
+export default function interviewees(state = initialState, action) {
   switch (action.type) {
     case ADD_NEW_INTERVIEWEE:
     case ADD_NEW_INTERVIEWEE_SUCCESS:
@@ -104,4 +104,24 @@ export default function interviewee(state = initialState, action) {
     default:
       return state;
   }
+}
+
+export function intervieweeIdsToByIdObjs(ids, intervieweeByIds) {
+  return ids.map((intervieweeId) => intervieweeByIds[intervieweeId]);
+}
+
+export function extractIntervieweesByInterviewed(interviewees) {
+  const waitingInterviewees = [];
+  const resultInterviewees = [];
+
+  for (const interviewee of interviewees) {
+    if (interviewee.isInterviewed) {
+      resultInterviewees.push(interviewee);
+      continue;
+    }
+
+    waitingInterviewees.push(interviewee);
+  }
+
+  return { waitingInterviewees, resultInterviewees };
 }
