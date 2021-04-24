@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../../components/Header";
@@ -22,6 +23,13 @@ const HeaderNav = styled.div`
   &:hover {
     color: ${({ theme }) => theme.Aero};
   }
+
+  a {
+    text-decoration: none;
+    &:link { color: black;}
+    &:visited { color: black;}
+    &:hover { color: ${({ theme }) => theme.Aero};}
+  }
 `;
 
 const TotalResultContentWrapper = styled.div`
@@ -31,14 +39,13 @@ const TotalResultContentWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResult({ onIntervieweeAddBtnClick, interviewees }) {
-
+export default function TotalResult({ onIntervieweeAddBtnClick, interviewees, projectId, onLogoutClick }) {
   return (
     <>
       <Header>
-        <HeaderNav>Interviewee</HeaderNav>
-        <HeaderNav>Search</HeaderNav>
-        <HeaderNav>Logout</HeaderNav>
+        <HeaderNav><Link to={"/projects"}>Interviews</Link></HeaderNav>
+        <HeaderNav><Link to={`/projects/${projectId}/search`}>Search</Link></HeaderNav>
+        <HeaderNav onClick={onLogoutClick}>Logout</HeaderNav>
       </Header>
       <TotalResultContentWrapper>
         <TotalResultContentTop onIntervieweeAddBtnClick={onIntervieweeAddBtnClick} interviewees={interviewees}/>
