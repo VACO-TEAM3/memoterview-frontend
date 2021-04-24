@@ -1,4 +1,5 @@
 import React from "react";
+import Pdf from "react-to-pdf";
 import styled from "styled-components";
 
 import IntervieweeDetailEvaluationEntry from "../../components/IntervieweeDetails/IntervieweeDetailEvaluationEntry";
@@ -26,6 +27,7 @@ const Main = styled.div`
 
 export default function IntervieweeDetail({
   createStars,
+  onGeneratePdfBtnClick,
   intervieweeInfo,
   onGoBackButtonClick,
   createFinalScoreStars,
@@ -33,18 +35,26 @@ export default function IntervieweeDetail({
   const { email, name, comments, questions } = intervieweeInfo;
 
   return (
-    <MainLayoutWrapper>
-      <IntervieweeDetailNavBar onGoBackButtonClick={onGoBackButtonClick} />
-      <IntervieweeDetailHeader
-        name={name}
-        email={email}
-        comments={comments}
-        createFinalScoreStars={createFinalScoreStars}
-      />
-      <Main>
-        <IntervieweeDetailEvaluationEntry createStars={createStars} comments={comments}/>
-        <IntervieweeDetailScript questions={questions}/>
-      </Main>
-    </MainLayoutWrapper>
+    <>
+      {/* <Pdf filename="code-example.pdf">
+        {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+      </Pdf> */}
+      <MainLayoutWrapper>
+        <IntervieweeDetailNavBar
+          onGoBackButtonClick={onGoBackButtonClick}
+          onGeneratePdfBtnClick={onGeneratePdfBtnClick}
+        />
+        <IntervieweeDetailHeader
+          name={name}
+          email={email}
+          comments={comments}
+          createFinalScoreStars={createFinalScoreStars}
+        />
+        <Main>
+          <IntervieweeDetailEvaluationEntry createStars={createStars} comments={comments}/>
+          <IntervieweeDetailScript questions={questions}/>
+        </Main>
+      </MainLayoutWrapper>
+    </>
   );
 }
