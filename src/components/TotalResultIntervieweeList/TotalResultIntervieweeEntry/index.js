@@ -13,7 +13,7 @@ export default function TotalResultIntervieweeEntry({ interviewees }) {
   return (
     <TotalResultIntervieweeEntryWrapper>
       {interviewees.map((interviewee) => (
-        <TotalResultIntervieweeItem interviewee={interviewee} />
+        <TotalResultIntervieweeItem key={interviewee.id} interviewee={interviewee} />
       ))}
     </TotalResultIntervieweeEntryWrapper>
   );
