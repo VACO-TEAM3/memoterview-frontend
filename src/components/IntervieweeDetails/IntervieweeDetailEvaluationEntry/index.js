@@ -20,7 +20,7 @@ const EvaluationDetailHeader = styled.div`
 const CommentsWrapper = styled.div`
 `;
 
-function IntervieweeDetailEvaluationEntry({ comments }) {
+export default function IntervieweeDetailEvaluationEntry({ comments }) {
   return (
     <EvaluationDetailWrapper>
       <EvaluationDetailHeader>평가 디테일</EvaluationDetailHeader>
@@ -30,5 +30,3 @@ function IntervieweeDetailEvaluationEntry({ comments }) {
     </EvaluationDetailWrapper>
   );
 }
-
-export default IntervieweeDetailEvaluationEntry;
