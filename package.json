@@ -18,6 +18,8 @@
     "react-pdf": "^5.2.0",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
+    "react-to-pdf": "^0.0.13",
+    "react-to-print": "^2.12.4",
     "recordrtc": "^5.6.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
