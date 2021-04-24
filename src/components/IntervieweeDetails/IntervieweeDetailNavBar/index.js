@@ -10,17 +10,14 @@ const Navbar = styled.div`
   width: 100%;
   height: 5vh;
   margin-bottom: 2vh;
-  background-color: pink;
 `;
 
 const GoBackButton = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: ${props => props.size};
-  height: ${props => props.size};
   font-size: ${props => props.iconSize};
-  margin-left: 2vw;
+  margin-left: 3vw;
   cursor: pointer;
 `;
 
@@ -28,34 +25,27 @@ const PdfBtn = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: ${props => props.size};
-  height: ${props => props.size};
   font-size: ${props => props.iconSize};
-  margin-right: 1.5vw;
+  margin: 1vh 4vw 0 0;
   cursor: pointer;
 `;
 
-function intervieweeDetailNavBar({ shouldHover, backgroundColor, iconColor, size, iconSize, onGeneratePdfBtnClick, onGoBackButtonClick }) {
+function intervieweeDetailNavBar({ backgroundColor, iconColor, size, iconSize, onGeneratePdfBtnClick, onGoBackButtonClick }) {
   return (
     <Navbar>
       <GoBackButton
-        shouldHover={shouldHover}
-        backgroundColor="none"
-        iconSize={iconSize}
-        size={size}
+        conSize={iconSize}
+        iconSize="60px"
         onClick={onGoBackButtonClick}
       >
-        <FontAwesomeIcon iconSize={iconSize} shouldHover={shouldHover} color={iconColor} icon={faAngleLeft}/>
+        <FontAwesomeIcon color={iconColor} icon={faAngleLeft}/>
       </GoBackButton>
-
       <PdfBtn
-        shouldHover={shouldHover}
         backgroundColor={backgroundColor}
         iconSize="40px"
-        size={size}
         onClick={onGeneratePdfBtnClick}
       >
-        <FontAwesomeIcon shouldHover={shouldHover} color={iconColor} icon={faFileDownload}/>
+        <FontAwesomeIcon color={iconColor} icon={faFileDownload}/>
       </PdfBtn>
     </Navbar>
   );
@@ -63,10 +53,7 @@ function intervieweeDetailNavBar({ shouldHover, backgroundColor, iconColor, size
 
 intervieweeDetailNavBar.defaultProps = {
   // hover -> blue
-  backgroundColor: "none",
   iconColor: "black",
-  size: "50px",
-  iconSize: "50px",
 };
 
 export default intervieweeDetailNavBar;
