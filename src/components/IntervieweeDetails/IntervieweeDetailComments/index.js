@@ -10,9 +10,6 @@ const Comments = styled.div`
 
 function IntervieweeDetailComments({ comments, createStars }) {
 
-  
-
-
   return (
     <Comments>
       <div>
