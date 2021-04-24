@@ -36,10 +36,11 @@ export default function IntervieweeDetail({
     <MainLayoutWrapper>
       <IntervieweeDetailNavBar onGoBackButtonClick={onGoBackButtonClick} />
       <IntervieweeDetailHeader
+        name={name}
+        email={email}
         comments={comments}
         createFinalScoreStars={createFinalScoreStars}
-        email={email}
-        name={name}/>
+      />
       <Main>
         <IntervieweeDetailEvaluationEntry createStars={createStars} comments={comments}/>
         <IntervieweeDetailScript questions={questions}/>
