@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 
+import { requestSendEmailToInterviewee } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
 import Loading from "../components/Loading";
 import Modal from "../components/Modal";
@@ -41,7 +42,7 @@ export default function TotalResultContainer() {
     openAddIntervieweeModal();
   }
 
-  function handleIntervieweeDeleteBtnClick(intervieweeId) {
+  function handleIntervieweeDeleteBtnClick({ intervieweeId }) {
     console.log("item delete", intervieweeId);
   }
 
@@ -64,11 +65,19 @@ export default function TotalResultContainer() {
     console.log("logoutClick");
   }
 
-  function handleIntervieweeInviteBtnClick(intervieweeId) {
+  function handleIntervieweeInviteBtnClick({ intervieweeId, intervieweeEmail }) {
     console.log("Invite interviewee", intervieweeId);
+    const interviewRoomLink = `${window.location.origin}/welcome/${projectId}/${intervieweeId}`;
+    console.log(interviewRoomLink);
+
+    try {
+      requestSendEmailToInterviewee({ token, projectId, intervieweeEmail, interviewRoomLink });
+    } catch (error){
+      console.error(error);
+    }
   }
 
-  function handleInterviewRoomEnterBtnClick(intervieweeId) {
+  function handleInterviewRoomEnterBtnClick({ intervieweeId }) {
     console.log("enter interview room", intervieweeId);
   }
 
