@@ -1,5 +1,4 @@
 import { faChevronLeft, faFile, faQuestion, faVideo, faVideoSlash, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -12,9 +11,8 @@ import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEv
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
+import StyledSideBar from "../../components/shared/StyledSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
-import SideBar from "../../components/SideBar";
-import TabButton from "../../components/TabButton";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 import { BUTTON_NAME } from "../../constants/recordState";
@@ -125,7 +123,7 @@ export default function Interview({
         </Modal>
       )}
       <PageWrapper>
-        <SideBar>
+        <StyledSideBar>
           <InterviewMenuButton name="BACK" onClick={handleBackBtn} icon={faChevronLeft} />
           <InterviewTab tabName="Resume" tabIcon={faFile} onClick={handleOpenResumeButton} isOpened={isResumeOpen}>
             <div>이력서다!</div>
@@ -138,7 +136,7 @@ export default function Interview({
               onSubmit={handleSubmit}
             />
           </InterviewTab>
-        </SideBar>
+        </StyledSideBar>
         <Profile />
         <Timer />
         <div className="interview-content">
