@@ -20,10 +20,10 @@ function Loading() {
     <LoadingWrapper>
       <video
         src="https://cdnl.iconscout.com/lottie/premium/preview-watermark/employee-review-3575379-3004512.mp4"
-        autoplay="autoplay"
+        autoPlay="autoplay"
         muted="muted"
         loop="loop"
-        playsinline=""
+        playsInline=""
         type="video/mp4"
         width="350px"
         height="350px"
