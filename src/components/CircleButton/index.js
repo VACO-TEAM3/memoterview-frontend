@@ -7,11 +7,16 @@ const ButtonWrapper = styled.div`
   align-items: center;
   width: 2.5rem;
   height: 2.5rem;
-  background: #5D5F5F;
-  opacity: 0.6;
+  background: rgba(93, 95, 95, 0.6);
   color: white;
   border-radius: 75px;
   z-index: 2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  :hover {
+    background: #5D5F5F;
+    color: white;
+  }
 `;
 
 export default function CircleButton({ onClick, isClicked, clickedState, unClickedState }) {

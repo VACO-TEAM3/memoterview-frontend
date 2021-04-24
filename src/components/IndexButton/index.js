@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-const IconButtonWrapper = styled.div`
+const IndexButtonWrapper = styled.div`
   width: 1.2rem;
   color: #3193C4;
   z-index: 2;
@@ -10,10 +10,12 @@ const IconButtonWrapper = styled.div`
   padding: 0.3rem 0;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 
   :hover {
     color: white;
     background: #3193C4;
+    border: 1px solid white;
   }
 
   .icon {
@@ -26,21 +28,20 @@ const IconButtonWrapper = styled.div`
     font-size: 0.8rem;
     font-weight: bold;
     writing-mode: vertical-rl;
-    /* text-orientation: upright; */
     line-height: 1.5;
-    /* letter-spacing: 0.12rem; */
+    letter-spacing: 0.05rem;
   }
 `;
 
-export default function IconButton({ icon, onClick, name }) {
+export default function IndexButton({ icon, onClick, name }) {
   return (
-    <IconButtonWrapper onClick={onClick}>
+    <IndexButtonWrapper onClick={onClick}>
       <div className="icon">
         <FontAwesomeIcon icon={icon} />
       </div>
       <div className="icon-name">
         {name}
       </div>
-    </IconButtonWrapper>
+    </IndexButtonWrapper>
   );
 }
