@@ -6,16 +6,12 @@ const StyledSideBar = styled.nav`
   left: 0;
   position: fixed;
   z-index: 2;
+  background: rgba(239, 241, 241, 0.5);
 
-  :hover {
-    background: rgba(239, 241, 241, 0.5);
-  }
-  
   .sidebar-icons {
     display: flex;
     flex-direction: column;
   }
-
 `;
 
 export default function SideBar({ children }) {

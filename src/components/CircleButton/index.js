@@ -11,6 +11,7 @@ const ButtonWrapper = styled.div`
   opacity: 0.6;
   color: white;
   border-radius: 75px;
+  z-index: 2;
 `;
 
 export default function CircleButton({ onClick, isClicked, clickedState, unClickedState }) {
