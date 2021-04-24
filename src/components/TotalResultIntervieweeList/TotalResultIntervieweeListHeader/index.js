@@ -2,8 +2,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-import TotalResultIntervieweeColumn from "./TotalResultIntervieweeColumn";
-import TotalResultIntervieweeRow from "./TotalResultIntervieweeRow";
+import TotalResultIntervieweeColumn from "../TotalResultIntervieweeColumn";
+import TotalResultIntervieweeRow from "../TotalResultIntervieweeRow";
 
 const TotalResultIntervieweeListHeaderWrapper = styled(TotalResultIntervieweeRow)`
   background-color: ${({ theme }) => theme.Aero};
