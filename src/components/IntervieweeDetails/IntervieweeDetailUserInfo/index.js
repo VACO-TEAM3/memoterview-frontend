@@ -30,15 +30,17 @@ const UserEmail = styled.div`
   margin: 0.5vh;
 `;
 
-function intervieweeDetailUserInfo({ name, email }) {
+function intervieweeDetailUserInfo({ name, email, commenterInfo }) {
+  const avatar = commenterInfo ? commenterInfo.avatar : null;
+  const displayingName = commenterInfo ? commenterInfo.username : name;
 
   return (
     <UserInfo>
       <UserIconWrapper>
-        <UserIcon />
+        <UserIcon avatar={avatar} />
       </UserIconWrapper>
       <UserInfoWrapper>
-        <UserName>{name}</UserName>
+        <UserName>{displayingName}</UserName>
         <UserEmail>{email}</UserEmail>
       </UserInfoWrapper>
     </UserInfo>
