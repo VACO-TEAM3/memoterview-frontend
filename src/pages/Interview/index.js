@@ -124,11 +124,25 @@ export default function Interview({
       )}
       <PageWrapper>
         <StyledSideBar>
-          <InterviewMenuButton name="BACK" onClick={handleBackBtn} icon={faChevronLeft} />
-          <InterviewTab tabName="Resume" tabIcon={faFile} onClick={handleOpenResumeButton} isOpened={isResumeOpen}>
+          <InterviewMenuButton 
+            name="BACK" 
+            onClick={handleBackBtn} 
+            icon={faChevronLeft} 
+          />
+          <InterviewTab 
+            tabName="Resume" 
+            tabIcon={faFile} 
+            onClick={handleOpenResumeButton} 
+            isOpened={isResumeOpen}
+          >
             <div>이력서다!</div>
           </InterviewTab>
-          <InterviewTab tabName="Questions" tabIcon={faQuestion} onClick={handleOpenQuestionBoardOpen} isOpened={isQuestionBoardOpen}>
+          <InterviewTab 
+            tabName="Questions" 
+            tabIcon={faQuestion} 
+            onClick={handleOpenQuestionBoardOpen} 
+            isOpened={isQuestionBoardOpen}
+          >
             <QuestionBoard
               question={question}
               questions={questions}
