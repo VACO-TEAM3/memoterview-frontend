@@ -52,7 +52,6 @@ function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
       <UserIconWrapper>
         <UserIcon avatarSize={avatarSize} avatar={avatar} />
       </UserIconWrapper>
-
       <UserInfoWrapper>
         <UserName nameSize={nameSize}>{displayingName}</UserName>
         <UserEmail emailSize={emailSize}>{displayingEmail}</UserEmail>

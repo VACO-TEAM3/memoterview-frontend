@@ -14,12 +14,14 @@ const Comments = styled.div`
 
 const CommentList = styled.div`
   background-color: #e3f1fe;
+  border-radius: 10px;
 `;
 
 const Comment = styled.li`
   margin: 1vh 4vh;
   list-style: none;
   font-size: 1.3rem;
+  border-radius: 10px;
 `;
 
 
