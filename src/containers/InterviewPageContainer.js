@@ -19,6 +19,7 @@ export default function InterviewPageContainer() {
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
+  const [totalRate, setTotalRate] = useState(0);
   console.log(userData);
   //////////////////////////하영작업///////////////////////
   const recordBtnElementRef = useRef();
@@ -147,6 +148,8 @@ export default function InterviewPageContainer() {
   return (
     <>
       <Interview
+        totalRate={totalRate}
+        setTotalRate={setTotalRate}
         user={userVideo}
         userData={userData}
         interviewers={peers}
