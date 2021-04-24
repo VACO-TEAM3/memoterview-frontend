@@ -20,12 +20,12 @@ const EvaluationDetailHeader = styled.div`
 const CommentsWrapper = styled.div`
 `;
 
-export default function IntervieweeDetailEvaluationEntry({ comments }) {
+export default function IntervieweeDetailEvaluationEntry({ createStars, comments }) {
   return (
     <EvaluationDetailWrapper>
       <EvaluationDetailHeader>평가 디테일</EvaluationDetailHeader>
       <CommentsWrapper>
-        <IntervieweeDetailComments comments={comments}/>
+        <IntervieweeDetailComments createStars={createStars} comments={comments}/>
       </CommentsWrapper>
     </EvaluationDetailWrapper>
   );

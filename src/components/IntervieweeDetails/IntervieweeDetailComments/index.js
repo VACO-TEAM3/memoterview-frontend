@@ -8,7 +8,11 @@ const Comments = styled.div`
   width: 80vw;
 `;
 
-function IntervieweeDetailComments({ comments }) {
+function IntervieweeDetailComments({ comments, createStars }) {
+
+  
+
+
   return (
     <Comments>
       <div>
@@ -18,7 +22,7 @@ function IntervieweeDetailComments({ comments }) {
               <>
                 <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
                 <ul>
-                  <li>총평: {comment.score}</li>
+                  <li>총평: {comment.score}{createStars(comment.score)}</li>
                   <li>코멘트: {comment.comment}</li>
                 </ul>
               </>

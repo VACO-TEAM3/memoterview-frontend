@@ -22,9 +22,11 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
+
         <Route path="/welcome/:projectId/:intervieweeId" >
           <WelcomeContainer />
         </Route>
+
         <AuthRoute path="/projects" exact>
           <ProjectsContainer />
         </AuthRoute>
