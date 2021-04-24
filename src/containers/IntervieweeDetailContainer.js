@@ -1,10 +1,11 @@
 import { faStar as emptyStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
+import { STARS } from "../constants/interviewee";
 import useToken from "../hooks/useToken";
 import IntervieweeDetail from "../pages/IntervieweeDetail";
 import { getInterviewees } from "../redux/reducers/interviewee";
@@ -24,11 +25,11 @@ export default function IntervieweeDetailContainer() {
 
   function createStars(score) {
     const stars = [];
-    let totalStarNums = 5;
+    let totalStarNums = STARS.TOTAL_STARS_NUMS;
     let fullStarNums = score;
 
     while (totalStarNums > 0) {
-      if (fullStarNums > 0){
+      if (fullStarNums > 0) {
         stars.push(<FontAwesomeIcon icon={faStar}/>);
         fullStarNums--;
         totalStarNums--;
@@ -42,16 +43,16 @@ export default function IntervieweeDetailContainer() {
     return stars;
   }
 
-  function createTotalScoreStars(comments) {
+  function createFinalScoreStars(comments) {
     let initialScore = 0;
+    let averageScore;
 
     if (comments) {
       comments.forEach(comment => {
         initialScore += comment.score;
       });
+      averageScore = Math.floor(initialScore / comments.length);
     }
-
-    const averageScore = Math.floor(initialScore / comments.length);
 
     return createStars(averageScore);
   }
@@ -73,7 +74,7 @@ export default function IntervieweeDetailContainer() {
     <>
       <IntervieweeDetail
         createStars={createStars}
-        createTotalScoreStars={createTotalScoreStars}
+        createFinalScoreStars={createFinalScoreStars}
         onGoBackButtonClick={handleGoBackButtonClick}
         intervieweeInfo={setIntervieweeInfo(byId[intervieweeId])}
       />
