@@ -54,6 +54,7 @@ export default function Interview({
   onVideoBtnClick,
   onProcessBtnClick,
   onIntervieweeResumeShowingBtnClick,
+  filters,
   isStart = false,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
@@ -66,7 +67,8 @@ export default function Interview({
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
-  
+
+  console.log("test", filters);
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);

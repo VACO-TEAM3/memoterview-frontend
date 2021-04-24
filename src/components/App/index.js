@@ -46,6 +46,12 @@ export default function App() {
         <AuthRoute path="/voiceTest">
           <VoiceToTextTestPage />
         </AuthRoute>
+        <AuthRoute path="/voiceTest">
+          <VoiceToTextTestPage />
+        </AuthRoute>
+        <AuthRoute path="/testInterview">
+          <Dummy />
+        </AuthRoute>
         <Redirect to="/" />
       </Switch>
     </ThemeProvider>
