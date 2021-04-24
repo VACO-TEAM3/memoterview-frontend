@@ -1,17 +1,24 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
 import useInterviewRecord from "../hooks/useInterviewRecord";
+import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
+import { getJoinedProjects } from "../redux/reducers/projects";
+import { getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
+  const dispatch = useDispatch();
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
+  const { filters } = useSelector(({ projects }) => ({ 
+    filters: getProjectById(projects, "6083a2221bc38e7e3f0a4bc7"),
+  }));
   const { id: roomID } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
@@ -19,7 +26,6 @@ export default function InterviewPageContainer() {
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const [totalRate, setTotalRate] = useState(0);
   console.log(userData);
   //////////////////////////하영작업///////////////////////
   const recordBtnElementRef = useRef();
@@ -35,6 +41,8 @@ export default function InterviewPageContainer() {
     isInterviewee,
   });
   //////////////////////////////////////////////////////
+  const { token } = useToken();
+
 
   useEffect(() => {
     (async function getStreaming() {
@@ -49,13 +57,14 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
+    dispatch(getJoinedProjects({ token, userId: "607959226727251880113f56" }));
+    console.log("filter", filters);
   }, []);
 
   useEffect(() => {
     if (!isStreaming) {
       return;
     }
-
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
     socket.emit("requestJoinRoom", { roomID, userData });
 
@@ -148,8 +157,7 @@ export default function InterviewPageContainer() {
   return (
     <>
       <Interview
-        totalRate={totalRate}
-        setTotalRate={setTotalRate}
+        filters={filters}
         user={userVideo}
         userData={userData}
         interviewers={peers}

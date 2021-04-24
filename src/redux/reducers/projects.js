@@ -158,3 +158,7 @@ export function projectIdsToByIdObjs(ids, projectByIds) {
     };
   });
 }
+
+export function getProjectById(state, id) {
+  return state.byId[id];
+}
