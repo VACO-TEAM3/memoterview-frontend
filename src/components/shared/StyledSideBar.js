@@ -7,10 +7,4 @@ const StyledSideBar = styled.nav`
   z-index: 2;
 `;
 
-export default function SideBar({ children }) {
-  return (
-    <StyledSideBar>
-      {children}
-    </StyledSideBar>
-  );
-}
+export default StyledSideBar;
