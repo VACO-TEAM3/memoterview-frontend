@@ -1,3 +1,6 @@
+import { faStar as emptyStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
@@ -8,15 +11,49 @@ import { getInterviewees } from "../redux/reducers/interviewee";
 
 export default function IntervieweeDetailContainer() {
   const dispatch = useDispatch();
-  const { interviewee: { byId } } = useSelector(({ interviewee }) => ({ interviewee }));
+  const history = useHistory();
   const { token } = useToken();
   const { projectId, intervieweeId } = useParams();
-  const history = useHistory();
+  const { interviewee: { byId } } = useSelector(({ interviewee }) => ({ interviewee }));
 
   function handleGoBackButtonClick(e) {
     e.preventDefault();
 
     history.push(`/projects/${projectId}`);
+  }
+
+  function createStars(score) {
+    const stars = [];
+    let totalStarNums = 5;
+    let fullStarNums = score;
+
+    while (totalStarNums > 0) {
+      if (fullStarNums > 0){
+        stars.push(<FontAwesomeIcon icon={faStar}/>);
+        fullStarNums--;
+        totalStarNums--;
+        continue;
+      }
+
+      stars.push(<FontAwesomeIcon icon={emptyStar}/>);
+      totalStarNums--;
+    }
+
+    return stars;
+  }
+
+  function createTotalScoreStars(comments) {
+    let initialScore = 0;
+
+    if (comments) {
+      comments.forEach(comment => {
+        initialScore += comment.score;
+      });
+    }
+
+    const averageScore = Math.floor(initialScore / comments.length);
+
+    return createStars(averageScore);
   }
 
   function setIntervieweeInfo(currentUserInfo) {
@@ -31,9 +68,12 @@ export default function IntervieweeDetailContainer() {
   useEffect(() => {
     dispatch(getInterviewees({ projectId, token }));
   }, []);
+
   return (
     <>
       <IntervieweeDetail
+        createStars={createStars}
+        createTotalScoreStars={createTotalScoreStars}
         onGoBackButtonClick={handleGoBackButtonClick}
         intervieweeInfo={setIntervieweeInfo(byId[intervieweeId])}
       />
