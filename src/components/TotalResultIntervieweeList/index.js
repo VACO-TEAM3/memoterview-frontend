@@ -11,11 +11,22 @@ const TotalResultIntervieweeListWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export default function TotalResultIntervieweeList({ onAddBtnClick, interviewees }) {
+export default function TotalResultIntervieweeList({
+  interviewees,
+  onAddBtnClick,
+  onItemDeleteBtnClick,
+  onItemInviteBtnClick,
+  onItemRoomEnterBtnClick,
+}) {
   return (
-    <TotalResultIntervieweeListWrapper >
+    <TotalResultIntervieweeListWrapper>
       <TotalResultIntervieweeListHeader onAddBtnClick={onAddBtnClick} />
-      <TotalResultIntervieweeEntry interviewees={interviewees}/>
+      <TotalResultIntervieweeEntry
+        interviewees={interviewees}
+        onItemDeleteBtnClick={onItemDeleteBtnClick}
+        onItemInviteBtnClick={onItemInviteBtnClick}
+        onItemRoomEnterBtnClick={onItemRoomEnterBtnClick}
+      />
     </TotalResultIntervieweeListWrapper>
   );
 }

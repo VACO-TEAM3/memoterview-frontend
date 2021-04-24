@@ -14,11 +14,11 @@ const Button = styled.button`
   margin: 5px 20px;
   width: 70px;
   height: 30px;
-  background-color: ${({ theme }) => theme.Aero };
+  background-color: ${({ theme }) => theme.Aero};
   border: 1px solid gray;
   border-radius: 2px;
   box-sizing: border-box;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
   cursor: pointer;
 
   &:hover {
@@ -26,17 +26,38 @@ const Button = styled.button`
   }
 `;
 
-export default function TotalResultIntervieweeItem({ interviewee }) {
+export default function TotalResultIntervieweeItem({
+  interviewee,
+  onDeleteBtnClick,
+  onInviteBtnClick,
+  onRoomEnterBtnClick,
+}) {
+  function handleDeleteBtnClick() {
+    onDeleteBtnClick(interviewee.id);
+  }
+
+  function handleInviteBtnClick() {
+    onInviteBtnClick(interviewee.id);
+  }
+
+  function handleRoomEnterBtnClick() {
+    onRoomEnterBtnClick(interviewee.id);
+  }
+
   return (
     <TotalResultIntervieweeRow>
-      <TotalResultIntervieweeColumn>{interviewee.name}</TotalResultIntervieweeColumn>
-      <TotalResultIntervieweeColumn>{interviewee.email}</TotalResultIntervieweeColumn>
       <TotalResultIntervieweeColumn>
-        <Button>면접 초대</Button>
-        <Button>면접 입장</Button>
+        {interviewee.name}
       </TotalResultIntervieweeColumn>
       <TotalResultIntervieweeColumn>
-        <FontAwesomeIcon icon={faTimes} />
+        {interviewee.email}
+      </TotalResultIntervieweeColumn>
+      <TotalResultIntervieweeColumn>
+        <Button onClick={handleInviteBtnClick}>면접 초대</Button>
+        <Button onClick={handleRoomEnterBtnClick}>면접 입장</Button>
+      </TotalResultIntervieweeColumn>
+      <TotalResultIntervieweeColumn>
+        <FontAwesomeIcon icon={faTimes} onClick={handleDeleteBtnClick} />
       </TotalResultIntervieweeColumn>
     </TotalResultIntervieweeRow>
   );
