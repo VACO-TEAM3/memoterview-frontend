@@ -7,6 +7,7 @@ import styled from "styled-components";
 import CircleButton from "../../components/CircleButton";
 import IndexButton from "../../components/IndexButton";
 import InterviewButton from "../../components/InterviewButton";
+import InterviewMenuButton from "../../components/InterviewMenuButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
@@ -124,10 +125,7 @@ export default function Interview({
       )}
       <PageWrapper>
         <SideBar>
-          <div onClick={handleBackBtn}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-            Back
-          </div>
+          <InterviewMenuButton name="BACK" onClick={handleBackBtn} icon={faChevronLeft} />
           <IndexButton name="Resume" icon={faFile} onClick={handleOpenResumeButton} />
           {isResumeOpen && <div>이력서다!</div>}
           <IndexButton name="Questions" icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
