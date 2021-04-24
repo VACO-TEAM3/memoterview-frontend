@@ -59,7 +59,7 @@ export default function Interview({
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
-  const [modalFlag, setModalFlag] = useState(false);
+  const [modalFlag, setModalFlag] = useState(true);
   const [isResumeOpen, setIsResumeOpend] = useState(false);
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
