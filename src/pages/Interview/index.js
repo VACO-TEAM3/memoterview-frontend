@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
-import IconButton from "../../components/IconButton";
+import IndexButton from "../../components/IndexButton";
 import InterviewButton from "../../components/InterviewButton";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
@@ -124,8 +124,13 @@ export default function Interview({
       )}
       <PageWrapper>
         <SideBar>
-          <IconButton name="Back" icon={faChevronLeft} onClick={handleBackBtn} />          
+          <div onClick={handleBackBtn}>
+            <FontAwesomeIcon icon={faChevronLeft} />
+            Back
+          </div>
+          <IndexButton name="Resume" icon={faFile} onClick={handleOpenResumeButton} />
           {isResumeOpen && <div>이력서다!</div>}
+          <IndexButton name="Questions" icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
           {isQuestionBoardOpen &&
             <QuestionBoard
               question={question}
@@ -134,8 +139,6 @@ export default function Interview({
               onSubmit={handleSubmit}
             />
           }
-          <IconButton name="Resume" icon={faFile} onClick={handleOpenResumeButton} />
-          <IconButton name="Questions" icon={faQuestion} onClick={handleOpenQuestionBoardOpen} />
         </SideBar>
         <Profile />
         <Timer />
