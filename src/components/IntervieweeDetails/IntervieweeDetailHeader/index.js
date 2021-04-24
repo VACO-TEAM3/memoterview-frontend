@@ -17,12 +17,12 @@ const FinalScore = styled.div`
   font-size: 1rem;
 `;
 
-function IntervieweeDetailHeader({ email, name }) {
+function IntervieweeDetailHeader({ comments, createTotalScoreStars, email, name }) {
   return (
     <Header>
       <IntervieweeDetailUserInfo email={email} name={name} />
       <FinalScore>
-        최종 평가 ★★★★★
+        최종 평가 { createTotalScoreStars(comments) }
       </FinalScore>
     </Header>
   );
