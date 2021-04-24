@@ -23,9 +23,7 @@ const ButtonWrapper = styled.div`
 export default function CircleButton({ onClick, isClicked, clickedState, unClickedState }) {
   return (
     <ButtonWrapper>
-      <div className="interview-content-bottom-button" onClick={onClick}>
-        <FontAwesomeIcon icon={isClicked ? clickedState : unClickedState} />
-      </div>
+      <FontAwesomeIcon icon={isClicked ? clickedState : unClickedState} onClick={onClick} />
     </ButtonWrapper>
   );
 }
