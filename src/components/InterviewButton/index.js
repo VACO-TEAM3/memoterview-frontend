@@ -8,17 +8,16 @@ const ButtonWrapper = styled.div`
   justify-items: center;
   width: 4.2rem;
   height: 3.3rem;
-  background: ${({ color }) => color};
+  background: ${({ color }) => color.normalColor};
   opacity: 0.6;
   color: white;
   border-radius: 30px;
   z-index: 2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   :hover {
-    background: white;
-    color: ${({ color }) => color};
+    background: ${({ color }) => color.hoverColor};
     opacity: 0.6;
-    border: 1px solid #B6BFC4;
   }
 
   .button-content {
