@@ -7,7 +7,7 @@ const TabWrapper = styled.div`
   margin-bottom: 0.5rem;
 
   .tab-content {
-    height: 20rem;
+    min-height: 1rem;
     padding-bottom: 2rem;
     background: white;
     z-index: 2;
