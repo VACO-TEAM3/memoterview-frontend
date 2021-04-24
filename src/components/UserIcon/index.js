@@ -14,10 +14,10 @@ const UserIconWrapper = styled.div`
   font-size: ${props => props.iconSize};
 `;
 
-function UserIcon({ backgroundColor, iconColor, size, iconSize }) {
+function UserIcon({ backgroundColor, iconColor, size, iconSize, avatar }) {
   return (
     <UserIconWrapper backgroundColor={backgroundColor} size={size} iconSize={iconSize}>
-      <FontAwesomeIcon icon={faUser} color={iconColor}/>
+      { avatar ? <img src={avatar}></img> : <FontAwesomeIcon icon={faUser} color={iconColor}/> }
     </UserIconWrapper>
   );
 }

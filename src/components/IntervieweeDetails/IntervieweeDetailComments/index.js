@@ -13,10 +13,10 @@ function IntervieweeDetailComments({ comments }) {
     <Comments>
       <div>
         {
-          comments.length ?
+          comments ?
             comments.map(comment =>
               <>
-                <IntervieweeDetailUserInfo userInfo={comment.commentor}/>
+                <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
                 <ul>
                   <li>총평: {comment.score}</li>
                   <li>코멘트: {comment.comment}</li>

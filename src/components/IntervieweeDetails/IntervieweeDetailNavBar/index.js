@@ -8,10 +8,10 @@ const Navbar = styled.div`
   height: 5vh;
 `;
 
-function intervieweeDetailNavBar() {
+function intervieweeDetailNavBar({ onGoBackButtonClick }) {
   return (
     <Navbar>
-      <button>뒤로가기</button>
+      <button onClick={onGoBackButtonClick}>뒤로가기</button>
       <button>pdf</button>
     </Navbar>
   );
