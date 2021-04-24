@@ -16,9 +16,9 @@ import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
-  const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
-  const dispatch = useDispatch();
+  const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER_DEVELOPMENT), []);
 
+  const dispatch = useDispatch();
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { project } = useSelector(({ projects }) => ({ 
     project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),

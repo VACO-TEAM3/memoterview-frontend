@@ -17,10 +17,10 @@ const FinalScore = styled.div`
   font-size: 1rem;
 `;
 
-function IntervieweeDetailHeader({ userInfo }) {
+function IntervieweeDetailHeader({ email, name }) {
   return (
     <Header>
-      <IntervieweeDetailUserInfo userInfo={userInfo}/>
+      <IntervieweeDetailUserInfo email={email} name={name} />
       <FinalScore>
         최종 평가 ★★★★★
       </FinalScore>

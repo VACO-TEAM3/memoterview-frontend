@@ -97,11 +97,11 @@ export function* intervieweeSaga() {
 const commentInitialState = {
   comment: "",
   score: 0,
-  commentor: "",
+  commenter: {}, // 수정함 "" -> {}, commentor -> commenter
 };
 
 const questionInitialState = {
-  quistion: "",
+  question: "",
   answer: "",
   score: 0,
   questioner: "",
@@ -113,9 +113,10 @@ const intervieweesInitialState = {
   email: "",
   interviewDate: "",
   resumePath: "",
-  filterScore: [], // 백엔드 스키마 수정해야함
+  filterScore: [], // 백엔드 스키마 수정해야함 ---> ????
   isInterviewed: false,
   questioner: questionInitialState,
+  questions: [],
   comments: commentInitialState,
   isRoomOpened: false,
 };

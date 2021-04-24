@@ -8,12 +8,11 @@ const BASE_PATH = "USER/";
 
 // action types
 export const CLEAR_USER = BASE_PATH + "CLEAR_USER";
+const SET_USER = BASE_PATH + "SET_USER";
 
 export const GET_TOKEN = BASE_PATH + "GET_TOKEN";
 export const GET_TOKEN_SUCCESS = BASE_PATH + "GET_TOKEN_SUCCESS";
 export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
-
-const SET_USER = BASE_PATH + "SET_USER";
 
 export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
 export const setUser = userInfo => ({ type: SET_USER, payload: userInfo });
@@ -98,7 +97,7 @@ export default function user(state = initialState, action) {
         },
       };
     }
-    case SET_USER:{
+    case SET_USER: {
       const userInfo = action.payload;
 
       return {
