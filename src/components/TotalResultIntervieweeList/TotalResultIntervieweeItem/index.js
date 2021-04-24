@@ -32,25 +32,31 @@ export default function TotalResultIntervieweeItem({
   onInviteBtnClick,
   onRoomEnterBtnClick,
 }) {
+  const {
+    id: intervieweeId,
+    name: intervieweeName,
+    email: intervieweeEmail,
+  } = interviewee;
+
   function handleDeleteBtnClick() {
-    onDeleteBtnClick(interviewee.id);
+    onDeleteBtnClick({ intervieweeId });
   }
 
   function handleInviteBtnClick() {
-    onInviteBtnClick(interviewee.id);
+    onInviteBtnClick({ intervieweeId, intervieweeEmail });
   }
 
   function handleRoomEnterBtnClick() {
-    onRoomEnterBtnClick(interviewee.id);
+    onRoomEnterBtnClick({ intervieweeId });
   }
 
   return (
     <TotalResultIntervieweeRow>
       <TotalResultIntervieweeColumn>
-        {interviewee.name}
+        {intervieweeName}
       </TotalResultIntervieweeColumn>
       <TotalResultIntervieweeColumn>
-        {interviewee.email}
+        {intervieweeEmail}
       </TotalResultIntervieweeColumn>
       <TotalResultIntervieweeColumn>
         <Button onClick={handleInviteBtnClick}>면접 초대</Button>
