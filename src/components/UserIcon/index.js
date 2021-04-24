@@ -17,7 +17,10 @@ const UserIconWrapper = styled.div`
 function UserIcon({ backgroundColor, iconColor, size, iconSize, avatar }) {
   return (
     <UserIconWrapper backgroundColor={backgroundColor} size={size} iconSize={iconSize}>
-      { avatar ? <img src={avatar}></img> : <FontAwesomeIcon icon={faUser} color={iconColor}/> }
+      { avatar
+        ? <img src={avatar} />
+        : <FontAwesomeIcon icon={faUser} color={iconColor}/>
+      }
     </UserIconWrapper>
   );
 }
