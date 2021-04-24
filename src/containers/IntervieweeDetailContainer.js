@@ -13,6 +13,12 @@ export default function IntervieweeDetailContainer() {
   const { projectId, intervieweeId } = useParams();
   const history = useHistory();
 
+  function handleGoBackButtonClick(e) {
+    e.preventDefault();
+
+    history.push(`/projects/${projectId}`);
+  }
+
   function setIntervieweeInfo(currentUserInfo) {
     return {
       name: currentUserInfo?.name,
@@ -28,6 +34,7 @@ export default function IntervieweeDetailContainer() {
   return (
     <>
       <IntervieweeDetail
+        onGoBackButtonClick={handleGoBackButtonClick}
         intervieweeInfo={setIntervieweeInfo(byId[intervieweeId])}
       />
     </>
