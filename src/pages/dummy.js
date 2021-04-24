@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import useToken from "../hooks/useToken";
 import { finishInterview } from "../redux/reducers/interviewee";
-import { addMyProject, closeInterviewRoom, getJoinedProjects, getMyProjects, updateInterviewRoom } from "../redux/reducers/projects";
+import { addMyProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 import { loginUser } from "../redux/reducers/user";
 
 export default function Dummy() {
   const { token, setToken } = useToken();
-  console.log(token);
-  const { intervieweeId, projectId } = useParams();
+  const history = useHistory();
+
   useEffect(() => {
     const interviewee = {
       filterScores: {
@@ -35,8 +35,8 @@ export default function Dummy() {
       ],
       isInterviewed: true,
     };
-    dispatch(finishInterview({ token, intervieweeId: "6081800e2839d7b12f06d607", projectId, interviewee }));
-    console.log(25);
+    history.push("/interview/adfadf/adfafafa");
+    dispatch(getJoinedProjects({ token, userId: "607959226727251880113f56" }));
   }, []);
 
   const dispatch = useDispatch();
