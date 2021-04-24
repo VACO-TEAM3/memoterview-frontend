@@ -21,7 +21,7 @@ function IntervieweeDetailScript({ questions }) {
       <ScriptHeader>스크립트</ScriptHeader>
       <div>
         {
-          questions.length ?
+          questions ?
             questions.map(question =>
               <>
                 <ul>
@@ -30,7 +30,7 @@ function IntervieweeDetailScript({ questions }) {
                 </ul>
               </>
             )
-            : "faBatteryEmpty..."
+            : "No script available"
         }
       </div>
     </ScriptWrapper>

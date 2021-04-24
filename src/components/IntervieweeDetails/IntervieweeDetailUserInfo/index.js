@@ -30,15 +30,16 @@ const UserEmail = styled.div`
   margin: 0.5vh;
 `;
 
-function intervieweeDetailUserInfo({ userInfo }) {
+function intervieweeDetailUserInfo({ name, email }) {
+
   return (
     <UserInfo>
       <UserIconWrapper>
         <UserIcon />
       </UserIconWrapper>
       <UserInfoWrapper>
-        <UserName>{userInfo.name}</UserName>
-        <UserEmail>{userInfo.email}</UserEmail>
+        <UserName>{name}</UserName>
+        <UserEmail>{email}</UserEmail>
       </UserInfoWrapper>
     </UserInfo>
   );
