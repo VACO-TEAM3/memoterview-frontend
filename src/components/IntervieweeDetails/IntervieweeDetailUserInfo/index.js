@@ -6,6 +6,7 @@ import UserIcon from "../../UserIcon";
 
 const UserInfo = styled.div`
   display: flex;
+  height: 20%;
 `;
 
 const UserInfoWrapper = styled.div`
@@ -29,10 +30,9 @@ const UserName = styled.div`
 `;
 
 const UserEmail = styled.div`
-  font-size: 1.5rem;
+  font-size: ${props => props.emailSize};
   margin: 0.5vh;
 `;
-
 
 function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
   // mock intervieweeAvatar
@@ -40,17 +40,22 @@ function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
 
   const avatar = commenterInfo ? commenterInfo.avatar : intervieweeAvatar;
   const displayingName = commenterInfo ? commenterInfo.username : name;
+  const displayingEmail = commenterInfo ? commenterInfo.email : email;
+
   const avatarSize = commenterInfo ? "50px" : "100px";
-  const nameSize = commenterInfo ? "1.5rem" : "2.5rem";
+  const nameSize = commenterInfo ? "1.3rem" : "2.5rem";
+  const emailSize = commenterInfo ? "1rem" : "2.5rem";
 
   return (
     <UserInfo>
+
       <UserIconWrapper>
         <UserIcon avatarSize={avatarSize} avatar={avatar} />
       </UserIconWrapper>
+
       <UserInfoWrapper>
         <UserName nameSize={nameSize}>{displayingName}</UserName>
-        <UserEmail>{email}</UserEmail>
+        <UserEmail emailSize={emailSize}>{displayingEmail}</UserEmail>
       </UserInfoWrapper>
     </UserInfo>
   );

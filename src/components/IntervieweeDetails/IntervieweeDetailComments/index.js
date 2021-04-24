@@ -5,28 +5,40 @@ import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 
 const Comments = styled.div`
   display: flex;
+  flex-direction: column;
   width: 80vw;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  height: 100%;
 `;
 
-function IntervieweeDetailComments({ comments, createStars }) {
+const CommentList = styled.div`
+  background-color: #e3f1fe;
+`;
 
+const Comment = styled.li`
+  margin: 1vh 4vh;
+  list-style: none;
+  font-size: 1.3rem;
+`;
+
+
+function IntervieweeDetailComments({ comments, createStars }) {
   return (
     <Comments>
-      <div>
-        {
-          comments ?
-            comments.map(comment =>
-              <>
-                <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
-                <ul>
-                  <li>총평: {comment.score}{createStars(comment.score)}</li>
-                  <li>코멘트: {comment.comment}</li>
-                </ul>
-              </>
-            )
-            : "No comments"
-        }
-      </div>
+      {
+        comments ?
+          comments.map(comment =>
+            <>
+              <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
+              <CommentList>
+                <Comment>총평: {comment.score}{createStars(comment.score)}</Comment>
+                <Comment>코멘트: {comment.comment}</Comment>
+              </CommentList>
+            </>
+          )
+          : "No comments"
+      }
     </Comments>
   );
 }

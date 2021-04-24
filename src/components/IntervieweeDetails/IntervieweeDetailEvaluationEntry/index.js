@@ -16,7 +16,6 @@ const Label = styled.p`
   width: 20%;
   margin: 1vh 3vh;
   font-size: 1.5rem;
-
 `;
 
 const EvaluationDetailHeader = styled.div`
@@ -24,13 +23,15 @@ const EvaluationDetailHeader = styled.div`
   justify-content: center;
   align-items: center;
   width: 85%;
-  margin: 3vh 2vh;
+  margin: 3vh 2vh 0 2vh;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   font-size: 1.3rem;
 `;
 
 const CommentsWrapper = styled.div`
+  display: flex;
+  width: 85%;
 `;
 
 export default function IntervieweeDetailEvaluationEntry({ createStars, comments }) {
