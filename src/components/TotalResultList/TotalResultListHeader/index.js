@@ -1,4 +1,4 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -23,12 +23,36 @@ const TotalResultListFilterWrapper = styled(TotalResultListColumn)`
   }
 `;
 
-export default function TotalResultListHeader({ columnList, onFilterBtnClick }) {
+const ColumnItemWrapper = styled.div`
+  cursor: pointer;
+
+  svg {
+    margin-right: 5px;
+  }
+  &:hover {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+`;
+
+export default function TotalResultListHeader({
+  columnList,
+  onFilterSortBtnClick,
+  onFilterBtnClick,
+}) {
   return (
     <TotalResultListHeaderWrapper>
-      {columnList.map((columnItem) => <TotalResultListColumn key={columnItem}>{columnItem}</TotalResultListColumn>)}
+      {columnList.map((columnItem) => (
+        <TotalResultListColumn key={columnItem}>
+          <ColumnItemWrapper onClick={() => onFilterSortBtnClick(columnItem)}>
+            <FontAwesomeIcon icon={faSort}/>
+            {columnItem}
+          </ColumnItemWrapper>
+        </TotalResultListColumn>
+      ))}
       <TotalResultListFilterWrapper>
-        <FontAwesomeIcon icon={faBars} onClick={onFilterBtnClick}/>
+        <FontAwesomeIcon icon={faBars} onClick={onFilterBtnClick} />
       </TotalResultListFilterWrapper>
     </TotalResultListHeaderWrapper>
   );
