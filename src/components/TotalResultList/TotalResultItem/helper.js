@@ -14,11 +14,11 @@ function getAverages(scroes) {
 export function mappedFilterValue({ interviewee, columnItem }) {
   switch (columnItem) {
     case FILTER_TYPES.EVALUATION:
-      return getAverages(interviewee.comments);
+      return interviewee.commentAvgScore;
     case FILTER_TYPES.INTERVIEWEE:
       return interviewee.name;
     case FILTER_TYPES.QUESTION_SCORE:
-      return getAverages(interviewee.questions);
+      return interviewee.questionAvgScore;
     case FILTER_TYPES.QUESTION_NUM:
       return interviewee.questions.length;
     case FILTER_TYPES.INTERVIEW_DURATION:
@@ -26,8 +26,8 @@ export function mappedFilterValue({ interviewee, columnItem }) {
     case FILTER_TYPES.INTERVIEW_DATE:
       return changeDateFormat(interviewee.interviewDate, "yyyy-MM-dd");
     default: // custom filter
-      return interviewee.filterScores
-        ? getAverages(interviewee.filterScores[columnItem])
+      return interviewee.filterAvgScores
+        ? interviewee.filterAvgScores[columnItem] && 0
         : 0;
   }
 }
