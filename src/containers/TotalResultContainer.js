@@ -115,7 +115,6 @@ export default function TotalResultContainer() {
   }
 
   function handleFiltersApplyBtnClick(filterOptions) {
-    console.log("newFilters", filterOptions);
     setFilterOptions(filterOptions);
     setModalType();
   }
@@ -144,13 +143,13 @@ export default function TotalResultContainer() {
         interviewees={waitingInterviewees}
         resultInterviewees={resultInterviewees}
         projectId={projectId}
+        filters={filters}
         onIntervieweeAddBtnClick={handleIntervieweeAddBtnClick}
         onIntervieweeDeleteBtnClick={handleIntervieweeDeleteBtnClick}
         onIntervieweeInviteBtnClick={handleIntervieweeInviteBtnClick}
         onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
         onFilterBtnClick={handleFilterBtnClick}
-        filters={filters}
       />
     </>
   );
