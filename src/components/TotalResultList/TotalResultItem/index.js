@@ -29,8 +29,6 @@ function mappedFilterValue({ interviewee, columnItem }) {
 }
 
 export default function TotalResultItem({ interviewee, columnList }) {
-  console.log("haha", interviewee, columnList);
-  console.log(interviewee.id);
   return (
     <TotalResultListRow>
       {columnList.map((columnItem) => (

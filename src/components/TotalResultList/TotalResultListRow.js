@@ -5,11 +5,11 @@ export default styled.div`
   padding-right: 50px;
   height: 70px;
   width: 100%;
-  border: 1px solid gray;
+  border-bottom: 1px solid ${({ theme }) => theme.BabyPowder};
   border-radius: 2px;
   box-sizing: border-box;
 
-  &:not(:first-child) {
-    border-top: none;
+  &:last-child {
+    border-bottom: none;
   }
 `;
