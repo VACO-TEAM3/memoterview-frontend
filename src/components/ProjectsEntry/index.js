@@ -15,7 +15,6 @@ function ProjectsEntry({
   handleProjectItemClick,
 }) {
   const columnTitles = ["Job title", "Candidates", "Created at"];
-
   return (
     <div>
       <ProjectsColumnHeader columnTitles={columnTitles} />
