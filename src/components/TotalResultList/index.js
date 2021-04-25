@@ -105,10 +105,10 @@ const columnList = ["평가", "지원자", "응답점수", "질문개수", "컬�
 // ];
 
 
-export default function TotalResultList({ interviewees }) {
+export default function TotalResultList({ interviewees, onFilterBtnClick }) {
   return (
     <TotalResultListWrapper>
-      <TotalResultListHeader columnList={columnList}/>
+      <TotalResultListHeader columnList={columnList} onFilterBtnClick={onFilterBtnClick}/>
       <TotalResultEntry interviewees={interviewees} columnList={columnList}/>
     </TotalResultListWrapper>
   );
