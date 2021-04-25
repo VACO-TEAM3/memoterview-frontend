@@ -56,6 +56,7 @@ export default function TotalResult({
   onInterviewRoomEnterBtnClick,
   onLogoutClick,
   onFilterBtnClick,
+  filters,
 }) {
   return (
     <>
@@ -76,7 +77,7 @@ export default function TotalResult({
           onIntervieweeInviteBtnClick={onIntervieweeInviteBtnClick}
           onInterviewRoomEnterBtnClick={onInterviewRoomEnterBtnClick}
         />
-        <TotalResultList interviewees={resultInterviewees} onFilterBtnClick={onFilterBtnClick}/>
+        <TotalResultList interviewees={resultInterviewees} filters={filters} onFilterBtnClick={onFilterBtnClick}/>
       </TotalResultContentWrapper>
     </>
   );
