@@ -119,6 +119,10 @@ export default function TotalResultContainer() {
     setModalType();
   }
 
+  function handleFilterSortBtnClick(sortItem) {
+    console.log(sortItem);
+  }
+
   return (
     <>
       {loading && <Loading />}
@@ -150,6 +154,7 @@ export default function TotalResultContainer() {
         onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
         onFilterBtnClick={handleFilterBtnClick}
+        onFilterSortBtnClick={handleFilterSortBtnClick}
       />
     </>
   );
