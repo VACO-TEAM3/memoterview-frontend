@@ -20,8 +20,8 @@ export default function InterviewTotalEvaluationModalView({
       <ViewWrapper>
         <h2>최종 평가</h2>
         <form onSubmit={onResultSubmit}>
-          {filters?.map((filter) => (
-            <div className="interview-filter-options">
+          {filters?.map((filter, index) => (
+            <div className="interview-filter-options" key={index}>
               <div>{filter}</div>
               <RatingStars onChange={onFilterRateChange} rateOption={filter} />
             </div>
