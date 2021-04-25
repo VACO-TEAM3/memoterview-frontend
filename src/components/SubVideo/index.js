@@ -2,14 +2,14 @@ import { useEffect, useRef } from "react";
 
 import StyledVideo from "../shared/StyledVideo";
 
-export default function SubVideo({ peer }) {
+export default function SubVideo({ peer: { peer } }) {
   const ref = useRef();
-
+  
   useEffect(() => {
     if (!peer) {
       return;
     }
-
+    
     peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });

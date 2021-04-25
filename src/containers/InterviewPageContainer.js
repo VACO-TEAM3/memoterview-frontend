@@ -69,7 +69,7 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-
+    
     dispatch(getJoinedProjects({ token, userId: "607d993601d20ebeb15e257b" }));
   }, []);
 
@@ -97,7 +97,7 @@ export default function InterviewPageContainer() {
           peer,
         });
 
-        setPeers((prev) => [...prev, peer]);
+        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
       });
     });
 
@@ -119,13 +119,19 @@ export default function InterviewPageContainer() {
         peer,
       });
 
-      setPeers((prev) => [...prev, peer]);
+      setPeers((prev) => [...prev, { peer, peerID: caller }]);
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
       const { peer } = peersRef.current.find((p) => p.peerID === id);
 
       peer.signal(signal);
+    });
+
+    socket.on("successToLeaveOtherUser", ({ id }) => {
+      const filteredPeers = peers.filter((peer) => peer.peerID !== id);
+
+      setPeers(filteredPeers);
     });
 
     return () => {
@@ -211,12 +217,6 @@ export default function InterviewPageContainer() {
       intervieweeId, 
       interviewee: {
         filterScores: { ...filterRates },
-        questions: [{ // question 성공시..
-          question: "adfdafafa",
-          score: 24,
-          answer: "afadfafafaf",
-          questioner: "608056473ec0b1612a8ebce2",
-        }],
         comments: {
           comment,
           score: totalRate,
@@ -235,10 +235,10 @@ export default function InterviewPageContainer() {
       intervieweeId: "60851da05b5196ca563c9972",
       token,
       question: {
-        question,
+        title: question,
         answer,
-        score: questionRate,
-        questioner: userData.id,
+        score: Number(questionRate),
+        questioner: "605196ca563c9972",
       },
     });
 
