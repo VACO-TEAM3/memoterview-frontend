@@ -8,11 +8,20 @@ const TotalResultListWrapper = styled.div`
   width: 100%;
 `;
 
-export default function TotalResultList({ interviewees, onFilterBtnClick, filters }) {
+export default function TotalResultList({
+  interviewees,
+  onFilterBtnClick,
+  onFilterSortBtnClick,
+  filters,
+}) {
   return (
     <TotalResultListWrapper>
-      <TotalResultListHeader columnList={filters} onFilterBtnClick={onFilterBtnClick}/>
-      <TotalResultEntry interviewees={interviewees} columnList={filters}/>
+      <TotalResultListHeader
+        columnList={filters}
+        onFilterSortBtnClick={onFilterSortBtnClick}
+        onFilterBtnClick={onFilterBtnClick}
+      />
+      <TotalResultEntry interviewees={interviewees} columnList={filters} />
     </TotalResultListWrapper>
   );
 }

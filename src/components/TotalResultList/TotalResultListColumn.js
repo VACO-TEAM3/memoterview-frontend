@@ -13,7 +13,7 @@ export default styled.div`
 
     &:hover {
       opacity: 0.7;
-      transform: rotate(90deg);
+      transform: rotate(180deg);
     }
   }
 `;
