@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
+import { updateIntervieweeAnswer } from "../api";
 import { RECORD_STATE_TYPE } from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
 import useToken from "../hooks/useToken";
@@ -47,10 +48,24 @@ export default function InterviewPageContainer() {
     recordBtnElementRef,
     userId: genUuid(),
     isInterviewee,
+    onComplete: handleQuestionSubmit,
   });
   //////////////////////////////////////////////////////
   const { token } = useToken();
   const history = useHistory();
+
+  async function handleQuestionSubmit({ question, answer }) {
+    await updateIntervieweeAnswer({
+      intervieweeId,
+      token,
+      question: {
+        question,
+        answer,
+        score: questionRate,
+        questioner: userData.id,
+      },
+    });
+  }
 
   useEffect(() => {
     (async function getStreaming() {
@@ -183,7 +198,6 @@ export default function InterviewPageContainer() {
   }, [handleKeyDown]);
 
   function handleFilterRate(rateOption, value) {
-    console.log(filterRates);
     setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
   }
 
@@ -192,7 +206,6 @@ export default function InterviewPageContainer() {
   }
 
   function handleQuestionRate(_, value) {
-    console.log(24);
     setQuestionRate(value);
   }
 
@@ -224,6 +237,21 @@ export default function InterviewPageContainer() {
     }));
     
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
+  }
+
+  function handleQuestionSubmit(event) {
+    event.preventDefault();
+
+    updateIntervieweeAnswer({
+      intervieweeId,
+      token,
+      question: {
+        question:
+        answer:
+        score: questionRate,
+        questioner: userData.id,
+      },
+    });
   }
 
   return (
