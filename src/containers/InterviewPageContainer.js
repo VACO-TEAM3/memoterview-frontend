@@ -43,29 +43,18 @@ export default function InterviewPageContainer() {
     recordStateType,
     recogText,
     setNextRecordStateType,
+    answer,
+    question,
+    uploadComplete,
   } = useInterviewRecord({
     socket,
     recordBtnElementRef,
     userId: genUuid(),
     isInterviewee,
-    onComplete: handleQuestionSubmit,
   });
   //////////////////////////////////////////////////////
   const { token } = useToken();
   const history = useHistory();
-
-  async function handleQuestionSubmit({ question, answer }) {
-    await updateIntervieweeAnswer({
-      intervieweeId,
-      token,
-      question: {
-        question,
-        answer,
-        score: questionRate,
-        questioner: userData.id,
-      },
-    });
-  }
 
   useEffect(() => {
     (async function getStreaming() {
@@ -246,12 +235,14 @@ export default function InterviewPageContainer() {
       intervieweeId,
       token,
       question: {
-        question:
-        answer:
+        question,
+        answer,
         score: questionRate,
         questioner: userData.id,
       },
     });
+
+    uploadComplete();
   }
 
   return (
@@ -278,6 +269,7 @@ export default function InterviewPageContainer() {
         onResultSubmit={handleResultSubmit}
         onBackButtonClick={handleBackBtn}
         onQuestionModalClose={closeQuestionModal}
+        onQuestionSubmit={handleQuestionSubmit}
       />
     </>
   );
