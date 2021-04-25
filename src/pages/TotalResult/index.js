@@ -58,6 +58,7 @@ export default function TotalResult({
   onLogoutClick,
   onFilterBtnClick,
   onFilterSortBtnClick,
+  onResultItemClick,
 }) {
   return (
     <>
@@ -83,6 +84,7 @@ export default function TotalResult({
           filters={filters}
           onFilterBtnClick={onFilterBtnClick}
           onFilterSortBtnClick={onFilterSortBtnClick}
+          onResultItemClick={onResultItemClick}
         />
       </TotalResultContentWrapper>
     </>
