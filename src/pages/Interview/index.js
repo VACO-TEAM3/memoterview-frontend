@@ -56,6 +56,10 @@ export default function Interview({
   onIntervieweeResumeShowingBtnClick,
   project,
   isStart = false,
+  onTotalRateChange,
+  onFilterRateChange,
+  onCommentChange,
+  onResultSubmit,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isVideoOn, setIsVideoOn] = useState(true);
@@ -85,6 +89,7 @@ export default function Interview({
   function handleBackBtn() {
     if (isStart) {
       setModalFlag(true);
+
       return;
     }
 
@@ -99,14 +104,14 @@ export default function Interview({
     setIsQuestionBoardOpen((prev) => !prev);
   }
 
-  function handleSubmit(ev) {
+  function handleQuestionSubmit(ev) {
     ev.preventDefault();
 
     setQuestions((prev) => [...prev, question]);
     setQuestion("");
   }
 
-  function handleInputChange(ev) {
+  function handleQuestionInputChange(ev) {
     const { target: { value } } = ev;
 
     setQuestion(value);
@@ -116,7 +121,13 @@ export default function Interview({
     <>
       {modalFlag && (
         <Modal onBackgroundClick={closeTotalResultModal}>
-          <InterviewTotalEvaluationModalView filters={project?.filters} />
+          <InterviewTotalEvaluationModalView 
+            filters={project?.filters}
+            onTotalRateChange={onTotalRateChange}
+            onFilterRateChange={onFilterRateChange}
+            onCommentChange={onCommentChange}
+            onResultSubmit={onResultSubmit}
+          />
         </Modal>
       )}
       <PageWrapper>
@@ -143,8 +154,8 @@ export default function Interview({
             <QuestionBoard
               question={question}
               questions={questions}
-              onChange={handleInputChange}
-              onSubmit={handleSubmit}
+              onChange={handleQuestionInputChange}
+              onSubmit={handleQuestionSubmit}
             />
           </InterviewTab>
         </StyledSideBar>

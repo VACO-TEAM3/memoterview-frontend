@@ -17,7 +17,7 @@ const TimerWrapper = styled.div`
   position: absolute;
   border-radius: 15px;
   border: 3px solid #D3D2CD;
-  z-index: 2;
+  z-index: 1;
 
   .timer-icon {
     color: ${(({ isRecording }) => isRecording ? "red" : "green")};

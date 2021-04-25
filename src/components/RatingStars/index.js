@@ -50,16 +50,16 @@ export default function RatingStars({ onChange, rateOption }) {
   return (
     <RatingWrapper>
       <div className="rate" onChange={handleChange}>
-        <input type="radio" id={`star1-${rateOption}`} value="1" name={`${rateOption}`} />
-        <label htmlFor={`star1-${rateOption}`} />
-        <input type="radio" id={`star2-${rateOption}`} value="2" name={`${rateOption}`} />
-        <label htmlFor={`star2-${rateOption}`} />
-        <input type="radio" id={`star3-${rateOption}`} value="3" name={`${rateOption}`} />
-        <label htmlFor={`star3-${rateOption}`} />
-        <input type="radio" id={`star4-${rateOption}`} value="4" name={`${rateOption}`} />
-        <label htmlFor={`star4-${rateOption}`} />
         <input type="radio" id={`star5-${rateOption}`} value="5" name={`${rateOption}`} />
         <label htmlFor={`star5-${rateOption}`} />
+        <input type="radio" id={`star4-${rateOption}`} value="4" name={`${rateOption}`} />
+        <label htmlFor={`star4-${rateOption}`} />
+        <input type="radio" id={`star3-${rateOption}`} value="3" name={`${rateOption}`} />
+        <label htmlFor={`star3-${rateOption}`} />
+        <input type="radio" id={`star2-${rateOption}`} value="2" name={`${rateOption}`} />
+        <label htmlFor={`star2-${rateOption}`} />
+        <input type="radio" id={`star1-${rateOption}`} value="1" name={`${rateOption}`} />
+        <label htmlFor={`star1-${rateOption}`} />
       </div>
     </RatingWrapper>
   );

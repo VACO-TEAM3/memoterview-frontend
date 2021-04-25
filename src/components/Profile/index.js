@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   color: #3193C4;
   font-weight: bold;
   text-align: center;
-  z-index: 2;
+  z-index: 1;
 
   .content {
     font-size: 22px;

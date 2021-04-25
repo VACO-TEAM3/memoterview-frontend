@@ -152,7 +152,8 @@ export async function updateInterviewRoomState({ token, projectId, roomState }) 
 }
 
 export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
+  console.log("patch", intervieweeId, projectId);
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_LOCAL}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
     method: "PATCH",
     headers: {
       "Accept": "application/json",
