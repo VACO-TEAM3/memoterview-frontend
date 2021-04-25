@@ -52,7 +52,7 @@ export const reducerUtils = {
   loading: (prevState = null) => ({
     loading: true,
     byId: prevState ? prevState.byId : {},
-    allIds: prevState ? prevState.allIds : null,
+    allIds: prevState ? prevState.allIds : [],
     error: null,
   }),
   update: (payload, prevState = null) => {
@@ -75,7 +75,7 @@ export const reducerUtils = {
   error: (error, prevState = null) => ({
     loading: false,
     byId: prevState ? prevState.byId : {},
-    allIds: prevState ? prevState.allIds : null,
+    allIds: prevState ? prevState.allIds : [],
     error: error,
   }),
 };
