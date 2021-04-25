@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import { sortInterviewees } from "../../redux/reducers/interviewee";
 import TotalResultEntry from "./TotalResultEntry";
 import TotalResultListHeader from "./TotalResultListHeader";
 
@@ -11,17 +12,41 @@ const TotalResultListWrapper = styled.div`
 export default function TotalResultList({
   interviewees,
   onFilterBtnClick,
-  onFilterSortBtnClick,
   filters,
 }) {
+  console.log("TotalResultList interviewees", interviewees);
+  console.log("TotalResultList filters", filters);
+  const [sortState, setSortState] = useState({ filter: -1, order: 1 });
+  const [sortedInterviewees, setSortedInterviewees] = useState(interviewees);
+  console.log("TotalResultList sortedInterviewees", sortedInterviewees);
+
+  function handleFilterSortBtnClick(sortFilter) {
+    console.log("handleFilterSortBtnClick");
+    const newSortState =
+      sortState.filter === sortFilter
+        ? { ...sortState, order: sortState.order * -1 }
+        : { filter: sortFilter, order: 1 };
+
+    const newSortedInterviewees = sortInterviewees({
+      interviewees: sortedInterviewees,
+      ...newSortState,
+    });
+
+    setSortedInterviewees(newSortedInterviewees);
+    setSortState(newSortState);
+  }
+
   return (
     <TotalResultListWrapper>
       <TotalResultListHeader
         columnList={filters}
-        onFilterSortBtnClick={onFilterSortBtnClick}
+        onFilterSortBtnClick={handleFilterSortBtnClick}
         onFilterBtnClick={onFilterBtnClick}
       />
-      <TotalResultEntry interviewees={interviewees} columnList={filters} />
+      <TotalResultEntry
+        interviewees={sortedInterviewees}
+        columnList={filters}
+      />
     </TotalResultListWrapper>
   );
 }

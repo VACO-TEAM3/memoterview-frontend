@@ -15,6 +15,7 @@ import {
   extractIntervieweesByInterviewed,
   getInterviewees,
   intervieweeIdsToByIdObjs,
+  sortInterviewees,
 } from "../redux/reducers/interviewee";
 import { getDefaultTotalResultFilters, getFiltersFromFilterOptions } from "../utils/filters";
 import { getInterviewRoomLink, getWelcomLink } from "../utils/path";
@@ -26,7 +27,6 @@ const MODAL_TYPE = {
 
 export default function TotalResultContainer() {
   const [modalType, setModalType] = useState(null);
-  const [sortState, setSortState] = useState(null);
   const { projectId } = useParams();
   const { token } = useToken();
   const history = useHistory();
@@ -54,6 +54,10 @@ export default function TotalResultContainer() {
     waitingInterviewees,
     resultInterviewees,
   } = extractIntervieweesByInterviewed(interviewees);
+  
+  console.log("waitingInterviewees", waitingInterviewees);
+  
+  console.log("resultInterviewees", resultInterviewees);
 
   useEffect(() => {
     dispatch(getInterviewees({ token, projectId }));
@@ -120,10 +124,6 @@ export default function TotalResultContainer() {
     setModalType();
   }
 
-  function handleFilterSortBtnClick(sortItem) {
-    console.log(sortItem);
-  }
-
   return (
     <>
       {loading && <Loading />}
@@ -155,7 +155,6 @@ export default function TotalResultContainer() {
         onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
         onFilterBtnClick={handleFilterBtnClick}
-        onFilterSortBtnClick={handleFilterSortBtnClick}
       />
     </>
   );
