@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { sortInterviewees } from "../../redux/reducers/interviewee";
@@ -15,7 +15,12 @@ export default function TotalResultList({
   filters,
 }) {
   const [sortState, setSortState] = useState({ filter: -1, order: 1 });
+
   const [sortedInterviewees, setSortedInterviewees] = useState(interviewees);
+
+  useEffect(() => {
+    setSortedInterviewees(interviewees);
+  }, [interviewees]);
 
   function handleFilterSortBtnClick(sortFilter) {
     const newSortState =
