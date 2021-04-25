@@ -1,6 +1,8 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
 import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweesApi, updateInterviewee } from "../../api";
+import { changeDateFormat } from "../../utils/date";
+import { FILTER_TYPES } from "../../utils/filters";
 import { handleAsyncRemoveStateActionsWithNormalize, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import { createPromiseSaga, createPromiseSagaById } from "../lib/sagaUtils";
 
@@ -141,4 +143,55 @@ export function extractIntervieweesByInterviewed(interviewees) {
   }
 
   return { waitingInterviewees, resultInterviewees };
+}
+
+export function sortInterviewees({ interviewees, filter, order }) {
+  const sortedInterviewees = [...interviewees];
+
+  if (order === -1) {
+    return sortedInterviewees.reverse();
+  }
+
+  switch (filter) {
+    case FILTER_TYPES.EVALUATION:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.commentAvgScore);
+      break;
+    case FILTER_TYPES.INTERVIEWEE:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.name);
+      break;
+    case FILTER_TYPES.QUESTION_SCORE:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.questionAvgScore);
+      break;
+    case FILTER_TYPES.QUESTION_NUM:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.questions.length);
+      break;
+    case FILTER_TYPES.INTERVIEW_DURATION:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.interviewDuration);
+      break;
+    case FILTER_TYPES.INTERVIEW_DATE:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.interviewDate);
+      break;
+    default: // custom filter
+      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.filterAvgScores
+        ? interviewee.filterAvgScores[filter] && 0
+        : 0);
+  }
+
+  return sortedInterviewees;
+}
+
+function sortByComparisonTarget(array, getComparisonTarget) {
+  return array.sort((a, b) => {
+    const compareA = getComparisonTarget(a);
+    const compareB = getComparisonTarget(b);
+
+    if (compareA < compareB) {
+      return -1;
+    }
+    if (compareA > compareB) {
+      return 1;
+    }
+
+    return 0;
+  });
 }
