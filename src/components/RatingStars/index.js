@@ -6,36 +6,30 @@ const RatingWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  .rate {
-    float: left;
-    height: 46px;
-    padding: 0 10px;
+  input {
+    display: none;
   }
 
-  .rate:not(:checked) > input {
-    position: absolute;
-    top:-9999px;
+  label {
+    float: right;
+    width: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #ccc;
   }
 
-  .rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+  label:before {
+    content: "★";
   }
 
-  .rate:not(:checked) > label:before {
-    content: '★';
-  }
-  .rate > input:checked ~ label {
+  input:checked ~ label {
     color: #ffc700;    
   }
 
-  .rate:not(:checked) > label:hover,
-  .rate:not(:checked) > label:hover ~ label {
+  label:hover,
+  label:hover ~ label {
     color: #deb217;  
   }
 
@@ -49,23 +43,23 @@ const RatingWrapper = styled.div`
 `;
 
 export default function RatingStars({ onChange, rateOption }) {
-  function handleChange({ target: { value } }) {
-    onChange(value, rateOption);
+  function handleChange({ target: { name, value } }) {
+    onChange(name, value);
   }
 
   return (
     <RatingWrapper>
       <div className="rate" onChange={handleChange}>
-        <input type="radio" id={`star1-${rateOption}`} value="1" />
-        <label htmlFor={`star1-${rateOption}`}>1 star</label>
-        <input type="radio" id={`star2-${rateOption}`} value="2" />
-        <label htmlFor={`star2-${rateOption}`}>2 stars</label>
-        <input type="radio" id={`star3-${rateOption}`} value="3" />
-        <label htmlFor={`star3-${rateOption}`}>3 stars</label>
-        <input type="radio" id={`star4-${rateOption}`} value="4" />
-        <label htmlFor={`star4-${rateOption}`}>4 stars</label>
-        <input type="radio" id={`star5-${rateOption}`} value="5" />
-        <label htmlFor={`star5-${rateOption}`}>5 stars</label>
+        <input type="radio" id={`star1-${rateOption}`} value="1" name={`${rateOption}`} />
+        <label htmlFor={`star1-${rateOption}`} />
+        <input type="radio" id={`star2-${rateOption}`} value="2" name={`${rateOption}`} />
+        <label htmlFor={`star2-${rateOption}`} />
+        <input type="radio" id={`star3-${rateOption}`} value="3" name={`${rateOption}`} />
+        <label htmlFor={`star3-${rateOption}`} />
+        <input type="radio" id={`star4-${rateOption}`} value="4" name={`${rateOption}`} />
+        <label htmlFor={`star4-${rateOption}`} />
+        <input type="radio" id={`star5-${rateOption}`} value="5" name={`${rateOption}`} />
+        <label htmlFor={`star5-${rateOption}`} />
       </div>
     </RatingWrapper>
   );
