@@ -16,8 +16,8 @@ export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
   const dispatch = useDispatch();
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
-  const { filters } = useSelector(({ projects }) => ({ 
-    filters: getProjectById(projects, "6083a2221bc38e7e3f0a4bc7"),
+  const { project } = useSelector(({ projects }) => ({ 
+    project: getProjectById(projects, "6083a2221bc38e7e3f0a4bc7"),
   }));
   const { id: roomID } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
@@ -43,7 +43,6 @@ export default function InterviewPageContainer() {
   //////////////////////////////////////////////////////
   const { token } = useToken();
 
-
   useEffect(() => {
     (async function getStreaming() {
       try {
@@ -58,7 +57,6 @@ export default function InterviewPageContainer() {
       }
     })();
     dispatch(getJoinedProjects({ token, userId: "607959226727251880113f56" }));
-    console.log("filter", filters);
   }, []);
 
   useEffect(() => {
@@ -157,7 +155,7 @@ export default function InterviewPageContainer() {
   return (
     <>
       <Interview
-        filters={filters}
+        project={project}
         user={userVideo}
         userData={userData}
         interviewers={peers}

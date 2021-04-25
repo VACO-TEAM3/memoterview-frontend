@@ -54,7 +54,7 @@ export default function Interview({
   onVideoBtnClick,
   onProcessBtnClick,
   onIntervieweeResumeShowingBtnClick,
-  filters,
+  project,
   isStart = false,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
@@ -68,7 +68,6 @@ export default function Interview({
   const history = useHistory();
   const { projectId, intervieweeId } = useParams();
 
-  console.log("test", filters);
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
@@ -117,7 +116,7 @@ export default function Interview({
     <>
       {modalFlag && (
         <Modal onBackgroundClick={closeTotalResultModal}>
-          <InterviewTotalEvaluationModalView />
+          <InterviewTotalEvaluationModalView filters={project?.filters} />
         </Modal>
       )}
       <PageWrapper>

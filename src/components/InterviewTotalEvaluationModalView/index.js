@@ -9,12 +9,18 @@ const ViewWrapper = styled.div`
   flex-direction: column;
 `;
 
-export default function InterviewTotalEvaluationModalView() {
+export default function InterviewTotalEvaluationModalView({ filters }) {
   const [totalRate, setTotalRate] = useState(0);
+  const [filterRates, setFilterRates] = useState([]);
+  
+  function handleStarRate(value, rateOption) {
+    if (rateOption) {
+      setFilterRates((prev) => [...prev, { rateOption: value }]);
 
-  function handleStarRate({ target: { value } }) {
+      return;
+    }
+
     setTotalRate(value);
-    console.log(totalRate);
   }
 
   return (
@@ -22,6 +28,12 @@ export default function InterviewTotalEvaluationModalView() {
       <ViewWrapper>
         <input type="text" />
         <RatingStars onChange={handleStarRate} />
+        {filters?.map((filter) => (
+          <div className="filter-options">
+            <div>{filter}</div>
+            <RatingStars onChange={handleStarRate} rateOption={filter} />
+          </div>
+        ))}
       </ViewWrapper>
     </ModalView>
   );
