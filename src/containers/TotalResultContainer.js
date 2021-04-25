@@ -26,6 +26,7 @@ const MODAL_TYPE = {
 
 export default function TotalResultContainer() {
   const [modalType, setModalType] = useState(null);
+  const [sortState, setSortState] = useState(null);
   const { projectId } = useParams();
   const { token } = useToken();
   const history = useHistory();
