@@ -17,7 +17,7 @@ const RatingWrapper = styled.div`
     white-space: nowrap;
     cursor: pointer;
     font-size: 2rem;
-    color: #ccc;
+    color: #CCC;
   }
 
   label:before {
@@ -25,12 +25,12 @@ const RatingWrapper = styled.div`
   }
 
   input:checked ~ label {
-    color: #ffc700;    
+    color: #FFC700;    
   }
 
   label:hover,
   label:hover ~ label {
-    color: #deb217;  
+    color: #DEB217;  
   }
 
   .rate > input:checked + label:hover,
@@ -38,7 +38,7 @@ const RatingWrapper = styled.div`
   .rate > input:checked ~ label:hover,
   .rate > input:checked ~ label:hover ~ label,
   .rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
+    color: #C59B08;
   }
 `;
 
