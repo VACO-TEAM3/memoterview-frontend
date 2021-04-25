@@ -23,9 +23,9 @@ export default function VideoContent({ interviewers, user }) {
       <div className="main-video">
         <MainVideo videoRef={user} />
       </div>
-      {interviewers?.map((peer, index) => (
+      {interviewers?.map((peer) => (
         <div className="sub-videos">
-          <SubVideo key={index} peer={peer} />
+          <SubVideo key={peer.peerID} peer={peer} />
         </div>
       ))}
     </VideoContentWrapper>
