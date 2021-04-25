@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export default styled.div`
-  display: grid;
-  grid-template-columns: 0.25fr 0.3fr 0.4fr 0.05fr;
-  height: 40px;
+  display: flex;
+  padding-right: 50px;
+  height: 70px;
   width: 100%;
   border: 1px solid gray;
   border-radius: 2px;
