@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
 import useInterviewRecord from "../hooks/useInterviewRecord";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
-import { getJoinedProjects } from "../redux/reducers/projects";
-import { getProjectById } from "../redux/reducers/projects";
+import { finishInterview } from "../redux/reducers/interviewee";
+import { getJoinedProjects, getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
   const dispatch = useDispatch();
+
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { project } = useSelector(({ projects }) => ({ 
     project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
   }));
-  console.log(project);
-  const { id: roomID } = useParams();
+
+  const { intervieweeId, projectId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,6 +43,7 @@ export default function InterviewPageContainer() {
   });
   //////////////////////////////////////////////////////
   const { token } = useToken();
+  const history = useHistory();
 
   useEffect(() => {
     (async function getStreaming() {
@@ -56,7 +58,8 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-    dispatch(getJoinedProjects({ token, userId: "607959226727251880113f56" }));
+    console.log(projectId, intervieweeId);
+    dispatch(getJoinedProjects({ token, userId: "607d993601d20ebeb15e257b" }));
   }, []);
 
   useEffect(() => {
@@ -64,7 +67,7 @@ export default function InterviewPageContainer() {
       return;
     }
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID, userData });
+    socket.emit("requestJoinRoom", { roomID: projectId, userData });
 
     socket.on("successJoinUser", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -151,6 +154,50 @@ export default function InterviewPageContainer() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
+
+  const [filterRates, setFilterRates] = useState({});
+  const [totalRate, setTotalRate] = useState(0);
+  const [comment, setComment] = useState("");
+  
+  function handleFilterRate(rateOption, value) {
+    console.log(filterRates);
+    setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
+  }
+
+  function handleTotalRate(_, value) {
+    setTotalRate(value);
+  }
+
+  function handleCommentChange({ target: { value } }) {
+    setComment(value);
+  }
+
+  function handleResultSubmit(event) {
+    event.preventDefault();
+    console.log(filterRates);
+    dispatch(finishInterview({ 
+      token, 
+      projectId, 
+      intervieweeId, 
+      interviewee: {
+        filterScores: { ...filterRates },
+        questions: [{
+          question: "adfdafafa",
+          score: 24,
+          answer: "afadfafafaf",
+          questioner: "608056473ec0b1612a8ebce2",
+        }],
+        comments: [{
+          comment,
+          score: totalRate,
+          commentor: "607959226727251880113f56",
+        }],
+      },
+    }));
+    
+    history.push(`/projects/${projectId}`);
+  }
+
   return (
     <>
       <Interview
@@ -165,6 +212,10 @@ export default function InterviewPageContainer() {
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
         onProcessBtnClick={handleProcessBtnClick}
+        onTotalRateChange={handleTotalRate}
+        onFilterRateChange={handleFilterRate}
+        onCommentChange={handleCommentChange}
+        onResultSubmit={handleResultSubmit}
       />
     </>
   );

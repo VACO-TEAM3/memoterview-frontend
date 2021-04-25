@@ -1,4 +1,3 @@
-import { useState } from "react"; 
 import styled from "styled-components";
 
 import ModalView from "../ModalView";
@@ -9,32 +8,28 @@ const ViewWrapper = styled.div`
   flex-direction: column;
 `;
 
-export default function InterviewTotalEvaluationModalView({ filters }) {
-  console.log(filters);
-  const [filterRates, setFilterRates] = useState({});
-  const [totalRate, setTotalRate] = useState(0);
-  
-  function handleStarRate(rateOption, value) {
-    if (rateOption === "totalRate") {
-      setTotalRate(value);
-
-      return;
-    }
-    console.log(filterRates, totalRate);
-    setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
-  }
-
+export default function InterviewTotalEvaluationModalView({ 
+  filters, 
+  onCommentChange, 
+  onTotalRateChange, 
+  onFilterRateChange, 
+  onResultSubmit,
+}) {
   return (
-    <ModalView padding="20px" width="500px" height="400px">
+    <ModalView padding="20px" width="500px" height="600px">
       <ViewWrapper>
-        <input type="text" />
-        <RatingStars onChange={handleStarRate} rateOption={"totalRate"} />
-        {filters?.map((filter) => (
-          <div className="filter-options">
-            <div>{filter}</div>
-            <RatingStars onChange={handleStarRate} rateOption={filter} />
-          </div>
-        ))}
+        <h2>최종 평가</h2>
+        <form onSubmit={onResultSubmit}>
+          {filters?.map((filter) => (
+            <div className="interview-filter-options">
+              <div>{filter}</div>
+              <RatingStars onChange={onFilterRateChange} rateOption={filter} />
+            </div>
+          ))}
+          <input className="interview-input" type="text" onChange={onCommentChange} />
+          <RatingStars onChange={onTotalRateChange} />
+          <button className="interview-input" type="submit">OK</button>
+        </form>
       </ViewWrapper>
     </ModalView>
   );
