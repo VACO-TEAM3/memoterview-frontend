@@ -6,6 +6,7 @@ import { requestSendEmailToInterviewee } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
 import Loading from "../components/Loading";
 import Modal from "../components/Modal";
+import TotalResultFilterModalView from "../components/TotalResultFilterModalView";
 import useToken from "../hooks/useToken";
 import TotalResult from "../pages/TotalResult";
 import {
@@ -17,8 +18,13 @@ import {
 } from "../redux/reducers/interviewee";
 import { getInterviewRoomLink, getWelcomLink } from "../utils/path";
 
+const MODAL_TYPE = {
+  ADD: "add",
+  FILTER: "filter",
+};
+
 export default function TotalResultContainer() {
-  const [modalFlag, setModalFlag] = useState(false);
+  const [modalType, setModalType] = useState(null);
   const { projectId } = useParams();
   const { token } = useToken();
   const history = useHistory();
@@ -46,55 +52,71 @@ export default function TotalResultContainer() {
   }
 
   function handleIntervieweeDeleteBtnClick({ intervieweeId }) {
-    console.log("item delete", intervieweeId);
     dispatch(deleteInterviewee({ projectId, intervieweeId, token }));
   }
 
-  function closeAddIntervieweeModal() {
-    setModalFlag(false);
+  function closeModal() {
+    setModalType(null);
   }
 
   function openAddIntervieweeModal() {
-    setModalFlag(true);
+    setModalType(MODAL_TYPE.ADD);
   }
 
   function handleIntervieweeAddSubmit({ pdf, intervieweeInfo }) {
-    dispatch(
-      addNewInterviewee({ token, projectId, pdf, intervieweeInfo })
-    );
-    closeAddIntervieweeModal();
+    dispatch(addNewInterviewee({ token, projectId, pdf, intervieweeInfo }));
+    closeModal();
   }
 
   function handleLogoutClick() {
     console.log("logoutClick");
   }
 
-  function handleIntervieweeInviteBtnClick({ intervieweeId, intervieweeEmail }) {
-    console.log("Invite interviewee", intervieweeId);
+  function handleIntervieweeInviteBtnClick({
+    intervieweeId,
+    intervieweeEmail,
+  }) {
     const welcomePageLink = getWelcomLink({ intervieweeId, projectId });
 
     try {
-      requestSendEmailToInterviewee({ token, projectId, intervieweeId, intervieweeEmail, welcomePageLink });
-    } catch (error){
+      requestSendEmailToInterviewee({
+        token,
+        projectId,
+        intervieweeId,
+        intervieweeEmail,
+        welcomePageLink,
+      });
+    } catch (error) {
       console.error(error);
     }
   }
 
   function handleInterviewRoomEnterBtnClick({ intervieweeId }) {
-    console.log("enter interview room", intervieweeId);
-    const interviewRoomLink = getInterviewRoomLink({ intervieweeId, projectId });
+    const interviewRoomLink = getInterviewRoomLink({
+      intervieweeId,
+      projectId,
+    });
     history.push(interviewRoomLink);
+  }
+
+  function handleFilterBtnClick() {
+    setModalType(MODAL_TYPE.FILTER);
   }
 
   return (
     <>
       {loading && <Loading />}
-      {modalFlag && (
-        <Modal onBackgroundClick={closeAddIntervieweeModal}>
-          <IntervieweeAddModalView
-            onCancleBtnClick={closeAddIntervieweeModal}
-            onFormSubmitBtnClick={handleIntervieweeAddSubmit}
-          />
+      {modalType && (
+        <Modal onBackgroundClick={closeModal}>
+          {modalType === MODAL_TYPE.ADD && (
+            <IntervieweeAddModalView
+              onCancleBtnClick={closeModal}
+              onFormSubmitBtnClick={handleIntervieweeAddSubmit}
+            />
+          )}
+          {modalType === MODAL_TYPE.FILTER && (
+            <TotalResultFilterModalView onCancleBtnClick={closeModal}/>
+          )}
         </Modal>
       )}
       <TotalResult
@@ -106,6 +128,7 @@ export default function TotalResultContainer() {
         onIntervieweeInviteBtnClick={handleIntervieweeInviteBtnClick}
         onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
+        onFilterBtnClick={handleFilterBtnClick}
       />
     </>
   );
