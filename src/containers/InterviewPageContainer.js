@@ -232,7 +232,7 @@ export default function InterviewPageContainer() {
     event.preventDefault();
 
     updateIntervieweeAnswer({
-      intervieweeId,
+      intervieweeId: "60851da05b5196ca563c9972",
       token,
       question: {
         question,
@@ -243,6 +243,7 @@ export default function InterviewPageContainer() {
     });
 
     uploadComplete();
+    setQuestionModalFlag(false);
   }
 
   return (
