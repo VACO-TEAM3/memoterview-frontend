@@ -7,6 +7,7 @@ import IntervieweePageContainer from "../../containers/IntervieweePageContainer"
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
+import SearchContainer from "../../containers/SearchContainer";
 import TotalResultContainer from "../../containers/TotalResultContainer";
 import WelcomeContainer from "../../containers/WelcomeContainer";
 import theme from "../../Layout/theme/theme";
@@ -51,7 +52,7 @@ export default function App() {
         </AuthRoute>
 
         <AuthRoute path="/search">
-          <Dummy />
+          <SearchContainer />
         </AuthRoute>
 
         <AuthRoute path="/voiceTest">
