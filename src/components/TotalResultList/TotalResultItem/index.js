@@ -1,30 +1,37 @@
 import React from "react";
 
+import { FILTER_TYPES } from "../../../utils/filters";
 import TotalResultListColumn from "../TotalResultListColumn";
 import TotalResultListRow from "../TotalResultListRow";
 
 function getAverages(scroes) {
   return scroes
-    ? scroes.reduce((acc, score) => typeof score === "object"  ? acc + score.score : acc + score, 0) / scroes.length
+    ? scroes.reduce(
+      (acc, score) =>
+        typeof score === "object" ? acc + score.score : acc + score,
+      0
+    ) / scroes.length
     : 0;
 }
 
 function mappedFilterValue({ interviewee, columnItem }) {
   switch (columnItem) {
-    case "평가":
+    case FILTER_TYPES.EVALUATION:
       return getAverages(interviewee.comments);
-    case "지원자":
+    case FILTER_TYPES.INTERVIEWEE:
       return interviewee.name;
-    case "응답점수":
+    case FILTER_TYPES.QUESTION_SCORE:
       return getAverages(interviewee.questions);
-    case "질문개수":
+    case FILTER_TYPES.QUESTION_NUM:
       return interviewee.questions.length;
-    case "면접시간":
+    case FILTER_TYPES.INTERVIEW_DURATION:
       return interviewee.interviewDuration;
-    case "면접일자":
+    case FILTER_TYPES.INTERVIEW_DATE:
       return interviewee.interviewDate;
-    default:
-      return interviewee.filterScores ? getAverages(interviewee.filterScores[columnItem]) : 0;
+    default: // custom filter
+      return interviewee.filterScores
+        ? getAverages(interviewee.filterScores[columnItem])
+        : 0;
   }
 }
 
