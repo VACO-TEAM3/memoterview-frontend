@@ -11,24 +11,24 @@ const ViewWrapper = styled.div`
 
 export default function InterviewTotalEvaluationModalView({ filters }) {
   console.log(filters);
+  const [filterRates, setFilterRates] = useState({});
   const [totalRate, setTotalRate] = useState(0);
-  const [filterRates, setFilterRates] = useState([]);
   
-  function handleStarRate(value, rateOption) {
-    if (rateOption) {
-      setFilterRates((prev) => [...prev, { rateOption: value }]);
+  function handleStarRate(rateOption, value) {
+    if (rateOption === "totalRate") {
+      setTotalRate(value);
 
       return;
     }
-
-    setTotalRate(value);
+    console.log(filterRates, totalRate);
+    setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
   }
 
   return (
     <ModalView padding="20px" width="500px" height="400px">
       <ViewWrapper>
         <input type="text" />
-        <RatingStars onChange={handleStarRate} />
+        <RatingStars onChange={handleStarRate} rateOption={"totalRate"} />
         {filters?.map((filter) => (
           <div className="filter-options">
             <div>{filter}</div>
