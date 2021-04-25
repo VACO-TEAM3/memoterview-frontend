@@ -14,12 +14,14 @@ const TotalResultEntryWrapper = styled.div`
 export default function TotalResultEntry({
   interviewees,
   columnList,
+  onItemClick,
 }) {
   return (
     <TotalResultEntryWrapper>
       {interviewees.map((interviewee) => (
         <TotalResultItem
           key={interviewee.id}
+          onClick={onItemClick}
           columnList={columnList}
           interviewee={interviewee}
         />

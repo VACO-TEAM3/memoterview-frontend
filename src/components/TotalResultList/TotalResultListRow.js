@@ -8,8 +8,13 @@ export default styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.BabyPowder};
   border-radius: 2px;
   box-sizing: border-box;
+  cursor: pointer;
 
   &:last-child {
     border-bottom: none;
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.BabyPowder};
   }
 `;
