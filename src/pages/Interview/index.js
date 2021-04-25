@@ -55,16 +55,18 @@ export default function Interview({
   onProcessBtnClick,
   onIntervieweeResumeShowingBtnClick,
   project,
-  isStart = false,
   onTotalRateChange,
   onFilterRateChange,
   onCommentChange,
   onResultSubmit,
+  onTotalResultModalClose,
+  isQuestionModalOn,
+  isTotalResultModalOn,
+  onBackButtonClick,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
-  const [modalFlag, setModalFlag] = useState(true);
   const [isResumeOpen, setIsResumeOpend] = useState(false);
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -80,20 +82,6 @@ export default function Interview({
   function handleVideo() {
     onVideoBtnClick(isVideoOn);
     setIsVideoOn((prev) => !prev);
-  }
-
-  function closeTotalResultModal() {
-    setModalFlag(false);
-  }
-
-  function handleBackBtn() {
-    if (isStart) {
-      setModalFlag(true);
-
-      return;
-    }
-
-    history.push(`/projects/${projectId}`);
   }
 
   function handleOpenResumeButton() {
@@ -119,8 +107,8 @@ export default function Interview({
 
   return (
     <>
-      {modalFlag && (
-        <Modal onBackgroundClick={closeTotalResultModal}>
+      {isTotalResultModalOn && (
+        <Modal onBackgroundClick={onTotalResultModalClose}>
           <InterviewTotalEvaluationModalView 
             filters={project?.filters}
             onTotalRateChange={onTotalRateChange}
@@ -130,11 +118,22 @@ export default function Interview({
           />
         </Modal>
       )}
+      {/* {isQuestionModalOn && (
+        <Modal onBackgroundClick={onTotalResultModalClose}>
+          <InterviewTotalEvaluationModalView 
+            filters={project?.filters}
+            onTotalRateChange={onTotalRateChange}
+            onFilterRateChange={onFilterRateChange}
+            onCommentChange={onCommentChange}
+            onResultSubmit={onResultSubmit}
+          />
+        </Modal>
+      )} */}
       <PageWrapper>
         <StyledSideBar>
           <InterviewMenuButton 
             name="BACK" 
-            onClick={handleBackBtn} 
+            onClick={onBackButtonClick} 
             icon={faChevronLeft} 
           />
           <InterviewTab 
