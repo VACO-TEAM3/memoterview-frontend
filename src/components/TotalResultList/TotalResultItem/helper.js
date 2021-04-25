@@ -1,3 +1,4 @@
+import { changeDateFormat } from "../../../utils/date";
 import { FILTER_TYPES } from "../../../utils/filters";
 
 function getAverages(scroes) {
@@ -23,7 +24,7 @@ export function mappedFilterValue({ interviewee, columnItem }) {
     case FILTER_TYPES.INTERVIEW_DURATION:
       return interviewee.interviewDuration;
     case FILTER_TYPES.INTERVIEW_DATE:
-      return interviewee.interviewDate;
+      return changeDateFormat(interviewee.interviewDate, "yyyy-MM-dd");
     default: // custom filter
       return interviewee.filterScores
         ? getAverages(interviewee.filterScores[columnItem])
