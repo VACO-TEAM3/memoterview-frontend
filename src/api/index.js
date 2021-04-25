@@ -98,7 +98,7 @@ export async function addMyProjectAPI({ userId, newProject, token }) {
 export async function searchQuestions({ projectId, inputText, token }) {
   console.log(projectId, inputText, token, "ready?");
 
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviwees/search?question=${inputText}`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/search?question=${inputText}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -106,10 +106,11 @@ export async function searchQuestions({ projectId, inputText, token }) {
       "authorization": `Bearer ${token}`,
     },
   });
+  const { result, data } = await response.json();
+  console.log(result, "datdata");
 
-  return await response.json();
+  return data;
 }
-
 
 export async function searchInterviewers({ email, token }) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/interviewers/search?email=${email}`, {
@@ -134,8 +135,7 @@ export async function getIntervieweesAPI({ projectId, token }) {
     },
   });
 
-  const { data, result } = await response.json();
-  console.log(data, "data??");
+  const { data } = await response.json();
 
   return data;
 }

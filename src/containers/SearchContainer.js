@@ -9,10 +9,11 @@ import { setUser } from "../redux/reducers/user";
 
 export default function SearchContainer() {
   const dispatch = useDispatch();
-  const token = useToken();
+  const { token } = useToken();
   const { projectId } = useParams();
 
   const [inputText, setInputText] = useState("");
+  const [questionList, setQuestionList] = useState([]);
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -25,18 +26,18 @@ export default function SearchContainer() {
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    console.log("submitted", inputText, "submit");
-
     const questions = await searchQuestions({ token, inputText, projectId });
 
-    console.log("go gto async");
+    setQuestionList(questions);
     setInputText("");
-   
   }
+
+  console.log(questionList, "from outside");
 
   return (
     <>
       <Search
+        questionList={questionList}
         inputText={inputText}
         onFormSubmit={handleFormSubmit}
         onInputChange={handleInputChange}/>
