@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
+import { RECORD_STATE_TYPE } from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
@@ -28,7 +29,7 @@ export default function InterviewPageContainer() {
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const [questionModalFlag, setQuestionModalFlag] = useState(true);
+  const [questionModalFlag, setQuestionModalFlag] = useState(false);
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
   //////////////////////////하영작업///////////////////////
   const recordBtnElementRef = useRef();
@@ -128,6 +129,10 @@ export default function InterviewPageContainer() {
     setTotalResultModalFlag(false);
   }
 
+  function closeQuestionModal() {
+    setQuestionModalFlag(false);
+  }
+
   function handleBackBtn() {
     setTotalResultModalFlag(true);
   }
@@ -149,6 +154,10 @@ export default function InterviewPageContainer() {
   }
 
   function handleProcessBtnClick() {
+    if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
+      setQuestionModalFlag(true);
+    }
+    
     setNextRecordStateType();
   }
 
@@ -188,7 +197,7 @@ export default function InterviewPageContainer() {
 
   function handleResultSubmit(event) {
     event.preventDefault();
-    console.log(filterRates);
+
     dispatch(finishInterview({ 
       token, 
       projectId, 
@@ -234,6 +243,7 @@ export default function InterviewPageContainer() {
         onCommentChange={handleCommentChange}
         onResultSubmit={handleResultSubmit}
         onBackButtonClick={handleBackBtn}
+        onQuestionModalClose={closeQuestionModal}
       />
     </>
   );

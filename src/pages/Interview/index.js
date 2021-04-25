@@ -53,6 +53,7 @@ export default function Interview({
   onAudioBtnClick,
   onVideoBtnClick,
   onProcessBtnClick,
+  onQuestionModalClose,
   onIntervieweeResumeShowingBtnClick,
   project,
   onTotalRateChange,
@@ -118,17 +119,11 @@ export default function Interview({
           />
         </Modal>
       )}
-      {/* {isQuestionModalOn && (
-        <Modal onBackgroundClick={onTotalResultModalClose}>
-          <InterviewTotalEvaluationModalView 
-            filters={project?.filters}
-            onTotalRateChange={onTotalRateChange}
-            onFilterRateChange={onFilterRateChange}
-            onCommentChange={onCommentChange}
-            onResultSubmit={onResultSubmit}
-          />
+      {isQuestionModalOn && (
+        <Modal onBackgroundClick={onQuestionModalClose}>
+          
         </Modal>
-      )} */}
+      )}
       <PageWrapper>
         <StyledSideBar>
           <InterviewMenuButton 
