@@ -15,7 +15,6 @@ import {
   extractIntervieweesByInterviewed,
   getInterviewees,
   intervieweeIdsToByIdObjs,
-  sortInterviewees,
 } from "../redux/reducers/interviewee";
 import { getDefaultTotalResultFilters, getFiltersFromFilterOptions } from "../utils/filters";
 import { getInterviewRoomLink, getWelcomLink } from "../utils/path";
@@ -54,10 +53,6 @@ export default function TotalResultContainer() {
     waitingInterviewees,
     resultInterviewees,
   } = extractIntervieweesByInterviewed(interviewees);
-  
-  console.log("waitingInterviewees", waitingInterviewees);
-  
-  console.log("resultInterviewees", resultInterviewees);
 
   useEffect(() => {
     dispatch(getInterviewees({ token, projectId }));
