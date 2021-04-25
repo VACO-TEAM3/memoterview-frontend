@@ -94,6 +94,23 @@ export async function addMyProjectAPI({ userId, newProject, token }) {
   return data;
 }
 
+// 우선 질문기준, 이후 답변기준, interviwee || interviewer 이름 기준 advanced
+export async function searchQuestions({ projectId, inputText, token }) {
+  console.log(projectId, inputText, token, "ready?");
+
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviwees/search?question=${inputText}`, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${token}`,
+    },
+  });
+
+  return await response.json();
+}
+
+
 export async function searchInterviewers({ email, token }) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/interviewers/search?email=${email}`, {
     method: "GET",
