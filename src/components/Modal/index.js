@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const ModalWrapper = styled.div`  
+const ModalWrapper = styled.div`
   .modal-background {
     display: block;
     position: fixed;
