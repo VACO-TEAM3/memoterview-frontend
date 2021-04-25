@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Header from "../../components/Header";
 import TotalResultContentTop from "../../components/TotalResultContentTop";
+import TotalResultList from "../../components/TotalResultList";
 
 const HeaderNav = styled.div`
   margin: 0 40px;
@@ -47,6 +48,7 @@ const TotalResultContentWrapper = styled.div`
 
 export default function TotalResult({
   interviewees,
+  resultInterviewees,
   projectId,
   onIntervieweeAddBtnClick,
   onIntervieweeDeleteBtnClick,
@@ -73,6 +75,7 @@ export default function TotalResult({
           onIntervieweeInviteBtnClick={onIntervieweeInviteBtnClick}
           onInterviewRoomEnterBtnClick={onInterviewRoomEnterBtnClick}
         />
+        <TotalResultList interviewees={resultInterviewees}/>
       </TotalResultContentWrapper>
     </>
   );
