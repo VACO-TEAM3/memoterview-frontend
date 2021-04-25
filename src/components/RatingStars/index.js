@@ -41,10 +41,16 @@ const RatingWrapper = styled.div`
   }
 `;
 
-export default function RatingStars({ onChange }) {
+export default function RatingStars({ onChange, rateOption }) {
+  function handleChange({ target: { value } }) {
+    console.log(value);
+    console.log("rate", rateOption);
+    onChange(value, rateOption);
+  }
+
   return (
     <RatingWrapper>
-      <div className="rate" onChange={onChange}>
+      <div className="rate" onChange={handleChange}>
         <input type="radio" id="star1" name="rate" value="1" />
         <label htmlFor="star1" title="text">1 star</label>
         <input type="radio" id="star2" name="rate" value="2" />
