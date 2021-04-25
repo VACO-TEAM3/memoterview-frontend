@@ -1,10 +1,9 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
 import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweesApi, updateInterviewee } from "../../api";
-import { changeDateFormat } from "../../utils/date";
 import { FILTER_TYPES } from "../../utils/filters";
 import { handleAsyncRemoveStateActionsWithNormalize, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
-import { createPromiseSaga, createPromiseSagaById } from "../lib/sagaUtils";
+import { createPromiseSaga } from "../lib/sagaUtils";
 
 const BASE_PATH = "INTERVIWEE/";
 
@@ -27,7 +26,6 @@ export const FINISH_INTERVIEW_ERROR = BASE_PATH + "FINISH_INTERVIEW_ERROR";
 export const DELETE_INTERVIEWEE = BASE_PATH + "DELETE_INTERVIEWEES";
 export const DELETE_INTERVIEWEE_SUCCESS = BASE_PATH + "DELETE_INTERVIEWEES_SUCCESS";
 export const DELETE_INTERVIEWEE_ERROR = BASE_PATH + "DELETE_INTERVIEWEES_ERROR";
-
 
 export const getInterviewees = ({ projectId, token }) => ({
   type: GET_INTERVIEWEES,
@@ -111,7 +109,7 @@ export default function interviewees(state = initialState, action) {
     case GET_INTERVIEWEES:
     case GET_INTERVIEWEES_SUCCESS:
     case GET_INTERVIEWEES_ERROR:
-      return handleAsyncUpdateStateActionsWithNormalize(GET_INTERVIEWEES, true)(state, action);
+      return handleAsyncUpdateStateActionsWithNormalize(GET_INTERVIEWEES, false)(state, action);
     case FINISH_INTERVIEW:
     case FINISH_INTERVIEW_SUCCESS:
     case FINISH_INTERVIEW_ERROR:
@@ -126,12 +124,14 @@ export default function interviewees(state = initialState, action) {
 }
 
 export function intervieweeIdsToByIdObjs(ids, intervieweeByIds) {
-  return ids.map((intervieweeId) => intervieweeByIds[intervieweeId]);
+  return ids ? ids.map((intervieweeId) => intervieweeByIds[intervieweeId]) : [];
 }
 
 export function extractIntervieweesByInterviewed(interviewees) {
   const waitingInterviewees = [];
   const resultInterviewees = [];
+
+  console.log(interviewees);
 
   for (const interviewee of interviewees) {
     if (interviewee.isInterviewed) {

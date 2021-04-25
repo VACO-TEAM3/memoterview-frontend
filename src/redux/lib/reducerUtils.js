@@ -51,7 +51,7 @@ export const reducerUtils = {
   }),
   loading: (prevState = null) => ({
     loading: true,
-    byId: prevState ? prevState.byId : null,
+    byId: prevState ? prevState.byId : {},
     allIds: prevState ? prevState.allIds : null,
     error: null,
   }),
@@ -59,7 +59,7 @@ export const reducerUtils = {
     const dataList = Array.isArray(payload) ? payload : [payload];
     return {
       loading: false,
-      byId: prevState ? addById(dataList, prevState) : dataList,
+      byId: prevState ? addById(dataList, prevState) : addById(dataList, {}),
       allIds: prevState
         ? addIdInAllIds(dataList, prevState)
         : getAllIds(dataList),
@@ -74,7 +74,7 @@ export const reducerUtils = {
   }),
   error: (error, prevState = null) => ({
     loading: false,
-    byId: prevState ? prevState.byId : null,
+    byId: prevState ? prevState.byId : {},
     allIds: prevState ? prevState.allIds : null,
     error: error,
   }),
@@ -158,6 +158,7 @@ export const handleAsyncUpdateStateActionsWithNormalize = (
         return { ...state, ...reducerUtils.loading(keepData ? state : null) };
       case SUCCESS:
         console.log(action.type, action.payload);
+        console.log(state);
         return {
           ...state,
           ...reducerUtils.update(action.payload, keepData ? state : null),
