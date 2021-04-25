@@ -12,31 +12,7 @@ export default function Dummy() {
   const history = useHistory();
 
   useEffect(() => {
-    const interviewee = {
-      filterScores: {
-        curtureFit: 2,
-        skill: 6,
-        tech: 10,
-      },
-      questions: [
-        {
-          question: "adfdafafa",
-          score: 24,
-          answer: "afadfafafaf",
-          questioner: "608056473ec0b1612a8ebce2",
-        }
-      ],
-      comments: [
-        {
-          comment: "adfafadfafa",
-          score: 24,
-          commentor: "608056473ec0b1612a8ebce2",
-        }
-      ],
-      isInterviewed: true,
-    };
-    history.push("/interview/adfadf/adfafafa");
-    dispatch(getJoinedProjects({ token, userId: "607959226727251880113f56" }));
+    
   }, []);
 
   const dispatch = useDispatch();

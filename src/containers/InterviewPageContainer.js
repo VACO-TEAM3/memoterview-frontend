@@ -28,6 +28,8 @@ export default function InterviewPageContainer() {
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
+  const [questionModalFlag, setQuestionModalFlag] = useState(true);
+  const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
   //////////////////////////하영작업///////////////////////
   const recordBtnElementRef = useRef();
   const isInterviewee = false;
@@ -116,7 +118,19 @@ export default function InterviewPageContainer() {
 
       peer.signal(signal);
     });
+
+    return () => {
+      socket.disconnect();
+    };
   }, [isStreaming]);
+
+  function closeTotalResultModal() {
+    setTotalResultModalFlag(false);
+  }
+
+  function handleBackBtn() {
+    setTotalResultModalFlag(true);
+  }
 
   function handleVideo(state) {
     if (state) {
@@ -181,26 +195,29 @@ export default function InterviewPageContainer() {
       intervieweeId, 
       interviewee: {
         filterScores: { ...filterRates },
-        questions: [{
+        questions: [{ // question 성공시..
           question: "adfdafafa",
           score: 24,
           answer: "afadfafafaf",
           questioner: "608056473ec0b1612a8ebce2",
         }],
-        comments: [{
+        comments: {
           comment,
           score: totalRate,
           commentor: "607959226727251880113f56",
-        }],
+        },
       },
     }));
     
-    history.push(`/projects/${projectId}`);
+    history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
 
   return (
     <>
       <Interview
+        isQuestionModalOn={questionModalFlag}
+        isTotalResultModalOn={totalResultModalFlag}
+        onTotalResultModalClose={closeTotalResultModal}
         project={project}
         user={userVideo}
         userData={userData}
@@ -216,6 +233,7 @@ export default function InterviewPageContainer() {
         onFilterRateChange={handleFilterRate}
         onCommentChange={handleCommentChange}
         onResultSubmit={handleResultSubmit}
+        onBackButtonClick={handleBackBtn}
       />
     </>
   );

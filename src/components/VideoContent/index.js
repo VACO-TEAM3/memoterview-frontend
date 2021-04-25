@@ -20,11 +20,11 @@ const VideoContentWrapper = styled.div`
 export default function VideoContent({ interviewers, user }) {
   return (
     <VideoContentWrapper>
-      <div classname="main-video">
+      <div className="main-video">
         <MainVideo videoRef={user} />
       </div>
       {interviewers?.map((peer, index) => (
-        <div classname="sub-videos">
+        <div className="sub-videos">
           <SubVideo key={index} peer={peer} />
         </div>
       ))}
