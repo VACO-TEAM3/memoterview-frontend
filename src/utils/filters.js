@@ -1,6 +1,15 @@
-export const totalResultHeadFixedFilters = ["평가", "지원자"];
-const totalResultMidFilters = ["응답점수", "질문개수"];
-const totalResultTailFilters = ["면접시간", "면접일자"];
+export const FILTER_TYPES = {
+  EVALUATION: "평가",
+  INTERVIEWEE: "지원자",
+  QUESTION_SCORE: "응답점수",
+  QUESTION_NUM: "질문개수",
+  INTERVIEW_DURATION: "면접시간",
+  INTERVIEW_DATE: "면접일자",
+};
+
+export const totalResultHeadFixedFilters = [FILTER_TYPES.EVALUATION, FILTER_TYPES.INTERVIEWEE];
+const totalResultMidFilters = [FILTER_TYPES.QUESTION_SCORE, FILTER_TYPES.QUESTION_NUM];
+const totalResultTailFilters = [FILTER_TYPES.INTERVIEW_DURATION, FILTER_TYPES.INTERVIEW_DATE];
 
 function transFilterOptions(filters, defaultChecked) {
   return filters.map((filter) => ({
