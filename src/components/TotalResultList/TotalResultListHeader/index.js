@@ -8,6 +8,7 @@ import TotalResultListRow from "../TotalResultListRow";
 const TotalResultListHeaderWrapper = styled(TotalResultListRow)`
   position: relative;
   background-color: ${({ theme }) => theme.Aero};
+  border: 1px solid gray;
   font-size: 1.2rem;
 `;
 
@@ -22,12 +23,12 @@ const TotalResultListFilterWrapper = styled(TotalResultListColumn)`
   }
 `;
 
-export default function TotalResultListHeader({ columnList }) {
+export default function TotalResultListHeader({ columnList, onFilterBtnClick }) {
   return (
     <TotalResultListHeaderWrapper>
       {columnList.map((columnItem) => <TotalResultListColumn key={columnItem}>{columnItem}</TotalResultListColumn>)}
       <TotalResultListFilterWrapper>
-        <FontAwesomeIcon icon={faBars}/>
+        <FontAwesomeIcon icon={faBars} onClick={onFilterBtnClick}/>
       </TotalResultListFilterWrapper>
     </TotalResultListHeaderWrapper>
   );

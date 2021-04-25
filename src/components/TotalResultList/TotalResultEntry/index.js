@@ -7,6 +7,7 @@ const TotalResultEntryWrapper = styled.div`
   width: 100%;
   height: 450px;
   border: 1px solid gray;
+  border-radius: 2px;
   overflow-y: scroll;
 `;
 
