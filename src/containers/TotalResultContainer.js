@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 import { requestSendEmailToInterviewee } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
@@ -16,6 +16,7 @@ import {
   getInterviewees,
   intervieweeIdsToByIdObjs,
 } from "../redux/reducers/interviewee";
+import { getDefaultTotalResultFilters, getFiltersFromFilterOptions } from "../utils/filters";
 import { getInterviewRoomLink, getWelcomLink } from "../utils/path";
 
 const MODAL_TYPE = {
@@ -30,6 +31,10 @@ export default function TotalResultContainer() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const customFilters = useSelector((state) =>
+    state.projects.byId[projectId] ? state.projects.byId[projectId].filters : []
+  );
+
   const { loading, error, interviewees } = useSelector(
     ({ interviewees: { loading, error, byId, allIds } }) => ({
       loading,
@@ -37,6 +42,12 @@ export default function TotalResultContainer() {
       interviewees: intervieweeIdsToByIdObjs(allIds, byId),
     })
   );
+
+  const [filterOptions, setFilterOptions] = useState(
+    getDefaultTotalResultFilters(customFilters)
+  );
+
+  const filters = getFiltersFromFilterOptions(filterOptions);
 
   const {
     waitingInterviewees,
@@ -103,6 +114,12 @@ export default function TotalResultContainer() {
     setModalType(MODAL_TYPE.FILTER);
   }
 
+  function handleFiltersApplyBtnClick(filterOptions) {
+    console.log("newFilters", filterOptions);
+    setFilterOptions(filterOptions);
+    setModalType();
+  }
+
   return (
     <>
       {loading && <Loading />}
@@ -115,7 +132,11 @@ export default function TotalResultContainer() {
             />
           )}
           {modalType === MODAL_TYPE.FILTER && (
-            <TotalResultFilterModalView onCancleBtnClick={closeModal}/>
+            <TotalResultFilterModalView
+              onApplyBtnClick={handleFiltersApplyBtnClick}
+              onCancleBtnClick={closeModal}
+              defaultFilterOption={filterOptions}
+            />
           )}
         </Modal>
       )}
@@ -129,6 +150,7 @@ export default function TotalResultContainer() {
         onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
         onFilterBtnClick={handleFilterBtnClick}
+        filters={filters}
       />
     </>
   );
