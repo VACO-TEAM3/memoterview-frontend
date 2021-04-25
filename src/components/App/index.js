@@ -32,8 +32,12 @@ export default function App() {
           <ProjectsContainer />
         </AuthRoute>
 
-        <AuthRoute path="/projects/:projectId">
+        <AuthRoute path="/projects/:projectId" exact >
           <TotalResultContainer />
+        </AuthRoute>
+
+        <AuthRoute path="/projects/:projectId/search">
+          <SearchContainer />
         </AuthRoute>
 
         <AuthRoute path="/interview/:projectId/:intervieweeId">
@@ -49,10 +53,6 @@ export default function App() {
 
         <AuthRoute path="/interview/:projectId">
           <InterviewContainerHelper />
-        </AuthRoute>
-
-        <AuthRoute path="/search">
-          <SearchContainer />
         </AuthRoute>
 
         <AuthRoute path="/voiceTest">
