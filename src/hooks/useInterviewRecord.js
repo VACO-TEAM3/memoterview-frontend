@@ -8,6 +8,7 @@ export default function useInterviewRecord({
   recordBtnElementRef,
   isInterviewee,
   userId,
+  onComplete,
 }) {
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
 
@@ -69,17 +70,16 @@ export default function useInterviewRecord({
       recordBtnElementRef.current.disabled = true;
     });
 
-    socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
+    socket.on("questionerReceiveAnswer", async ({ questionerId, answer }) => {
       console.log("questionerReceiveAnswer: userId", recordsGlobalsRef.current.userId);
       if (questionerId === recordsGlobalsRef.current.userId) {
         console.log("questioner receive Answer uploading...");
         console.log("question", recordsGlobalsRef.current.questionText);
         console.log("answer", answer);
         console.log("uploading work...");
-
-        setTimeout(() => {
-          socket.emit("uploadComplete");
-        }, 1500);
+        await onComplete({ question: recordsGlobalsRef.current.questionText, answer });
+        
+        socket.emit("uploadComplete");
       }
     });
 
