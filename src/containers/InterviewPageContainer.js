@@ -24,6 +24,10 @@ export default function InterviewPageContainer() {
 
   const { intervieweeId, projectId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
+  const [filterRates, setFilterRates] = useState({});
+  const [questionRate, setQuestionRate] = useState(0);
+  const [totalRate, setTotalRate] = useState(0);
+  const [comment, setComment] = useState("");
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [stream, setStream] = useState(null);
@@ -178,10 +182,6 @@ export default function InterviewPageContainer() {
     };
   }, [handleKeyDown]);
 
-  const [filterRates, setFilterRates] = useState({});
-  const [totalRate, setTotalRate] = useState(0);
-  const [comment, setComment] = useState("");
-  
   function handleFilterRate(rateOption, value) {
     console.log(filterRates);
     setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
@@ -189,6 +189,11 @@ export default function InterviewPageContainer() {
 
   function handleTotalRate(_, value) {
     setTotalRate(value);
+  }
+
+  function handleQuestionRate(_, value) {
+    console.log(24);
+    setQuestionRate(value);
   }
 
   function handleCommentChange({ target: { value } }) {
@@ -240,6 +245,7 @@ export default function InterviewPageContainer() {
         onProcessBtnClick={handleProcessBtnClick}
         onTotalRateChange={handleTotalRate}
         onFilterRateChange={handleFilterRate}
+        onQuestionRateChange={handleQuestionRate}
         onCommentChange={handleCommentChange}
         onResultSubmit={handleResultSubmit}
         onBackButtonClick={handleBackBtn}

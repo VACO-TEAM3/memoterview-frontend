@@ -6,6 +6,7 @@ import styled from "styled-components";
 import CircleButton from "../../components/CircleButton";
 import InterviewButton from "../../components/InterviewButton";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
+import InterviewQuestionModalView from "../../components/InterviewQuestionModalView";
 import InterviewTab from "../../components/InterviewTab";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
@@ -55,6 +56,7 @@ export default function Interview({
   onProcessBtnClick,
   onQuestionModalClose,
   onIntervieweeResumeShowingBtnClick,
+  onQuestionRateChange,
   project,
   onTotalRateChange,
   onFilterRateChange,
@@ -72,8 +74,6 @@ export default function Interview({
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
-  const history = useHistory();
-  const { projectId, intervieweeId } = useParams();
 
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
@@ -121,7 +121,9 @@ export default function Interview({
       )}
       {isQuestionModalOn && (
         <Modal onBackgroundClick={onQuestionModalClose}>
-          
+          <InterviewQuestionModalView
+            onRateChange={onQuestionRateChange} 
+          />
         </Modal>
       )}
       <PageWrapper>
