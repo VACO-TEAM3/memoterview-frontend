@@ -38,7 +38,9 @@ const ResultWrapper = styled.div`
   background-color: yellow;
 `;
 
-export default function Search({ inputText, iconSize, onFormSubmit, onInputChange }) {
+export default function Search({ questionList, inputText, iconSize, onFormSubmit, onInputChange }) {
+
+  console.log(questionList, "list");
 
   return (
     <>
@@ -50,7 +52,22 @@ export default function Search({ inputText, iconSize, onFormSubmit, onInputChang
           </SearchInputBarWrapper>
 
           <ResultWrapper>
-            
+            {
+              questionList&& questionList.map(question =>
+                <>
+                  <div>
+                    <div>질문: {question.question}</div>
+                    <div>질문자: <img src={question.questionerAvatar}></img>{question.questioner}</div>
+                  </div>
+                  <div>
+                    <div>점수: {question.score}</div>
+                    <div>답변자: {question.answerer}</div>
+                    <div>답변날짜: {question.interviewDate}</div>
+                    <div>답변: {question.answer}</div>
+                  </div>
+                </>
+              )
+            }
           </ResultWrapper>
 
         </Main>
