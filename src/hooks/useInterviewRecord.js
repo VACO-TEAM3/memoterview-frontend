@@ -8,7 +8,6 @@ export default function useInterviewRecord({
   recordBtnElementRef,
   isInterviewee,
   userId,
-  onComplete,
 }) {
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
 
@@ -18,7 +17,7 @@ export default function useInterviewRecord({
     isInterviewee,
     userId,
   });
-
+  const [answer, setAnswer] = useState("");
   const [recordStateType, setRecordStateType] = useState(
     RECORD_STATE_TYPE.INTERVIEW_BEFORE
   );
@@ -56,6 +55,10 @@ export default function useInterviewRecord({
     }
   }, [recordStateType, socket, startRecognition, stopRecognition]);
 
+  function uploadComplete() {
+    socket.emit("uploadComplete");
+  }
+
   useEffect(() => {
     console.log("set Socket Event");
 
@@ -70,16 +73,15 @@ export default function useInterviewRecord({
       recordBtnElementRef.current.disabled = true;
     });
 
-    socket.on("questionerReceiveAnswer", async ({ questionerId, answer }) => {
+    socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
       console.log("questionerReceiveAnswer: userId", recordsGlobalsRef.current.userId);
       if (questionerId === recordsGlobalsRef.current.userId) {
         console.log("questioner receive Answer uploading...");
         console.log("question", recordsGlobalsRef.current.questionText);
         console.log("answer", answer);
         console.log("uploading work...");
-        await onComplete({ question: recordsGlobalsRef.current.questionText, answer });
-        
-        socket.emit("uploadComplete");
+
+        setAnswer(answer);
       }
     });
 
@@ -135,5 +137,5 @@ export default function useInterviewRecord({
     recordsGlobalsRef.current.isInterviewee = isInterviewee;
   }, [isInterviewee]);
 
-  return { recordStateType, recogText, setNextRecordStateType };
+  return { recordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question: recordsGlobalsRef.current.questionText };
 }

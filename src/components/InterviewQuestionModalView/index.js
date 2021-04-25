@@ -9,10 +9,7 @@ const ViewWrapper = styled.div`
 `;
 
 export default function InterviewQuestionModalView({ 
-  filters, 
-  onCommentChange, 
   onRateChange, 
-  onFilterRateChange, 
   onResultSubmit,
 }) {
   return (
