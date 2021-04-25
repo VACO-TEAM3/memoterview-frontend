@@ -17,8 +17,9 @@ export default function InterviewPageContainer() {
   const dispatch = useDispatch();
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { project } = useSelector(({ projects }) => ({ 
-    project: getProjectById(projects, "6083a2221bc38e7e3f0a4bc7"),
+    project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
   }));
+  console.log(project);
   const { id: roomID } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
@@ -26,7 +27,6 @@ export default function InterviewPageContainer() {
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
-  console.log(userData);
   //////////////////////////하영작업///////////////////////
   const recordBtnElementRef = useRef();
   const isInterviewee = false;
@@ -151,7 +151,6 @@ export default function InterviewPageContainer() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
-
   return (
     <>
       <Interview

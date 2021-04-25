@@ -10,6 +10,7 @@ const ViewWrapper = styled.div`
 `;
 
 export default function InterviewTotalEvaluationModalView({ filters }) {
+  console.log(filters);
   const [totalRate, setTotalRate] = useState(0);
   const [filterRates, setFilterRates] = useState([]);
   
