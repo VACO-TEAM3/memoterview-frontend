@@ -13,6 +13,7 @@ export default function TotalResultList({
   interviewees,
   onFilterBtnClick,
   filters,
+  onResultItemClick,
 }) {
   const [sortState, setSortState] = useState({ filter: -1, order: 1 });
 
@@ -47,6 +48,7 @@ export default function TotalResultList({
       <TotalResultEntry
         interviewees={sortedInterviewees}
         columnList={filters}
+        onItemClick={onResultItemClick}
       />
     </TotalResultListWrapper>
   );

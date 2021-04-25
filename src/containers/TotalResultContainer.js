@@ -17,7 +17,7 @@ import {
   intervieweeIdsToByIdObjs,
 } from "../redux/reducers/interviewee";
 import { getDefaultTotalResultFilters, getFiltersFromFilterOptions } from "../utils/filters";
-import { getInterviewRoomLink, getWelcomLink } from "../utils/path";
+import { getDetailResultLink, getInterviewRoomLink, getWelcomLink } from "../utils/path";
 
 const MODAL_TYPE = {
   ADD: "add",
@@ -119,6 +119,14 @@ export default function TotalResultContainer() {
     setModalType();
   }
 
+  function handleResultItemClick({ intervieweeId }) {
+    const detailResultPage = getDetailResultLink({
+      intervieweeId,
+      projectId,
+    });
+    history.push(detailResultPage);
+  }
+
   return (
     <>
       {loading && <Loading />}
@@ -150,6 +158,7 @@ export default function TotalResultContainer() {
         onInterviewRoomEnterBtnClick={handleInterviewRoomEnterBtnClick}
         onLogoutClick={handleLogoutClick}
         onFilterBtnClick={handleFilterBtnClick}
+        onResultItemClick={handleResultItemClick}
       />
     </>
   );
