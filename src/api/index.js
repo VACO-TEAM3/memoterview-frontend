@@ -77,8 +77,6 @@ export async function deleteProjectAPI({ projectId, token }) {
 };
 
 export async function addMyProjectAPI({ userId, newProject, token }) {
-  console.log(newProject, userId, "????");
-
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects`, {
     method: "POST",
     headers: {
@@ -94,10 +92,7 @@ export async function addMyProjectAPI({ userId, newProject, token }) {
   return data;
 }
 
-// 우선 질문기준, 이후 답변기준, interviwee || interviewer 이름 기준 advanced
 export async function searchQuestionsAPI({ projectId, inputText, token }) {
-  console.log(projectId, inputText, token, "ready?");
-
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/search?question=${inputText}`, {
     method: "GET",
     headers: {
@@ -150,7 +145,6 @@ export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
   });
 
   const { data } = await response.json();
-  console.log(data, "data???");
 
   return data;
 }
@@ -190,12 +184,9 @@ export async function updateInterviewee({ token, interviewee, projectId, intervi
   return data;
 }
 
-// update interviewee answer..
-
 export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projectId }) {
   const { name, email } = intervieweeInfo;
 
-  console.log(projectId, "proejctid");
   const formData = new FormData();
   formData.append("pdf", pdf);
   formData.append("name", name);
