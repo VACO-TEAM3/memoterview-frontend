@@ -28,6 +28,8 @@ export default function SearchContainer() {
 
     const searchList = await searchQuestionsAPI({ token, inputText, projectId });
 
+    // const content = searchList.length ? searchList : 
+
     setSearchList(searchList);
     setInputText("");
   }

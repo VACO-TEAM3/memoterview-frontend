@@ -10,9 +10,9 @@ const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  background-color: blue;
+  /* background-color: blue; */
 `;
 
 const SearchWrapper = styled.div`
@@ -25,29 +25,36 @@ const SearchWrapper = styled.div`
 const ResultWrapper = styled.div`
   display : flex;
   flex-direction: column;
-  width: 80%;
+  align-items: center;
+  width: 60%;
   height: 100%;
-  background-color: yellow;
+  overflow-y: scroll;
+  /* background-color: yellow; */
 `;
 
 const SearchResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1vh 4vw;
-  background-color: purple;
-  border: 1px solid white;
+  /* padding: 0 0.5vw; */
+  width: 90%;
+  /* background-color: purple; */
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
+const Total = styled.div`
+
+`;
 
 export default function Search({ searchList, inputText, iconSize, onFormSubmit, onInputChange }) {
   console.log(searchList, "list");
 
   return (
-    <>
+    <Total>
       <Header />
       <SearchWrapper>
         <Main>
-          <SearchInputBar iconSize={iconSize} inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
+          <SearchInputBar inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
           <ResultWrapper>
             {
               searchList.map(searchResult =>
@@ -60,10 +67,10 @@ export default function Search({ searchList, inputText, iconSize, onFormSubmit, 
           </ResultWrapper>
         </Main>
       </SearchWrapper>
-    </>
+    </Total>
   );
 }
 
-Search.defaultProps = {
-  iconSize: "30px",
-};
+// Search.defaultProps = {
+//   iconSize: "20px",
+// };
