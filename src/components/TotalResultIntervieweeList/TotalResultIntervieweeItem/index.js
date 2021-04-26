@@ -47,7 +47,7 @@ export default function TotalResultIntervieweeItem({
   }
 
   function handleRoomEnterBtnClick() {
-    onRoomEnterBtnClick({ intervieweeId });
+    onRoomEnterBtnClick({ interviewee });
   }
 
   return (

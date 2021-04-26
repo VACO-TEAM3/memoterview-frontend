@@ -39,6 +39,8 @@ export default function TotalResultContainer() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const { userData } = useSelector((state) => state.user);
+
   const customFilters = useSelector((state) =>
     state.projects.byId[projectId] ? state.projects.byId[projectId].filters : []
   );
@@ -117,11 +119,19 @@ export default function TotalResultContainer() {
     }
   }
 
-  function handleInterviewRoomEnterBtnClick({ intervieweeId }) {
+  function handleInterviewRoomEnterBtnClick({ interviewee }) {
+    const isAlreadyEvaluated = interviewee.comments.find((comment) => comment.commentor === userData.id);
+
+    if (isAlreadyEvaluated) {
+      alert("이미 평가하셨습니다");
+      return;
+    }
+
     const interviewRoomLink = getInterviewRoomLink({
-      intervieweeId,
+      intervieweeId: interviewee.id,
       projectId,
     });
+
     history.push(interviewRoomLink);
   }
 
