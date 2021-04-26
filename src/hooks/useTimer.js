@@ -13,7 +13,6 @@ export default function useTimer(initialState = 0) {
 
     if (isActive) {
       interval = window.setInterval(() => {
-        console.log(30);
         setTime((prev) => prev + 1);
       }, 1000);
     } else {

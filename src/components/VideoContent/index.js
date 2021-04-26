@@ -18,7 +18,6 @@ const VideoContentWrapper = styled.div`
 `;
 
 export default function VideoContent({ interviewers, user }) {
-  console.log("interviewers", interviewers);
   return (
     <VideoContentWrapper>
       <div className="main-video">
