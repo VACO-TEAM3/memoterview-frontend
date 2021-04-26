@@ -5,12 +5,11 @@ import useSpeechRecognition from "./useSpeechRecognition";
 
 export default function useInterviewRecord({
   socket,
-  recordBtnElementRef,
   isInterviewee,
   userId,
 }) {
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
-
+  const [isDisabled, setIsDisabled] = useState(true);
   const recordsGlobalsRef = useRef({
     recogText,
     questionText: "",
@@ -67,7 +66,8 @@ export default function useInterviewRecord({
     });
 
     socket.on("preventButton", () => {
-      recordBtnElementRef.current.disabled = true;
+      setIsDisabled(true);
+      // recordBtnElementRef.current.disabled = true;
     });
 
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
@@ -77,13 +77,14 @@ export default function useInterviewRecord({
     });
 
     socket.on("enableButton", () => {
-      recordBtnElementRef.current.disabled = false;
+      setIsDisabled(false);
+      // recordBtnElementRef.current.disabled = false;
     });
 
     socket.on("error", ({ message }) => {
       alert(message);
     });
-  }, [recordBtnElementRef, socket, stopRecognition]);
+  }, [isDisabled, socket, stopRecognition]);
 
   useEffect(() => {
     function handleIntervieweeStartAnswerOccur() {
@@ -124,5 +125,5 @@ export default function useInterviewRecord({
     recordsGlobalsRef.current.isInterviewee = isInterviewee;
   }, [isInterviewee]);
 
-  return { recordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question: recordsGlobalsRef.current.questionText };
+  return { isDisabled, recordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question: recordsGlobalsRef.current.questionText };
 }

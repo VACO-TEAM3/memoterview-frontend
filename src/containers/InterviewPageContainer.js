@@ -37,7 +37,6 @@ export default function InterviewPageContainer() {
   const [questionModalFlag, setQuestionModalFlag] = useState(false);
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
   //////////////////////////하영작업///////////////////////
-  const recordBtnElementRef = useRef();
   const isInterviewee = false;
   const {
     recordStateType,
@@ -46,9 +45,9 @@ export default function InterviewPageContainer() {
     answer,
     question,
     uploadComplete,
+    isDisabled,
   } = useInterviewRecord({
     socket,
-    recordBtnElementRef,
     userId: genUuid(),
     isInterviewee,
   });
@@ -78,7 +77,7 @@ export default function InterviewPageContainer() {
       return;
     }
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID: projectId, userData });
+    socket.emit("requestJoinRoom", { roomID: projectId, userData: { ...userData, isInterviewee } });
 
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -93,16 +92,12 @@ export default function InterviewPageContainer() {
         });
 
 
-        setPeers((prev) => {
-          console.log("checkPeer", prev);
-          return [...prev, { peer, peerID: user.socketID }];
-        });
+        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
 
         peersRef.current.push({
           peerID: user.socketID,
           peer,
         });
-
       });
     });
 
@@ -119,10 +114,7 @@ export default function InterviewPageContainer() {
 
       peer.signal(signal);
 
-      setPeers((prev) => {
-        console.log("ㅇㅓ디서 왔니?", prev);
-        return [...prev, { peer, peerID: caller }];
-      });
+      setPeers((prev) => [...prev, { peer, peerID: caller }]);
 
       peersRef.current.push({
         peerID: caller,
@@ -144,10 +136,7 @@ export default function InterviewPageContainer() {
       const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
       
       peersRef.current = filteredPeers;
-      setPeers((prev) => {
-        console.log("prev", prev);
-        return filteredPeers;
-      });
+      setPeers(filteredPeers);
     });
 
     return () => {
@@ -186,6 +175,7 @@ export default function InterviewPageContainer() {
   }
 
   function handleProcessBtnClick() {
+    console.log(35);
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
       setQuestionModalFlag(true);
     }
@@ -274,7 +264,7 @@ export default function InterviewPageContainer() {
         user={userVideo}
         userData={userData}
         interviewers={peers}
-        recordBtnElementRef={recordBtnElementRef}
+        isButtonDisabled={isDisabled}
         recordStateType={recordStateType}
         recogText={recogText}
         isInterviewee={isInterviewee}
