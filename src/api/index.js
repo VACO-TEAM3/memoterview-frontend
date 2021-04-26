@@ -95,7 +95,7 @@ export async function addMyProjectAPI({ userId, newProject, token }) {
 }
 
 // 우선 질문기준, 이후 답변기준, interviwee || interviewer 이름 기준 advanced
-export async function searchQuestions({ projectId, inputText, token }) {
+export async function searchQuestionsAPI({ projectId, inputText, token }) {
   console.log(projectId, inputText, token, "ready?");
 
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/search?question=${inputText}`, {
@@ -106,8 +106,7 @@ export async function searchQuestions({ projectId, inputText, token }) {
       "authorization": `Bearer ${token}`,
     },
   });
-  const { result, data } = await response.json();
-  console.log(result, "datdata");
+  const { data } = await response.json();
 
   return data;
 }
@@ -150,7 +149,7 @@ export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
     },
   });
 
-  const { data, result } = await response.json();
+  const { data } = await response.json();
   console.log(data, "data???");
 
   return data;
@@ -167,7 +166,7 @@ export async function updateInterviewRoomState({ token, projectId, intervieweeId
     body: JSON.stringify({ isRoomOpened }),
   });
 
-  const { data, result } = await response.json();
+  const { data } = await response.json();
 
   return data;
 }
@@ -186,10 +185,12 @@ export async function updateInterviewee({ token, interviewee, projectId, intervi
     }
   );
 
-  const { data, result } = await response.json();
+  const { data } = await response.json();
 
   return data;
 }
+
+// update interviewee answer..
 
 export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projectId }) {
   const { name, email } = intervieweeInfo;
