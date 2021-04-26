@@ -132,7 +132,7 @@ export default function InterviewPageContainer() {
     socket.on("successToLeaveOtherUser", ({ id }) => {
       const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
 
-      currentPeer.peer.destroy();
+      currentPeer?.peer.destroy();
 
       const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
 
