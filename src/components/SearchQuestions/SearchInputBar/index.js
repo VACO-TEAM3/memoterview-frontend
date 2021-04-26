@@ -24,13 +24,24 @@ outline: none;
 font-size: 20px;
 `;
 
-export default function SearchInputBar({ inputText, onFormSubmit, onInputChange }) {
- 
+const SearchInputBarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  font-size: ${props => props.iconSize};
+  /* background-color: yellow; */
+`;
+
+export default function SearchInputBar({ iconSize, inputText, onFormSubmit, onInputChange }) {
   return (
-    <SearchInputBox onSubmit={onFormSubmit}>
-      <FontAwesomeIcon icon={faSearch}/>
-      <SearchInput value={inputText} onChange={onInputChange} />
-    </SearchInputBox>
+    <SearchInputBarWrapper iconSize={iconSize}>
+      <SearchInputBox onSubmit={onFormSubmit}>
+        <FontAwesomeIcon icon={faSearch}/>
+        <SearchInput value={inputText} onChange={onInputChange} />
+      </SearchInputBox>
+    </SearchInputBarWrapper>
   );
 }
 

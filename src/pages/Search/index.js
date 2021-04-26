@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "../../components/Header";
-import SearchInputBar from "../../components/Search/SearchInputBar";
+import Interviewer from "../../components/SearchQuestions/Interviewer";
+import SearchInputBar from "../../components/SearchQuestions/SearchInputBar";
 
 const Main = styled.div`
   display: flex;
@@ -20,26 +21,34 @@ const SearchWrapper = styled.div`
   /* background-color: pink; */
 `;
 
-const SearchInputBarWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 20%;
-  font-size: ${props => props.iconSize};
-  /* background-color: yellow; */
-`;
-
 const ResultWrapper = styled.div`
   display : flex;
-  justify-content: center;
+  flex-direction: column;
   width: 80%;
   height: 100%;
   background-color: yellow;
 `;
 
-export default function Search({ questionList, inputText, iconSize, onFormSubmit, onInputChange }) {
 
+const QuestionerWrapper = styled.div`
+  display: flex;
+  background-color: pink;
+`;
+
+const Question = styled.div`
+  display: flex;
+  background-color: purple;
+`;
+
+const QuestionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: green;
+  border: 1px solid white;
+`;
+
+
+export default function Search({ questionList, inputText, iconSize, onFormSubmit, onInputChange }) {
   console.log(questionList, "list");
 
   return (
@@ -47,25 +56,19 @@ export default function Search({ questionList, inputText, iconSize, onFormSubmit
       <Header />
       <SearchWrapper>
         <Main>
-          <SearchInputBarWrapper iconSize={iconSize}>
-            <SearchInputBar inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
-          </SearchInputBarWrapper>
-
+          <SearchInputBar iconSize={iconSize} inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
           <ResultWrapper>
             {
-              questionList&& questionList.map(question =>
-                <>
-                  <div>
-                    <div>질문: {question.question}</div>
-                    <div>질문자: <img src={question.questionerAvatar}></img>{question.questioner}</div>
-                  </div>
+              questionList.map(question =>
+                <QuestionWrapper>
+                  <Interviewer question={question}/>
                   <div>
                     <div>점수: {question.score}</div>
                     <div>답변자: {question.answerer}</div>
                     <div>답변날짜: {question.interviewDate}</div>
                     <div>답변: {question.answer}</div>
                   </div>
-                </>
+                </QuestionWrapper>
               )
             }
           </ResultWrapper>
