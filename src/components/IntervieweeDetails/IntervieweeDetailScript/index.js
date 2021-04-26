@@ -5,7 +5,7 @@ const ScriptWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1vh;
-  width: 81%;
+  width: 90vw;
   height: 60%;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);

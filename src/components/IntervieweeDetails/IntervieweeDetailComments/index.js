@@ -6,7 +6,7 @@ import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 const Comments = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80vw;
+  width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   height: 100%;
