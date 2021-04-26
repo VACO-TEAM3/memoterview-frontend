@@ -1,3 +1,4 @@
+import { truncate } from "lodash";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
@@ -7,6 +8,7 @@ import { io } from "socket.io-client";
 import { updateIntervieweeAnswer } from "../api";
 import { RECORD_STATE_TYPE } from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
+import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
 import { finishInterview } from "../redux/reducers/interviewee";
@@ -36,8 +38,11 @@ export default function InterviewPageContainer() {
   const peersRef = useRef([]);
   const [questionModalFlag, setQuestionModalFlag] = useState(false);
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
+  const { time, setIsActive } = useTimer();
+  const { token } = useToken();
+  const history = useHistory();
+
   //////////////////////////하영작업///////////////////////
-  const recordBtnElementRef = useRef();
   const isInterviewee = true;
   const {
     recordStateType,
@@ -46,15 +51,14 @@ export default function InterviewPageContainer() {
     answer,
     question,
     uploadComplete,
+    isDisabled,
   } = useInterviewRecord({
     socket,
-    recordBtnElementRef,
     userId: genUuid(),
     isInterviewee,
+    setTimerActive: setIsActive,
   });
   //////////////////////////////////////////////////////
-  const { token } = useToken();
-  const history = useHistory();
 
   useEffect(() => {
     (async function getStreaming() {
@@ -179,14 +183,16 @@ export default function InterviewPageContainer() {
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
       setQuestionModalFlag(true);
     }
-    console.log(30000);
+    
     setNextRecordStateType();
   }
 
   const handleKeyDown = useCallback(
     (event) => {
-      if (event.key === " " || event.key === "Spacebar") {
-        setNextRecordStateType();
+      if (!isDisabled) {
+        if (event.key === " " || event.key === "Spacebar") {
+          setNextRecordStateType();
+        }
       }
     },
     [setNextRecordStateType]
@@ -257,6 +263,7 @@ export default function InterviewPageContainer() {
   return (
     <>
       <Interview
+        time={time}
         isQuestionModalOn={questionModalFlag}
         isTotalResultModalOn={totalResultModalFlag}
         onTotalResultModalClose={closeTotalResultModal}
@@ -264,7 +271,7 @@ export default function InterviewPageContainer() {
         user={userVideo}
         userData={userData}
         interviewers={peers}
-        recordBtnElementRef={recordBtnElementRef}
+        isButtonDisabled={isDisabled}
         recordStateType={recordStateType}
         recogText={recogText}
         isInterviewee={isInterviewee}
