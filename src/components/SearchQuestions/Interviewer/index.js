@@ -63,8 +63,8 @@ const Label = styled.div`
   justify-content: space-between;
   width: 95%;
   align-items: center;
-  margin-right: 2vw;
-  font-size: 20px;
+  margin: 0 0.5vw;
+  font-size: 25px;
 `;
 
 const InterviewerText = styled.div`
@@ -85,10 +85,10 @@ export default function Interviewer({ searchResult }) {
   return (
     <InterviewerWrapper>
       <Link style={{ textDecoration: "none", color: "black" }} to={`/result/${projectId}/${searchResult.intervieweeId}`}>
-        <Label>Q. {ellipsizedQuestionTitle}</Label>
+        <Label>질문: {ellipsizedQuestionTitle}</Label>
         <InterviwerBox>
           <InterviewerText>질문자: </InterviewerText>
-          <InterviwerImg size="40px" src={searchResult.interviewerAvatar} />
+          <InterviwerImg size="30px" src={searchResult.interviewerAvatar} />
           <InterviwerName>{searchResult.interviewerName}</InterviwerName>
         </InterviwerBox>
       </Link>

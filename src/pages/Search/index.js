@@ -42,32 +42,39 @@ const SearchResultWrapper = styled.div`
   border-radius: 10px;
 `;
 
-const Total = styled.div`
-
+const NoSearchResult = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 50%;
+  font-size: 2vmax;
 `;
 
 export default function Search({ searchList, inputText, iconSize, onFormSubmit, onInputChange }) {
   console.log(searchList, "list");
 
   return (
-    <Total>
+    <>
       <Header />
       <SearchWrapper>
         <Main>
           <SearchInputBar inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
           <ResultWrapper>
             {
-              searchList.map(searchResult =>
-                <SearchResultWrapper>
-                  <Interviewer searchResult={searchResult}/>
-                  <Interviewee searchResult={searchResult} />
-                </SearchResultWrapper>
-              )
+              searchList.length
+                ? searchList.map(searchResult =>
+                  <SearchResultWrapper>
+                    <Interviewer searchResult={searchResult}/>
+                    <Interviewee searchResult={searchResult} />
+                  </SearchResultWrapper>
+                )
+                : <NoSearchResult>No Search Result</NoSearchResult>
             }
           </ResultWrapper>
         </Main>
       </SearchWrapper>
-    </Total>
+    </>
   );
 }
 
