@@ -1,17 +1,13 @@
-import { truncate } from "lodash";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
-import { updateIntervieweeAnswer } from "../api";
-import { RECORD_STATE_TYPE } from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
 import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
-import { finishInterview } from "../redux/reducers/interviewees";
 import { getJoinedProjects, getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
@@ -25,31 +21,22 @@ export default function InterviewPageContainer() {
     project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
   }));
 
-  const { intervieweeId, projectId } = useParams();
+  const { intervieweeId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
-  const [filterRates, setFilterRates] = useState({});
-  const [questionRate, setQuestionRate] = useState(0);
-  const [totalRate, setTotalRate] = useState(0);
-  const [comment, setComment] = useState("");
   const [peers, setPeers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
+  const [errorMessage, setErrorMessage] = useState("");
   const peersRef = useRef([]);
   const [questionModalFlag, setQuestionModalFlag] = useState(false);
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
   const { time, setIsActive } = useTimer();
   const { token } = useToken();
-  const history = useHistory();
-
+  console.log(userData.isInterviewee);
   //////////////////////////하영작업///////////////////////
   const {
     recordStateType,
     recogText,
-    setNextRecordStateType,
-    answer,
-    question,
-    uploadComplete,
     isDisabled,
   } = useInterviewRecord({
     socket,
@@ -135,7 +122,7 @@ export default function InterviewPageContainer() {
     socket.on("successToLeaveOtherUser", ({ id }) => {
       const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
       
-      currentPeer.peer.destroy();
+      currentPeer?.peer.destroy();
 
       const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
       
@@ -178,49 +165,6 @@ export default function InterviewPageContainer() {
     }
   }
 
-  function handleProcessBtnClick() {
-    if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
-      setQuestionModalFlag(true);
-    }
-    
-    setNextRecordStateType();
-  }
-
-  const handleKeyDown = useCallback(
-    (event) => {
-      if (!isDisabled) {
-        if (event.key === " " || event.key === "Spacebar") {
-          setNextRecordStateType();
-        }
-      }
-    },
-    [setNextRecordStateType]
-  );
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
-  function handleFilterRate(rateOption, value) {
-    setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
-  }
-
-  function handleTotalRate(_, value) {
-    setTotalRate(value);
-  }
-
-  function handleQuestionRate(_, value) {
-    setQuestionRate(value);
-  }
-
-  function handleCommentChange({ target: { value } }) {
-    setComment(value);
-  }
-
   return (
     <>
       <Interview
@@ -238,11 +182,6 @@ export default function InterviewPageContainer() {
         isInterviewee={userData.isInterviewee}
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
-        onProcessBtnClick={handleProcessBtnClick}
-        onTotalRateChange={handleTotalRate}
-        onFilterRateChange={handleFilterRate}
-        onQuestionRateChange={handleQuestionRate}
-        onCommentChange={handleCommentChange}
         onBackButtonClick={handleBackBtn}
         onQuestionModalClose={closeQuestionModal}
       />
