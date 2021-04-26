@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "../../components/Header";
+import Interviewee from "../../components/SearchQuestions/Interviewee";
 import Interviewer from "../../components/SearchQuestions/Interviewer";
 import SearchInputBar from "../../components/SearchQuestions/SearchInputBar";
 
@@ -29,27 +30,17 @@ const ResultWrapper = styled.div`
   background-color: yellow;
 `;
 
-
-const QuestionerWrapper = styled.div`
-  display: flex;
-  background-color: pink;
-`;
-
-const Question = styled.div`
-  display: flex;
-  background-color: purple;
-`;
-
-const QuestionWrapper = styled.div`
+const SearchResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: green;
+  padding: 1vh 0 1vh 4vw;
+  background-color: purple;
   border: 1px solid white;
 `;
 
 
-export default function Search({ questionList, inputText, iconSize, onFormSubmit, onInputChange }) {
-  console.log(questionList, "list");
+export default function Search({ searchList, inputText, iconSize, onFormSubmit, onInputChange }) {
+  console.log(searchList, "list");
 
   return (
     <>
@@ -59,20 +50,14 @@ export default function Search({ questionList, inputText, iconSize, onFormSubmit
           <SearchInputBar iconSize={iconSize} inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
           <ResultWrapper>
             {
-              questionList.map(question =>
-                <QuestionWrapper>
-                  <Interviewer question={question}/>
-                  <div>
-                    <div>점수: {question.score}</div>
-                    <div>답변자: {question.answerer}</div>
-                    <div>답변날짜: {question.interviewDate}</div>
-                    <div>답변: {question.answer}</div>
-                  </div>
-                </QuestionWrapper>
+              searchList.map(searchResult =>
+                <SearchResultWrapper>
+                  <Interviewer searchResult={searchResult}/>
+                  <Interviewee searchResult={searchResult} />
+                </SearchResultWrapper>
               )
             }
           </ResultWrapper>
-
         </Main>
       </SearchWrapper>
     </>
