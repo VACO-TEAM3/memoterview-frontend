@@ -6,6 +6,7 @@ import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 
 const Header = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 90%;
   height: 10vh;
   padding-bottom: 2vh;
@@ -13,10 +14,6 @@ const Header = styled.div`
 `;
 
 const FinalScore = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 70%;
   font-size: 30px;
 `;
 
@@ -24,11 +21,12 @@ const FinalContainer = styled.div`
   display: flex;
   height: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 const Label = styled.div`
   font-size: 20px;
+  margin-left: auto;
   margin-right: 0.5vw;
 `;
 
