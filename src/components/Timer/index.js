@@ -24,7 +24,6 @@ const TimerWrapper = styled.div`
 
 export default function Timer({ isRecording, time }) {
   const { hour, min } = time;
-  console.log(hour, min);
   return (
     <TimerWrapper isRecording={isRecording}>
       <div className="timer-icon">
