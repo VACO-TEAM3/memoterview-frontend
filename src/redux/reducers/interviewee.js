@@ -1,6 +1,6 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
-import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweesApi, updateInterviewee, updateInterviewRoomState } from "../../api";
+import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweeApi, getIntervieweesApi, updateInterviewee, updateInterviewRoomState } from "../../api";
 import { FILTER_TYPES } from "../../utils/filters";
 import { handleAsyncRemoveStateActionsWithNormalize, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import { createPromiseSaga } from "../lib/sagaUtils";
@@ -11,6 +11,11 @@ const BASE_PATH = "INTERVIWEE/";
 export const GET_INTERVIEWEES = BASE_PATH + "GET_INTERVIEWEES";
 export const GET_INTERVIEWEES_SUCCESS = BASE_PATH + "GET_INTERVIEWEES_SUCCESS";
 export const GET_INTERVIEWEES_ERROR = BASE_PATH + "GET_INTERVIEWEES_ERROR";
+
+// interviewee들 가져오기.. project로 populate
+export const GET_INTERVIEWEE = BASE_PATH + "GET_INTERVIEWEE";
+export const GET_INTERVIEWEE_SUCCESS = BASE_PATH + "GET_INTERVIEWEE_SUCCESS";
+export const GET_INTERVIEWEE_ERROR = BASE_PATH + "GET_INTERVIEWEE_ERROR";
 
 // interviewee 추가 ->
 export const ADD_NEW_INTERVIEWEE = BASE_PATH + "ADD_NEW_INTERVIEWEE";
@@ -35,6 +40,12 @@ export const DELETE_INTERVIEWEE_ERROR = BASE_PATH + "DELETE_INTERVIEWEES_ERROR";
 export const getInterviewees = ({ projectId, token }) => ({
   type: GET_INTERVIEWEES,
   payload: { projectId, token },
+  meta: projectId,
+});
+
+export const getInterviewee = ({ projectId, token, intervieweeId }) => ({
+  type: GET_INTERVIEWEE,
+  payload: { projectId, token, intervieweeId },
   meta: projectId,
 });
 
@@ -68,12 +79,14 @@ export const updateIntervieweeRoomState = ({ token, projectId, intervieweeId, is
 });
 
 export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesApi);
+export const getIntervieweeSaga = createPromiseSaga(GET_INTERVIEWEE, getIntervieweeApi);
 export const addNewIntervieweeSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE, createIntervieweeAPI);
 export const updateIntervieweeRoomStateSaga = createPromiseSaga(UPDATE_ROOMSTATE_INTERVIEWEE, updateInterviewRoomState);
 export const finishInterviewSaga = createPromiseSaga(FINISH_INTERVIEW, updateInterviewee);
 export const deleteIntervieweeSaga = createPromiseSaga(DELETE_INTERVIEWEE, deleteIntervieweeAPI);
 
 export function* intervieweeSaga() {
+  yield takeLeading(GET_INTERVIEWEE, getIntervieweeSaga);
   yield takeLeading(GET_INTERVIEWEES, getIntervieweesSaga);
   yield takeLatest(ADD_NEW_INTERVIEWEE, addNewIntervieweeSaga);
   yield takeLatest(FINISH_INTERVIEW, finishInterviewSaga);
@@ -124,6 +137,10 @@ export default function interviewees(state = initialState, action) {
     case GET_INTERVIEWEES_SUCCESS:
     case GET_INTERVIEWEES_ERROR:
       return handleAsyncUpdateStateActionsWithNormalize(GET_INTERVIEWEES, false)(state, action);
+    case GET_INTERVIEWEE:
+    case GET_INTERVIEWEE_SUCCESS:
+    case GET_INTERVIEWEE_ERROR:
+      return handleAsyncUpdateStateActionsWithNormalize(GET_INTERVIEWEE, true)(state, action);
     case UPDATE_ROOMSTATE_INTERVIEWEE:
     case UPDATE_ROOMSTATE_INTERVIEWEE_SUCCESS:
     case UPDATE_ROOMSTATE_INTERVIEWEE_ERROR:
