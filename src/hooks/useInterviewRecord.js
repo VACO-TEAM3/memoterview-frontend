@@ -64,8 +64,8 @@ export default function useInterviewRecord({
       if (!recordsGlobalsRef.current.isInterviewee) {
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       }
+      
       setTimerActive(true);
-      console.log(setTimerActive, 30);
     });
 
     socket.on("preventButton", () => {
