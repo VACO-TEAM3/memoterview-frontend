@@ -10,16 +10,15 @@ const MainLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   width: 95%;
-  height: 100vh;
+  min-height: 2000px;
   margin: 2vw;
 `;
 
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 85vh;
@@ -33,23 +32,21 @@ export default function IntervieweeDetail({
   const { email, name, comments, questions, commentAvgScore } = intervieweeInfo;
 
   return (
-    <>
-      <MainLayoutWrapper>
-        <IntervieweeDetailNavBar
-          onGoBackButtonClick={onGoBackButtonClick}
-          onGeneratePdfBtnClick={onGeneratePdfBtnClick}
-        />
-        <IntervieweeDetailHeader
-          name={name}
-          email={email}
-          comments={comments}
-          commentAvgScore={commentAvgScore}
-        />
-        <Main>
-          <IntervieweeDetailEvaluationEntry comments={comments}/>
-          <IntervieweeDetailScript questions={questions}/>
-        </Main>
-      </MainLayoutWrapper>
-    </>
+    <MainLayoutWrapper>
+      <IntervieweeDetailNavBar
+        onGoBackButtonClick={onGoBackButtonClick}
+        onGeneratePdfBtnClick={onGeneratePdfBtnClick}
+      />
+      <IntervieweeDetailHeader
+        name={name}
+        email={email}
+        comments={comments}
+        commentAvgScore={commentAvgScore}
+      />
+      <Main>
+        <IntervieweeDetailEvaluationEntry comments={comments} />
+        <IntervieweeDetailScript questions={questions} />
+      </Main>
+    </MainLayoutWrapper>
   );
 }

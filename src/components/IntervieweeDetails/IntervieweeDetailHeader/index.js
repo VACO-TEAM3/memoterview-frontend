@@ -6,7 +6,7 @@ import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 
 const Header = styled.div`
   display: flex;
-  width: 85%;
+  width: 90%;
   height: 10vh;
   padding-bottom: 2vh;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -17,7 +17,7 @@ const FinalScore = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 70%;
-  font-size: 1rem;
+  font-size: 30px;
 `;
 
 const FinalContainer = styled.div`
@@ -28,7 +28,7 @@ const FinalContainer = styled.div`
 `;
 
 const Label = styled.div`
-  font-size: 2rem;
+  font-size: 20px;
   margin-right: 0.5vw;
 `;
 
@@ -36,7 +36,7 @@ const Stars = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 20px;
 `;
 
 function IntervieweeDetailHeader({

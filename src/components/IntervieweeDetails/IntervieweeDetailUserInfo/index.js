@@ -42,9 +42,9 @@ function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
   const displayingName = commenterInfo ? commenterInfo.username : name;
   const displayingEmail = commenterInfo ? commenterInfo.email : email;
 
-  const avatarSize = commenterInfo ? "50px" : "100px";
-  const nameSize = commenterInfo ? "1.3rem" : "2.5rem";
-  const emailSize = commenterInfo ? "1rem" : "2.5rem";
+  const avatarSize = commenterInfo ? "40px" : "80px";
+  const nameSize = commenterInfo ? "20px" : "20px";
+  const emailSize = commenterInfo ? "20px" : "20px";
 
   return (
     <UserInfo>
@@ -59,6 +59,5 @@ function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
     </UserInfo>
   );
 }
-
 
 export default IntervieweeDetailUserInfo;

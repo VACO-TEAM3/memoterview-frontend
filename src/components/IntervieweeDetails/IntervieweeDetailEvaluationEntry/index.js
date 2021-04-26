@@ -22,8 +22,8 @@ const EvaluationDetailHeader = styled.div`
   display: flex-start;
   justify-content: center;
   align-items: center;
-  width: 85%;
-  margin: 3vh 2vh 0 2vh;
+  width: 100%;
+  margin-top: 3vh;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   font-size: 1.3rem;
@@ -31,7 +31,7 @@ const EvaluationDetailHeader = styled.div`
 
 const CommentsWrapper = styled.div`
   display: flex;
-  width: 85%;
+  width: 100%;
 `;
 
 export default function IntervieweeDetailEvaluationEntry({ createStars, comments }) {
