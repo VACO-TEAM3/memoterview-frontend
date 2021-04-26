@@ -48,7 +48,7 @@ export default function Interview({
   user,
   userData,
   interviewers,
-  recordBtnElementRef,
+  isButtonDisabled,
   recordStateType,
   isInterviewee,
   onAudioBtnClick,
@@ -170,7 +170,7 @@ export default function Interview({
             />
             {!isInterviewee && 
               <InterviewButton 
-                videoRef={recordBtnElementRef} 
+                isButtonDisabled={isButtonDisabled} 
                 onClick={onProcessBtnClick}
                 state={INTERVIEW_STATE[recordStateType]}
               />

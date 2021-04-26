@@ -78,27 +78,27 @@ export default function InterviewPageContainer() {
       return;
     }
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID: projectId, userData });
+    socket.emit("requestJoinRoom", { roomID: projectId, userData: { ...userData, isInterviewee } });
 
-    socket.on("successJoinUser", (targetUsers) => {
-      console.log(socket.id);
+    socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
         const peer = new Peer({
           initiator: true,
           trickle: false,
           stream,
         });
-
+        
         peer.on("signal", (signal) => {
           socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
         });
+
+
+        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
 
         peersRef.current.push({
           peerID: user.socketID,
           peer,
         });
-
-        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
       });
     });
 
@@ -108,19 +108,19 @@ export default function InterviewPageContainer() {
         trickle: false,
         stream,
       });
-
+      
       peer.on("signal", (signal) => {
         socket.emit("returnSignal", { signal, caller });
       });
 
       peer.signal(signal);
 
+      setPeers((prev) => [...prev, { peer, peerID: caller }]);
+
       peersRef.current.push({
         peerID: caller,
         peer,
       });
-
-      setPeers((prev) => [...prev, { peer, peerID: caller }]);
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
@@ -130,13 +130,20 @@ export default function InterviewPageContainer() {
     });
 
     socket.on("successToLeaveOtherUser", ({ id }) => {
-      const filteredPeers = peers.filter((peer) => peer.peerID !== id);
+      const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
+      
+      currentPeer.peer.destroy();
 
+      const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
+      
+      peersRef.current = filteredPeers;
       setPeers(filteredPeers);
     });
 
     return () => {
-      console.log(30);
+      if (isStreaming) {
+        socket.disconnect();
+      }
     };
   }, [isStreaming]);
 
@@ -172,7 +179,7 @@ export default function InterviewPageContainer() {
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
       setQuestionModalFlag(true);
     }
-    
+    console.log(30000);
     setNextRecordStateType();
   }
 
