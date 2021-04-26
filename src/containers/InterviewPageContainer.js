@@ -42,7 +42,6 @@ export default function InterviewPageContainer() {
   const history = useHistory();
 
   //////////////////////////하영작업///////////////////////
-  const isInterviewee = false;
   const {
     recordStateType,
     recogText,
@@ -54,7 +53,7 @@ export default function InterviewPageContainer() {
   } = useInterviewRecord({
     socket,
     userId: genUuid(),
-    isInterviewee,
+    isInterviewee: userData.isInterviewee,
     setTimerActive: setIsActive,
   });
   //////////////////////////////////////////////////////
@@ -72,7 +71,7 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-    
+
     dispatch(getJoinedProjects({ token, userId: "607d993601d20ebeb15e257b" }));
   }, []);
 
@@ -81,7 +80,7 @@ export default function InterviewPageContainer() {
       return;
     }
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID: projectId, userData: { ...userData, isInterviewee } });
+    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData } });
 
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -90,11 +89,10 @@ export default function InterviewPageContainer() {
           trickle: false,
           stream,
         });
-        
+
         peer.on("signal", (signal) => {
           socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
         });
-
 
         setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
 
@@ -111,7 +109,7 @@ export default function InterviewPageContainer() {
         trickle: false,
         stream,
       });
-      
+
       peer.on("signal", (signal) => {
         socket.emit("returnSignal", { signal, caller });
       });
@@ -134,18 +132,18 @@ export default function InterviewPageContainer() {
 
     socket.on("successToLeaveOtherUser", ({ id }) => {
       const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
-      
+
       currentPeer.peer.destroy();
 
       const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
-      
+
       peersRef.current = filteredPeers;
       setPeers(filteredPeers);
     });
 
     return () => {
       if (isStreaming) {
-        socket.disconnect();
+        socket.disconnect({ interviewDuration: time });
       }
     };
   }, [isStreaming]);
@@ -224,10 +222,10 @@ export default function InterviewPageContainer() {
   function handleResultSubmit(event) {
     event.preventDefault();
 
-    dispatch(finishInterview({ 
-      token, 
-      projectId, 
-      intervieweeId, 
+    dispatch(finishInterview({
+      token,
+      projectId,
+      intervieweeId,
       interviewee: {
         filterScores: { ...filterRates },
         comments: {
@@ -237,7 +235,7 @@ export default function InterviewPageContainer() {
         },
       },
     }));
-    
+
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
 
@@ -245,7 +243,7 @@ export default function InterviewPageContainer() {
     event.preventDefault();
 
     updateIntervieweeAnswer({
-      intervieweeId: "60851da05b5196ca563c9972",
+      intervieweeId,
       token,
       question: {
         title: question,
@@ -273,7 +271,7 @@ export default function InterviewPageContainer() {
         isButtonDisabled={isDisabled}
         recordStateType={recordStateType}
         recogText={recogText}
-        isInterviewee={isInterviewee}
+        isInterviewee={userData.isInterviewee}
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
         onProcessBtnClick={handleProcessBtnClick}

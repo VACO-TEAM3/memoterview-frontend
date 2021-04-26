@@ -6,7 +6,7 @@ export default function useTimer(initialState = 0) {
   const [time, setTime] = useState(initialState);
   const [isActive, setIsActive] = useState(false);
 
-  const { hour, min } = formatTimeForTimer(time); 
+  const { hour, min } = formatTimeForTimer(time);
 
   useEffect(() => {
     let interval;

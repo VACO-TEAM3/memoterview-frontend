@@ -193,7 +193,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
   formData.append("email", email);
 
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees`, {
+    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees`, {
       method: "POST",
       body: formData,
       headers: {

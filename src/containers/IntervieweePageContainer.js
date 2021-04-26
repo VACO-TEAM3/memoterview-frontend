@@ -21,7 +21,7 @@ export default function InterviewPageContainer() {
   const dispatch = useDispatch();
 
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
-  const { project } = useSelector(({ projects }) => ({ 
+  const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
   }));
 
@@ -43,7 +43,6 @@ export default function InterviewPageContainer() {
   const history = useHistory();
 
   //////////////////////////하영작업///////////////////////
-  const isInterviewee = true;
   const {
     recordStateType,
     recogText,
@@ -55,7 +54,7 @@ export default function InterviewPageContainer() {
   } = useInterviewRecord({
     socket,
     userId: genUuid(),
-    isInterviewee,
+    isInterviewee: userData.isInterviewee,
     setTimerActive: setIsActive,
   });
   //////////////////////////////////////////////////////
@@ -82,7 +81,7 @@ export default function InterviewPageContainer() {
       return;
     }
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID: projectId, userData: { ...userData, isInterviewee } });
+    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData } });
 
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -91,7 +90,7 @@ export default function InterviewPageContainer() {
           trickle: false,
           stream,
         });
-        
+
         peer.on("signal", (signal) => {
           socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
         });
@@ -274,7 +273,7 @@ export default function InterviewPageContainer() {
         isButtonDisabled={isDisabled}
         recordStateType={recordStateType}
         recogText={recogText}
-        isInterviewee={isInterviewee}
+        isInterviewee={userData.isInterviewee}
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
         onProcessBtnClick={handleProcessBtnClick}
