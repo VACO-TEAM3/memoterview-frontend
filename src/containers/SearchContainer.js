@@ -13,7 +13,7 @@ export default function SearchContainer() {
   const { projectId } = useParams();
 
   const [inputText, setInputText] = useState("");
-  const [questionList, setQuestionList] = useState([]);
+  const [searchList, setSearchList] = useState([]);
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -26,18 +26,18 @@ export default function SearchContainer() {
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const questions = await searchQuestionsAPI({ token, inputText, projectId });
+    const searchList = await searchQuestionsAPI({ token, inputText, projectId });
 
-    setQuestionList(questions);
+    setSearchList(searchList);
     setInputText("");
   }
 
-  console.log(questionList, "from outside");
+  console.log(searchList, "from outside");
 
   return (
     <>
       <Search
-        questionList={questionList}
+        searchList={searchList}
         inputText={inputText}
         onFormSubmit={handleFormSubmit}
         onInputChange={handleInputChange}/>
