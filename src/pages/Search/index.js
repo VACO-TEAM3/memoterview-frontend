@@ -10,16 +10,14 @@ const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   width: 100%;
-  /* background-color: blue; */
+  height: 100vh;
 `;
 
 const SearchWrapper = styled.div`
   display: flex;
-  height: 100vh;
   width: 100%;
-  /* background-color: pink; */
+  height: 100vh;
 `;
 
 const ResultWrapper = styled.div`
@@ -29,43 +27,38 @@ const ResultWrapper = styled.div`
   width: 60%;
   height: 100%;
   overflow-y: scroll;
-  /* background-color: yellow; */
 `;
 
 const SearchResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* padding: 0 0.5vw; */
   width: 90%;
-  /* background-color: purple; */
-  border: 1px solid black;
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
 `;
 
 const NoSearchResult = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 40%;
   height: 50%;
   font-size: 2vmax;
 `;
 
-export default function Search({ searchList, inputText, iconSize, onFormSubmit, onInputChange }) {
-  console.log(searchList, "list");
-
+export default function Search({ searchList, inputText, onFormSubmit, onInputChange }) {
   return (
     <>
       <Header />
       <SearchWrapper>
         <Main>
-          <SearchInputBar inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange}/>
+          <SearchInputBar inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange} />
           <ResultWrapper>
             {
               searchList.length
-                ? searchList.map(searchResult =>
+                ? searchList.map((searchResult) =>
                   <SearchResultWrapper>
-                    <Interviewer searchResult={searchResult}/>
+                    <Interviewer searchResult={searchResult} />
                     <Interviewee searchResult={searchResult} />
                   </SearchResultWrapper>
                 )
@@ -77,7 +70,3 @@ export default function Search({ searchList, inputText, iconSize, onFormSubmit, 
     </>
   );
 }
-
-// Search.defaultProps = {
-//   iconSize: "20px",
-// };
