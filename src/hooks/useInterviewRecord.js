@@ -7,6 +7,7 @@ export default function useInterviewRecord({
   socket,
   isInterviewee,
   userId,
+  setTimerActive,
 }) {
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -63,11 +64,12 @@ export default function useInterviewRecord({
       if (!recordsGlobalsRef.current.isInterviewee) {
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       }
+      setTimerActive(true);
+      console.log(setTimerActive, 30);
     });
 
     socket.on("preventButton", () => {
       setIsDisabled(true);
-      // recordBtnElementRef.current.disabled = true;
     });
 
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
@@ -78,7 +80,6 @@ export default function useInterviewRecord({
 
     socket.on("enableButton", () => {
       setIsDisabled(false);
-      // recordBtnElementRef.current.disabled = false;
     });
 
     socket.on("error", ({ message }) => {

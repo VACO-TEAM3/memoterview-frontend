@@ -2,8 +2,6 @@ import { faRecordVinyl, faStopCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-import useTimer from "../../hooks/useTimer";
-
 const TimerWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -24,11 +22,11 @@ const TimerWrapper = styled.div`
   }
 `;
 
-export default function Timer({ onToggle, isRecording }) {
-  const { time: { hour, min }, handleStart, handleStop } = useTimer();
-
+export default function Timer({ isRecording, time }) {
+  const { hour, min } = time;
+  console.log(hour, min);
   return (
-    <TimerWrapper onClick={handleStart} onSubmit={handleStop} isRecording={isRecording}>
+    <TimerWrapper isRecording={isRecording}>
       <div className="timer-icon">
         <FontAwesomeIcon icon={isRecording? faRecordVinyl : faStopCircle} />
       </div>

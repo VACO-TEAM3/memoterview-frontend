@@ -7,6 +7,7 @@ import { io } from "socket.io-client";
 import { updateIntervieweeAnswer } from "../api";
 import { RECORD_STATE_TYPE } from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
+import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
 import { finishInterview } from "../redux/reducers/interviewee";
@@ -36,6 +37,10 @@ export default function InterviewPageContainer() {
   const peersRef = useRef([]);
   const [questionModalFlag, setQuestionModalFlag] = useState(false);
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
+  const { time, setIsActive } = useTimer();
+  const { token } = useToken();
+  const history = useHistory();
+
   //////////////////////////하영작업///////////////////////
   const isInterviewee = false;
   const {
@@ -50,10 +55,9 @@ export default function InterviewPageContainer() {
     socket,
     userId: genUuid(),
     isInterviewee,
+    setTimerActive: setIsActive,
   });
   //////////////////////////////////////////////////////
-  const { token } = useToken();
-  const history = useHistory();
 
   useEffect(() => {
     (async function getStreaming() {
@@ -175,7 +179,6 @@ export default function InterviewPageContainer() {
   }
 
   function handleProcessBtnClick() {
-    console.log(35);
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
       setQuestionModalFlag(true);
     }
@@ -259,6 +262,7 @@ export default function InterviewPageContainer() {
   return (
     <>
       <Interview
+        time={time}
         isQuestionModalOn={questionModalFlag}
         isTotalResultModalOn={totalResultModalFlag}
         onTotalResultModalClose={closeTotalResultModal}
