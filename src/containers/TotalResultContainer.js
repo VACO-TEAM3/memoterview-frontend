@@ -16,7 +16,7 @@ import {
   getInterviewees,
   intervieweeIdsToByIdObjs,
   updateIntervieweeRoomState,
-} from "../redux/reducers/interviewee";
+} from "../redux/reducers/interviewees";
 import {
   getDefaultTotalResultFilters,
   getFiltersFromFilterOptions,

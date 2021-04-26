@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import useToken from "../hooks/useToken";
-import { finishInterview, getInterviewee } from "../redux/reducers/interviewee";
+import { finishInterview, getInterviewee } from "../redux/reducers/interviewees";
 import { addMyProject, getJoinedProjects, getMyProjects } from "../redux/reducers/projects";
 import { loginUser } from "../redux/reducers/user";
 
