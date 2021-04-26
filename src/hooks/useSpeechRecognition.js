@@ -6,7 +6,6 @@ export default function useSpeechRecognition() {
   const [recogText, setRecogText] = useState();
 
   function handleRecognitionStart() {
-    console.log("init recogText");
     setRecogText("");
   }
 

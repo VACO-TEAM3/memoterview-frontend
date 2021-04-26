@@ -69,7 +69,7 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-    console.log(projectId, intervieweeId);
+
     dispatch(getJoinedProjects({ token, userId: "607d993601d20ebeb15e257b" }));
   }, []);
 

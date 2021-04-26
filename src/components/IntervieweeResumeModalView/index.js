@@ -60,7 +60,6 @@ export default function IntervieweeResumeModalView({ onCancleBtnClick }) {
     e.preventDefault();
 
     if (pageNumber <= numPages) {
-      console.log("first page");
       return;
     }
 
@@ -71,7 +70,6 @@ export default function IntervieweeResumeModalView({ onCancleBtnClick }) {
     e.preventDefault();
 
     if (pageNumber >= numPages) {
-      console.log("finished");
       return;
     }
 

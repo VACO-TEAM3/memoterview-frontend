@@ -59,7 +59,6 @@ export default function VoiceToTextTestPage() {
     });
     const uuid = genUuid();
     setUserId(uuid);
-    console.log("join socket as intervewer", uuid);
     alert("인터뷰어로 참가" + uuid);
   }
 
@@ -71,7 +70,6 @@ export default function VoiceToTextTestPage() {
       },
     });
     setIsInterviewee(true);
-    console.log("join socket as interviewee");
     alert("면접자로 참가");
   }
 

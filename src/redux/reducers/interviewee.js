@@ -131,8 +131,6 @@ export function extractIntervieweesByInterviewed(interviewees) {
   const waitingInterviewees = [];
   const resultInterviewees = [];
 
-  console.log(interviewees);
-
   for (const interviewee of interviewees) {
     if (interviewee.isInterviewed) {
       resultInterviewees.push(interviewee);

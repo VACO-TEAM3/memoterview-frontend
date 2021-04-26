@@ -21,7 +21,7 @@ export default function InterviewPageContainer() {
 
   //////////////////////////하영작업///////////////////////
   const [userId, setUserId] = useState("interviewee");
-  console.log("userId", userId);
+
   const recordBtnElementRef = useRef();
   const isInterviewee = true;
   const {
