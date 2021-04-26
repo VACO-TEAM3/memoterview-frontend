@@ -14,8 +14,8 @@ export const GET_TOKEN = BASE_PATH + "GET_TOKEN";
 export const GET_TOKEN_SUCCESS = BASE_PATH + "GET_TOKEN_SUCCESS";
 export const GET_TOKEN_ERROR = BASE_PATH + "GET_TOKEN_ERROR";
 
-export const loginUser = user => ({ type: GET_TOKEN, payload: user, meta: user });
-export const setUser = userInfo => ({ type: SET_USER, payload: userInfo });
+export const loginUser = (user) => ({ type: GET_TOKEN, payload: user, meta: user });
+export const setUser = (userInfo) => ({ type: SET_USER, payload: userInfo });
 
 const getTokenSaga = createAuthorizePromiseSaga(GET_TOKEN, login);
 
@@ -23,9 +23,8 @@ export function* userSaga() {
   yield takeLatest(GET_TOKEN, getTokenSaga);
 }
 
-function setUserSaga() {}
-
 const userInitialState = {
+  id: "",
   email: "",
   avatar: "",
   username: "",
@@ -48,16 +47,19 @@ export default function user(state = initialState, action) {
     }
     case GET_TOKEN: {
       return {
+        ...state,
         loading: true,
-        userData: null,
         token: "",
         error: null,
       };
     }
     case GET_TOKEN_SUCCESS: {
+      console.log("currentState", state);
+      console.log(state.userData);
+      console.log(action.payload.user);
       return {
         loading: false,
-        userData: { ...action.payload.user },
+        userData: { ...state.userData, ...action.payload.user },
         token: action.payload.token,
         error: null,
       };

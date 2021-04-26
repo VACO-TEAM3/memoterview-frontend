@@ -40,7 +40,7 @@ export default function WelcomeContainer() {
     e.preventDefault();
 
     history.push(`/interviewee/${projectId}/${intervieweeId}`);
-    dispatch(setUser({ username: newUserInfo.name, email: newUserInfo.email, avatar: newUserInfo.avatar }));
+    dispatch(setUser({ username: newUserInfo.name, email: newUserInfo.email, avatar: newUserInfo.avatar, isInterviewee: true }));
   }
 
   return (

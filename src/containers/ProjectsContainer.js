@@ -28,7 +28,7 @@ export default function ProjectsPageContainer() {
   const {
     projects: { byId, visibleProjects, loading },
   } = useSelector(({ projects }) => ({ projects }));
-
+  
   const [projectType, setProjectType] = useState(PROJECT_TYPES.MY_PROJECTS);
   const [modalFlag, setModalFlag] = useState(false);
 
