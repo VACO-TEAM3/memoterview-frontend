@@ -80,16 +80,22 @@ export default function InterviewPageContainer() {
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
     socket.emit("requestJoinRoom", { roomID: projectId, userData });
 
-    socket.on("successJoinUser", (targetUsers) => {
+    socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
         const peer = new Peer({
           initiator: true,
           trickle: false,
           stream,
         });
-
+        
         peer.on("signal", (signal) => {
           socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
+        });
+
+
+        setPeers((prev) => {
+          console.log("checkPeer", prev);
+          return [...prev, { peer, peerID: user.socketID }];
         });
 
         peersRef.current.push({
@@ -97,7 +103,6 @@ export default function InterviewPageContainer() {
           peer,
         });
 
-        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
       });
     });
 
@@ -107,19 +112,22 @@ export default function InterviewPageContainer() {
         trickle: false,
         stream,
       });
-
+      
       peer.on("signal", (signal) => {
         socket.emit("returnSignal", { signal, caller });
       });
 
       peer.signal(signal);
 
+      setPeers((prev) => {
+        console.log("ㅇㅓ디서 왔니?", prev);
+        return [...prev, { peer, peerID: caller }];
+      });
+
       peersRef.current.push({
         peerID: caller,
         peer,
       });
-
-      setPeers((prev) => [...prev, { peer, peerID: caller }]);
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
@@ -129,13 +137,23 @@ export default function InterviewPageContainer() {
     });
 
     socket.on("successToLeaveOtherUser", ({ id }) => {
-      const filteredPeers = peers.filter((peer) => peer.peerID !== id);
+      const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
+      
+      currentPeer.peer.destroy();
 
-      setPeers(filteredPeers);
+      const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
+      
+      peersRef.current = filteredPeers;
+      setPeers((prev) => {
+        console.log("prev", prev);
+        return filteredPeers;
+      });
     });
 
     return () => {
-      socket.disconnect();
+      if (isStreaming) {
+        socket.disconnect();
+      }
     };
   }, [isStreaming]);
 

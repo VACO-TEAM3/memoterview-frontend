@@ -51,24 +51,12 @@ export default function VoiceToTextTestPage() {
   }, [handleKeyDown]);
 
   function handleJoinInterviewer() {
-    socket.emit("requestJoinRoom", {
-      roomID: "test",
-      userData: {
-        isInterviewee: false,
-      },
-    });
     const uuid = genUuid();
     setUserId(uuid);
     alert("인터뷰어로 참가" + uuid);
   }
 
   function handleJoinInterviewee() {
-    socket.emit("requestJoinRoom", {
-      roomID: "test",
-      userData: {
-        isInterviewee: true,
-      },
-    });
     setIsInterviewee(true);
     alert("면접자로 참가");
   }
