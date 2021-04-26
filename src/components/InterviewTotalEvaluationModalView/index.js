@@ -15,6 +15,7 @@ export default function InterviewTotalEvaluationModalView({
   onFilterRateChange, 
   onResultSubmit,
 }) {
+  console.log(filters);
   return (
     <ModalView padding="20px" width="500px" height="600px">
       <ViewWrapper>
