@@ -81,7 +81,7 @@ export default function InterviewPageContainer() {
       return;
     }
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData } });
+    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData, isInterviewee: userData.isInterviewee } });
 
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -221,45 +221,6 @@ export default function InterviewPageContainer() {
     setComment(value);
   }
 
-  function handleResultSubmit(event) {
-    event.preventDefault();
-
-    dispatch(finishInterview({ 
-      token, 
-      projectId, 
-      intervieweeId, 
-      interviewee: {
-        filterScores: { ...filterRates },
-        comments: {
-          comment,
-          score: totalRate,
-          commentor: userData.id,
-        },
-      },
-    }));
-    
-    history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
-  }
-
-  async function handleQuestionSubmit(event) {
-    event.preventDefault();
-
-    await updateIntervieweeAnswer({
-      projectId,
-      intervieweeId,
-      token,
-      question: {
-        title: question,
-        answer,
-        score: Number(questionRate),
-        interviewer: userData.id,
-      },
-    });
-
-    uploadComplete();
-    setQuestionModalFlag(false);
-  }
-
   return (
     <>
       <Interview
@@ -282,10 +243,8 @@ export default function InterviewPageContainer() {
         onFilterRateChange={handleFilterRate}
         onQuestionRateChange={handleQuestionRate}
         onCommentChange={handleCommentChange}
-        onResultSubmit={handleResultSubmit}
         onBackButtonClick={handleBackBtn}
         onQuestionModalClose={closeQuestionModal}
-        onQuestionSubmit={handleQuestionSubmit}
       />
     </>
   );
