@@ -18,6 +18,7 @@ import genUuid from "../utils/uuid";
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER), []);
   const dispatch = useDispatch();
+
   const { intervieweeId, projectId } = useParams();
 
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
@@ -77,8 +78,8 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-    // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData } });
+    
+    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData, isInterviewee: userData.isInterviewee } });
 
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
