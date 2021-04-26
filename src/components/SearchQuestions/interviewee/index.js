@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { ELLIPSIZE_LENGTH } from "../../../constants/ellipsizeLength";
-import { createStars } from "../../../utils/createStar";
+import { createStars } from "../../../utils/createStars";
 import { changeDateFormat } from "../../../utils/date";
 import { ellipsizeText } from "../../../utils/ellipsizeText";
 

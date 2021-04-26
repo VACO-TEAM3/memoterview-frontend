@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { createStars } from "../../../utils/createStars";
 import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 
 const Header = styled.div`
@@ -39,10 +40,9 @@ const Stars = styled.div`
 `;
 
 function IntervieweeDetailHeader({
-  createFinalScoreStars,
-  comments,
   email,
   name,
+  commentAvgScore,
 }) {
   return (
     <Header>
@@ -50,7 +50,7 @@ function IntervieweeDetailHeader({
       <FinalScore>
         <FinalContainer>
           <Label>최종 평가</Label>
-          <Stars>{ createFinalScoreStars(comments) }</Stars>
+          <Stars>{createStars(commentAvgScore)}</Stars>
         </FinalContainer>
       </FinalScore>
     </Header>
