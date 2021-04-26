@@ -243,12 +243,13 @@ export default function InterviewPageContainer() {
 
     await updateIntervieweeAnswer({
       intervieweeId,
+      projectId,
       token,
       question: {
         title: question,
         answer,
         score: Number(questionRate),
-        questioner: userData.id,
+        interviewer: userData.id,
       },
     });
 
