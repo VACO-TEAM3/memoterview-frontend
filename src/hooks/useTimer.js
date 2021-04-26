@@ -13,8 +13,9 @@ export default function useTimer(initialState = 0) {
 
     if (isActive) {
       interval = window.setInterval(() => {
+        console.log(30);
         setTime((prev) => prev + 1);
-      }, 60000);
+      }, 1000);
     } else {
       clearInterval(interval);
     }
@@ -24,13 +25,5 @@ export default function useTimer(initialState = 0) {
     };
   }, [isActive]);
 
-  function handleStart() {
-    setIsActive(true);
-  }
-
-  function handleStop() {
-    setIsActive(false);
-  }
-
-  return { time: { hour, min }, handleStart, handleStop };
+  return { time: { hour, min }, setIsActive };
 }
