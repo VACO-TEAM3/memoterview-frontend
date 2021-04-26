@@ -13,7 +13,6 @@ import WelcomeContainer from "../../containers/WelcomeContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
 import Projects from "../../pages/Projects";
-import VoiceToTextTestPage from "../../pages/VoiceToTextTestPage";
 import AuthRoute from "../AuthRoute";
 
 export default function App() {
@@ -46,9 +45,6 @@ export default function App() {
         </AuthRoute>
         <AuthRoute path="/interview/:projectId">
           <InterviewContainerHelper />
-        </AuthRoute>
-        <AuthRoute path="/voiceTest">
-          <VoiceToTextTestPage />
         </AuthRoute>
         <Redirect to="/" />
       </Switch>

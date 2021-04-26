@@ -54,9 +54,6 @@ export default function user(state = initialState, action) {
       };
     }
     case GET_TOKEN_SUCCESS: {
-      console.log("currentState", state);
-      console.log(state.userData);
-      console.log(action.payload.user);
       return {
         loading: false,
         userData: { ...state.userData, ...action.payload.user },
@@ -101,7 +98,6 @@ export default function user(state = initialState, action) {
     }
     case SET_USER: {
       const userInfo = action.payload;
-
       return {
         ...state,
         userData: {
@@ -109,6 +105,7 @@ export default function user(state = initialState, action) {
           email: userInfo.email,
           username: userInfo.username,
           avatar: userInfo.avatar,
+          isInterviewee: userInfo.isInterviewee,
         },
       };
     }
