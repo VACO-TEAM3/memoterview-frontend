@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
@@ -32,7 +32,7 @@ export default function InterviewPageContainer() {
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
   const { time, setIsActive } = useTimer();
   const { token } = useToken();
-  console.log(userData.isInterviewee);
+
   //////////////////////////하영작업///////////////////////
   const {
     recordStateType,
@@ -67,7 +67,7 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-    // todo. userData -> isInterviewee 정보 포함한 userData로 받게
+
     socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData, isInterviewee: userData.isInterviewee } });
 
     socket.on("joinSuccess", (targetUsers) => {
@@ -137,14 +137,6 @@ export default function InterviewPageContainer() {
     };
   }, [isStreaming]);
 
-  function closeTotalResultModal() {
-    setTotalResultModalFlag(false);
-  }
-
-  function closeQuestionModal() {
-    setQuestionModalFlag(false);
-  }
-
   function handleBackBtn() {
     setTotalResultModalFlag(true);
   }
@@ -171,7 +163,6 @@ export default function InterviewPageContainer() {
         time={time}
         isQuestionModalOn={questionModalFlag}
         isTotalResultModalOn={totalResultModalFlag}
-        onTotalResultModalClose={closeTotalResultModal}
         project={project}
         user={userVideo}
         userData={userData}
@@ -183,7 +174,6 @@ export default function InterviewPageContainer() {
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
         onBackButtonClick={handleBackBtn}
-        onQuestionModalClose={closeQuestionModal}
       />
     </>
   );
