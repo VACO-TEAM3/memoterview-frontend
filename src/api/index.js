@@ -121,7 +121,7 @@ export async function getIntervieweesApi({ projectId, token }) {
 }
 
 export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/${projectId}/${intervieweeId}`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
