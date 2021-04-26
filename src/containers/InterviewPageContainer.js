@@ -11,20 +11,20 @@ import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
 import { finishInterview } from "../redux/reducers/interviewees";
-import { getJoinedProjects, getProjectById } from "../redux/reducers/projects";
+import { getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER), []);
-
   const dispatch = useDispatch();
+  const { intervieweeId, projectId } = useParams();
+
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { project } = useSelector(({ projects }) => ({
-    project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
+    project: getProjectById(projects, projectId),
   }));
 
-  const { intervieweeId, projectId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
   const [filterRates, setFilterRates] = useState({});
   const [questionRate, setQuestionRate] = useState(0);
@@ -71,8 +71,6 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-
-    dispatch(getJoinedProjects({ token, userId: "607d993601d20ebeb15e257b" }));
   }, []);
 
   useEffect(() => {
@@ -180,7 +178,7 @@ export default function InterviewPageContainer() {
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
       setQuestionModalFlag(true);
     }
-    
+
     setNextRecordStateType();
   }
 
@@ -231,7 +229,7 @@ export default function InterviewPageContainer() {
         comments: {
           comment,
           score: totalRate,
-          commentor: "607959226727251880113f56",
+          commentor: userData.id,
         },
       },
     }));
@@ -249,7 +247,7 @@ export default function InterviewPageContainer() {
         title: question,
         answer,
         score: Number(questionRate),
-        questioner: "605196ca563c9972",
+        questioner: userData.id,
       },
     });
 
