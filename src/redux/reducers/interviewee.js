@@ -91,6 +91,7 @@ const intervieweesInitialState = {
   isInterviewed: false,
   questioner: questionInitialState,
   comments: commentInitialState,
+  isOpened: false,
 };
 
 const initialState = {
