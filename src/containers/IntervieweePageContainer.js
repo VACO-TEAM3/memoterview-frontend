@@ -233,7 +233,7 @@ export default function InterviewPageContainer() {
         comments: {
           comment,
           score: totalRate,
-          commentor: "607959226727251880113f56",
+          commentor: userData.id,
         },
       },
     }));
@@ -241,17 +241,18 @@ export default function InterviewPageContainer() {
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
 
-  function handleQuestionSubmit(event) {
+  async function handleQuestionSubmit(event) {
     event.preventDefault();
 
-    updateIntervieweeAnswer({
-      intervieweeId: "60851da05b5196ca563c9972",
+    await updateIntervieweeAnswer({
+      projectId,
+      intervieweeId,
       token,
       question: {
         title: question,
         answer,
         score: Number(questionRate),
-        questioner: "605196ca563c9972",
+        interviewer: userData.id,
       },
     });
 
