@@ -31,7 +31,7 @@ export default function App() {
         <AuthRoute path="/interview/:projectId/:intervieweeId">
           <InterviewPageContainer />
         </AuthRoute>
-        <AuthRoute path="/interviewee">
+        <AuthRoute path="/interviewee/:projectId/:intervieweeId">
           <IntervieweePageContainer />
         </AuthRoute>
         <AuthRoute path="/projects/:projectId" exact>
