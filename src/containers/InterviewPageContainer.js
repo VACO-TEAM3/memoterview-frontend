@@ -185,8 +185,10 @@ export default function InterviewPageContainer() {
 
   const handleKeyDown = useCallback(
     (event) => {
-      if (event.key === " " || event.key === "Spacebar") {
-        setNextRecordStateType();
+      if (!isDisabled) {
+        if (event.key === " " || event.key === "Spacebar") {
+          setNextRecordStateType();
+        }
       }
     },
     [setNextRecordStateType]
