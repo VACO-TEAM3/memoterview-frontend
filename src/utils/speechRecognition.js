@@ -1,5 +1,3 @@
-console.log("useSpeechRecognition");
-
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -24,8 +22,6 @@ export const startSpeechRecognition = ({
   if (isRecording) {
     return;
   }
-
-  console.log("recognition start");
 
   const recognitionInstance = new SpeechRecognition();
 

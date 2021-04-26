@@ -14,7 +14,6 @@ export function loginAPI({ email, imageURL, name }) {
 }
 
 export function getMyProjectsAPI(userId) {
-  console.log("getMyProjectsAPI", userId);
   return new Promise(resolve => {
     setTimeout(() => {
       resolve([
@@ -36,7 +35,6 @@ export function getMyProjectsAPI(userId) {
 };
 
 export function getJoinedProjectsAPI(userId) {
-  console.log("getJoinedProjectsAPI", userId);
   return new Promise(resolve => {
     setTimeout(() => {
       resolve([
@@ -58,7 +56,6 @@ export function getJoinedProjectsAPI(userId) {
 };
 
 export function addProjectAPI({ userId, newProject }) {
-  console.log("addProjectAPI", userId, newProject);
   return new Promise(resolve => {
     setTimeout(() => {
       const createdProject = {
@@ -78,7 +75,6 @@ export function addProjectAPI({ userId, newProject }) {
 }
 
 export function addNewIntervieweeAPI({ userId, interviwerInfo }) {
-  console.log("openInterviewRoomApi", userId, interviwerInfo);
   return new Promise(resolve => {
     setTimeout(() => {
       const newInterviewee = {

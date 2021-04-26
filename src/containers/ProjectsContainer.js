@@ -79,7 +79,6 @@ export default function ProjectsPageContainer() {
 
   function handleProjectItemClick(projectId) {
     history.push(`/projects/${projectId}`);
-    console.log("click project item", projectId);
   }
 
   function handleStatusMenuChange(statusMenuType) {
