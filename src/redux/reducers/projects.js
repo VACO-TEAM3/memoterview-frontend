@@ -97,7 +97,6 @@ const projectInitialState = {
   title: "",
   candidates: [],
   status: "",
-  isOpened: false,
   creator: "",
   filters: [],
   participants: [],
