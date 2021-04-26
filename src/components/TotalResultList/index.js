@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { sortInterviewees } from "../../redux/reducers/interviewee";
+import { sortInterviewees } from "../../redux/reducers/interviewees";
 import TotalResultEntry from "./TotalResultEntry";
 import TotalResultListHeader from "./TotalResultListHeader";
 

@@ -24,7 +24,7 @@ const Comment = styled.li`
   border-radius: 10px;
 `;
 
-function IntervieweeDetailComments({ comments, createStars }) {
+function IntervieweeDetailComments({ comments }) {
   return (
     <Comments>
       {
@@ -33,7 +33,7 @@ function IntervieweeDetailComments({ comments, createStars }) {
             <>
               <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
               <CommentList>
-                <Comment>총평: {comment.score}{createStars(comment.score)}</Comment>
+                <Comment>총평: {comment.score}</Comment>
                 <Comment>코멘트: {comment.comment}</Comment>
               </CommentList>
             </>

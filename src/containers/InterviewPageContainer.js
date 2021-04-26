@@ -10,7 +10,7 @@ import useInterviewRecord from "../hooks/useInterviewRecord";
 import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
-import { finishInterview } from "../redux/reducers/interviewee";
+import { finishInterview } from "../redux/reducers/interviewees";
 import { getJoinedProjects, getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
@@ -20,7 +20,7 @@ export default function InterviewPageContainer() {
 
   const dispatch = useDispatch();
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
-  const { project } = useSelector(({ projects }) => ({ 
+  const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
   }));
 
