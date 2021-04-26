@@ -23,42 +23,33 @@ export default function App() {
         <Route path="/" exact>
           <LoginPageContainer />
         </Route>
-
         <Route path="/welcome/:projectId/:intervieweeId" >
           <WelcomeContainer />
         </Route>
-
         <AuthRoute path="/projects" exact>
           <ProjectsContainer />
         </AuthRoute>
-
         <AuthRoute path="/projects/:projectId" exact >
           <TotalResultContainer />
         </AuthRoute>
-
         <AuthRoute path="/projects/:projectId/search">
           <SearchContainer />
         </AuthRoute>
-
         <AuthRoute path="/interview/:projectId/:intervieweeId">
           <InterviewPageContainer />
         </AuthRoute>
         <AuthRoute path="/interviewee/:projectId/:intervieweeId">
           <IntervieweePageContainer />
         </AuthRoute>
-
         <AuthRoute path="/result/:projectId/:intervieweeId">
           <IntervieweeDetailContainer />
         </AuthRoute>
-
         <AuthRoute path="/interview/:projectId">
           <InterviewContainerHelper />
         </AuthRoute>
-
         <AuthRoute path="/voiceTest">
           <VoiceToTextTestPage />
         </AuthRoute>
-
         <Redirect to="/" />
       </Switch>
     </ThemeProvider>

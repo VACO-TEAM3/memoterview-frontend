@@ -26,13 +26,11 @@ const Main = styled.div`
 `;
 
 export default function IntervieweeDetail({
-  createStars,
   onGeneratePdfBtnClick,
   intervieweeInfo,
   onGoBackButtonClick,
-  createFinalScoreStars,
 }) {
-  const { email, name, comments, questions } = intervieweeInfo;
+  const { email, name, comments, questions, commentAvgScore } = intervieweeInfo;
 
   return (
     <>
@@ -45,10 +43,10 @@ export default function IntervieweeDetail({
           name={name}
           email={email}
           comments={comments}
-          createFinalScoreStars={createFinalScoreStars}
+          commentAvgScore={commentAvgScore}
         />
         <Main>
-          <IntervieweeDetailEvaluationEntry createStars={createStars} comments={comments}/>
+          <IntervieweeDetailEvaluationEntry comments={comments}/>
           <IntervieweeDetailScript questions={questions}/>
         </Main>
       </MainLayoutWrapper>
