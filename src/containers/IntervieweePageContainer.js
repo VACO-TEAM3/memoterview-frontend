@@ -1,40 +1,60 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
+import { updateIntervieweeAnswer } from "../api";
+import { RECORD_STATE_TYPE } from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
+import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
+import { finishInterview } from "../redux/reducers/interviewee";
+import { getJoinedProjects, getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
+import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_LOCAL), []);
+  const dispatch = useDispatch();
 
-  const { id: roomID } = useParams();
-  const userData = Math.random(); // 리덕스와 연결되면 유저데이터로 받아야함
+  const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
+  const { project } = useSelector(({ projects }) => ({ 
+    project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
+  }));
+
+  const { intervieweeId, projectId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false);
+  const [filterRates, setFilterRates] = useState({});
+  const [questionRate, setQuestionRate] = useState(0);
+  const [totalRate, setTotalRate] = useState(0);
+  const [comment, setComment] = useState("");
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [stream, setStream] = useState(null);
   const userVideo = useRef();
   const peersRef = useRef([]);
-
+  const [questionModalFlag, setQuestionModalFlag] = useState(false);
+  const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
   //////////////////////////하영작업///////////////////////
-  const [userId, setUserId] = useState("interviewee");
-
   const recordBtnElementRef = useRef();
   const isInterviewee = true;
   const {
     recordStateType,
     recogText,
     setNextRecordStateType,
+    answer,
+    question,
+    uploadComplete,
   } = useInterviewRecord({
     socket,
     recordBtnElementRef,
-    userId,
+    userId: genUuid(),
     isInterviewee,
   });
   //////////////////////////////////////////////////////
+  const { token } = useToken();
+  const history = useHistory();
 
   useEffect(() => {
     (async function getStreaming() {
@@ -49,17 +69,19 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
+    
+    dispatch(getJoinedProjects({ token, userId: "607d993601d20ebeb15e257b" }));
   }, []);
 
   useEffect(() => {
     if (!isStreaming) {
       return;
     }
-
     // todo. userData -> isInterviewee 정보 포함한 userData로 받게
-    socket.emit("requestJoinRoom", { roomID, userData: { isInterviewee } });
+    socket.emit("requestJoinRoom", { roomID: projectId, userData });
 
     socket.on("successJoinUser", (targetUsers) => {
+      console.log(socket.id);
       targetUsers.forEach((user) => {
         const peer = new Peer({
           initiator: true,
@@ -76,7 +98,7 @@ export default function InterviewPageContainer() {
           peer,
         });
 
-        setPeers((prev) => [...prev, peer]);
+        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
       });
     });
 
@@ -98,7 +120,7 @@ export default function InterviewPageContainer() {
         peer,
       });
 
-      setPeers((prev) => [...prev, peer]);
+      setPeers((prev) => [...prev, { peer, peerID: caller }]);
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
@@ -106,7 +128,29 @@ export default function InterviewPageContainer() {
 
       peer.signal(signal);
     });
+
+    socket.on("successToLeaveOtherUser", ({ id }) => {
+      const filteredPeers = peers.filter((peer) => peer.peerID !== id);
+
+      setPeers(filteredPeers);
+    });
+
+    return () => {
+      console.log(30);
+    };
   }, [isStreaming]);
+
+  function closeTotalResultModal() {
+    setTotalResultModalFlag(false);
+  }
+
+  function closeQuestionModal() {
+    setQuestionModalFlag(false);
+  }
+
+  function handleBackBtn() {
+    setTotalResultModalFlag(true);
+  }
 
   function handleVideo(state) {
     if (state) {
@@ -125,6 +169,10 @@ export default function InterviewPageContainer() {
   }
 
   function handleProcessBtnClick() {
+    if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
+      setQuestionModalFlag(true);
+    }
+    
     setNextRecordStateType();
   }
 
@@ -145,11 +193,69 @@ export default function InterviewPageContainer() {
     };
   }, [handleKeyDown]);
 
+  function handleFilterRate(rateOption, value) {
+    setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
+  }
+
+  function handleTotalRate(_, value) {
+    setTotalRate(value);
+  }
+
+  function handleQuestionRate(_, value) {
+    setQuestionRate(value);
+  }
+
+  function handleCommentChange({ target: { value } }) {
+    setComment(value);
+  }
+
+  function handleResultSubmit(event) {
+    event.preventDefault();
+
+    dispatch(finishInterview({ 
+      token, 
+      projectId, 
+      intervieweeId, 
+      interviewee: {
+        filterScores: { ...filterRates },
+        comments: {
+          comment,
+          score: totalRate,
+          commentor: "607959226727251880113f56",
+        },
+      },
+    }));
+    
+    history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
+  }
+
+  function handleQuestionSubmit(event) {
+    event.preventDefault();
+
+    updateIntervieweeAnswer({
+      intervieweeId: "60851da05b5196ca563c9972",
+      token,
+      question: {
+        title: question,
+        answer,
+        score: Number(questionRate),
+        questioner: "605196ca563c9972",
+      },
+    });
+
+    uploadComplete();
+    setQuestionModalFlag(false);
+  }
+
   return (
     <>
-      {"인터뷰이"}
       <Interview
+        isQuestionModalOn={questionModalFlag}
+        isTotalResultModalOn={totalResultModalFlag}
+        onTotalResultModalClose={closeTotalResultModal}
+        project={project}
         user={userVideo}
+        userData={userData}
         interviewers={peers}
         recordBtnElementRef={recordBtnElementRef}
         recordStateType={recordStateType}
@@ -158,6 +264,14 @@ export default function InterviewPageContainer() {
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
         onProcessBtnClick={handleProcessBtnClick}
+        onTotalRateChange={handleTotalRate}
+        onFilterRateChange={handleFilterRate}
+        onQuestionRateChange={handleQuestionRate}
+        onCommentChange={handleCommentChange}
+        onResultSubmit={handleResultSubmit}
+        onBackButtonClick={handleBackBtn}
+        onQuestionModalClose={closeQuestionModal}
+        onQuestionSubmit={handleQuestionSubmit}
       />
     </>
   );

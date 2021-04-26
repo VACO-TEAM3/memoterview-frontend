@@ -18,14 +18,15 @@ const VideoContentWrapper = styled.div`
 `;
 
 export default function VideoContent({ interviewers, user }) {
+  console.log("interviewers", interviewers);
   return (
     <VideoContentWrapper>
       <div className="main-video">
         <MainVideo videoRef={user} />
       </div>
       {interviewers?.map((peer) => (
-        <div className="sub-videos">
-          <SubVideo key={peer.peerID} peer={peer} />
+        <div key={peer.peerID} className="sub-videos">
+          <SubVideo peer={peer} />
         </div>
       ))}
     </VideoContentWrapper>
