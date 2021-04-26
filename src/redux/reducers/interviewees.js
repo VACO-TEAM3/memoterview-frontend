@@ -1,6 +1,6 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
-import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweeApi, getIntervieweesApi, updateInterviewee, updateInterviewRoomState } from "../../api";
+import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweeApi, getIntervieweesAPI, updateInterviewee, updateInterviewRoomState } from "../../api";
 import { FILTER_TYPES } from "../../utils/filters";
 import { handleAsyncRemoveStateActionsWithNormalize, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import { createPromiseSaga } from "../lib/sagaUtils";
@@ -78,7 +78,7 @@ export const updateIntervieweeRoomState = ({ token, projectId, intervieweeId, is
   meta: intervieweeId,
 });
 
-export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesApi);
+export const getIntervieweesSaga = createPromiseSaga(GET_INTERVIEWEES, getIntervieweesAPI);
 export const getIntervieweeSaga = createPromiseSaga(GET_INTERVIEWEE, getIntervieweeApi);
 export const addNewIntervieweeSaga = createPromiseSaga(ADD_NEW_INTERVIEWEE, createIntervieweeAPI);
 export const updateIntervieweeRoomStateSaga = createPromiseSaga(UPDATE_ROOMSTATE_INTERVIEWEE, updateInterviewRoomState);
