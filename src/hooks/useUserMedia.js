@@ -14,6 +14,7 @@ export default function useUserMedia(mediaOption) {
         console.error(error);
       }
     }
+    
     if (!localStream) {
       getLocalStream(mediaOption);
 
