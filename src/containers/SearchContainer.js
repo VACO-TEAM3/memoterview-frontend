@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
-import { searchQuestions } from "../api";
+import { searchQuestionsAPI } from "../api";
 import useToken  from "../hooks/useToken";
 import Search from "../pages/Search";
 import { setUser } from "../redux/reducers/user";
@@ -26,7 +26,7 @@ export default function SearchContainer() {
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const questions = await searchQuestions({ token, inputText, projectId });
+    const questions = await searchQuestionsAPI({ token, inputText, projectId });
 
     setQuestionList(questions);
     setInputText("");
