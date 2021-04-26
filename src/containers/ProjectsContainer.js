@@ -48,10 +48,7 @@ export default function ProjectsPageContainer() {
     if (menu === MENUS.MY) {
       return setProjectType(PROJECT_TYPES.MY_PROJECTS);
     } else {
-      if (!visibleProjects[PROJECT_TYPES.JOINED_PROJECTS].length) {
-        dispatch(getJoinedProjects({ userId: id, token }));
-      }
-
+      dispatch(getJoinedProjects({ userId: id, token }));
       setProjectType(PROJECT_TYPES.JOINED_PROJECTS);
     }
   }

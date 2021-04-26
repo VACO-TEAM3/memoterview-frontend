@@ -202,12 +202,12 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
     }
   );
 
-  const { data, result } = await response.json();
+  const { data } = await response.json();
 
   return data;
 }
 
-export async function updateIntervieweeAnswer({ intervieweeId, question, token }) {
+export async function updateIntervieweeAnswer({ projectId, intervieweeId, question, token }) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewees/${intervieweeId}/answer`, {
     method: "PATCH",
     headers: {
@@ -215,10 +215,10 @@ export async function updateIntervieweeAnswer({ intervieweeId, question, token }
       "Content-Type": "application/json",
       "authorization": `Bearer ${token}`,
     },
-    body: JSON.stringify({ question, intervieweeId }),
+    body: JSON.stringify({ projectId, question, intervieweeId }),
   });
 
-  const { data, result } = await response.json();
+  const { data } = await response.json();
 
   return data;
 };
