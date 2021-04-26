@@ -22,7 +22,7 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    opacity: 0.7;
+    opacity: ${({ disabled }) => disabled ? 1 : 0.7};
   }
 `;
 
@@ -59,8 +59,8 @@ export default function TotalResultIntervieweeItem({
         {intervieweeEmail}
       </TotalResultIntervieweeColumn>
       <TotalResultIntervieweeColumn>
-        <Button onClick={handleInviteBtnClick}>면접 초대</Button>
-        <Button onClick={handleRoomEnterBtnClick}>면접 입장</Button>
+        <Button onClick={handleInviteBtnClick} disabled={interviewee.isRoomOpened}>면접 초대</Button>
+        <Button onClick={handleRoomEnterBtnClick} disabled={!interviewee.isRoomOpened}>면접 입장</Button>
       </TotalResultIntervieweeColumn>
       <TotalResultIntervieweeColumn>
         <FontAwesomeIcon icon={faTimes} onClick={handleDeleteBtnClick} />

@@ -20,7 +20,7 @@ export function mappedFilterValue({ interviewee, columnItem }) {
     case FILTER_TYPES.QUESTION_SCORE:
       return interviewee.questionAvgScore;
     case FILTER_TYPES.QUESTION_NUM:
-      return interviewee.questions.length;
+      return interviewee.questionsNum;
     case FILTER_TYPES.INTERVIEW_DURATION:
       return interviewee.interviewDuration;
     case FILTER_TYPES.INTERVIEW_DATE:

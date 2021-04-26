@@ -74,7 +74,6 @@ export default function ProjectsPageContainer() {
   }
 
   function handleLogoutBtnClick() {
-    console.log("click logout");
   }
 
   function handleProjectItemClick(projectId) {
@@ -82,7 +81,6 @@ export default function ProjectsPageContainer() {
   }
 
   function handleStatusMenuChange(statusMenuType) {
-    console.log(statusMenuType, `clicked status menu ${statusMenuType}`);
   }
 
   return (
