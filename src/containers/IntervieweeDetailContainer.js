@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -10,7 +12,9 @@ export default function IntervieweeDetailContainer() {
   const history = useHistory();
 
   const { projectId, intervieweeId } = useParams();
-  const { interviewees: { byId } } = useSelector(({ interviewees }) => ({ interviewees }));
+  const {
+    intervieweeInfo,
+  } = useSelector(({ interviewees: { byId } }) => ({ intervieweeInfo: getIntervieweeInfo(byId[intervieweeId]) }));
 
   function handleGoBackButtonClick(e) {
     e.preventDefault();
@@ -18,8 +22,7 @@ export default function IntervieweeDetailContainer() {
     history.push(`/projects/${projectId}`);
   }
 
-  function setIntervieweeInfo(currentUserInfo) {
-
+  function getIntervieweeInfo(currentUserInfo) {
     return {
       name: currentUserInfo?.name,
       email: currentUserInfo?.email,
@@ -27,19 +30,19 @@ export default function IntervieweeDetailContainer() {
       questions: currentUserInfo?.questions,
       commentAvgScore: currentUserInfo?.commentAvgScore,
     };
-  };
+  }
 
   function handleGeneratePdfBtnClick(e) {
-    console.log("pdf btn clicked");
+
   }
 
   return (
-    <>
+    <div>
       <IntervieweeDetail
         onGeneratePdfBtnClick={handleGeneratePdfBtnClick}
         onGoBackButtonClick={handleGoBackButtonClick}
-        intervieweeInfo={setIntervieweeInfo(byId[intervieweeId])}
+        intervieweeInfo={intervieweeInfo}
       />
-    </>
+    </div>
   );
 }
