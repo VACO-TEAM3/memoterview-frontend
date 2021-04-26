@@ -24,7 +24,6 @@ const Comment = styled.li`
   border-radius: 10px;
 `;
 
-
 function IntervieweeDetailComments({ comments, createStars }) {
   return (
     <Comments>
