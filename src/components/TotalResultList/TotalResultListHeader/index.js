@@ -10,6 +10,10 @@ const TotalResultListHeaderWrapper = styled(TotalResultListRow)`
   background-color: ${({ theme }) => theme.Aero};
   border: 1px solid gray;
   font-size: 1.2rem;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.Aero};
+  }
 `;
 
 const TotalResultListFilterWrapper = styled(TotalResultListColumn)`
