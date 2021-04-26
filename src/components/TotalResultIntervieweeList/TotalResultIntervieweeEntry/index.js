@@ -15,6 +15,7 @@ export default function TotalResultIntervieweeEntry({
   onItemInviteBtnClick,
   onItemRoomEnterBtnClick,
 }) {
+
   return (
     <TotalResultIntervieweeEntryWrapper>
       {interviewees.map((interviewee) => (

@@ -15,9 +15,17 @@ import {
   extractIntervieweesByInterviewed,
   getInterviewees,
   intervieweeIdsToByIdObjs,
+  updateIntervieweeRoomState,
 } from "../redux/reducers/interviewee";
-import { getDefaultTotalResultFilters, getFiltersFromFilterOptions } from "../utils/filters";
-import { getDetailResultLink, getInterviewRoomLink, getWelcomLink } from "../utils/path";
+import {
+  getDefaultTotalResultFilters,
+  getFiltersFromFilterOptions,
+} from "../utils/filters";
+import {
+  getDetailResultLink,
+  getInterviewRoomLink,
+  getWelcomLink,
+} from "../utils/path";
 
 const MODAL_TYPE = {
   ADD: "add",
@@ -79,8 +87,7 @@ export default function TotalResultContainer() {
     closeModal();
   }
 
-  function handleLogoutClick() {
-  }
+  function handleLogoutClick() {}
 
   function handleIntervieweeInviteBtnClick({
     intervieweeId,
@@ -96,6 +103,15 @@ export default function TotalResultContainer() {
         intervieweeEmail,
         welcomePageLink,
       });
+
+      dispatch(
+        updateIntervieweeRoomState({
+          token,
+          projectId,
+          intervieweeId,
+          isRoomOpened: true,
+        })
+      );
     } catch (error) {
       console.error(error);
     }
