@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { createStars } from "../../../utils/createStar";
 import { changeDateFormat } from "../../../utils/date";
 
 const IntervieweeWrapper = styled.div`
@@ -38,12 +39,13 @@ export default function Interviewee({ searchResult }) {
 
   const formattedInterviewDate = changeDateFormat(searchResult.interviewDate, "yyyy-MM-dd");
 
+
   return (
     <IntervieweeWrapper>
       <ResultWrapper><Label>답변자:</Label><DataWrapper>{searchResult.intervieweeName}</DataWrapper></ResultWrapper>
       <ResultWrapper><Label>답변날짜:</Label><DataWrapper>{formattedInterviewDate}</DataWrapper></ResultWrapper>
       <ResultWrapper><Label>답변:</Label><DataWrapper>{ellipsizedAnswewr}</DataWrapper></ResultWrapper>
-      <ResultWrapper><Label>점수:</Label> <DataWrapper>{searchResult.score}</DataWrapper></ResultWrapper>
+      <ResultWrapper><Label>점수:</Label> <DataWrapper>{createStars(searchResult.score)}</DataWrapper></ResultWrapper>
     </IntervieweeWrapper>
   );
 }
