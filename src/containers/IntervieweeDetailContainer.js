@@ -9,6 +9,7 @@ import { STARS } from "../constants/interviewee";
 import useToken from "../hooks/useToken";
 import IntervieweeDetail from "../pages/IntervieweeDetail";
 import { getInterviewees } from "../redux/reducers/interviewee";
+import { createStars } from "../utils/createStar";
 
 export default function IntervieweeDetailContainer() {
   const dispatch = useDispatch();
@@ -23,25 +24,25 @@ export default function IntervieweeDetailContainer() {
     history.push(`/projects/${projectId}`);
   }
 
-  function createStars(score) {
-    const stars = [];
-    let totalStarNums = STARS.TOTAL_STARS_NUMS;
-    let fullStarNums = score;
+  // function createStars(score) {
+  //   const stars = [];
+  //   let totalStarNums = STARS.TOTAL_STARS_NUMS;
+  //   let fullStarNums = score;
 
-    while (totalStarNums > 0) {
-      if (fullStarNums > 0) {
-        stars.push(<FontAwesomeIcon icon={faStar}/>);
-        fullStarNums--;
-        totalStarNums--;
-        continue;
-      }
+  //   while (totalStarNums > 0) {
+  //     if (fullStarNums > 0) {
+  //       stars.push(<FontAwesomeIcon icon={faStar}/>);
+  //       fullStarNums--;
+  //       totalStarNums--;
+  //       continue;
+  //     }
 
-      stars.push(<FontAwesomeIcon icon={emptyStar}/>);
-      totalStarNums--;
-    }
+  //     stars.push(<FontAwesomeIcon icon={emptyStar}/>);
+  //     totalStarNums--;
+  //   }
 
-    return stars;
-  }
+  //   return stars;
+  // }
 
   function createFinalScoreStars(comments) {
     let initialScore = 0;
