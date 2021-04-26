@@ -33,7 +33,7 @@ const ResultWrapper = styled.div`
 const SearchResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1vh 0 1vh 4vw;
+  padding: 1vh 4vw;
   background-color: purple;
   border: 1px solid white;
 `;
