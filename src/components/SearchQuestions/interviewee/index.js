@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { changeDateFormat } from "../../../utils/date";
+
 const IntervieweeWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,10 +36,12 @@ export default function Interviewee({ searchResult }) {
     ? searchResult.answer.substring(0, 70) + "..."
     : searchResult.answer;
 
+  const formattedInterviewDate = changeDateFormat(searchResult.interviewDate, "yyyy-MM-dd");
+
   return (
     <IntervieweeWrapper>
       <ResultWrapper><Label>답변자:</Label><DataWrapper>{searchResult.intervieweeName}</DataWrapper></ResultWrapper>
-      <ResultWrapper><Label>답변날짜:</Label><DataWrapper>{searchResult.interviewDate}</DataWrapper></ResultWrapper>
+      <ResultWrapper><Label>답변날짜:</Label><DataWrapper>{formattedInterviewDate}</DataWrapper></ResultWrapper>
       <ResultWrapper><Label>답변:</Label><DataWrapper>{ellipsizedAnswewr}</DataWrapper></ResultWrapper>
       <ResultWrapper><Label>점수:</Label> <DataWrapper>{searchResult.score}</DataWrapper></ResultWrapper>
     </IntervieweeWrapper>
