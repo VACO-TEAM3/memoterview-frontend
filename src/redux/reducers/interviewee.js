@@ -1,6 +1,10 @@
 import { takeLatest, takeLeading } from "@redux-saga/core/effects";
 
+<<<<<<< HEAD
 import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweeApi, getIntervieweesApi, updateInterviewee, updateInterviewRoomState } from "../../api";
+=======
+import { createIntervieweeAPI, deleteIntervieweeAPI, getIntervieweesAPI, updateInterviewee } from "../../api";
+>>>>>>> 2da4c18... [FIX] api convention
 import { FILTER_TYPES } from "../../utils/filters";
 import { handleAsyncRemoveStateActionsWithNormalize, handleAsyncUpdateStateActionsWithNormalize } from "../lib/reducerUtils";
 import { createPromiseSaga } from "../lib/sagaUtils";
