@@ -45,7 +45,6 @@ export default function SearchInputBar({ iconSize, inputText, onFormSubmit, onIn
   );
 }
 
-// SearchInputBar.defaultProps = {
-//   iconSize: "20px",
-// };
-
+SearchInputBar.defaultProps = {
+  iconSize: "20px",
+};
