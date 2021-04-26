@@ -229,7 +229,7 @@ export default function InterviewPageContainer() {
         comments: {
           comment,
           score: totalRate,
-          commentor: userData.id,
+          commenter: userData.id,
         },
       },
     }));
@@ -237,10 +237,10 @@ export default function InterviewPageContainer() {
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
 
-  function handleQuestionSubmit(event) {
+  async function handleQuestionSubmit(event) {
     event.preventDefault();
 
-    updateIntervieweeAnswer({
+    await updateIntervieweeAnswer({
       intervieweeId,
       token,
       question: {

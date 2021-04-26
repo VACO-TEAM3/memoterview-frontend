@@ -1,3 +1,4 @@
+import { faKiss } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 

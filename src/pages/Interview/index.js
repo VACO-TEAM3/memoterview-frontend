@@ -76,7 +76,7 @@ export default function Interview({
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
-
+  console.log(project?.filters);
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
