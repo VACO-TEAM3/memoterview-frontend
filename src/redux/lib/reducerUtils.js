@@ -151,14 +151,10 @@ export const handleAsyncUpdateStateActionsWithNormalize = (
 ) => {
   const [SUCCESS, ERROR] = makeRelatedActionTypes(type);
   return (state, action) => {
-    console.log(SUCCESS, action.type);
-    console.log(action.payload, action.type);
     switch (action.type) {
       case type:
         return { ...state, ...reducerUtils.loading(keepData ? state : null) };
       case SUCCESS:
-        console.log(action.type, action.payload);
-        console.log(state);
         return {
           ...state,
           ...reducerUtils.update(action.payload, keepData ? state : null),

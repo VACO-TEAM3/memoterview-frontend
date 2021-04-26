@@ -80,7 +80,6 @@ export default function TotalResultContainer() {
   }
 
   function handleLogoutClick() {
-    console.log("logoutClick");
   }
 
   function handleIntervieweeInviteBtnClick({

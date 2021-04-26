@@ -60,13 +60,10 @@ export default function useInterviewRecord({
   }
 
   useEffect(() => {
-    console.log("set Socket Event");
-
     socket.on("startInterview", () => {
       if (!recordsGlobalsRef.current.isInterviewee) {
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       }
-      console.log("timer start");
     });
 
     socket.on("preventButton", () => {
@@ -74,12 +71,7 @@ export default function useInterviewRecord({
     });
 
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
-      console.log("questionerReceiveAnswer: userId", recordsGlobalsRef.current.userId);
       if (questionerId === recordsGlobalsRef.current.userId) {
-        console.log("questioner receive Answer uploading...");
-        console.log("question", recordsGlobalsRef.current.questionText);
-        console.log("answer", answer);
-        console.log("uploading work...");
 
         setAnswer(answer);
       }
@@ -97,7 +89,6 @@ export default function useInterviewRecord({
   useEffect(() => {
     function handleIntervieweeStartAnswerOccur() {
       if (recordsGlobalsRef.current.isInterviewee) {
-        console.log("intervieweeStartAnswer, start Record");
         startRecognition();
       }
     }
@@ -112,9 +103,7 @@ export default function useInterviewRecord({
   useEffect(() => {
     function handleIntervieweeEndAnswerOccur() {
       if (recordsGlobalsRef.current.isInterviewee) {
-        console.log("intervieweeEndAnswer, stop Record");
         stopRecognition();
-        console.log("send Anser", recogText);
         socket.emit("sendAnswer", {
           answer: recogText,
         });
@@ -129,7 +118,6 @@ export default function useInterviewRecord({
   }, [recogText, socket, stopRecognition]);
 
   useEffect(() => {
-    console.log("recogText Change", recogText);
     recordsGlobalsRef.current.recogText = recogText;
   }, [recogText]);
 
