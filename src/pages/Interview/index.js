@@ -107,7 +107,6 @@ export default function Interview({
   const [questions, setQuestions] = useState([]);
 
   const interviewContentBorderColor = getBorderColor(visibilityRecordStateType);
-  console.log(visibilityRecordStateType, interviewContentBorderColor);
 
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
@@ -180,7 +179,7 @@ export default function Interview({
             onClick={handleOpenResumeButton}
             isOpened={isResumeOpened}
           >
-            <IntervieweeResumeModalView resume={intervieweeData.resumePath} />
+            <IntervieweeResumeModalView resume={intervieweeData?.resumePath} />
           </InterviewTab>
         </StyledSideBar>
         {/* <Profile /> */}

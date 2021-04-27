@@ -312,6 +312,7 @@ export default function InterviewPageContainer() {
       ) : (
         <Interview
           time={time}
+          intervieweeData={intervieweeData}
           isQuestionModalOn={questionModalFlag}
           isTotalResultModalOn={totalResultModalFlag}
           onTotalResultModalClose={closeTotalResultModal}

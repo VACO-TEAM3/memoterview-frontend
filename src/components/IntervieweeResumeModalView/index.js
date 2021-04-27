@@ -63,7 +63,6 @@ export default function IntervieweeResumeModalView({ resume }) {
 
   function handlePrevBtnClick(e) {
     e.preventDefault();
-
     if (pageNumber <= 1) {
       return;
     }
@@ -73,7 +72,6 @@ export default function IntervieweeResumeModalView({ resume }) {
 
   function handleNextBtnClick(e) {
     e.preventDefault();
-
     if (pageNumber >= numPages) {
       return;
     }
