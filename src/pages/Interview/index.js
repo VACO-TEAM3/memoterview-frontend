@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
 import InterviewButton from "../../components/InterviewButton";
+import IntervieweeResumeModalView from "../../components/IntervieweeResumeModalView";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
 import InterviewQuestionModalView from "../../components/InterviewQuestionModalView";
 import InterviewTab from "../../components/InterviewTab";
@@ -47,6 +48,7 @@ const PageWrapper = styled.div`
 export default function Interview({
   user,
   userData,
+  intervieweeData,
   interviewers,
   isButtonDisabled,
   recordStateType,
@@ -77,6 +79,7 @@ export default function Interview({
   const [questions, setQuestions] = useState([]);
   const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   console.log(project?.filters);
+
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
@@ -107,6 +110,7 @@ export default function Interview({
 
     setQuestion(value);
   }
+  console.log(intervieweeData, "dataatta");
 
   return (
     <>
@@ -142,7 +146,7 @@ export default function Interview({
             onClick={handleOpenResumeButton} 
             isOpened={isResumeOpen}
           >
-            <div>이력서다!</div>
+            <IntervieweeResumeModalView resume={intervieweeData.resumePath} />
           </InterviewTab>
           <InterviewTab 
             tabName="Questions" 
