@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import styled from "styled-components";
 
 const RatingWrapper = styled.div`
@@ -16,6 +17,7 @@ const RatingWrapper = styled.div`
     white-space: nowrap;
     cursor: pointer;
     font-size: 2rem;
+    color: #CCC;
   }
 
   label:before {
@@ -23,12 +25,12 @@ const RatingWrapper = styled.div`
   }
 
   input:checked ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlue};  
+    color: ${({ theme }) => theme.LittleBoyBlue};   
   }
 
   label:hover,
   label:hover ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlueDark}; 
+    color: ${({ theme }) => theme.LittleBoyBlueDark};   
   }
 
   .rate > input:checked + label:hover,
@@ -36,7 +38,7 @@ const RatingWrapper = styled.div`
   .rate > input:checked ~ label:hover,
   .rate > input:checked ~ label:hover ~ label,
   .rate > label:hover ~ input:checked ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlueDeepDark};  
+    color: ${({ theme }) => theme.LittleBoyBlueDeepDark}; 
   }
 `;
 
