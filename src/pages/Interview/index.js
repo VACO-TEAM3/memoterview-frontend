@@ -21,6 +21,7 @@ import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEv
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
+import ScriptBox from "../../components/ScriptBox";
 import StyledSideBar from "../../components/shared/StyledSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
@@ -75,6 +76,7 @@ export default function Interview({
   interviewers,
   isButtonDisabled,
   recordStateType,
+  recogText,
   visibilityRecordStateType,
   isInterviewee,
   onAudioBtnClick,
@@ -215,7 +217,7 @@ export default function Interview({
             onClick={handleOpenScriptBoardButton}
             isOpened={isScriptBoardOpened}
           >
-            <div height="1000px">Script section</div>
+            <ScriptBox recogText={recogText} />
           </InterviewRightTab>
         </ScriptWrapper>
         <QuestionWrapper>
