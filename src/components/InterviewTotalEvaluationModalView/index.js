@@ -28,6 +28,40 @@ const TotalOptions = styled.div`
     margin: 0.5rem auto;
     border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
   }
+`;
+
+const ButtonWrapper = styled.button`
+  width: 100%;
+  height: 3rem;
+  margin-top: 1.1rem;
+  border: 0;
+  border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+  background: ${({ theme }) => theme.BabyPowder};
+  color: ${({ theme }) => theme.LittleBoyBlue};
+
+  :hover {
+    color: ${({ theme }) => theme.BabyPowder};
+    background: ${({ theme }) => theme.LittleBoyBlue};
+  }
+`;
+
+const FilterOptions = styled.div`
+  display: grid;
+  grid-template-columns: 37% auto;
+  margin-top: 0.5rem;
+`;
+
+const TotalOptions = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+
+  .interview-input {
+    width: 60%;
+    height: 20px;
+    margin: 0.5rem auto;
+    border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+  }
 
   ::before {
     display: block;
