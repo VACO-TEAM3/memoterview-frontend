@@ -336,6 +336,7 @@ export default function InterviewPageContainer() {
           user={userVideo}
           userData={userData}
           recogText={recogText}
+          answer={answer}
           interviewers={peers}
           isButtonDisabled={isDisabled}
           recordStateType={recordStateType}
