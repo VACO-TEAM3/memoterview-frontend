@@ -71,3 +71,21 @@ export const INTERVIEW_STATE = {
     },
   },
 };
+
+export const INTERVIEWER_TOAST_MESSAGE = {
+  [RECORD_STATE_TYPE.INTERVIEW_BEFORE]: "환영합니다. 면접자가 들어오면 면접을 시작하세요",
+  [RECORD_STATE_TYPE.QUESTION_BEFORE]: "질문이 가능합니다. 질문 버튼을 통해 질문을 시작하세요",
+  [RECORD_STATE_TYPE.QUESTIONING]: "질문이 시작되었습니다.",
+  [RECORD_STATE_TYPE.ANSWER_BEFORE]: "질문이 완료되었습니다",
+  [RECORD_STATE_TYPE.ANSWERING]: "답변을 받습니다",
+  [RECORD_STATE_TYPE.SAVING]: "답변을 평가 중입니다",
+};
+
+export const INTERVIEWEE_TOAST_MESSAGE = {
+  [RECORD_STATE_TYPE.INTERVIEW_BEFORE]: "환영합니다. 성공적인 면접을 기원합니다.",
+  [RECORD_STATE_TYPE.QUESTION_BEFORE]: "질문을 기다리고 있습니다.",
+  [RECORD_STATE_TYPE.QUESTIONING]: "질문이 시작되었습니다.",
+  [RECORD_STATE_TYPE.ANSWER_BEFORE]: "질문이 완료되었습니다.",
+  [RECORD_STATE_TYPE.ANSWERING]: "답변을 시작하십시오.",
+  [RECORD_STATE_TYPE.SAVING]: "답변이 완료되었습니다.",
+};

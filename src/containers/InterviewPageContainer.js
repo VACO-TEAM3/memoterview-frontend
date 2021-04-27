@@ -1,11 +1,18 @@
+import "react-toastify/dist/ReactToastify.css";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
 import { updateIntervieweeAnswer } from "../api";
-import { RECORD_STATE_TYPE } from "../constants/recordState";
+import {
+  INTERVIEWEE_TOAST_MESSAGE,
+  INTERVIEWER_TOAST_MESSAGE,
+  RECORD_STATE_TYPE,
+} from "../constants/recordState";
 import useInterviewRecord from "../hooks/useInterviewRecord";
 import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
@@ -27,7 +34,9 @@ export default function InterviewPageContainer() {
   const { intervieweeId, projectId } = useParams();
 
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
-  const { byId } = useSelector(({ interviewees }) => ({ byId: interviewees.byId }));
+  const { byId } = useSelector(({ interviewees }) => ({
+    byId: interviewees.byId,
+  }));
 
   const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, projectId),
@@ -69,8 +78,12 @@ export default function InterviewPageContainer() {
   //////////////////////////////////////////////////////
 
   useEffect(() => {
-    console.log("visibilityRecordStateType", visibilityRecordStateType);
-  }, [visibilityRecordStateType]);
+    const toastMsg = getToastMessage(
+      userData.isInterviewee,
+      visibilityRecordStateType
+    );
+    toast(toastMsg);
+  }, [userData.isInterviewee, visibilityRecordStateType]);
 
   useEffect(() => {
     (async function getStreaming() {
@@ -351,4 +364,12 @@ export default function InterviewPageContainer() {
       )}
     </>
   );
+}
+
+function getToastMessage(isInterviewee, recordState) {
+  if (isInterviewee) {
+    return INTERVIEWEE_TOAST_MESSAGE[recordState];
+  }
+
+  return INTERVIEWER_TOAST_MESSAGE[recordState];
 }
