@@ -184,6 +184,11 @@ export default function InterviewPageContainer() {
   }
 
   function handleProcessBtnClick() {
+    if (isDisabled) {
+      alert("아직 면접자가 오지 않았습니다.");
+      return;
+    }
+
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
       setQuestionModalFlag(true);
     }
@@ -193,13 +198,20 @@ export default function InterviewPageContainer() {
 
   const handleKeyDown = useCallback(
     (event) => {
-      if (!isDisabled) {
-        if (event.key === " " || event.key === "Spacebar") {
-          setNextRecordStateType();
+      if (event.key === " " || event.key === "Spacebar") {
+        if (isDisabled) {
+          alert("아직 면접자가 오지 않았습니다.");
+          return;
         }
+
+        if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
+          setQuestionModalFlag(true);
+        }
+
+        setNextRecordStateType();
       }
     },
-    [setNextRecordStateType]
+    [isDisabled, recordStateType, setNextRecordStateType]
   );
 
   useEffect(() => {
@@ -238,7 +250,7 @@ export default function InterviewPageContainer() {
         comments: {
           comment,
           score: totalRate,
-          commenter: userData.id,
+          commentor: userData.id,
         },
       },
     }));
