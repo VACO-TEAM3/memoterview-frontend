@@ -16,12 +16,13 @@ export default function InterviewPageContainer() {
   const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT), []);
   const dispatch = useDispatch();
 
+  const { intervieweeId, projectId } = useParams();
+
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { project } = useSelector(({ projects }) => ({
-    project: getProjectById(projects, "60847ae7bb423ea878bc54b9"),
+    project: getProjectById(projects, projectId),
   }));
-
-  const { intervieweeId } = useParams();
+  
   const [isStreaming, setIsStreaming] = useState(false);
   const [peers, setPeers] = useState([]);
   const [stream, setStream] = useState(null);
@@ -61,76 +62,101 @@ export default function InterviewPageContainer() {
     })();
   }, []);
 
+  
   useEffect(() => {
     if (!isStreaming) {
       return;
     }
-
-    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData, isInterviewee: userData.isInterviewee } });
-
-    socket.on("joinSuccess", (targetUsers) => {
+    
+    socket.emit("requestJoinRoom", {
+      roomID: intervieweeId,
+      userData,
+    });
+    
+    socket.on("joinSuccess", (targetUsers) => { // 가입 성공
+      console.log(userData.username);
+      console.log(targetUsers);
       targetUsers.forEach((user) => {
         const peer = new Peer({
-          initiator: true,
+          initiator: true, // create offer
           trickle: false,
           stream,
         });
 
         peer.on("signal", (signal) => {
-          socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
+          socket.emit("sendSignal", { // caller정보
+            isInterviewee: userData.isInterviewee,
+            callee: user.socketID,
+            caller: socket.id,
+            signal,
+            name: userData.username,
+          });
         });
-
-
-        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
+        console.log(user.username);
+        console.log(userData.username);
+        setPeers((prev) => [ // callee 정보들; (타인의 정보들)
+          ...prev,
+          {
+            peer,
+            peerID: user.socketID,
+            name: user.username,
+            isInterviewee: user.isInterviewee,
+          }
+        ]);
 
         peersRef.current.push({
           peerID: user.socketID,
           peer,
+          name: user.username,
+          isInterviewee: user.isInterviewee,
         });
       });
     });
-
-    socket.on("joinNewUser", ({ caller, signal }) => {
+    
+    socket.on("joinNewUser", ({ signal, caller, isInterviewee, name }) => { // callee 정보들
+      console.log("나는 찍히면 안돼");
       const peer = new Peer({
         initiator: false,
         trickle: false,
         stream,
       });
-      
+
       peer.on("signal", (signal) => {
         socket.emit("returnSignal", { signal, caller });
       });
-
+      
       peer.signal(signal);
-
-      setPeers((prev) => [...prev, { peer, peerID: caller }]);
-
+      
+      setPeers((prev) => [...prev, { peer, peerID: caller, name, isInterviewee }]);
+      console.log(name);
       peersRef.current.push({
         peerID: caller,
         peer,
+        name,
+        isInterviewee,
       });
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
-      const { peer } = peersRef.current.find((p) => p.peerID === id);
+      const { peer } = peersRef.current.find((peer) => peer.peerID === id);
 
       peer.signal(signal);
     });
 
     socket.on("successToLeaveOtherUser", ({ id }) => {
       const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
-      
       currentPeer?.peer.destroy();
 
-      const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
-      
+      const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id); // 로직 바꾸기
       peersRef.current = filteredPeers;
+
       setPeers(filteredPeers);
     });
 
     return () => {
       if (isStreaming) {
-        socket.disconnect();
+        console.log(24);
+        socket.disconnect({ interviewDuration: time });
       }
     };
   }, [isStreaming]);
