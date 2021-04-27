@@ -23,6 +23,7 @@ export default function useInterviewRecord({
     userId,
   });
   const [answer, setAnswer] = useState("");
+  const [visibilityRecordStateType, setVisibilityRecordStateType] = useState(RECORD_STATE_TYPE.INTERVIEW_BEFORE);
   const [recordStateType, setRecordStateType] = useState(
     RECORD_STATE_TYPE.INTERVIEW_BEFORE
   );
@@ -65,35 +66,10 @@ export default function useInterviewRecord({
   function uploadComplete() {
     socket.emit("uploadComplete");
     setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
+    setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
   }
 
   useEffect(() => {
-    socket.on("startInterview", () => {
-      if (!recordsGlobalsRef.current.isInterviewee) {
-        setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
-      }
-
-      onInterviewStart();
-
-      setTimerActive(true);
-    });
-
-    socket.on("startQuestion", () => {
-      onQuestionStart();
-    });
-
-    socket.on("endQuestion", () => {
-      onQuestionEnd();
-    });
-
-    socket.on("startAnswer", () => {
-      onAnswerStart();
-    });
-
-    socket.on("endAnswer", () => {
-      onAnswerEnd();
-    });
-
     socket.on("preventButton", () => {
       setIsDisabled(true);
     });
@@ -111,7 +87,7 @@ export default function useInterviewRecord({
     socket.on("error", ({ message }) => {
       alert(message);
     });
-  }, [isDisabled, socket, stopRecognition]);
+  }, [socket]);
 
   useEffect(() => {
     function handleIntervieweeStartAnswerOccur() {
@@ -145,6 +121,65 @@ export default function useInterviewRecord({
   }, [recogText, socket, stopRecognition]);
 
   useEffect(() => {
+    function handleStartInterviewOccur() {
+      console.log("catch startInterview");
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
+      if (!recordsGlobalsRef.current.isInterviewee) {
+        setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
+      }
+
+      onInterviewStart();
+
+      setTimerActive(true);
+    }
+
+    socket.on("startInterview", handleStartInterviewOccur);
+
+    return () => {
+      socket.off("startInterview", handleStartInterviewOccur);
+    };
+  }, [onInterviewStart, setTimerActive, socket]);
+
+  useEffect(() => {
+    function handleStartQuestionOccur() {
+      console.log("catch startQuestion");
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTIONING);
+      onQuestionStart();
+    }
+
+    function handleEndQuestionOccur() {
+      console.log("catch endQuestion");
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
+      onQuestionEnd();
+    }
+
+    function handleStartAnswerOccur() {
+      console.log("catch startAnswer");
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.ANSWERING);
+      onAnswerStart();
+    }
+
+    function handleEndAnswerOccur() {
+      console.log("catch endAnswer");
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.SAVING);
+      onAnswerEnd();
+    }
+
+    socket.on("startQuestion", handleStartQuestionOccur);
+    socket.on("endQuestion", handleEndQuestionOccur);
+    socket.on("startAnswer", handleStartAnswerOccur);
+    socket.on("endAnswer", handleEndAnswerOccur);
+
+    return () => {
+      socket.off("startQuestion", handleStartQuestionOccur);
+      socket.off("endQuestion", handleEndQuestionOccur);
+      socket.off("startAnswer", handleStartAnswerOccur);
+      socket.off("endAnswer", handleEndAnswerOccur);
+    };
+
+  }, [onAnswerEnd, onAnswerStart, onQuestionEnd, onQuestionStart, socket]);
+
+  useEffect(() => {
     recordsGlobalsRef.current.recogText = recogText;
   }, [recogText]);
 
@@ -152,5 +187,5 @@ export default function useInterviewRecord({
     recordsGlobalsRef.current.isInterviewee = isInterviewee;
   }, [isInterviewee]);
 
-  return { isDisabled, recordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question: recordsGlobalsRef.current.questionText };
+  return { isDisabled, recordStateType, visibilityRecordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question: recordsGlobalsRef.current.questionText };
 }
