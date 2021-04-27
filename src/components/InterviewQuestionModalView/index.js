@@ -22,11 +22,16 @@ const InputButton = styled.button`
   width: 100%;
   height: 2.8rem;
   background: ${({ theme }) => theme.BabyPowder};
-  margin-top: 2.4rem;
+  margin-top: 2.45rem;
   color: ${({ theme }) => theme.LittleBoyBlue};
   border-radius: 0 0 3% 3%;
   border: 0;
-  border-top: 1px solid ${({ theme }) => theme.LittleBoyBlue};
+  border-top: 1.5px solid #BFBCB9;
+
+  :hover {
+    color: ${({ theme }) => theme.BabyPowder};
+    background: ${({ theme }) => theme.LittleBoyBlue};
+  }
 `;
 
 export default function InterviewQuestionModalView({ 
