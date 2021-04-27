@@ -1,4 +1,5 @@
 import { Redirect, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
 import IntervieweeDetailContainer from "../../containers/IntervieweeDetailContainer";
@@ -48,6 +49,7 @@ export default function App() {
         </Route>
         <Redirect to="/" />
       </Switch>
+      <ToastContainer />
     </ThemeProvider>
   );
 }
