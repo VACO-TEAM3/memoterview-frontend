@@ -15,8 +15,8 @@ const ButtonWrapper = styled.div`
   cursor: pointer;
 
   :hover {
-    background: #5D5F5F;
-    color: white;
+    background: ${({ theme }) => theme.CircleButtonGray};
+    color: ${({ theme }) => theme.white};
   }
 `;
 

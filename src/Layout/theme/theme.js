@@ -7,6 +7,12 @@ const theme = {
   SpanishBlue: "#2c72b5",
   OrangeYelloCrayola: "#efcb68",
   CongoPink: "#FF928B",
+  InterviewModalBorder: "#B0AFAD",
+  InterviewModalContent: "#666563",
+  LittleBoyBlueDark: "",
+  LittleBoyBlueDeepDark: "",
+  CircleButtonGray: "#5D5F5F",
+  white: "",
 };
 
 export default theme;
