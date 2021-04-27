@@ -1,12 +1,12 @@
 export function validateInput(rate) {
   return rate.length !== 0;
 }
-
-export function validateResultSubmit({ filters, totalRate, comment }) {
+// 코멘트, 스코어, 코멘터, 기타 등등과 일괄 처리로 할지..?
+export function validateResultSubmit({ filterScores, totalRate, comment }) {
   let result = true;
 
-  Object.values(filters).forEach((filter) => {
-    if (!validateInput(filter)) {
+  Object.values(filterScores).forEach((score) => {
+    if (!validateInput(score)) {
       result = false;
     }
   });

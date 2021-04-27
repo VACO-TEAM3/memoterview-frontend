@@ -15,6 +15,7 @@ import { finishInterview } from "../redux/reducers/interviewees";
 import { getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
+import { validateInput, validateResultSubmit } from "../utils/validation";
 
 export default function InterviewPageContainer() {
   const socket = useMemo(
@@ -34,7 +35,7 @@ export default function InterviewPageContainer() {
 
   const intervieweeData = byId[intervieweeId];
   const [isStreaming, setIsStreaming] = useState(false);
-  const [filterRates, setFilterRates] = useState({});
+  const [filterScores, setFilterScores] = useState({});
   const [questionRate, setQuestionRate] = useState(0);
   const [totalRate, setTotalRate] = useState(0);
   const [comment, setComment] = useState("");
@@ -242,7 +243,7 @@ export default function InterviewPageContainer() {
   }, [handleKeyDown]);
 
   function handleFilterRate(rateOption, value) {
-    setFilterRates((prev) => ({ ...prev, [rateOption]: value }));
+    setFilterScores((prev) => ({ ...prev, [rateOption]: value }));
   }
 
   function handleTotalRate(_, value) {
@@ -260,18 +261,22 @@ export default function InterviewPageContainer() {
   function handleResultSubmit(event) {
     event.preventDefault();
 
-    dispatch(
-      finishInterview({
-        token,
-        projectId,
-        intervieweeId,
-        interviewee: {
-          filterScores: { ...filterRates },
-          comments: {
-            comment,
-            score: totalRate,
-            commentor: userData.id,
-          },
+    if (!validateResultSubmit({ filterScores, totalRate, comment })) {
+      setErrorMessage("모든 항목에 체크해주세요!"); // 일괄 적용 필요함.. 뭐라할까나..
+
+      return;
+    }
+
+    dispatch(finishInterview({
+      token,
+      projectId,
+      intervieweeId,
+      interviewee: {
+        filterScores,
+        comments: {
+          comment,
+          score: totalRate,
+          commenter: userData.id,
         },
       })
     );
@@ -281,6 +286,12 @@ export default function InterviewPageContainer() {
 
   async function handleQuestionSubmit(event) {
     event.preventDefault();
+
+    if (!validateInput(questionRate)) {
+      setErrorMessage("점수를 체크해주세요!"); // error message 형식 임의..
+
+      return;
+    }
 
     await updateIntervieweeAnswer({
       intervieweeId,
