@@ -11,19 +11,22 @@ const ViewWrapper = styled.div`
   padding: 0;
   text-align: center;
   border-radius: 10%;
-  color: ${({ theme }) => theme.SpanishBlue};
+  color: #666563;
 `;
 
 const ViewContent = styled.div`
-  margin-top: 2rem;
+  margin-top: 2.2rem;
 `;
 
 const InputButton = styled.button`
   width: 100%;
   height: 2.8rem;
-  margin-top: 2.2rem;
+  background: ${({ theme }) => theme.BabyPowder};
+  margin-top: 2.4rem;
+  color: ${({ theme }) => theme.LittleBoyBlue};
   border-radius: 0 0 3% 3%;
   border: 0;
+  border-top: 1px solid ${({ theme }) => theme.LittleBoyBlue};
 `;
 
 export default function InterviewQuestionModalView({ 
@@ -33,7 +36,7 @@ export default function InterviewQuestionModalView({
   return (
     <ViewWrapper>
       <ModalView width="400px" height="200px" backgroundColor="#f9f8f5">
-        <h2>답변 평가</h2>
+        <h3>답변 평가</h3>
         <form onSubmit={onResultSubmit}>
           <ViewContent>
             <RatingStars onChange={onRateChange} />
