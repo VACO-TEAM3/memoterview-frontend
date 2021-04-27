@@ -3,6 +3,9 @@ import styled from "styled-components";
 import TabButton from "../TabButton";
 
 const TabWrapper = styled.div`
+  position: absolute;
+  right: 0;
+
   display: flex;
   margin-bottom: 0.5rem;
 
@@ -15,11 +18,11 @@ const TabWrapper = styled.div`
   }
 `;
 
-export default function InterviewTab({ tabName, tabIcon, onClick, children, isOpened }) {
+export default function InterviewRightTab({ tabName, tabIcon, onClick, children, isOpened }) {
   return (
     <TabWrapper>
+      <TabButton borderRadius="5px 0 0 5px" name={tabName} icon={tabIcon} onClick={onClick} />
       {isOpened && <div className="tab-content">{children}</div>}
-      <TabButton borderRadius="0 5px 5px 0" name={tabName} icon={tabIcon} onClick={onClick} />
     </TabWrapper>
   );
 }
