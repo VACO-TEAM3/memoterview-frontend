@@ -188,6 +188,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
   const { name, email } = intervieweeInfo;
 
   const formData = new FormData();
+
   formData.append("pdf", pdf);
   formData.append("name", name);
   formData.append("email", email);
@@ -203,7 +204,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
   );
 
   const { data } = await response.json();
-
+  
   return data;
 }
 
@@ -224,6 +225,7 @@ export async function updateIntervieweeAnswer({ projectId, intervieweeId, questi
 };
 
 export async function requestSendEmailToInterviewee({ token, projectId, intervieweeId, intervieweeEmail, welcomePageLink }) {
+  console.log(welcomePageLink);
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}/invite`, {
       method: "POST",
@@ -238,7 +240,7 @@ export async function requestSendEmailToInterviewee({ token, projectId, intervie
       }),
     }
   );
-
+  
   return await response.json();
 }
 
