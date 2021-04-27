@@ -8,6 +8,11 @@ export default function useInterviewRecord({
   isInterviewee,
   userId,
   setTimerActive,
+  onInterviewStart = () => {},
+  onQuestionStart = () => {},
+  onQuestionEnd = () => {},
+  onAnswerStart = () => {},
+  onAnswerEnd = () => {},
 }) {
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -37,6 +42,7 @@ export default function useInterviewRecord({
         setRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
         stopRecognition();
         recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText;
+        socket.emit("endQuestion");
         break;
       case RECORD_STATE_TYPE.ANSWER_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.ANSWERING);
@@ -48,6 +54,7 @@ export default function useInterviewRecord({
         break;
       case RECORD_STATE_TYPE.SAVING:
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
+        socket.emit("startSaving");
         break;
       default:
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
@@ -57,6 +64,7 @@ export default function useInterviewRecord({
 
   function uploadComplete() {
     socket.emit("uploadComplete");
+    setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
   }
 
   useEffect(() => {
@@ -64,8 +72,26 @@ export default function useInterviewRecord({
       if (!recordsGlobalsRef.current.isInterviewee) {
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       }
-      
+
+      onInterviewStart();
+
       setTimerActive(true);
+    });
+
+    socket.on("startQuestion", () => {
+      onQuestionStart();
+    });
+
+    socket.on("endQuestion", () => {
+      onQuestionEnd();
+    });
+
+    socket.on("startAnswer", () => {
+      onAnswerStart();
+    });
+
+    socket.on("endAnswer", () => {
+      onAnswerEnd();
     });
 
     socket.on("preventButton", () => {
