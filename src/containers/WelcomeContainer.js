@@ -39,7 +39,7 @@ export default function WelcomeContainer() {
   function handleAskPermissionBtnClick(e) {
     e.preventDefault();
 
-    history.push(`/interviewee/${projectId}/${intervieweeId}`);
+    history.push(`/interview/${projectId}/${intervieweeId}`);
     dispatch(setUser({ username: newUserInfo.name, email: newUserInfo.email, avatar: newUserInfo.avatar, isInterviewee: true }));
   }
 
