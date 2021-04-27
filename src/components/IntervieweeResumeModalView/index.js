@@ -1,40 +1,44 @@
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
+import { faAngleLeft, faAngleRight, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import styled from "styled-components";
 
 import ModalView from "../ModalView";
 
-const BtnGroup = styled.div`
+const IndicatorGroup = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 20px;
-  margin: 20px;
+  margin-top: 50px;
 `;
 
-const ClosingBtnWrap = styled.div`
+const DownloadPdfBtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
   margin: 0;
 `;
 
-const ClosingButton = styled.button`
+const DownloadPdfButton = styled.div`
   display: flex;
   justify-content: center;
   width: 10%;
+  font-size: 25px;
   cursor: pointer;
 `;
 
-const Button = styled.button`
+const PageIndicator = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px;
   width:20%;
   height: 25px;
+  font-size: 15px;
   cursor: pointer;
 `;
 
@@ -55,11 +59,15 @@ export default function IntervieweeResumeModalView({ resume }) {
     setNumPages(numPages);
   }
 
-  // 페이지 넘버에 따라 ui 바꿀것인지?
+  function handleDownloadPdfBtnClick(e) {
+    e.preventDefault();
+    window.open(`${resume}`, "_blank");
+  }
+
   function handlePrevBtnClick(e) {
     e.preventDefault();
 
-    if (pageNumber <= numPages) {
+    if (pageNumber <= 1) {
       return;
     }
 
@@ -77,23 +85,25 @@ export default function IntervieweeResumeModalView({ resume }) {
   }
 
   return (
-    <ModalView padding="5px" width="600px" height="600px">
-      <ClosingBtnWrap>
-        <ClosingButton>취소</ClosingButton>
-      </ClosingBtnWrap>
+    <ModalView padding="20px 10px 0 10px" width="600px" height="600px">
+      <DownloadPdfBtnWrap>
+        <DownloadPdfButton onClick={handleDownloadPdfBtnClick}>
+          <FontAwesomeIcon icon={faDownload}/>
+        </DownloadPdfButton>
+      </DownloadPdfBtnWrap>
       <Document
         file={resume}
         onLoadSuccess={onDocumentLoadSuccess}
       >
         <Page pageNumber={pageNumber} />
       </Document>
-      <BtnGroup>
-        <Button onClick={handlePrevBtnClick}>Previous</Button>
+      <IndicatorGroup>
+        <PageIndicator onClick={handlePrevBtnClick}><FontAwesomeIcon icon={faAngleLeft}/></PageIndicator>
         <PageNumberText>
           Page {pageNumber} of {numPages}
         </PageNumberText>
-        <Button onClick={handleNextBtnClick}>Next</Button>
-      </BtnGroup>
+        <PageIndicator onClick={handleNextBtnClick}><FontAwesomeIcon icon={faAngleRight}/></PageIndicator>
+      </IndicatorGroup>
     </ModalView>
   );
 };
