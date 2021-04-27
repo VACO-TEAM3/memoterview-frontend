@@ -48,6 +48,7 @@ export default function InterviewPageContainer() {
   //////////////////////////하영작업///////////////////////
   const {
     recordStateType,
+    visibilityRecordStateType,
     recogText,
     setNextRecordStateType,
     answer,
@@ -61,6 +62,10 @@ export default function InterviewPageContainer() {
     setTimerActive: setIsActive,
   });
   //////////////////////////////////////////////////////
+
+  useEffect(() => {
+    console.log("visibilityRecordStateType", visibilityRecordStateType);
+  }, [visibilityRecordStateType]);
 
   useEffect(() => {
     (async function getStreaming() {
@@ -274,6 +279,7 @@ export default function InterviewPageContainer() {
         interviewers={peers}
         isButtonDisabled={isDisabled}
         recordStateType={recordStateType}
+        visibilityRecordStateType={visibilityRecordStateType}
         recogText={recogText}
         isInterviewee={userData.isInterviewee}
         onVideoBtnClick={handleVideo}
