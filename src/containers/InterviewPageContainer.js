@@ -17,11 +17,7 @@ import useInterviewRecord from "../hooks/useInterviewRecord";
 import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
-<<<<<<< HEAD
 import InterviewInterviewee from "../pages/InterviewInterviewee";
-=======
-import Test from "../pages/Interview/test";
->>>>>>> [FIX] emitted wrong id & [ADD] emit user data
 import { finishInterview } from "../redux/reducers/interviewees";
 import { getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";

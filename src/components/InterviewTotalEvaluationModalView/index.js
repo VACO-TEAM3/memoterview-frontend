@@ -17,19 +17,6 @@ const FilterOptions = styled.div`
   margin-top: 0.5rem;
 `;
 
-const TotalOptions = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 0.5rem;
-
-  .interview-input {
-    width: 60%;
-    height: 20px;
-    margin: 0.5rem auto;
-    border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
-  }
-`;
-
 const ButtonWrapper = styled.button`
   width: 100%;
   height: 3rem;
@@ -43,12 +30,6 @@ const ButtonWrapper = styled.button`
     color: ${({ theme }) => theme.BabyPowder};
     background: ${({ theme }) => theme.LittleBoyBlue};
   }
-`;
-
-const FilterOptions = styled.div`
-  display: grid;
-  grid-template-columns: 37% auto;
-  margin-top: 0.5rem;
 `;
 
 const TotalOptions = styled.div`
@@ -70,22 +51,6 @@ const TotalOptions = styled.div`
     text-align: center;
     border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
     content: "";
-  }
-`;
-
-const ButtonWrapper = styled.button`
-  position: fixed;
-  width: 100%;
-  height: 3rem;
-  top: 90.5%;
-  border: 0;
-  border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
-  background: ${({ theme }) => theme.BabyPowder};
-  color: ${({ theme }) => theme.LittleBoyBlue};
-
-  :hover {
-    color: ${({ theme }) => theme.BabyPowder};
-    background: ${({ theme }) => theme.LittleBoyBlue};
   }
 `;
 
