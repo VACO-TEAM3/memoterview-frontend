@@ -167,7 +167,7 @@ export default function useInterviewRecord({
 
     function handleUploadCompleteOccur() {
       console.log("catch uploadcomplete");
-      setVisibilityRecordStateType(RECORD_STATE_TYPE.SAVING);
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       onAnswerEnd();
     }
 
