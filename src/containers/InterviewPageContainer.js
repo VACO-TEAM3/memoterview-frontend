@@ -17,7 +17,11 @@ import useInterviewRecord from "../hooks/useInterviewRecord";
 import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
+<<<<<<< HEAD
 import InterviewInterviewee from "../pages/InterviewInterviewee";
+=======
+import Test from "../pages/Interview/test";
+>>>>>>> [FIX] emitted wrong id & [ADD] emit user data
 import { finishInterview } from "../redux/reducers/interviewees";
 import { getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
@@ -58,6 +62,7 @@ export default function InterviewPageContainer() {
   const { time, setIsActive } = useTimer();
   const { token } = useToken();
   const history = useHistory();
+  const isInterviewee = false;
 
   //////////////////////////하영작업///////////////////////
   const {
@@ -103,38 +108,52 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-
+    
     socket.emit("requestJoinRoom", {
       roomID: intervieweeId,
-      userData: { ...userData, isInterviewee: userData.isInterviewee },
+      userData,
     });
-
-    socket.on("joinSuccess", (targetUsers) => {
+    
+    socket.on("joinSuccess", (targetUsers) => { // 가입 성공
       targetUsers.forEach((user) => {
         const peer = new Peer({
-          initiator: true,
+          initiator: true, // create offer
           trickle: false,
           stream,
         });
 
         peer.on("signal", (signal) => {
-          socket.emit("sendSignal", {
+          socket.emit("sendSignal", { // caller정보
+            isInterviewee: userData.isInterviewee,
             callee: user.socketID,
             caller: socket.id,
             signal,
+            name: userData.username,
           });
         });
-
-        setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
+        console.log(user.username);
+        console.log(userData.username);
+        setPeers((prev) => [ // callee 정보들; (타인의 정보들)
+          ...prev,
+          {
+            peer,
+            peerID: user.socketID,
+            name: user.username,
+            isInterviewee: user.isInterviewee,
+          }
+        ]);
 
         peersRef.current.push({
           peerID: user.socketID,
           peer,
+          name: user.username,
+          isInterviewee: user.isInterviewee,
         });
       });
     });
-
-    socket.on("joinNewUser", ({ caller, signal }) => {
+    
+    socket.on("joinNewUser", ({ signal, caller, isInterviewee, name }) => { // callee 정보들
+      console.log("나는 찍히면 안돼");
       const peer = new Peer({
         initiator: false,
         trickle: false,
@@ -144,19 +163,21 @@ export default function InterviewPageContainer() {
       peer.on("signal", (signal) => {
         socket.emit("returnSignal", { signal, caller });
       });
-
+      
       peer.signal(signal);
-
-      setPeers((prev) => [...prev, { peer, peerID: caller }]);
-
+      
+      setPeers((prev) => [...prev, { peer, peerID: caller, name, isInterviewee }]);
+      console.log(name);
       peersRef.current.push({
         peerID: caller,
         peer,
+        name,
+        isInterviewee,
       });
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
-      const { peer } = peersRef.current.find((p) => p.peerID === id);
+      const { peer } = peersRef.current.find((peer) => peer.peerID === id);
 
       peer.signal(signal);
     });
@@ -173,11 +194,13 @@ export default function InterviewPageContainer() {
       );
 
       peersRef.current = filteredPeers;
+
       setPeers(filteredPeers);
     });
 
     return () => {
       if (isStreaming) {
+        console.log(24);
         socket.disconnect({ interviewDuration: time });
       }
     };
