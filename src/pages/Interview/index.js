@@ -26,7 +26,7 @@ import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 import { INTERVIEW_STATE } from "../../constants/recordState";
-import { getBorderColor } from "./helper";
+import { getBackgroundColor, getBorderColor } from "./helper";
 
 const ScriptWrapper = styled.div`
   position: fixed;
@@ -55,18 +55,17 @@ const PageWrapper = styled.div`
 `;
 
 const InterviewContent = styled.div`
+  position: fixed;
+  top: 80px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  width: 60%;
-  height: 82%;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  justify-content: center;
+  padding: 30px;
+  height: calc(100vh - 250px);
+  background: #2181B12e;
 
-  border: ${({ borderColor }) => borderColor ? `5px solid ${borderColor}` : `5px solid red`};
+  border-radius: 10px;
 `;
 
 export default function Interview({
@@ -106,14 +105,10 @@ export default function Interview({
 
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
-<<<<<<< HEAD
-
-=======
-  const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
 
   const interviewContentBorderColor = getBorderColor(visibilityRecordStateType);
   console.log(visibilityRecordStateType, interviewContentBorderColor);
->>>>>>> [ADD] apply visibleRecordState, change interview content border color
+
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
     setIsAudioOn((prev) => !prev);
@@ -188,9 +183,9 @@ export default function Interview({
             <IntervieweeResumeModalView resume={intervieweeData.resumePath} />
           </InterviewTab>
         </StyledSideBar>
-        <Profile />
+        {/* <Profile /> */}
         <Timer time={time} />
-        <InterviewContent borderColor={interviewContentBorderColor}>
+        <InterviewContent>
           <VideoContent interviewers={interviewers} user={user} />
           <StyledVideoBottomBar>
             <CircleButton

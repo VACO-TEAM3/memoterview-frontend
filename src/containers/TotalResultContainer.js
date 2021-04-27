@@ -44,7 +44,7 @@ export default function TotalResultContainer() {
   const customFilters = useSelector((state) =>
     state.projects.byId[projectId] ? state.projects.byId[projectId].filters : []
   );
-  console.log(customFilters);
+
   const { loading, error, interviewees } = useSelector(
     ({ interviewees: { loading, error, byId, allIds } }) => ({
       loading,

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 const StyledVideoBottomBar = styled.div`
+  position: fixed;
+  bottom: 20px;
   display: flex;
-  width: 25%;
-  height: 9%;
-  margin-top: 5%;
+  width: 350px;
+  height: 85px;
   align-items: center;
   justify-content: space-evenly;
   justify-items: center;
