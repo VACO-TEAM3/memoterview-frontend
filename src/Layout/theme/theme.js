@@ -9,8 +9,8 @@ const theme = {
   CongoPink: "#FF928B",
   InterviewModalBorder: "#B0AFAD",
   InterviewModalContent: "#666563",
-  LittleBoyBlueDark: "",
-  LittleBoyBlueDeepDark: "",
+  LittleBoyBlueDark: "#4f8dc6",
+  LittleBoyBlueDeepDark: "#3677b5",
   CircleButtonGray: "#5D5F5F",
   white: "",
 };
