@@ -5,8 +5,8 @@ export default styled.div`
   padding: ${props => props.padding};
   width: ${props => props.width};
   height: ${props => props.height};
+  background: ${props => props.backgroundColor ? props.backgroundColor : "white"};
   box-sizing: border-box;
-  background-color: white;
   border-radius: 5px;
   overflow-y: scroll;
 `;
