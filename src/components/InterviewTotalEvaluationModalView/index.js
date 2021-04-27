@@ -6,6 +6,43 @@ import RatingStars from "../RatingStars";
 const ViewWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
+  text-align: center;
+  color: ${({ theme }) => theme.InterviewModalContent};
+`;
+
+const FilterOptions = styled.div`
+  display: grid;
+  grid-template-columns: 37% auto;
+  margin-top: 0.5rem;
+`;
+
+const TotalOptions = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+
+  .interview-input {
+    width: 60%;
+    height: 20px;
+    margin: 0.5rem auto;
+    border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+  }
+`;
+
+const ButtonWrapper = styled.button`
+  width: 100%;
+  height: 3rem;
+  margin-top: 1.1rem;
+  border: 0;
+  border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+  background: ${({ theme }) => theme.BabyPowder};
+  color: ${({ theme }) => theme.LittleBoyBlue};
+
+  :hover {
+    color: ${({ theme }) => theme.BabyPowder};
+    background: ${({ theme }) => theme.LittleBoyBlue};
+  }
 `;
 
 export default function InterviewTotalEvaluationModalView({
@@ -15,20 +52,23 @@ export default function InterviewTotalEvaluationModalView({
   onFilterRateChange,
   onResultSubmit,
 }) {
-  return (
-    <ModalView padding="20px" width="500px" height="600px">
+  return ( //baby power 색상
+    <ModalView backgroundColor="#f9f8f5" width="500px" height="500px">
       <ViewWrapper>
         <h2>최종 평가</h2>
         <form onSubmit={onResultSubmit}>
           {filters?.map((filter, index) => (
-            <div className="interview-filter-options" key={index}>
-              <div>{filter}</div>
+            <FilterOptions key={index}>
+              <h3>{filter}</h3>
               <RatingStars onChange={onFilterRateChange} rateOption={filter} />
-            </div>
+            </FilterOptions>
           ))}
-          <input className="interview-input" type="text" onChange={onCommentChange} />
-          <RatingStars onChange={onTotalRateChange} />
-          <button className="interview-input" type="submit">OK</button>
+          <TotalOptions>
+            <h3>종합 점수</h3>
+            <input className="interview-input" type="text" onChange={onCommentChange} />
+            <RatingStars onChange={onTotalRateChange} />
+            <ButtonWrapper type="submit">OK</ButtonWrapper>
+          </TotalOptions>    
         </form>
       </ViewWrapper>
     </ModalView>
