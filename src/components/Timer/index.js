@@ -18,6 +18,7 @@ const TimerWrapper = styled.div`
   z-index: 1;
   box-sizing: border-box;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  
   .timer-icon {
     font-size: 1.4rem;
     color: ${(({ isRecording }) => isRecording ? "#ff5555" : "#6ce86c")};
