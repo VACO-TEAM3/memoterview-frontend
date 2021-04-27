@@ -3,22 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 const TimerWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  top: 23.5%;
-  width: 5%;
-  height: 3%;
-  background: transparent;
-  font-weight: bold;
-  color: #969593;
   position: absolute;
+  top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 26px 0 20px;
+  width: 130px;
+  height: 40px;
+  background-color: #00000069;
+  font-weight: bold;
+  color: #dcdada;
   border-radius: 15px;
-  border: 3px solid #D3D2CD;
   z-index: 1;
-
+  box-sizing: border-box;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   .timer-icon {
-    color: ${(({ isRecording }) => isRecording ? "red" : "green")};
+    font-size: 1.4rem;
+    color: ${(({ isRecording }) => isRecording ? "#ff5555" : "#6ce86c")};
   }
 `;
 
