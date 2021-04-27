@@ -11,6 +11,7 @@ import TotalResultContainer from "../../containers/TotalResultContainer";
 import WelcomeContainer from "../../containers/WelcomeContainer";
 import theme from "../../Layout/theme/theme";
 import Dummy from "../../pages/dummy";
+import InterviewEndPage from "../../pages/InterviewEndPage";
 import Projects from "../../pages/Projects";
 import AuthRoute from "../AuthRoute";
 
@@ -42,6 +43,9 @@ export default function App() {
         <AuthRoute path="/result/:projectId/:intervieweeId">
           <IntervieweeDetailContainer />
         </AuthRoute>
+        <Route path="/interviewEnd">
+          <InterviewEndPage />
+        </Route>
         <Redirect to="/" />
       </Switch>
     </ThemeProvider>
