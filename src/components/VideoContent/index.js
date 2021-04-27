@@ -28,18 +28,22 @@ const VideoContentWrapper = styled.div`
 `;
 
 const VideoContentTag = styled.div`
-  min-width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
   padding: 0.1rem 0.3rem;
-  background: #446770;
+  background: #1E1E1E90;
   color: rgba(255, 255, 255);
   position: absolute;
-  top: 93.5%;
-  left: 4%;
+  bottom: 0%;
+  left: 0;
   font-weight: bold;
-  border-radius: 10px;
-  border: 3px solid ${({ color }) => color};
+  border-radius: 3px;
+  border: 2px solid ${({ color }) => color};
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   z-index: 2;
+  text-align: center;
 `;
 
 export default function VideoContent({ peers, user, isInterviewee }) {
@@ -48,14 +52,14 @@ export default function VideoContent({ peers, user, isInterviewee }) {
       <div className="main-video">
         <MainVideo videoRef={user} />
         <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
-          {isInterviewee ? "Interviewee" : "Interviewer"}
+          {user.username || "ME"}
         </VideoContentTag>
       </div>
       {peers?.map((peer) => (
         <div key={peer.username} className="sub-videos">
           <SubVideo peer={peer} />
           <VideoContentTag color={peer.isInterviewee ? "#D3635E" : "#61B153"}>
-            {peer.isInterviewee ? "Interviewee" : "Interviewer"}
+            {peer.username || peer.isInterviewee ? "Interviewee" : "Interviewer"}
           </VideoContentTag>
         </div>
       ))}
