@@ -91,6 +91,7 @@ export default function InterviewPageContainer() {
         const localStream = await mediaStream();
 
         userVideo.current.srcObject = localStream;
+        userVideo.current.username = userData.username;
 
         setStream(localStream);
         setIsStreaming(true);
@@ -110,16 +111,16 @@ export default function InterviewPageContainer() {
       userData,
     });
     
-    socket.on("joinSuccess", (targetUsers) => { // 가입 성공
+    socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
         const peer = new Peer({
-          initiator: true, // create offer
+          initiator: true,
           trickle: false,
           stream,
         });
 
         peer.on("signal", (signal) => {
-          socket.emit("sendSignal", { // caller정보
+          socket.emit("sendSignal", {
             isInterviewee: userData.isInterviewee,
             callee: user.socketID,
             caller: socket.id,
@@ -127,9 +128,8 @@ export default function InterviewPageContainer() {
             name: userData.username,
           });
         });
-        console.log(user.username);
-        console.log(userData.username);
-        setPeers((prev) => [ // callee 정보들; (타인의 정보들)
+
+        setPeers((prev) => [
           ...prev,
           {
             peer,
@@ -148,7 +148,7 @@ export default function InterviewPageContainer() {
       });
     });
     
-    socket.on("joinNewUser", ({ signal, caller, isInterviewee, name }) => { // callee 정보들
+    socket.on("joinNewUser", ({ signal, caller, isInterviewee, name }) => {
       console.log("나는 찍히면 안돼");
       const peer = new Peer({
         initiator: false,
