@@ -194,6 +194,11 @@ export default function InterviewPageContainer() {
       setPeers(filteredPeers);
     });
 
+    socket.on("someUserVideoOff", (userID) => {});
+    socket.on("someUserVideoOn", (userID) => {});
+    socket.on("someUserAudioOff", (userID) => {});
+    socket.on("someUserAudioOn", (userID) => {});
+
     return () => {
       if (isStreaming) {
         console.log(24);
@@ -216,22 +221,6 @@ export default function InterviewPageContainer() {
     }
 
     setTotalResultModalFlag(true);
-  }
-
-  function handleVideo(state) {
-    if (state) {
-      mediaOptions.videoOff(stream);
-    } else {
-      mediaOptions.videoOn(stream);
-    }
-  }
-
-  function handleAudio(state) {
-    if (state) {
-      mediaOptions.audioOff(stream);
-    } else {
-      mediaOptions.audioOn(stream);
-    }
   }
 
   function handleProcessBtnClick() {
@@ -340,12 +329,41 @@ export default function InterviewPageContainer() {
     setQuestionModalFlag(false);
   }
 
+  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [isAudioOn, setIsAudioOn] = useState(true);
+
+  function handleVideo() {
+    if (isVideoOn) {
+      mediaOptions.videoOff(stream);
+      socket.emit("videoOff", {})
+    } else {
+      mediaOptions.videoOn(stream);
+    }
+    socket.emit("VideoOff", );
+    socket.emit("VideoOn", );
+    socket.emit("AudioOff", );
+    socket.emit("AudioOn", );
+    setIsVideoOn(!isVideoOn);
+  }
+
+  function handleAudio() {
+    if (isAudioOn) {
+      mediaOptions.audioOff(stream);
+    } else {
+      mediaOptions.audioOn(stream);
+    }
+
+    setIsAudioOn(!isAudioOn);
+  }
+
   return (
     <>
       {userData.isInterviewee ? (
         <InterviewInterviewee
           user={userVideo}
           interviewers={peers}
+          isVideoOn={isVideoOn}
+          isAudioOn={isAudioOn}
           onAudioBtnClick={handleAudio}
           onVideoBtnClick={handleVideo}
           onBackButtonClick={handleBackBtn}
@@ -353,6 +371,10 @@ export default function InterviewPageContainer() {
         />
       ) : (
         <Interview
+          isVideoOn={isVideoOn}
+          isAudioOn={isAudioOn}
+          onAudioBtnClick={handleAudio}
+          onVideoBtnClick={handleVideo}
           time={time}
           intervieweeData={intervieweeData}
           isQuestionModalOn={questionModalFlag}
@@ -367,8 +389,6 @@ export default function InterviewPageContainer() {
           visibilityRecordStateType={visibilityRecordStateType}
           recogText={recogText}
           isInterviewee={userData.isInterviewee}
-          onVideoBtnClick={handleVideo}
-          onAudioBtnClick={handleAudio}
           onProcessBtnClick={handleProcessBtnClick}
           onTotalRateChange={handleTotalRate}
           onFilterRateChange={handleFilterRate}

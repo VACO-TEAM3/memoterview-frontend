@@ -77,8 +77,6 @@ export default function Interview({
   recordStateType,
   visibilityRecordStateType,
   isInterviewee,
-  onAudioBtnClick,
-  onVideoBtnClick,
   onProcessBtnClick,
   onQuestionModalClose,
   onIntervieweeResumeShowingBtnClick,
@@ -94,13 +92,14 @@ export default function Interview({
   onBackButtonClick,
   onQuestionSubmit,
   time,
+  isVideoOn,
+  isAudioOn,
+  onAudioBtnClick,
+  onVideoBtnClick,
 }) {
   console.log("isInterviewee", userData.isInterviewee);
   console.log("interviewers", interviewers);
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
-  const [isVideoOn, setIsVideoOn] = useState(true);
-  const [isAudioOn, setIsAudioOn] = useState(true);
-
   const [isResumeOpened, setIsResumeOpened] = useState(false);
   const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
   const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
@@ -109,16 +108,6 @@ export default function Interview({
   const [questions, setQuestions] = useState([]);
 
   const interviewContentBorderColor = getBorderColor(visibilityRecordStateType);
-
-  function handleAudio() {
-    onAudioBtnClick(isAudioOn);
-    setIsAudioOn((prev) => !prev);
-  }
-
-  function handleVideo() {
-    onVideoBtnClick(isVideoOn);
-    setIsVideoOn((prev) => !prev);
-  }
 
   function handleOpenScriptBoardButton() {
     setIsScriptBoardOpened((prev) => !prev);
@@ -190,7 +179,7 @@ export default function Interview({
           <VideoContent peers={interviewers} user={user} />
           <StyledVideoBottomBar>
             <CircleButton
-              onClick={handleAudio}
+              onClick={onAudioBtnClick}
               isClicked={isAudioOn}
               clickedState={faVolumeMute}
               unClickedState={faVolumeUp}
@@ -203,7 +192,7 @@ export default function Interview({
               />
             }
             <CircleButton
-              onClick={handleVideo}
+              onClick={onVideoBtnClick}
               isClicked={isVideoOn}
               clickedState={faVideoSlash}
               unClickedState={faVideo}
