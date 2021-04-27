@@ -166,7 +166,6 @@ export async function updateInterviewRoomState({ token, projectId, intervieweeId
 }
 
 export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
-  console.log(interviewee);
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`,
     {
@@ -209,7 +208,6 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
 }
 
 export async function updateIntervieweeAnswer({ projectId, intervieweeId, question, token }) {
-  console.log("itsquesiton", question);
   const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewees/${intervieweeId}/answer`, {
     method: "PATCH",
     headers: {
