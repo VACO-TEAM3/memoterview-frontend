@@ -8,11 +8,11 @@ const ViewWrapper = styled.div`
   flex-direction: column;
 `;
 
-export default function InterviewTotalEvaluationModalView({ 
-  filters, 
-  onCommentChange, 
-  onTotalRateChange, 
-  onFilterRateChange, 
+export default function InterviewTotalEvaluationModalView({
+  filters,
+  onCommentChange,
+  onTotalRateChange,
+  onFilterRateChange,
   onResultSubmit,
 }) {
 
