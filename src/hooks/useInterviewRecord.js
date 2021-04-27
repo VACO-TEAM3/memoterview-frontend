@@ -96,6 +96,7 @@ export default function useInterviewRecord({
 
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
       if (questionerId === recordsGlobalsRef.current.userId) {
+        console.log("answer", answer);
         setAnswer(answer);
       }
     });

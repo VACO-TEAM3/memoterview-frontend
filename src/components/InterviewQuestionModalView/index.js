@@ -26,7 +26,7 @@ const InputButton = styled.button`
   color: ${({ theme }) => theme.LittleBoyBlue};
   border-radius: 0 0 3% 3%;
   border: 0;
-  border-top: 1.5px solid ${({ theme }) => theme.InterviewModalBorder};
+  border-top: 1.5px solid #BFBCB9;
 
   :hover {
     color: ${({ theme }) => theme.BabyPowder};
