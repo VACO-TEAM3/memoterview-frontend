@@ -12,10 +12,14 @@ const FormWrapper = styled.div`
 `;
 
 export default function QuestionForm({ onSubmit, value, onChange }) {
+  function handleInputKeyDown(event) {
+    event.stopPropagation();
+  }
+
   return (
     <FormWrapper>
       <form className="question-form" onSubmit={onSubmit}>
-        <input type="text" value={value} onChange={onChange} />
+        <input type="text" value={value} onChange={onChange} onKeyDown={handleInputKeyDown}/>
         <button className="" type="submit">+</button>
       </form>
     </FormWrapper>

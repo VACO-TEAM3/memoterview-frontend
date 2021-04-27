@@ -247,14 +247,6 @@ export default function InterviewPageContainer() {
     [isDisabled, recordStateType, setNextRecordStateType]
   );
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
   function handleFilterRate(rateOption, value) {
     setFilterScores((prev) => ({ ...prev, [rateOption]: value }));
   }
@@ -291,8 +283,8 @@ export default function InterviewPageContainer() {
           score: totalRate,
           commenter: userData.id,
         },
-      })
-    );
+      },
+    }));
 
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
@@ -360,6 +352,7 @@ export default function InterviewPageContainer() {
           onBackButtonClick={handleBackBtn}
           onQuestionModalClose={closeQuestionModal}
           onQuestionSubmit={handleQuestionSubmit}
+          onKeyDown={handleKeyDown}
         />
       )}
     </>

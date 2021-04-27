@@ -62,7 +62,11 @@ export default function InterviewTotalEvaluationModalView({
   onFilterRateChange,
   onResultSubmit,
 }) {
-  return ( // BabyPower 색상
+  function handleInputKeyDown(event) {
+    event.stopPropagation();
+  }
+
+  return (
     <ModalView backgroundColor="#f9f8f5" width="500px" height="500px">
       <ViewWrapper>
         <h2>최종 평가</h2>
@@ -75,10 +79,10 @@ export default function InterviewTotalEvaluationModalView({
           ))}
           <TotalOptions>
             <h3>종합 점수</h3>
-            <input className="interview-input" type="text" onChange={onCommentChange} />
+            <input className="interview-input" type="text" onChange={onCommentChange} onKeyDown={handleInputKeyDown}/>
             <RatingStars onChange={onTotalRateChange} />
             <ButtonWrapper type="submit">OK</ButtonWrapper>
-          </TotalOptions>    
+          </TotalOptions>
         </form>
       </ViewWrapper>
     </ModalView>

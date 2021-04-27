@@ -34,8 +34,8 @@ const InputButton = styled.button`
   }
 `;
 
-export default function InterviewQuestionModalView({ 
-  onRateChange, 
+export default function InterviewQuestionModalView({
+  onRateChange,
   onResultSubmit,
 }) {
   return (
