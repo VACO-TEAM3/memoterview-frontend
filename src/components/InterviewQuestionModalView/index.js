@@ -11,7 +11,7 @@ const ViewWrapper = styled.div`
   padding: 0;
   text-align: center;
   border-radius: 10%;
-  color: #666563;
+  color: ${({ theme }) => theme.InterviewModalContent};
 `;
 
 const ViewContent = styled.div`
@@ -26,7 +26,7 @@ const InputButton = styled.button`
   color: ${({ theme }) => theme.LittleBoyBlue};
   border-radius: 0 0 3% 3%;
   border: 0;
-  border-top: 1.5px solid #BFBCB9;
+  border-top: 1.5px solid ${({ theme }) => theme.InterviewModalBorder};
 
   :hover {
     color: ${({ theme }) => theme.BabyPowder};
