@@ -76,7 +76,6 @@ export default function InterviewPageContainer() {
     setTimerActive: setIsActive,
   });
   //////////////////////////////////////////////////////
-
   useEffect(() => {
     const toastMsg = getToastMessage(
       userData.isInterviewee,
@@ -336,6 +335,7 @@ export default function InterviewPageContainer() {
           user={userVideo}
           userData={userData}
           recogText={recogText}
+          questionTranscript={question}
           answer={answer}
           interviewers={peers}
           isButtonDisabled={isDisabled}
