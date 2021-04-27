@@ -52,7 +52,7 @@ export default function VideoContent({ peers, user, isInterviewee }) {
       <div className="main-video">
         <MainVideo videoRef={user} />
         <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
-          {user.username || "ME"}
+          {user.current.username || "ME"}
         </VideoContentTag>
       </div>
       {peers?.map((peer) => (
