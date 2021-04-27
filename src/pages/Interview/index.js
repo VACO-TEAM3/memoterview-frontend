@@ -187,7 +187,7 @@ export default function Interview({
         {/* <Profile /> */}
         <Timer time={time} />
         <InterviewContent>
-          <VideoContent interviewers={interviewers} user={user} />
+          <VideoContent peers={interviewers} user={user} />
           <StyledVideoBottomBar>
             <CircleButton
               onClick={handleAudio}

@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
 import IntervieweeDetailContainer from "../../containers/IntervieweeDetailContainer";
-import IntervieweePageContainer from "../../containers/IntervieweePageContainer";
+// import IntervieweePageContainer from "../../containers/IntervieweePageContainer";
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
 import LoginPageContainer from "../../containers/LoginPageContainer";
 import ProjectsContainer from "../../containers/ProjectsContainer";
@@ -38,9 +38,9 @@ export default function App() {
         <AuthRoute path="/interview/:projectId/:intervieweeId">
           <InterviewPageContainer />
         </AuthRoute>
-        <AuthRoute path="/interviewee/:projectId/:intervieweeId">
-          <IntervieweePageContainer />
-        </AuthRoute>
+        <Route path="/interviewee/:projectId/:intervieweeId">
+          <InterviewPageContainer />
+        </Route>
         <AuthRoute path="/result/:projectId/:intervieweeId">
           <IntervieweeDetailContainer />
         </AuthRoute>
