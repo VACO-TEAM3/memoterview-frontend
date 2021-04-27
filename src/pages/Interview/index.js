@@ -72,6 +72,7 @@ const InterviewContent = styled.div`
 export default function Interview({
   user,
   userData,
+  answer,
   intervieweeData,
   interviewers,
   isButtonDisabled,
@@ -218,7 +219,7 @@ export default function Interview({
             onClick={handleOpenScriptBoardButton}
             isOpened={isScriptBoardOpened}
           >
-            <ScriptBox recogText={recogText} />
+            <ScriptBox recogText={recogText} answer={answer}/>
           </InterviewRightTab>
         </ScriptWrapper>
         <QuestionWrapper>

@@ -74,6 +74,15 @@ export default function useInterviewRecord({
       setIsDisabled(true);
     });
 
+    socket.on("onAnswerRecog", ({ questionerId, transcript }) => {
+      console.log("here", questionerId, transcript);
+      console.log(recordsGlobalsRef.current.userId);
+      if (questionerId === recordsGlobalsRef.current.userId) {
+        console.log("setAnswer");
+        setAnswer(transcript);
+      }
+    });
+
     socket.on("questionerReceiveAnswer", ({ questionerId, answer }) => {
       if (questionerId === recordsGlobalsRef.current.userId) {
         setAnswer(answer);
@@ -89,10 +98,15 @@ export default function useInterviewRecord({
     });
   }, [socket]);
 
+  const handleAnswerTranscriptRecog = useCallback((transcript) => {
+    console.log("answer", transcript);
+    socket.emit("onAnswerRecog", { transcript });
+  }, [socket]);
+
   useEffect(() => {
     function handleIntervieweeStartAnswerOccur() {
       if (recordsGlobalsRef.current.isInterviewee) {
-        startRecognition();
+        startRecognition({ onTranscriptRecog: handleAnswerTranscriptRecog });
       }
     }
 
@@ -101,7 +115,7 @@ export default function useInterviewRecord({
     return () => {
       socket.off("intervieweeStartAnswer", handleIntervieweeStartAnswerOccur);
     };
-  }, [socket, startRecognition]);
+  }, [handleAnswerTranscriptRecog, socket, startRecognition]);
 
   useEffect(() => {
     function handleIntervieweeEndAnswerOccur() {

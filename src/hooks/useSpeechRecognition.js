@@ -13,10 +13,11 @@ export default function useSpeechRecognition() {
     setRecogText(transcript);
   }
 
-  function startRecognition() {
+  function startRecognition(props) {
     startSpeechRecognition({
       onRecognitionStart: handleRecognitionStart,
       onRecognitionResult: handleRecognitionResult,
+      onTranscriptRecog: props?.onTranscriptRecog,
     });
   };
 

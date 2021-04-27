@@ -39,7 +39,7 @@ const Body = styled.div`
   overflow-y: scroll;
 `;
 
-export default function ScriptBox({ recogText }) {
+export default function ScriptBox({ recogText, answer }) {
   return (
     <Script>
       <Question>
@@ -48,7 +48,7 @@ export default function ScriptBox({ recogText }) {
       </Question>
       <Answer>
         <Title>대답</Title>
-        <Body>{recogText}</Body>
+        <Body>{answer}</Body>
       </Answer>
     </Script>
   );
