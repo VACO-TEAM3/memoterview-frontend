@@ -28,12 +28,22 @@ const TotalOptions = styled.div`
     margin: 0.5rem auto;
     border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
   }
+
+  ::before {
+    display: block;
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+    content: "";
+  }
 `;
 
 const ButtonWrapper = styled.button`
+  position: fixed;
   width: 100%;
   height: 3rem;
-  margin-top: 1.1rem;
+  top: 90.5%;
   border: 0;
   border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
   background: ${({ theme }) => theme.BabyPowder};
@@ -64,7 +74,7 @@ export default function InterviewTotalEvaluationModalView({
             </FilterOptions>
           ))}
           <TotalOptions>
-            <h3>종합 점수</h3>
+            <h3 className="interview-total-result">종합 점수</h3>
             <input className="interview-input" type="text" onChange={onCommentChange} />
             <RatingStars onChange={onTotalRateChange} />
             <ButtonWrapper type="submit">OK</ButtonWrapper>
