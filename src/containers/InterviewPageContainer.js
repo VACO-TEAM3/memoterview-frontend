@@ -28,6 +28,7 @@ export default function InterviewPageContainer() {
     project: getProjectById(projects, projectId),
   }));
 
+  const intervieweeData = byId[intervieweeId];
   const [isStreaming, setIsStreaming] = useState(false);
   const [filterRates, setFilterRates] = useState({});
   const [questionRate, setQuestionRate] = useState(0);
@@ -80,7 +81,7 @@ export default function InterviewPageContainer() {
     if (!isStreaming) {
       return;
     }
-    
+
     socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData, isInterviewee: userData.isInterviewee } });
 
     socket.on("joinSuccess", (targetUsers) => {
@@ -258,8 +259,6 @@ export default function InterviewPageContainer() {
     uploadComplete();
     setQuestionModalFlag(false);
   }
-
-  const intervieweeData = byId[intervieweeId];
 
   return (
     <>

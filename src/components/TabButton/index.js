@@ -9,7 +9,7 @@ const TabButtonWrapper = styled.div`
   background: white;
   margin-bottom: 0.6rem;
   padding: 0.3rem 0;
-  border-radius: 0 5px 5px 0;
+  border-radius: ${props => props.borderRadius};
   box-shadow: 10px 15px 12px -5px rgba(0, 0, 0, 0.22);
   cursor: pointer;
 
@@ -34,9 +34,9 @@ const TabButtonWrapper = styled.div`
   }
 `;
 
-export default function TabButton({ icon, onClick, name }) {
+export default function TabButton({ borderRadius, icon, onClick, name }) {
   return (
-    <TabButtonWrapper onClick={onClick}>
+    <TabButtonWrapper borderRadius={borderRadius} onClick={onClick}>
       <div className="icon">
         <FontAwesomeIcon icon={icon} />
       </div>

@@ -8,16 +8,31 @@ import InterviewButton from "../../components/InterviewButton";
 import IntervieweeResumeModalView from "../../components/IntervieweeResumeModalView";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
 import InterviewQuestionModalView from "../../components/InterviewQuestionModalView";
+import InterviewRightTab from "../../components/InterviewRightTab";
 import InterviewTab from "../../components/InterviewTab";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
+import StyledRightSideBar from "../../components/shared/StyledRightSideBar";
 import StyledSideBar from "../../components/shared/StyledSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 import { INTERVIEW_STATE } from "../../constants/recordState";
+
+const ScriptWrapper = styled.div`
+  position: fixed;
+  right: 0;
+  top: 90px;
+  background-color: yellow;
+`;
+
+const QuestionWrapper = styled.div`
+  position: fixed;
+  right: 0;
+  background-color: green;
+`;
 
 const PageWrapper = styled.div`
   display: flex;
@@ -74,10 +89,13 @@ export default function Interview({
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
-  const [isResumeOpen, setIsResumeOpend] = useState(false);
+  
+  const [isResumeOpened, setIsResumeOpened] = useState(false);
+  const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
+  const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
+
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
-  const [isQuestionBoardOpen, setIsQuestionBoardOpen] = useState(false);
   console.log(project?.filters);
 
   function handleAudio() {
@@ -90,12 +108,16 @@ export default function Interview({
     setIsVideoOn((prev) => !prev);
   }
 
+  function handleOpenScriptBoardButton() {
+    setIsScriptBoardOpened((prev) => !prev);
+  }
+ 
   function handleOpenResumeButton() {
-    setIsResumeOpend((prev) => !prev);
+    setIsResumeOpened((prev) => !prev);
   }
 
-  function handleOpenQuestionBoardOpen() {
-    setIsQuestionBoardOpen((prev) => !prev);
+  function handleOpenQuestionBoard() {
+    setIsQuestionBoardOpened((prev) => !prev);
   }
 
   function handleQuestionSubmit(ev) {
@@ -144,22 +166,9 @@ export default function Interview({
             tabName="Resume" 
             tabIcon={faFile} 
             onClick={handleOpenResumeButton} 
-            isOpened={isResumeOpen}
+            isOpened={isResumeOpened}
           >
             <IntervieweeResumeModalView resume={intervieweeData.resumePath} />
-          </InterviewTab>
-          <InterviewTab 
-            tabName="Questions" 
-            tabIcon={faQuestion} 
-            onClick={handleOpenQuestionBoardOpen} 
-            isOpened={isQuestionBoardOpen}
-          >
-            <QuestionBoard
-              question={question}
-              questions={questions}
-              onChange={handleQuestionInputChange}
-              onSubmit={handleQuestionSubmit}
-            />
           </InterviewTab>
         </StyledSideBar>
         <Profile />
@@ -188,6 +197,31 @@ export default function Interview({
             />
           </StyledVideoBottomBar>
         </div>
+        <ScriptWrapper>
+          <InterviewRightTab 
+            tabName="Script" 
+            tabIcon={faFile} 
+            onClick={handleOpenScriptBoardButton} 
+            isOpened={isScriptBoardOpened}
+          >
+            <div height="1000px">transcadfhkasufhkalseuhfklasehfkafhalsfhsfhaksuehfkalsefhkalfaht</div>
+          </InterviewRightTab>
+        </ScriptWrapper>
+        <QuestionWrapper>
+          <InterviewRightTab 
+            tabName="Questions" 
+            tabIcon={faQuestion} 
+            onClick={handleOpenQuestionBoard} 
+            isOpened={isQuestionBoardOpened}
+          >
+            <QuestionBoard
+              question={question}
+              questions={questions}
+              onChange={handleQuestionInputChange}
+              onSubmit={handleQuestionSubmit}
+            />
+          </InterviewRightTab>
+        </QuestionWrapper>
       </PageWrapper>
     </>
   );
