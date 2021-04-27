@@ -1,7 +1,7 @@
 import { authFetch } from "../utils/authFetch";
 
 export async function login({ email, imageUrl, name }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/login`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/login`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -20,14 +20,14 @@ export async function login({ email, imageUrl, name }) {
 }
 
 export async function getSpeechToTextToken() {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/speech-to-text/credentials`);
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/speech-to-text/credentials`);
 
   return await response.json();
 }
 
 export async function getMyProjectsAPI({ userId, token }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/interviewers/${userId}/my_projects`, {
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/interviewers/${userId}/my_projects`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -44,7 +44,7 @@ export async function getMyProjectsAPI({ userId, token }) {
 
 export async function getJoinedProjectsAPI({ userId, token }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/interviewers/${userId}/joined_projects`, {
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/interviewers/${userId}/joined_projects`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -61,7 +61,7 @@ export async function getJoinedProjectsAPI({ userId, token }) {
 
 export async function deleteProjectAPI({ projectId, token }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}`, {
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}`, {
       method: "DELETE",
       headers: {
         "Accept": "application/json",
@@ -77,7 +77,7 @@ export async function deleteProjectAPI({ projectId, token }) {
 };
 
 export async function addMyProjectAPI({ userId, newProject, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -93,7 +93,7 @@ export async function addMyProjectAPI({ userId, newProject, token }) {
 }
 
 export async function searchQuestionsAPI({ projectId, inputText, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/search?question=${inputText}`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/search?question=${inputText}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -107,7 +107,7 @@ export async function searchQuestionsAPI({ projectId, inputText, token }) {
 }
 
 export async function searchInterviewers({ email, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewers/search?email=${email}`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/interviewers/search?email=${email}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -120,7 +120,7 @@ export async function searchInterviewers({ email, token }) {
 }
 
 export async function getIntervieweesAPI({ projectId, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -135,7 +135,7 @@ export async function getIntervieweesAPI({ projectId, token }) {
 }
 
 export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -150,7 +150,7 @@ export async function getIntervieweeApi({ projectId, intervieweeId, token }) {
 }
 
 export async function updateInterviewRoomState({ token, projectId, intervieweeId, isRoomOpened }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}/updateInterviewRoom`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}/updateInterviewRoom`, {
     method: "PATCH",
     headers: {
       "Accept": "application/json",
@@ -167,7 +167,7 @@ export async function updateInterviewRoomState({ token, projectId, intervieweeId
 
 export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`,
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}`,
     {
       method: "PATCH",
       headers: {
@@ -193,7 +193,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
   formData.append("email", email);
 
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees`, {
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees`, {
       method: "POST",
       body: formData,
       headers: {
@@ -208,7 +208,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
 }
 
 export async function updateIntervieweeAnswer({ projectId, intervieweeId, question, token }) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/interviewees/${intervieweeId}/answer`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/interviewees/${intervieweeId}/answer`, {
     method: "PATCH",
     headers: {
       "Accept": "application/json",
@@ -225,7 +225,7 @@ export async function updateIntervieweeAnswer({ projectId, intervieweeId, questi
 
 export async function requestSendEmailToInterviewee({ token, projectId, intervieweeId, intervieweeEmail, welcomePageLink }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}/invite`, {
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}/invite`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -244,7 +244,7 @@ export async function requestSendEmailToInterviewee({ token, projectId, intervie
 
 export async function deleteIntervieweeAPI({ token, projectId, intervieweeId }) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
+    `${process.env.REACT_APP_SERVER_PORT_DEVELOPMENT}/api/projects/${projectId}/interviewees/${intervieweeId}`, {
       method: "DELETE",
       headers: {
         "Accept": "application/json",
