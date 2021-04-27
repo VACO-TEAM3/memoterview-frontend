@@ -91,14 +91,14 @@ export default function TotalResultContainer() {
 
   function handleLogoutClick() {}
 
-  function handleIntervieweeInviteBtnClick({
+  async function handleIntervieweeInviteBtnClick({
     intervieweeId,
     intervieweeEmail,
   }) {
     const welcomePageLink = getWelcomLink({ intervieweeId, projectId });
 
     try {
-      requestSendEmailToInterviewee({
+      await requestSendEmailToInterviewee({
         token,
         projectId,
         intervieweeId,

@@ -9,6 +9,7 @@ export const createPromiseSaga = (type, promiseCreator) => {
   return function* saga(action) {
     try {
       const payload = yield call(promiseCreator, action.payload);
+
       yield put({ type: SUCCESS, payload });
     } catch (error) {
       yield put({ type: ERROR, error: true, payload: error });
@@ -37,6 +38,8 @@ export const createPromiseSagaById = (type, promiseCreator) => {
   return function* saga(action) {
     const id = action.meta;
     try {
+      console.log(type);
+      console.log(action.payload);
       const payload = yield call(promiseCreator, action.payload);
       yield put({ type: SUCCESS, payload, meta: id });
     } catch (error) {
