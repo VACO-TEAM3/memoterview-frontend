@@ -16,12 +16,14 @@ import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
-  const socket = useMemo(() => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER), []);
+  const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT_DEVELOPMENT), []);
   const dispatch = useDispatch();
 
   const { intervieweeId, projectId } = useParams();
 
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
+  const { byId } = useSelector(({ interviewees }) => ({ byId: interviewees.byId }));
+
   const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, projectId),
   }));
@@ -257,6 +259,8 @@ export default function InterviewPageContainer() {
     setQuestionModalFlag(false);
   }
 
+  const intervieweeData = byId[intervieweeId];
+
   return (
     <>
       <Interview
@@ -267,6 +271,7 @@ export default function InterviewPageContainer() {
         project={project}
         user={userVideo}
         userData={userData}
+        intervieweeData={intervieweeData}
         interviewers={peers}
         isButtonDisabled={isDisabled}
         recordStateType={recordStateType}

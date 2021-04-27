@@ -42,7 +42,7 @@ const PageNumberText = styled.p`
   font-size: 15px;
 `;
 
-export default function IntervieweeResumeModalView({ onCancleBtnClick }) {
+export default function IntervieweeResumeModalView({ resume }) {
   // pdf를 위해 필요한 값
   //: 리덕스에서 interviewee 정보에서(id로 찾아야겠지..) resumePath --> 아래 Document file에 꼽아주면 된다
 
@@ -77,12 +77,12 @@ export default function IntervieweeResumeModalView({ onCancleBtnClick }) {
   }
 
   return (
-    <ModalView padding="5px" width="700px" height="900px">
+    <ModalView padding="5px" width="600px" height="600px">
       <ClosingBtnWrap>
-        <ClosingButton onClick={onCancleBtnClick}>취소</ClosingButton>
+        <ClosingButton>취소</ClosingButton>
       </ClosingBtnWrap>
       <Document
-        file="https://memoterview.s3.ap-northeast-2.amazonaws.com/96a66e65e623a6f4c17dba23f69901a0"
+        file={resume}
         onLoadSuccess={onDocumentLoadSuccess}
       >
         <Page pageNumber={pageNumber} />
