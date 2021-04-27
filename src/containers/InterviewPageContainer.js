@@ -10,13 +10,17 @@ import useInterviewRecord from "../hooks/useInterviewRecord";
 import useTimer from "../hooks/useTimer";
 import useToken from "../hooks/useToken";
 import Interview from "../pages/Interview";
+import InterviewInterviewee from "../pages/InterviewInterviewee";
 import { finishInterview } from "../redux/reducers/interviewees";
 import { getProjectById } from "../redux/reducers/projects";
 import { mediaOptions, mediaStream } from "../utils/media";
 import genUuid from "../utils/uuid";
 
 export default function InterviewPageContainer() {
-  const socket = useMemo(() => io.connect(process.env.REACT_APP_SERVER_PORT), []);
+  const socket = useMemo(
+    () => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER),
+    []
+  );
   const dispatch = useDispatch();
 
   const { intervieweeId, projectId } = useParams();
@@ -87,7 +91,10 @@ export default function InterviewPageContainer() {
       return;
     }
 
-    socket.emit("requestJoinRoom", { roomID: intervieweeId, userData: { ...userData, isInterviewee: userData.isInterviewee } });
+    socket.emit("requestJoinRoom", {
+      roomID: intervieweeId,
+      userData: { ...userData, isInterviewee: userData.isInterviewee },
+    });
 
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
@@ -98,7 +105,11 @@ export default function InterviewPageContainer() {
         });
 
         peer.on("signal", (signal) => {
-          socket.emit("sendSignal", { callee: user.socketID, caller: socket.id, signal });
+          socket.emit("sendSignal", {
+            callee: user.socketID,
+            caller: socket.id,
+            signal,
+          });
         });
 
         setPeers((prev) => [...prev, { peer, peerID: user.socketID }]);
@@ -138,11 +149,15 @@ export default function InterviewPageContainer() {
     });
 
     socket.on("successToLeaveOtherUser", ({ id }) => {
-      const [currentPeer] = peersRef.current.filter((peer) => peer.peerID === id);
+      const [currentPeer] = peersRef.current.filter(
+        (peer) => peer.peerID === id
+      );
 
       currentPeer?.peer.destroy();
 
-      const filteredPeers = peersRef.current.filter((peer) => peer.peerID !== id);
+      const filteredPeers = peersRef.current.filter(
+        (peer) => peer.peerID !== id
+      );
 
       peersRef.current = filteredPeers;
       setPeers(filteredPeers);
@@ -164,6 +179,10 @@ export default function InterviewPageContainer() {
   }
 
   function handleBackBtn() {
+    if (userData.isInterviewee) {
+      return history.push("/interviewEnd");
+    }
+
     setTotalResultModalFlag(true);
   }
 
@@ -241,19 +260,21 @@ export default function InterviewPageContainer() {
   function handleResultSubmit(event) {
     event.preventDefault();
 
-    dispatch(finishInterview({
-      token,
-      projectId,
-      intervieweeId,
-      interviewee: {
-        filterScores: { ...filterRates },
-        comments: {
-          comment,
-          score: totalRate,
-          commentor: userData.id,
+    dispatch(
+      finishInterview({
+        token,
+        projectId,
+        intervieweeId,
+        interviewee: {
+          filterScores: { ...filterRates },
+          comments: {
+            comment,
+            score: totalRate,
+            commentor: userData.id,
+          },
         },
-      },
-    }));
+      })
+    );
 
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
@@ -279,33 +300,43 @@ export default function InterviewPageContainer() {
 
   return (
     <>
-      <Interview
-        time={time}
-        isQuestionModalOn={questionModalFlag}
-        isTotalResultModalOn={totalResultModalFlag}
-        onTotalResultModalClose={closeTotalResultModal}
-        project={project}
-        user={userVideo}
-        userData={userData}
-        intervieweeData={intervieweeData}
-        interviewers={peers}
-        isButtonDisabled={isDisabled}
-        recordStateType={recordStateType}
-        visibilityRecordStateType={visibilityRecordStateType}
-        recogText={recogText}
-        isInterviewee={userData.isInterviewee}
-        onVideoBtnClick={handleVideo}
-        onAudioBtnClick={handleAudio}
-        onProcessBtnClick={handleProcessBtnClick}
-        onTotalRateChange={handleTotalRate}
-        onFilterRateChange={handleFilterRate}
-        onQuestionRateChange={handleQuestionRate}
-        onCommentChange={handleCommentChange}
-        onResultSubmit={handleResultSubmit}
-        onBackButtonClick={handleBackBtn}
-        onQuestionModalClose={closeQuestionModal}
-        onQuestionSubmit={handleQuestionSubmit}
-      />
+      {userData.isInterviewee ? (
+        <InterviewInterviewee
+          user={userVideo}
+          interviewers={peers}
+          onAudioBtnClick={handleAudio}
+          onVideoBtnClick={handleVideo}
+          onBackButtonClick={handleBackBtn}
+          time={time}
+        />
+      ) : (
+        <Interview
+          time={time}
+          isQuestionModalOn={questionModalFlag}
+          isTotalResultModalOn={totalResultModalFlag}
+          onTotalResultModalClose={closeTotalResultModal}
+          project={project}
+          user={userVideo}
+          userData={userData}
+          interviewers={peers}
+          isButtonDisabled={isDisabled}
+          recordStateType={recordStateType}
+          visibilityRecordStateType={visibilityRecordStateType}
+          recogText={recogText}
+          isInterviewee={userData.isInterviewee}
+          onVideoBtnClick={handleVideo}
+          onAudioBtnClick={handleAudio}
+          onProcessBtnClick={handleProcessBtnClick}
+          onTotalRateChange={handleTotalRate}
+          onFilterRateChange={handleFilterRate}
+          onQuestionRateChange={handleQuestionRate}
+          onCommentChange={handleCommentChange}
+          onResultSubmit={handleResultSubmit}
+          onBackButtonClick={handleBackBtn}
+          onQuestionModalClose={closeQuestionModal}
+          onQuestionSubmit={handleQuestionSubmit}
+        />
+      )}
     </>
   );
 }
