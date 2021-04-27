@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
 import { legos } from "../constants/legos";
@@ -27,20 +27,25 @@ export default function WelcomeContainer() {
   function handleInputChange(event) {
     event.preventDefault();
 
-    const newUserInfoType = event.target.name;
-    const value = event.target.value;
+    const { target: { value, name } } = event;
 
     setNewUserInfo({
       ...newUserInfo,
-      [newUserInfoType]: value,
+      [name]: value,
     });
   }
 
-  function handleAskPermissionBtnClick(e) {
-    e.preventDefault();
+  function handleAskPermissionBtnClick(event) {
+    event.preventDefault();
 
-    history.push(`/interview/${projectId}/${intervieweeId}`);
-    dispatch(setUser({ username: newUserInfo.name, email: newUserInfo.email, avatar: newUserInfo.avatar, isInterviewee: true }));
+    dispatch(setUser({ 
+      username: newUserInfo.name, 
+      email: newUserInfo.email, 
+      avatar: newUserInfo.avatar, 
+      isInterviewee: true,
+    }));
+    
+    history.push(`/interviewee/${projectId}/${intervieweeId}`);
   }
 
   return (
