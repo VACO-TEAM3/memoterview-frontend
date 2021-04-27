@@ -343,11 +343,11 @@ export default function InterviewPageContainer() {
           project={project}
           user={userVideo}
           userData={userData}
+          recogText={recogText}
           interviewers={peers}
           isButtonDisabled={isDisabled}
           recordStateType={recordStateType}
           visibilityRecordStateType={visibilityRecordStateType}
-          recogText={recogText}
           isInterviewee={userData.isInterviewee}
           onVideoBtnClick={handleVideo}
           onAudioBtnClick={handleAudio}

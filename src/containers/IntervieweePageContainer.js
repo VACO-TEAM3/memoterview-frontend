@@ -163,11 +163,11 @@ export default function InterviewPageContainer() {
         isTotalResultModalOn={totalResultModalFlag}
         project={project}
         user={userVideo}
+        recogText={recogText}
         userData={userData}
         interviewers={peers}
         isButtonDisabled={isDisabled}
         recordStateType={recordStateType}
-        recogText={recogText}
         isInterviewee={userData.isInterviewee}
         onVideoBtnClick={handleVideo}
         onAudioBtnClick={handleAudio}
