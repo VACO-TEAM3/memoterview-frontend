@@ -11,6 +11,7 @@ export const startSpeechRecognition = ({
   onError,
   onRecognitionStart,
   onRecognitionResult,
+  onTranscriptRecog = () => {},
 }) => {
   if (!SpeechRecognition) {
     console.error(notUseErrorMessage);
@@ -41,6 +42,7 @@ export const startSpeechRecognition = ({
     );
 
     onRecognitionResult(transcript);
+    onTranscriptRecog(transcript);
     // setRecogText(recogText.concat(transcript));
   };
 
