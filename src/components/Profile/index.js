@@ -2,8 +2,14 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: fixed;
+<<<<<<< HEAD
   top: -5px;
   color: white;
+=======
+  top: 15%;
+  font-size: 30px;
+  color: ${({ theme }) => theme.SpanishBlue};
+>>>>>>> [ADD] interview result modal layout, add color theme
   font-weight: bold;
   text-align: center;
   z-index: 1;
@@ -37,7 +43,11 @@ const Wrapper = styled.div`
 
   .content {
     font-size: 22px;
+<<<<<<< HEAD
     color: #8d9395;
+=======
+    color: grey;
+>>>>>>> [ADD] interview result modal layout, add color theme
     font-weight: normal;
   }
 `;
