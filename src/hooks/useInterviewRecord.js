@@ -23,10 +23,15 @@ export default function useInterviewRecord({
     userId,
   });
   const [answer, setAnswer] = useState("");
+  const [question, setQuestion] = useState("");
   const [visibilityRecordStateType, setVisibilityRecordStateType] = useState(RECORD_STATE_TYPE.INTERVIEW_BEFORE);
   const [recordStateType, setRecordStateType] = useState(
     RECORD_STATE_TYPE.INTERVIEW_BEFORE
   );
+
+  const handleQuestionTranscriptRecog = useCallback((transcript) => {
+    socket.emit("onQuestionRecog", { transcript });
+  }, [socket]);
 
   const setNextRecordStateType = useCallback(() => {
     switch (recordStateType) {
@@ -36,13 +41,14 @@ export default function useInterviewRecord({
         break;
       case RECORD_STATE_TYPE.QUESTION_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.QUESTIONING);
-        startRecognition();
+        startRecognition({ onTranscriptRecog: handleQuestionTranscriptRecog });
         socket.emit("question", { userId: recordsGlobalsRef.current.userId });
         break;
       case RECORD_STATE_TYPE.QUESTIONING:
         setRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
         stopRecognition();
-        recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText;
+        // recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText;
+        setQuestion(recordsGlobalsRef.current.recogText);
         socket.emit("endQuestion");
         break;
       case RECORD_STATE_TYPE.ANSWER_BEFORE:
@@ -74,11 +80,13 @@ export default function useInterviewRecord({
       setIsDisabled(true);
     });
 
+    socket.on("onQuestionRecog", ({ questionerId, transcript }) => {
+      // recordsGlobalsRef.current.questionText = transcript;
+      setQuestion(transcript);
+    });
+
     socket.on("onAnswerRecog", ({ questionerId, transcript }) => {
-      console.log("here", questionerId, transcript);
-      console.log(recordsGlobalsRef.current.userId);
-      if (questionerId === recordsGlobalsRef.current.userId) {
-        console.log("setAnswer");
+      if (!recordsGlobalsRef.current.isInterviewee) {
         setAnswer(transcript);
       }
     });
@@ -99,7 +107,6 @@ export default function useInterviewRecord({
   }, [socket]);
 
   const handleAnswerTranscriptRecog = useCallback((transcript) => {
-    console.log("answer", transcript);
     socket.emit("onAnswerRecog", { transcript });
   }, [socket]);
 
@@ -136,7 +143,6 @@ export default function useInterviewRecord({
 
   useEffect(() => {
     function handleStartInterviewOccur() {
-      console.log("catch startInterview");
       setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       if (!recordsGlobalsRef.current.isInterviewee) {
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
@@ -156,31 +162,26 @@ export default function useInterviewRecord({
 
   useEffect(() => {
     function handleStartQuestionOccur() {
-      console.log("catch startQuestion");
       setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTIONING);
       onQuestionStart();
     }
 
     function handleEndQuestionOccur() {
-      console.log("catch endQuestion");
       setVisibilityRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
       onQuestionEnd();
     }
 
     function handleStartAnswerOccur() {
-      console.log("catch startAnswer");
       setVisibilityRecordStateType(RECORD_STATE_TYPE.ANSWERING);
       onAnswerStart();
     }
 
     function handleEndAnswerOccur() {
-      console.log("catch endAnswer");
       setVisibilityRecordStateType(RECORD_STATE_TYPE.SAVING);
       onAnswerEnd();
     }
 
     function handleUploadCompleteOccur() {
-      console.log("catch uploadcomplete");
       setVisibilityRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
       onAnswerEnd();
     }
@@ -209,5 +210,5 @@ export default function useInterviewRecord({
     recordsGlobalsRef.current.isInterviewee = isInterviewee;
   }, [isInterviewee]);
 
-  return { isDisabled, recordStateType, visibilityRecordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question: recordsGlobalsRef.current.questionText };
+  return { isDisabled, recordStateType, visibilityRecordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question };
 }
