@@ -56,7 +56,7 @@ export default function InterviewPageContainer() {
     isDisabled,
   } = useInterviewRecord({
     socket,
-    userId: genUuid(),
+    userId: userData.isInterviewee ? genUuid() : userData.id,
     isInterviewee: userData.isInterviewee,
     setTimerActive: setIsActive,
   });

@@ -1,4 +1,12 @@
-import { faChevronLeft, faFile, faQuestion, faVideo, faVideoSlash, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faFile,
+  faQuestion,
+  faVideo,
+  faVideoSlash,
+  faVolumeMute,
+  faVolumeUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -42,7 +50,7 @@ const PageWrapper = styled.div`
   justify-items: center;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(50deg, #1572B2, #8CCED7) fixed;
+  background: linear-gradient(50deg, #1572b2, #8cced7) fixed;
 
   .interview-content {
     display: flex;
@@ -125,7 +133,9 @@ export default function Interview({
   }
 
   function handleQuestionInputChange(ev) {
-    const { target: { value } } = ev;
+    const {
+      target: { value },
+    } = ev;
 
     setQuestion(value);
   }
