@@ -9,6 +9,43 @@ const ViewWrapper = styled.div`
   margin-top: 1rem;
   text-align: center;
   color: ${({ theme }) => theme.InterviewModalContent};
+<<<<<<< HEAD
+=======
+`;
+
+const FilterOptions = styled.div`
+  display: grid;
+  grid-template-columns: 37% auto;
+  margin-top: 0.5rem;
+`;
+
+const TotalOptions = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+
+  .interview-input {
+    width: 60%;
+    height: 20px;
+    margin: 0.5rem auto;
+    border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+  }
+`;
+
+const ButtonWrapper = styled.button`
+  width: 100%;
+  height: 3rem;
+  margin-top: 1.1rem;
+  border: 0;
+  border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
+  background: ${({ theme }) => theme.BabyPowder};
+  color: ${({ theme }) => theme.LittleBoyBlue};
+
+  :hover {
+    color: ${({ theme }) => theme.BabyPowder};
+    background: ${({ theme }) => theme.LittleBoyBlue};
+  }
+>>>>>>> [ADD] interview result modal layout, add color theme
 `;
 
 const FilterOptions = styled.div`
@@ -62,7 +99,11 @@ export default function InterviewTotalEvaluationModalView({
   onFilterRateChange,
   onResultSubmit,
 }) {
+<<<<<<< HEAD
   return ( // BabyPower 색상
+=======
+  return ( //baby power 색상
+>>>>>>> [ADD] interview result modal layout, add color theme
     <ModalView backgroundColor="#f9f8f5" width="500px" height="500px">
       <ViewWrapper>
         <h2>최종 평가</h2>
