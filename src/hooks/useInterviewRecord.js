@@ -165,16 +165,24 @@ export default function useInterviewRecord({
       onAnswerEnd();
     }
 
+    function handleUploadCompleteOccur() {
+      console.log("catch uploadcomplete");
+      setVisibilityRecordStateType(RECORD_STATE_TYPE.SAVING);
+      onAnswerEnd();
+    }
+
     socket.on("startQuestion", handleStartQuestionOccur);
     socket.on("endQuestion", handleEndQuestionOccur);
     socket.on("startAnswer", handleStartAnswerOccur);
     socket.on("endAnswer", handleEndAnswerOccur);
+    socket.on("uploadComplete", handleUploadCompleteOccur);
 
     return () => {
       socket.off("startQuestion", handleStartQuestionOccur);
       socket.off("endQuestion", handleEndQuestionOccur);
       socket.off("startAnswer", handleStartAnswerOccur);
       socket.off("endAnswer", handleEndAnswerOccur);
+      socket.off("uploadComplete", handleUploadCompleteOccur);
     };
 
   }, [onAnswerEnd, onAnswerStart, onQuestionEnd, onQuestionStart, socket]);

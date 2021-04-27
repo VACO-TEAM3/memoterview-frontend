@@ -17,6 +17,7 @@ export const INTERVIEW_STATE = {
     color: {
       normalColor: "#2181B1",
       hoverColor: "#056A9B",
+      backgroundColor: "#2181B12e",
     },
   },
   [RECORD_STATE_TYPE.QUESTION_BEFORE]: {
@@ -24,8 +25,9 @@ export const INTERVIEW_STATE = {
     message: "질문을 녹음하세요",
     icon: faQuestion,
     color: {
-      normalColor: "#1F8049",
+      normalColor: "#5ab75a",
       hoverColor: "#186639",
+      backgroundColor: "#5ab75a2e",
     },
   },
   [RECORD_STATE_TYPE.QUESTIONING]: {
@@ -33,8 +35,9 @@ export const INTERVIEW_STATE = {
     message: "버튼을 누를 시 녹음이 중단됩니다",
     icon: faRecordVinyl,
     color: {
-      normalColor: "#CF3F28",
+      normalColor: "#e64747",
       hoverColor: "#A22F1D",
+      backgroundColor: "#e647472e",
     },
   },
   [RECORD_STATE_TYPE.ANSWER_BEFORE]: {
@@ -42,8 +45,9 @@ export const INTERVIEW_STATE = {
     message: "답변을 녹음하세요",
     icon: faVoicemail,
     color: {
-      normalColor: "#1F8049",
+      normalColor: "#7ab121",
       hoverColor: "#186639",
+      backgroundColor: "#7ab121",
     },
   },
   [RECORD_STATE_TYPE.ANSWERING]: {
@@ -51,8 +55,9 @@ export const INTERVIEW_STATE = {
     message: "버튼을 누를 시 녹음이 중단됩니다",
     icon: faRecordVinyl,
     color: {
-      normalColor: "#CF3F28",
+      normalColor: "#ff0000",
       hoverColor: "#A22F1D",
+      backgroundColor: "#ff0000",
     },
   },
   [RECORD_STATE_TYPE.SAVING]: {
@@ -60,8 +65,9 @@ export const INTERVIEW_STATE = {
     message: "저장 중 입니다",
     icon: faHourglassHalf,
     color: {
-      normalColor: "#2181B1",
+      normalColor: "#cfd213",
       hoverColor: "#056A9B",
+      backgroundColor: "#cfd213",
     },
   },
 };
