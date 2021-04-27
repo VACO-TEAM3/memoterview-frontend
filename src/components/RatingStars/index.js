@@ -25,12 +25,12 @@ const RatingWrapper = styled.div`
   }
 
   input:checked ~ label {
-    color: #FFC700;    
+    color: ${({ theme }) => theme.LittleBoyBlue};  
   }
 
   label:hover,
   label:hover ~ label {
-    color: #DEB217;  
+    color: #5D92C5;  
   }
 
   .rate > input:checked + label:hover,
@@ -38,7 +38,7 @@ const RatingWrapper = styled.div`
   .rate > input:checked ~ label:hover,
   .rate > input:checked ~ label:hover ~ label,
   .rate > label:hover ~ input:checked ~ label {
-    color: #C59B08;
+    color: #4F7DA9;
   }
 `;
 
