@@ -1,7 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import InterviewContainerHelper from "../../containers/interviewContainerHelper";
 import IntervieweeDetailContainer from "../../containers/IntervieweeDetailContainer";
 import IntervieweePageContainer from "../../containers/IntervieweePageContainer";
 import InterviewPageContainer from "../../containers/InterviewPageContainer";
@@ -42,9 +41,6 @@ export default function App() {
         </AuthRoute>
         <AuthRoute path="/result/:projectId/:intervieweeId">
           <IntervieweeDetailContainer />
-        </AuthRoute>
-        <AuthRoute path="/interview/:projectId">
-          <InterviewContainerHelper />
         </AuthRoute>
         <Redirect to="/" />
       </Switch>

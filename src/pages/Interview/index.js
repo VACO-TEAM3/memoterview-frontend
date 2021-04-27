@@ -1,6 +1,5 @@
 import { faChevronLeft, faFile, faQuestion, faVideo, faVideoSlash, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
@@ -14,7 +13,6 @@ import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEv
 import Modal from "../../components/Modal";
 import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
-import StyledRightSideBar from "../../components/shared/StyledRightSideBar";
 import StyledSideBar from "../../components/shared/StyledSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
@@ -89,14 +87,13 @@ export default function Interview({
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
-  
+
   const [isResumeOpened, setIsResumeOpened] = useState(false);
   const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
   const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
 
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
-  console.log(project?.filters);
 
   function handleAudio() {
     onAudioBtnClick(isAudioOn);
@@ -111,7 +108,7 @@ export default function Interview({
   function handleOpenScriptBoardButton() {
     setIsScriptBoardOpened((prev) => !prev);
   }
- 
+
   function handleOpenResumeButton() {
     setIsResumeOpened((prev) => !prev);
   }
@@ -132,13 +129,12 @@ export default function Interview({
 
     setQuestion(value);
   }
-  console.log(intervieweeData, "dataatta");
 
   return (
     <>
       {isTotalResultModalOn && (
         <Modal onBackgroundClick={onTotalResultModalClose}>
-          <InterviewTotalEvaluationModalView 
+          <InterviewTotalEvaluationModalView
             filters={project?.filters}
             onTotalRateChange={onTotalRateChange}
             onFilterRateChange={onFilterRateChange}
@@ -150,22 +146,22 @@ export default function Interview({
       {isQuestionModalOn && (
         <Modal>
           <InterviewQuestionModalView
-            onRateChange={onQuestionRateChange} 
+            onRateChange={onQuestionRateChange}
             onResultSubmit={onQuestionSubmit}
           />
         </Modal>
       )}
       <PageWrapper>
         <StyledSideBar>
-          <InterviewMenuButton 
-            name="BACK" 
-            onClick={onBackButtonClick} 
-            icon={faChevronLeft} 
+          <InterviewMenuButton
+            name="BACK"
+            onClick={onBackButtonClick}
+            icon={faChevronLeft}
           />
-          <InterviewTab 
-            tabName="Resume" 
-            tabIcon={faFile} 
-            onClick={handleOpenResumeButton} 
+          <InterviewTab
+            tabName="Resume"
+            tabIcon={faFile}
+            onClick={handleOpenResumeButton}
             isOpened={isResumeOpened}
           >
             <IntervieweeResumeModalView resume={intervieweeData.resumePath} />
@@ -176,42 +172,42 @@ export default function Interview({
         <div className="interview-content">
           <VideoContent interviewers={interviewers} user={user} />
           <StyledVideoBottomBar>
-            <CircleButton 
-              onClick={handleAudio} 
-              isClicked={isAudioOn} 
-              clickedState={faVolumeMute} 
-              unClickedState={faVolumeUp} 
+            <CircleButton
+              onClick={handleAudio}
+              isClicked={isAudioOn}
+              clickedState={faVolumeMute}
+              unClickedState={faVolumeUp}
             />
-            {!isInterviewee && 
-              <InterviewButton 
-                isButtonDisabled={isButtonDisabled} 
+            {!isInterviewee &&
+              <InterviewButton
+                isButtonDisabled={isButtonDisabled}
                 onClick={onProcessBtnClick}
                 state={INTERVIEW_STATE[recordStateType]}
               />
             }
-            <CircleButton 
-              onClick={handleVideo} 
-              isClicked={isVideoOn} 
-              clickedState={faVideoSlash} 
-              unClickedState={faVideo} 
+            <CircleButton
+              onClick={handleVideo}
+              isClicked={isVideoOn}
+              clickedState={faVideoSlash}
+              unClickedState={faVideo}
             />
           </StyledVideoBottomBar>
         </div>
         <ScriptWrapper>
-          <InterviewRightTab 
-            tabName="Script" 
-            tabIcon={faFile} 
-            onClick={handleOpenScriptBoardButton} 
+          <InterviewRightTab
+            tabName="Script"
+            tabIcon={faFile}
+            onClick={handleOpenScriptBoardButton}
             isOpened={isScriptBoardOpened}
           >
-            <div height="1000px">transcadfhkasufhkalseuhfklasehfkafhalsfhsfhaksuehfkalsefhkalfaht</div>
+            <div height="1000px">Script section</div>
           </InterviewRightTab>
         </ScriptWrapper>
         <QuestionWrapper>
-          <InterviewRightTab 
-            tabName="Questions" 
-            tabIcon={faQuestion} 
-            onClick={handleOpenQuestionBoard} 
+          <InterviewRightTab
+            tabName="Questions"
+            tabIcon={faQuestion}
+            onClick={handleOpenQuestionBoard}
             isOpened={isQuestionBoardOpened}
           >
             <QuestionBoard
