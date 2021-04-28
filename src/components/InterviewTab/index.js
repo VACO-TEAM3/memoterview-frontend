@@ -19,7 +19,7 @@ export default function InterviewTab({ tabName, tabIcon, onClick, children, isOp
   return (
     <TabWrapper>
       {isOpened && <div className="tab-content">{children}</div>}
-      <TabButton borderRadius="0 5px 5px 0" name={tabName} icon={tabIcon} onClick={onClick} />
+      <TabButton isLeft={true} borderRadius="0 5px 5px 0" name={tabName} icon={tabIcon} onClick={onClick} />
     </TabWrapper>
   );
 }

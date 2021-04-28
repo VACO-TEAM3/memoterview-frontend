@@ -91,7 +91,7 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-    console.log(project.category);
+    
     getQuestions({ category: project.category, token });
   }, []);
 
