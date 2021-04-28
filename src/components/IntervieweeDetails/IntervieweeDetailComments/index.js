@@ -19,7 +19,7 @@ const CommentWrapper = styled.div`
   border-radius: 7px;
 `;
 
-const Comment = styled.li`
+const Comment = styled.div`
   margin: 1vh 4vh;
   list-style: none;
   font-size: 1.3rem;
@@ -32,13 +32,13 @@ function IntervieweeDetailComments({ comments }) {
       {
         comments ?
           comments.map(comment =>
-            <>
+            <div key={Date.now() * Math.random()}>
               <CommentWrapper>
                 <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
               </CommentWrapper>
               <Comment>총평: {comment.score}</Comment>
               <Comment>코멘트: {comment.comment}</Comment>
-            </>
+            </div>
           )
           : "No comments"
       }
