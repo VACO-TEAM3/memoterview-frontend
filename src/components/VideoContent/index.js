@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import MainVideo from "../MainVideo";
-import SubVideo from "../SubVideo";
-import VideoContentNameTag from "../VideoContentNameTag";
+import VideoBlock from "../VideoBlock";
 
 const VideoContentWrapper = styled.div`
   display: grid;
@@ -16,12 +14,7 @@ const VideoContentWrapper = styled.div`
   width: 48vw;
   height: 50vh;
 
-  .main-video {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-  .sub-videos {
+  .videos {
     width: 100%;
     height: 100%;
     position: relative;
@@ -31,19 +24,13 @@ const VideoContentWrapper = styled.div`
 export default function VideoContent({ peers, user, isInterviewee }) {
   return (
     <VideoContentWrapper>
-      <div className="main-video">
-        <MainVideo videoRef={user} />
-        <VideoContentNameTag isInterviewee={isInterviewee}>
-          {user.current?.username || "ME"}
-        </VideoContentNameTag>
-      </div>
+      <VideoBlock video={user} isUser={true} isInterviewee={isInterviewee}>
+        {user.current?.username || "ME"}
+      </VideoBlock>
       {peers?.map((peer) => (
-        <div key={peer.username} className="sub-videos">
-          <SubVideo peer={peer} />
-          <VideoContentNameTag isInterviewee={peer.isInterviewee} isAudioOn={peer.isAudioOn}>
-            {peer.username || peer.isInterviewee ? "Interviewee" : "Interviewer"}
-          </VideoContentNameTag>
-        </div>
+        <VideoBlock key={peer.username} isUser={false} video={peer.peer} isInterviewee={peer.isInterviewee} isAudioOn={peer.isAudioOn}>
+          {peer.username || peer.isInterviewee ? "Interviewee" : "Interviewer"}
+        </VideoBlock>
       ))}
     </VideoContentWrapper>
   );
