@@ -108,7 +108,7 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
         </EditField>
         <EditField>
           <Label>이력서</Label>
-          <Input onChange={handleFileSelected} type="file" inputType="resume" accept="application/pdf" />
+          <Input onChange={handleFileSelected} type="file" accept="application/pdf" />
         </EditField>
         <BtnGroup><Button type="submit" buttonType="ok">제출</Button><Button buttonType="cancel" onClick={onCancleBtnClick}>취소</Button></BtnGroup>
       </Form>
