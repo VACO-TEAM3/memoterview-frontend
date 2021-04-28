@@ -19,25 +19,28 @@ const Video = styled.div`
     position: absolute;
     top: 5%;
     right: 5%;
+    color: rgba(254, 254, 254, 0.8);
+    z-index: 2;
   }
 `;
 
 export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children, isVideoOn = true }) {
-  console.log(isUser);
   return (
     <Video>
       {isUser 
         ? <MainVideo videoRef={video} /> 
         : <SubVideo peer={video} />
       }
-      <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
-        {
-          !isVideoOn && (
+      {
+        !isVideoOn && (
+          <div className="video-bedge">
             <FontAwesomeIcon
               icon={faVideoSlash}
             />
-          )
-        }
+          </div>
+        )
+      }
+      <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
         {
           !isUser && (
             <FontAwesomeIcon
