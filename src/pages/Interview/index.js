@@ -15,31 +15,18 @@ import InterviewButton from "../../components/InterviewButton";
 import IntervieweeResume from "../../components/IntervieweeResume";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
 import InterviewQuestionModalView from "../../components/InterviewQuestionModalView";
-import InterviewRightTab from "../../components/InterviewRightTab";
 import InterviewTab from "../../components/InterviewTab";
 import InterviewTotalEvaluationModalView from "../../components/InterviewTotalEvaluationModalView";
 import Modal from "../../components/Modal";
-import Profile from "../../components/Profile";
 import QuestionBoard from "../../components/QuestionBoard";
 import ScriptBox from "../../components/ScriptBox";
-import StyledSideBar from "../../components/shared/StyledSideBar";
+import StyledLeftSideBar from "../../components/shared/StyledLeftSideBar";
+import StyledRightSideBar from "../../components/shared/StyledRightSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 import { INTERVIEW_STATE } from "../../constants/recordState";
 import { getBackgroundColor, getBorderColor } from "./helper";
-
-const ScriptWrapper = styled.div`
-  position: fixed;
-  right: 0;
-  top: 90px;
-  background-color: yellow;
-`;
-
-const QuestionWrapper = styled.div`
-  position: fixed;
-  right: 0;
-`;
 
 const PageWrapper = styled.div`
   display: flex;
@@ -162,21 +149,36 @@ export default function Interview({
         </Modal>
       )}
       <PageWrapper>
-        <StyledSideBar>
+        <StyledLeftSideBar>
           <InterviewMenuButton
             name="BACK"
             onClick={onBackButtonClick}
             icon={faChevronLeft}
           />
           <InterviewTab
-            tabName="Resume"
+            isLeft={true}
+            tabName="Script"
             tabIcon={faFile}
-            onClick={handleOpenResumeButton}
-            isOpened={isResumeOpened}
+            onClick={handleOpenScriptBoardButton}
+            isOpened={isScriptBoardOpened}
           >
-            <IntervieweeResume resume={intervieweeData?.resumePath} />
+            <ScriptBox answer={answer} question={questionTranscript}/>
           </InterviewTab>
-        </StyledSideBar>
+          <InterviewTab
+            isLeft={true}
+            tabName="Questions"
+            tabIcon={faQuestion}
+            onClick={handleOpenQuestionBoard}
+            isOpened={isQuestionBoardOpened}
+          >
+            <QuestionBoard
+              question={question}
+              questions={questions}
+              onChange={handleQuestionInputChange}
+              onSubmit={handleQuestionSubmit}
+            />
+          </InterviewTab>
+        </StyledLeftSideBar>
         <Timer time={time} />
         <InterviewContent>
           <VideoContent peers={interviewers} user={user} />
@@ -202,30 +204,17 @@ export default function Interview({
             />
           </StyledVideoBottomBar>
         </InterviewContent>
-        <ScriptWrapper>
-          <InterviewRightTab
-            tabName="Script"
+        <StyledRightSideBar>
+          <InterviewTab
+            isLeft={false}
+            tabName="Resume"
             tabIcon={faFile}
-            onClick={handleOpenScriptBoardButton}
-            isOpened={isScriptBoardOpened}
+            onClick={handleOpenResumeButton}
+            isOpened={isResumeOpened}
           >
-            <ScriptBox answer={answer} question={questionTranscript}/>
-          </InterviewRightTab>
-        </ScriptWrapper>
-        <QuestionWrapper>
-          <InterviewRightTab
-            tabName="Questions"
-            tabIcon={faQuestion}
-            onClick={handleOpenQuestionBoard}
-            isOpened={isQuestionBoardOpened}
-          />
-          <QuestionBoard
-            question={question}
-            questions={questions}
-            onChange={handleQuestionInputChange}
-            onSubmit={handleQuestionSubmit}
-          />
-        </QuestionWrapper>
+            <IntervieweeResume resume={intervieweeData?.resumePath} />
+          </InterviewTab>
+        </StyledRightSideBar>
       </PageWrapper>
     </div>
   );
