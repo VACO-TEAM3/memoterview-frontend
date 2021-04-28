@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { legos } from "../../../constants/legos";
+import { generateRandomLegoIdx } from "../../../utils/generateRandomLegoIdx";
 import UserIcon from "../../UserIcon";
 
 const UserInfo = styled.div`
@@ -35,8 +36,8 @@ const UserEmail = styled.div`
 `;
 
 function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
-  // mock intervieweeAvatar
-  const intervieweeAvatar = legos[1];
+  const randomLegoIdx = generateRandomLegoIdx();
+  const intervieweeAvatar = legos[randomLegoIdx];
 
   const avatar = commenterInfo ? commenterInfo.avatar : intervieweeAvatar;
   const displayingName = commenterInfo ? commenterInfo.username : name;
@@ -45,7 +46,6 @@ function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
   const avatarSize = commenterInfo ? "40px" : "80px";
   const nameSize = commenterInfo ? "20px" : "20px";
   const emailSize = commenterInfo ? "20px" : "20px";
-  // const infoColor = commenterInfo ? "ItemHoverGreen" : "none";
 
   return (
     <UserInfo>

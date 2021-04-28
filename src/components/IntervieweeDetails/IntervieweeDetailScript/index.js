@@ -36,7 +36,7 @@ const ScriptList = styled.div`
   margin-left: 1.5vw;
 `;
 
-const Script = styled.li`
+const Script = styled.div`
   display: flex;
   margin: 0.5vh;
   font-size: 1.3rem;
@@ -50,12 +50,12 @@ function IntervieweeDetailScript({ questions }) {
       {
         questions ?
           questions.map(question =>
-            <>
+            <div key={question._id}>
               <ScriptList>
                 <Script>문제: {question.title}</Script>
                 <Script>답변: {question.answer}</Script>
               </ScriptList>
-            </>
+            </div>
           )
           : "No script available"
       }

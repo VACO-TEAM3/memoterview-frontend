@@ -12,13 +12,13 @@ export function createStars(score) {
 
   while (totalStarNums > 0) {
     if (fullStarNums > 0) {
-      stars.push(<FontAwesomeIcon icon={faStar}/>);
+      stars.push(<FontAwesomeIcon key={Date.now() * Math.random()} icon={faStar}/>);
       fullStarNums--;
       totalStarNums--;
       continue;
     }
 
-    stars.push(<FontAwesomeIcon icon={emptyStar}/>);
+    stars.push(<FontAwesomeIcon key={Date.now() * Math.random()} icon={emptyStar}/>);
     totalStarNums--;
   }
 

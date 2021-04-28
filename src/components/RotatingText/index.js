@@ -66,7 +66,7 @@ export default function RotateText({ staticText, rotatingWords }) {
         animateLetterOut(cw, i);
       }
 
-      for (let i = 0; i < nw.length; i++) {
+      for (let i = 0; i < nw?.length; i++) {
         nw[i].className = "letter behind";
         nw[0].parentElement.style.opacity = 1;
         animateLetterIn(nw, i);
