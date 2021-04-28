@@ -15,21 +15,17 @@ const BoardWrapper = styled.div`
   }
 `;
 
-export default function QuestionBoard({ question, questions, onChange, onSubmit }) {
+export default function QuestionBoard({ questions, onChange }) {
+  console.log("questions", questions);
   return (
     <BoardWrapper>
-      <QuestionForm 
-        onSubmit={onSubmit} 
-        value={question} 
-        onChange={onChange} 
-      />
       <div className="question-list">
         {questions?.map((question, index) => (
           <div className="question-list-content" key={index}>
-            <input type="checkbox" />
-            <div>{question}</div>
+            <div>{question.title}</div>
           </div>
         ))}
+        <button onClick={onChange}>refresh</button>
       </div>
     </BoardWrapper>
   );
