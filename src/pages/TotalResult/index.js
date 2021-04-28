@@ -3,41 +3,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../../components/Header";
+import HeaderNav from "../../components/HeaderNav";
 import TotalResultContentTop from "../../components/TotalResultContentTop";
 import TotalResultList from "../../components/TotalResultList";
-
-const HeaderNav = styled.div`
-  margin: 0 40px;
-  font-size: 1.5rem;
-  cursor: pointer;
-
-  &:first-child {
-    margin-left: 80px;
-  }
-
-  &:last-child {
-    margin-left: auto;
-    margin-right: 80px;
-    text-align: end;
-  }
-
-  &:hover {
-    color: ${({ theme }) => theme.Aero};
-  }
-
-  a {
-    text-decoration: none;
-    &:link {
-      color: black;
-    }
-    &:visited {
-      color: black;
-    }
-    &:hover {
-      color: ${({ theme }) => theme.Aero};
-    }
-  }
-`;
 
 const TotalResultContentWrapper = styled.div`
   margin: 4.5rem auto 0;
@@ -63,13 +31,9 @@ export default function TotalResult({
   return (
     <>
       <Header>
-        <HeaderNav>
-          <Link to={"/projects"}>Interviews</Link>
-        </HeaderNav>
-        <HeaderNav>
-          <Link to={`/projects/${projectId}/search`}>Search</Link>
-        </HeaderNav>
-        <HeaderNav onClick={onLogoutClick}>Logout</HeaderNav>
+        <HeaderNav path="/projects" title="Interviews" />
+        <HeaderNav path={`/projects/${projectId}/search`} title="Search" />
+        <HeaderNav path="/#" onClick={onLogoutClick} title="Logout" />
       </Header>
       <TotalResultContentWrapper>
         <TotalResultContentTop
