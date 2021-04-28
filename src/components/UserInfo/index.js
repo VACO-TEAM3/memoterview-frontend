@@ -9,6 +9,9 @@ const UserInfoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: ${({ theme }) => theme.SideBarMainFontColor};
+  padding-bottom: 30px;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.10);
 `;
 
 const UserName = styled.div`
@@ -17,14 +20,14 @@ const UserName = styled.div`
 `;
 
 const UserEmail = styled.div`
-  margin-top: 5px;
+  margin: 5px 0 20px 0;
   font-size: 1rem;
 `;
 
 function UserInfo({ userInfo }) {
   return (
     <UserInfoWrapper>
-      <UserIcon />
+      <UserIcon avatar={userInfo.avatar} avatarSize="60px"/>
       <UserName>{userInfo.userName}</UserName>
       <UserEmail>{userInfo.userEmail}</UserEmail>
     </UserInfoWrapper>

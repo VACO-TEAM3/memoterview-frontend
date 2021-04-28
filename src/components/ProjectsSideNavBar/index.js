@@ -18,9 +18,10 @@ const LogoutBtn = styled.div`
   text-align: center;
   font-size: 1.2rem;
   cursor: pointer;
+  color: ${({ theme }) => theme.SideBarRegularFontColor};
 
   &:hover {
-    color: ${({ theme }) => theme.Aero};
+    color: ${({ theme }) => theme.SideBarMainFontColor};
   }
 `;
 
