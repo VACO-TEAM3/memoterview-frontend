@@ -38,7 +38,7 @@ export async function getMyProjectsAPI({ userId, token }) {
   );
 
   const { data } = await response.json();
-
+  console.log(data);
   return data;
 }
 
@@ -55,7 +55,7 @@ export async function getJoinedProjectsAPI({ userId, token }) {
   );
 
   const { data } = await response.json();
-
+  console.log(data);
   return data;
 }
 
@@ -260,3 +260,22 @@ export async function deleteIntervieweeAPI({ token, projectId, intervieweeId }) 
 
   return data._id;
 }
+
+export async function getQuestions({ token, category }) {
+  console.log(24);
+  console.log(category, token);
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_PORT}/api/question/${category}`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`,
+      },
+    }
+  );
+
+  const { data } = await response.json();
+  console.log(data);
+}
+
