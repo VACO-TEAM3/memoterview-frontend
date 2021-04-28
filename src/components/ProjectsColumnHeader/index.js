@@ -7,7 +7,7 @@ const ProjectsColumnHeaderWrapeer = styled.div`
   margin: 0 20px;
   border-top: 1px solid ${({ theme }) => theme.Snow };
   background-color: ${({ theme }) => theme.ItemColor };
-  border-radius: 5px;
+  border-radius: 3px;
 `;
 
 const ColumnTitle = styled.span`
