@@ -56,10 +56,17 @@ export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick
   const [title, setTitle] = useState("");
   const [evaluationOptions, setEvaluationOptions] = useState([]);
   const [participants, setParticipants] = useState([]);
+  const [category, setCategory] = useState("");
   const { token } = useToken();
 
-  function handleTitleChange(e) {
-    setTitle(e.target.value);
+  function handleCategory(event) {
+    const { target: { value } } = event;
+
+    setCategory(value);
+  }
+
+  function handleTitleChange(event) {
+    setTitle(event.target.value);
   }
 
   function handleEvaluationOptionAdd(evaluationOption) {
@@ -103,6 +110,7 @@ export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick
       title,
       filters: evaluationOptions,
       participants: participants.map((participant) => participant.id),
+      category,
     };
 
     onCreateBtnClick(newProject);
@@ -149,6 +157,10 @@ export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick
             onOptionDelete={handleParticipantOptionDelete}
           />
         ))}
+      </EditField>
+      <EditField>
+        <Label>카테고리</Label>
+        <Input value={category} onChange={handleCategory} />
       </EditField>
       <BtnGroup>
         <Button buttonType="cancel" onClick={onCancelBtnClick}>취소</Button>
