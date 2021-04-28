@@ -100,6 +100,7 @@ const projectInitialState = {
   creator: "",
   filters: [],
   participants: [],
+  category: "",
 };
 
 const initialState = {
