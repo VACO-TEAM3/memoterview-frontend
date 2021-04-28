@@ -14,9 +14,16 @@ const Video = styled.div`
   .video-button {
     margin-right: 10px;
   }
+
+  .video-bedge {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+  }
 `;
 
-export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children, isVideoOn }) {
+export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children, isVideoOn = true }) {
+  console.log(isUser);
   return (
     <Video>
       {isUser 
@@ -27,7 +34,7 @@ export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, ch
         {
           !isVideoOn && (
             <FontAwesomeIcon
-              icon={isAudioOn ? faMicrophoneAlt : faMicrophoneAltSlash}
+              icon={faVideoSlash}
             />
           )
         }
