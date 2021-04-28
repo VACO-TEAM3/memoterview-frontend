@@ -10,11 +10,12 @@ const InterviewerWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0.5vh 0.5vw;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+  border: 1px solid ${({ theme }) => theme.Solitude};
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.Aero};
+  background-color: ${({ theme }) => theme.ItemHoverGreen};
   &:hover {
-    background-color: ${({ theme }) => theme.LittleBoyBlue};
+    background-color: ${({ theme }) => theme.ButtonGreen};
   }
   text-decoration: none;
 `;
