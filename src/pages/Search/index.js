@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "../../components/Header";
+import HeaderNav from "../../components/HeaderNav";
 import Interviewee from "../../components/SearchQuestions/Interviewee";
 import Interviewer from "../../components/SearchQuestions/Interviewer";
 import SearchInputBar from "../../components/SearchQuestions/SearchInputBar";
@@ -46,10 +47,13 @@ const NoSearchResult = styled.div`
   font-size: 2vmax;
 `;
 
-export default function Search({ searchList, inputText, onFormSubmit, onInputChange }) {
+export default function Search({ onLogoutClick, searchList, inputText, onFormSubmit, onInputChange }) {
   return (
     <>
-      <Header />
+      <Header>
+        <HeaderNav path="/projects" title="Interviews"/>
+        <HeaderNav path="/#" onClick={onLogoutClick} title="Logout"/>
+      </Header>
       <SearchWrapper>
         <Main>
           <SearchInputBar inputText={inputText} onFormSubmit={onFormSubmit} onInputChange={onInputChange} />
