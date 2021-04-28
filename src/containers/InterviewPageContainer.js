@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Peer from "simple-peer";
 import { io } from "socket.io-client";
 
-import { updateIntervieweeAnswer } from "../api";
+import { getQuestions, updateIntervieweeAnswer } from "../api";
 import {
   INTERVIEWEE_TOAST_MESSAGE,
   INTERVIEWER_TOAST_MESSAGE,
@@ -78,14 +78,6 @@ export default function InterviewPageContainer() {
   });
   //////////////////////////////////////////////////////
   useEffect(() => {
-    const toastMsg = getToastMessage(
-      userData.isInterviewee,
-      visibilityRecordStateType
-    );
-    toast(toastMsg);
-  }, [userData.isInterviewee, visibilityRecordStateType]);
-
-  useEffect(() => {
     (async function getStreaming() {
       try {
         const localStream = await mediaStream();
@@ -99,7 +91,18 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
+    console.log(project.category);
+    getQuestions({ category: project.category, token });
   }, []);
+
+  useEffect(() => {
+    const toastMsg = getToastMessage(
+      userData.isInterviewee,
+      visibilityRecordStateType
+    );
+
+    toast(toastMsg);
+  }, [userData.isInterviewee, visibilityRecordStateType]);
 
   useEffect(() => {
     if (!isStreaming) {
