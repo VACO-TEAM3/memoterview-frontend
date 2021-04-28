@@ -6,7 +6,6 @@ const ProjectsColumnHeaderWrapeer = styled.div`
   height: 50px;
   margin: 0 20px;
   border-top: 1px solid ${({ theme }) => theme.Snow };
-  border-bottom: 1px solid ${({ theme }) => theme.ProjectPageBorderBottom };
   background-color: ${({ theme }) => theme.ItemColor };
   border-radius: 5px;
 `;

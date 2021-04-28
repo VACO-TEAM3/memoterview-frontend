@@ -15,7 +15,8 @@ const InnerPageWrapper = styled.div`
   justify-content: center;
   width: 40vw;;
   height: 60vh;
-  background-color: ${({ theme }) => theme.BabyPowder};
+  background-color: ${({ theme }) => theme.GulfBlue};
+  color: ${({ theme }) => theme.Snow};
   border-radius: 4px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 `;
@@ -61,11 +62,26 @@ const Input = styled.input`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
-const Button = styled.button`
-  width: 100px;
+const Button = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
   height: 40px;
+  background-color: ${({ theme }) => theme.White};
+  border-radius: 3px;
+  color: ${({ theme }) => theme.GulfBlue};
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+
+  :hover {
+    color: ${({ theme }) => theme.GulfBlue};
+    background: ${({ theme }) => theme.ButtonGreen};
+  }
 `;
 
 export default function WelcomePage({ onAskPermissionBtnClick, onInputChange }) {

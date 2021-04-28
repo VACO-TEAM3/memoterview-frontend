@@ -14,7 +14,7 @@ const IndicatorGroup = styled.div`
   align-items: center;
   width: 100%;
   height: 20px;
-  margin-top: 50px;
+  margin: 30px;
 `;
 
 const DownloadPdfBtnWrap = styled.div`
@@ -38,7 +38,7 @@ const PageIndicator = styled.div`
   margin: 10px;
   width:20%;
   height: 25px;
-  font-size: 15px;
+  font-size: 25px;
   cursor: pointer;
 `;
 
