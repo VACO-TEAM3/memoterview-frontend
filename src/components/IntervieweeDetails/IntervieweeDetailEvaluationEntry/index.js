@@ -29,20 +29,13 @@ const EvaluationDetailHeader = styled.div`
   font-size: 1.3rem;
 `;
 
-const CommentsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
 export default function IntervieweeDetailEvaluationEntry({ createStars, comments }) {
   return (
     <EvaluationDetailWrapper>
       <EvaluationDetailHeader>
         <Label>평가 디테일</Label>
       </EvaluationDetailHeader>
-      <CommentsWrapper>
-        <IntervieweeDetailComments createStars={createStars} comments={comments}/>
-      </CommentsWrapper>
+      <IntervieweeDetailComments createStars={createStars} comments={comments}/>
     </EvaluationDetailWrapper>
   );
 }
