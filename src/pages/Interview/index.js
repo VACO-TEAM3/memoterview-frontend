@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
 import InterviewButton from "../../components/InterviewButton";
-import IntervieweeResumeModalView from "../../components/IntervieweeResumeModalView";
+import IntervieweeResume from "../../components/IntervieweeResume";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
 import InterviewQuestionModalView from "../../components/InterviewQuestionModalView";
 import InterviewRightTab from "../../components/InterviewRightTab";
@@ -39,7 +39,6 @@ const ScriptWrapper = styled.div`
 const QuestionWrapper = styled.div`
   position: fixed;
   right: 0;
-  background-color: green;
 `;
 
 const PageWrapper = styled.div`
@@ -175,10 +174,9 @@ export default function Interview({
             onClick={handleOpenResumeButton}
             isOpened={isResumeOpened}
           >
-            <IntervieweeResumeModalView resume={intervieweeData?.resumePath} />
+            <IntervieweeResume resume={intervieweeData?.resumePath} />
           </InterviewTab>
         </StyledSideBar>
-        {/* <Profile /> */}
         <Timer time={time} />
         <InterviewContent>
           <VideoContent peers={interviewers} user={user} />
@@ -220,14 +218,13 @@ export default function Interview({
             tabIcon={faQuestion}
             onClick={handleOpenQuestionBoard}
             isOpened={isQuestionBoardOpened}
-          >
-            <QuestionBoard
-              question={question}
-              questions={questions}
-              onChange={handleQuestionInputChange}
-              onSubmit={handleQuestionSubmit}
-            />
-          </InterviewRightTab>
+          />
+          <QuestionBoard
+            question={question}
+            questions={questions}
+            onChange={handleQuestionInputChange}
+            onSubmit={handleQuestionSubmit}
+          />
         </QuestionWrapper>
       </PageWrapper>
     </div>
