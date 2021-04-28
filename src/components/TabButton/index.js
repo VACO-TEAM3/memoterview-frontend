@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const TabButtonWrapper = styled.div`
   width: 1.2rem;
-  max-height: 6.2rem;
+  max-height: 8.5rem;
   color: #3193C4;
   z-index: 2;
   background: white;

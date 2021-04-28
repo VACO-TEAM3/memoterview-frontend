@@ -28,11 +28,7 @@ const RatingWrapper = styled.div`
 
   label:hover,
   label:hover ~ label {
-<<<<<<< HEAD
-    color: ${({ theme }) => theme.LittleBoyBlueDark};   
-=======
     color: ${({ theme }) => theme.LittleBoyBlueDark}; 
->>>>>>> [ADD] interview result modal layout, add color theme
   }
 
   .rate > input:checked + label:hover,
@@ -40,11 +36,7 @@ const RatingWrapper = styled.div`
   .rate > input:checked ~ label:hover,
   .rate > input:checked ~ label:hover ~ label,
   .rate > label:hover ~ input:checked ~ label {
-<<<<<<< HEAD
-    color: ${({ theme }) => theme.LittleBoyBlueDeepDark}; 
-=======
     color: ${({ theme }) => theme.LittleBoyBlueDeepDark};  
->>>>>>> [ADD] interview result modal layout, add color theme
   }
 `;
 
