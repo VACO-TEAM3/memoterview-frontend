@@ -14,12 +14,12 @@ const Button = styled.button`
   margin: 5px 20px;
   width: 70px;
   height: 30px;
-  background-color: ${({ theme }) => theme.Aero};
-  border: 1px solid gray;
-  border-radius: 2px;
+  background-color: ${({ theme }) => theme.ButtonGreen};
+  border-radius: 5px;
   box-sizing: border-box;
   transition: opacity 0.3s linear;
   cursor: pointer;
+  border: none;
 
   &:hover {
     opacity: ${({ disabled }) => disabled ? 1 : 0.7};

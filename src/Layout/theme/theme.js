@@ -1,6 +1,5 @@
 const theme = {
   ModalBackground: "rgba(0, 0, 0, 0.3)",
-
   GulfBlue: "#39425c",
   Solitude: "#eaf1ff",
   Mischka: "#9b9eab",
@@ -8,6 +7,14 @@ const theme = {
   Whisper: "#EBEBEB",
   Snow: "#FBFBFB",
   AliceBlue: "#EAF3FA",
+  DodgerBlue: "#1B9CFC",
+  LinkWater: "#c4cad7",
+  Gossamer: "#3aab83",
+
+  ItemHoverGreen: "#D7F1EA",
+  ButtonGreen: "#2BC7A3",
+  TotalResultPageButtonGreen: "#10ac84",
+  StatusMenuGreen: "#10ac84",
 
   BabyPowder: "#f9f8f5",
   Aero: "#76b9e4",
