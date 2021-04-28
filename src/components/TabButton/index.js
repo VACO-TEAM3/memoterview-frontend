@@ -10,7 +10,7 @@ const TabButtonWrapper = styled.div`
   margin-bottom: 0.6rem;
   padding: 0.3rem 0;
   border-radius: ${props => props.borderRadius};
-  box-shadow: ${pros => pros.isLeft ? "10px 15px 12px -5px rgba(0, 0, 0, 0.22)" : "-10px 15px 12px -5px rgba(0, 0, 0, 0.22)"};
+  box-shadow: ${props => props.isLeft ? "10px 15px 12px -5px rgba(0, 0, 0, 0.22)" : "-10px 15px 12px -5px rgba(0, 0, 0, 0.22)"};
   cursor: pointer;
 
   :hover {

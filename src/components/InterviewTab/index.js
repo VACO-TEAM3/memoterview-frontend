@@ -5,21 +5,50 @@ import TabButton from "../TabButton";
 const TabWrapper = styled.div`
   display: flex;
   margin-bottom: 0.5rem;
+  position: relative;
 
   .tab-content {
     min-height: 1rem;
     padding-bottom: 2rem;
     background: white;
-    border-radius: 0 0 3px 0;
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    border-radius: ${props => props.isLeft ? "0 0 3px 0" : "0 0 0 3px"};
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   }
 `;
 
-export default function InterviewTab({ tabName, tabIcon, onClick, children, isOpened }) {
+export default function InterviewTab({
+  tabName,
+  tabIcon,
+  onClick,
+  children,
+  isOpened,
+  isLeft,
+}) {
   return (
-    <TabWrapper>
-      {isOpened && <div className="tab-content">{children}</div>}
-      <TabButton isLeft={true} borderRadius="0 5px 5px 0" name={tabName} icon={tabIcon} onClick={onClick} />
+    <TabWrapper isLeft={isLeft}>
+      {isLeft ? (
+        <>
+          {isOpened && <div className="tab-content">{children}</div>}
+          <TabButton
+            isLeft={isLeft}
+            borderRadius="0 5px 5px 0"
+            name={tabName}
+            icon={tabIcon}
+            onClick={onClick}
+          />
+        </>
+      ) : (
+        <>
+          <TabButton
+            isLeft={isLeft}
+            borderRadius="5px 0 0 5px"
+            name={tabName}
+            icon={tabIcon}
+            onClick={onClick}
+          />
+          {isOpened && <div className="tab-content">{children}</div>}
+        </>
+      )}
     </TabWrapper>
   );
 }
