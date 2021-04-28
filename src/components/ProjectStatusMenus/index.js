@@ -13,7 +13,7 @@ const ProjectStatusMenusWrapper = styled.div`
 
 const StatusMenu = styled.span`
   margin: 0 40px;
-  color: ${(props) => (props.active ?  props.theme.PictonBlue : props.theme.Black)};
+  color: ${(props) => (props.active ? props.theme.StatusMenuGreen : props.theme.Black)};
   font-weight: bolder;
   font-size: 1.3rem;
   cursor: pointer;

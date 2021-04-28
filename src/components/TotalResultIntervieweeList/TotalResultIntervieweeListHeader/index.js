@@ -6,7 +6,9 @@ import TotalResultIntervieweeColumn from "../TotalResultIntervieweeColumn";
 import TotalResultIntervieweeRow from "../TotalResultIntervieweeRow";
 
 const TotalResultIntervieweeListHeaderWrapper = styled(TotalResultIntervieweeRow)`
-  background-color: ${({ theme }) => theme.Aero};
+  background-color: ${({ theme }) => theme.GulfBlue};
+  color: ${({ theme }) => theme.Whisper};
+  border-radius: 5px;
 `;
 
 export default function TotalResultIntervieweeListHeader({ onAddBtnClick }) {

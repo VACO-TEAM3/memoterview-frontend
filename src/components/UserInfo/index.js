@@ -10,17 +10,17 @@ const UserInfoWrapper = styled.div`
   align-items: center;
   width: 100%;
   color: ${({ theme }) => theme.Solitude};
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 `;
 
 const UserName = styled.div`
   margin-top: 20px;
-  font-size: 1.2rem;
+  font-size: 20px;
 `;
 
 const UserEmail = styled.div`
   margin: 5px 0 20px 0;
-  font-size: 1rem;
+  font-size: 15px;
 `;
 
 function UserInfo({ userInfo }) {

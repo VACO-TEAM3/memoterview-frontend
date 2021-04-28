@@ -18,7 +18,7 @@ cursor: pointer;
 }
 
 &:hover {
-  color: ${({ theme }) => theme.Aero};
+  color: ${({ theme }) => theme.StatusMenuGreen};
 }
 
 a {
@@ -30,7 +30,7 @@ a {
     color: black;
   }
   &:hover {
-    color: ${({ theme }) => theme.Aero};
+    color: ${({ theme }) => theme.StatusMenuGreen};
   }
 }
 `;

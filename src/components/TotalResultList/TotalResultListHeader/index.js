@@ -7,12 +7,13 @@ import TotalResultListRow from "../TotalResultListRow";
 
 const TotalResultListHeaderWrapper = styled(TotalResultListRow)`
   position: relative;
-  background-color: ${({ theme }) => theme.Aero};
+  background-color: ${({ theme }) => theme.GulfBlue};
   border: 1px solid gray;
   font-size: 1.2rem;
+  color: ${({ theme }) => theme.Solitude};
 
   &:hover {
-    background-color: ${({ theme }) => theme.Aero};
+    background-color: ${({ theme }) => theme.GulfBlue};
   }
 `;
 
