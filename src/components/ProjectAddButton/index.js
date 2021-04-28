@@ -14,7 +14,7 @@ const ProjectAddButtonWrapper = styled.div`
   height: 40px;
   font-size: 1.2rem;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.SpanishBlue};
+  background-color: ${({ theme }) => theme.PictonBlue};
   color: white;
   cursor: pointer;
   transition: transform .3s linear;

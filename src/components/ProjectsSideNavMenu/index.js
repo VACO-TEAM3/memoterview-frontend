@@ -11,12 +11,13 @@ const MenuWrapper = styled.div`
 
 const Menu = styled.div`
   margin: 30px 0;
-  color: ${(props) => (props.active ? props.theme.SideBarMainFontColor : props.theme.SideBarRegularFontColor)};
+  color: ${(props) => (props.active ? props.theme.Solitude : props.theme.Mischka)};
+  font-weight: ${(props) => (props.active ? 900 : 300)};
   font-size: 1rem;
   cursor: pointer;
 
   &:hover {
-    color: ${({ theme }) => theme.SideBarMainFontColor};
+    color: ${({ theme }) => theme.Solitude};
   }
 `;
 
