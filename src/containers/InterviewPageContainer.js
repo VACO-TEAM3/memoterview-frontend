@@ -60,25 +60,12 @@ export default function InterviewPageContainer() {
   const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
   const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
 
-  function handleOpenScriptBoardButton() {
-    setIsScriptBoardOpened((prev) => !prev);
-  }
-
-  function handleOpenResumeButton() {
-    setIsResumeOpened((prev) => !prev);
-  }
-
-  function handleOpenQuestionBoard() {
-    setIsQuestionBoardOpened((prev) => !prev);
-  }
-
   const userVideo = useRef();
   const peersRef = useRef([]);
 
   const { time, setIsActive } = useTimer();
   const { token } = useToken();
 
-  //////////////////////////하영작업///////////////////////
   const {
     recordStateType,
     visibilityRecordStateType,
@@ -94,7 +81,7 @@ export default function InterviewPageContainer() {
     isInterviewee: userData.isInterviewee,
     setTimerActive: setIsActive,
   });
-  //////////////////////////////////////////////////////
+
   useEffect(() => {
     (async function getStreaming() {
       try {
@@ -263,6 +250,18 @@ export default function InterviewPageContainer() {
       }
     };
   }, [isStreaming]);
+
+  function handleOpenScriptBoardButton() {
+    setIsScriptBoardOpened((prev) => !prev);
+  }
+
+  function handleOpenResumeButton() {
+    setIsResumeOpened((prev) => !prev);
+  }
+
+  function handleOpenQuestionBoard() {
+    setIsQuestionBoardOpened((prev) => !prev);
+  }
 
   async function setQuestions() {
     const category = "frontend"; // 테스트용

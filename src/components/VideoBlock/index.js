@@ -1,4 +1,4 @@
-import { faMicrophoneAlt, faMicrophoneAltSlash } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophoneAlt, faMicrophoneAltSlash, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -16,7 +16,7 @@ const Video = styled.div`
   }
 `;
 
-export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children }) {
+export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children, isVideoOn }) {
   return (
     <Video>
       {isUser 
@@ -24,6 +24,13 @@ export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, ch
         : <SubVideo peer={video} />
       }
       <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
+        {
+          !isVideoOn && (
+            <FontAwesomeIcon
+              icon={isAudioOn ? faMicrophoneAlt : faMicrophoneAltSlash}
+            />
+          )
+        }
         {
           !isUser && (
             <FontAwesomeIcon
