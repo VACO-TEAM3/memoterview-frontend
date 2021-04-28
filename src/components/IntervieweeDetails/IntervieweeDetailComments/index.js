@@ -7,14 +7,16 @@ const Comments = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid ${({ theme }) => theme.LinkWater};
   border-radius: 10px;
   height: 100%;
 `;
 
-const CommentList = styled.div`
-  background-color: #e3f1fe;
-  border-radius: 10px;
+const CommentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.DetailPageBlue};
+  border-radius: 7px;
 `;
 
 const Comment = styled.li`
@@ -31,11 +33,11 @@ function IntervieweeDetailComments({ comments }) {
         comments ?
           comments.map(comment =>
             <>
-              <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
-              <CommentList>
-                <Comment>총평: {comment.score}</Comment>
-                <Comment>코멘트: {comment.comment}</Comment>
-              </CommentList>
+              <CommentWrapper>
+                <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
+              </CommentWrapper>
+              <Comment>총평: {comment.score}</Comment>
+              <Comment>코멘트: {comment.comment}</Comment>
             </>
           )
           : "No comments"

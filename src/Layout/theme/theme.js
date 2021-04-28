@@ -12,6 +12,7 @@ const theme = {
   Gossamer: "#3aab83",
 
   ItemHoverGreen: "#D7F1EA",
+  DetailPageBlue: "#D7E7F6",
   ButtonGreen: "#2BC7A3",
   TotalResultPageButtonGreen: "#10ac84",
   StatusMenuGreen: "#10ac84",
@@ -28,7 +29,7 @@ const theme = {
   LittleBoyBlueDeepDark: "#3677b5",
   CircleButtonGray: "#5D5F5F",
   QuestionContentGray: "#5D5F5F",
-  white: "",
+  white: "#ffffff",
   Black: "#000000",
 };
 
