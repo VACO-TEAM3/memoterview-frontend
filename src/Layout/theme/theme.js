@@ -1,6 +1,10 @@
 const theme = {
   ModalBackground: "rgba(0, 0, 0, 0.3)",
-  SideBarBackground: "#EBEBEB",
+
+  SideBarBackground: "#39425c",
+  SideBarMainFontColor: "#eaf1ff",
+  SideBarRegularFontColor: "#9b9eab",
+
   BabyPowder: "#f9f8f5",
   Aero: "#76b9e4",
   LittleBoyBlue: "#69A3DB",
