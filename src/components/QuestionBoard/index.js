@@ -1,32 +1,74 @@
+import { faComment, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-
-import QuestionForm from "../QuestionForm";
 
 const BoardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 5rem;
+  max-width: 18rem;
+  margin: 15px;
+  align-items: center;
+  justify-content: center;
 
   .question-list {
-    margin-left: 1rem;
+    
+  }
+`;
 
-    .question-list-content {
-      display: flex;
+const QuestionWrapper = styled.div`
+  margin: 0 2rem 1rem 0;
+  font-size: smaller;
+  color: ${({ theme }) => theme.QuestionContentGray};
+  overflow-y: visible;
+
+  .question-list-content {
+    display: flex;
+    margin: 10px auto;
+
+    .question-list-icon {
+      margin-right: 5px;
+      color: ${({ theme }) => theme.QuestionContentGray};
     }
   }
 `;
 
+const RefreshButton = styled.button`
+  position: absolute;
+  right: 10%;
+  bottom: 5%;
+  width: 2rem;
+  height: 2rem;
+  background: ${({ theme }) => theme.LittleBoyBlueDeepDark};
+  color: white;
+  border-radius: 175px;
+  border: 0;
+`;
+
 export default function QuestionBoard({ questions, onChange }) {
-  console.log("questions", questions);
   return (
     <BoardWrapper>
-      <div className="question-list">
-        {questions?.map((question, index) => (
-          <div className="question-list-content" key={index}>
-            <div>{question.title}</div>
-          </div>
-        ))}
-        <button onClick={onChange}>refresh</button>
-      </div>
+      <QuestionWrapper>
+        {questions?.length ? (
+          <>
+            <h3>추천 질문</h3>
+            {questions.map((question, index) => (
+              <div className="question-list-content" key={index}>
+                <FontAwesomeIcon
+                  className="question-list-icon"
+                  icon={faComment}
+                />
+                <>{question.title}</>
+              </div>
+            ))}
+            <RefreshButton onClick={onChange}>
+              <FontAwesomeIcon icon={faSyncAlt} />
+            </RefreshButton>
+          </>
+        ) : (
+          "추천 드릴 질문이 없습니다"
+        )}
+      </QuestionWrapper>
     </BoardWrapper>
   );
 }
