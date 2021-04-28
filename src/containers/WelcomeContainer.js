@@ -44,7 +44,7 @@ export default function WelcomeContainer() {
       avatar: newUserInfo.avatar, 
       isInterviewee: true,
     }));
-    
+
     history.push(`/interviewee/${projectId}/${intervieweeId}`);
   }
 

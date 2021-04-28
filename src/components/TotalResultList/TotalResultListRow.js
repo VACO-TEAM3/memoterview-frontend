@@ -15,6 +15,6 @@ export default styled.div`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.ItemHoverGreen };
+    background-color: ${({ theme }) => theme.ItemHoverColor};
   }
 `;

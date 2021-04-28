@@ -13,9 +13,9 @@ const InterviewerWrapper = styled.div`
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   border: 1px solid ${({ theme }) => theme.Solitude};
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.ButtonGreen};
+  background-color: ${({ theme }) => theme.DetailPageBlue};
   &:hover {
-    background-color: ${({ theme }) => theme.ItemHoverGreen};
+    background-color: ${({ theme }) => theme.ItemHoverColor};
   }
   text-decoration: none;
 `;
