@@ -1,10 +1,8 @@
-import { faMicrophoneAlt, faMicrophoneAltSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 import MainVideo from "../MainVideo";
 import SubVideo from "../SubVideo";
-import VideoContentTag from "../VideoContentTag";
+import VideoContentNameTag from "../VideoContentNameTag";
 
 const VideoContentWrapper = styled.div`
   display: grid;
@@ -30,40 +28,21 @@ const VideoContentWrapper = styled.div`
   }
 `;
 
-const VideoContentTagWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 3rem;
-  padding: 0.1rem 0.3rem;
-  background: #1E1E1E90;
-  color: rgba(255, 255, 255);
-  position: absolute;
-  bottom: 0%;
-  left: 0;
-  font-weight: bold;
-  border-radius: 3px;
-  border: 2px solid ${({ color }) => color};
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  z-index: 2;
-  text-align: center;
-`;
-
 export default function VideoContent({ peers, user, isInterviewee }) {
   return (
     <VideoContentWrapper>
       <div className="main-video">
         <MainVideo videoRef={user} />
-        <VideoContentTagWrapper color={isInterviewee ? "#D3635E" : "#61B153"}>
+        <VideoContentNameTag isInterviewee={isInterviewee}>
           {user.current?.username || "ME"}
-        </VideoContentTagWrapper>
+        </VideoContentNameTag>
       </div>
       {peers?.map((peer) => (
         <div key={peer.username} className="sub-videos">
           <SubVideo peer={peer} />
-          <VideoContentTag peer={peer}>
+          <VideoContentNameTag isInterviewee={peer.isInterviewee} isAudioOn={peer.isAudioOn}>
             {peer.username || peer.isInterviewee ? "Interviewee" : "Interviewer"}
-          </VideoContentTag>
+          </VideoContentNameTag>
         </div>
       ))}
     </VideoContentWrapper>
