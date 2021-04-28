@@ -215,10 +215,16 @@ export default function InterviewPageContainer() {
     }
   }
 
-  function handleProcessBtnClick() {
+  const ProcessInterview = useCallback(() => {
     if (isDisabled) {
-      alert("아직 면접자가 오지 않았습니다.");
-      return;
+      switch (recordStateType) {
+        case RECORD_STATE_TYPE.INTERVIEW_BEFORE:
+          return toast.error("아직 면접자가 오지 않았습니다.");
+        case RECORD_STATE_TYPE.QUESTION_BEFORE:
+          return toast.error("다른사람의 질의 응답중에는 질문할 수 없습니다.");
+        default:
+          return toast.error("질문할 수 없습니다.");
+      }
     }
 
     if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
@@ -226,25 +232,36 @@ export default function InterviewPageContainer() {
     }
 
     setNextRecordStateType();
+  }, [isDisabled, recordStateType, setNextRecordStateType]);
+
+  function handleProcessBtnClick() {
+    ProcessInterview();
   }
 
   const handleKeyDown = useCallback(
     (event) => {
       if (event.key === " " || event.key === "Spacebar") {
-        if (isDisabled) {
-          alert("아직 면접자가 오지 않았습니다.");
-          return;
-        }
-
-        if (RECORD_STATE_TYPE.ANSWERING === recordStateType) {
-          setQuestionModalFlag(true);
-        }
-
-        setNextRecordStateType();
+        ProcessInterview();
       }
     },
-    [isDisabled, recordStateType, setNextRecordStateType]
+    [ProcessInterview]
   );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isDisabled]);
 
   function handleFilterRate(rateOption, value) {
     setFilterScores((prev) => ({ ...prev, [rateOption]: value }));
@@ -271,19 +288,21 @@ export default function InterviewPageContainer() {
       return;
     }
 
-    dispatch(finishInterview({
-      token,
-      projectId,
-      intervieweeId,
-      interviewee: {
-        filterScores,
-        comments: {
-          comment,
-          score: totalRate,
-          commenter: userData.id,
+    dispatch(
+      finishInterview({
+        token,
+        projectId,
+        intervieweeId,
+        interviewee: {
+          filterScores,
+          comments: {
+            comment,
+            score: totalRate,
+            commenter: userData.id,
+          },
         },
-      },
-    }));
+      })
+    );
 
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
@@ -353,7 +372,6 @@ export default function InterviewPageContainer() {
           onBackButtonClick={handleBackBtn}
           onQuestionModalClose={closeQuestionModal}
           onQuestionSubmit={handleQuestionSubmit}
-          onKeyDown={handleKeyDown}
         />
       )}
     </>

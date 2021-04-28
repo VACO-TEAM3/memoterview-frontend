@@ -98,7 +98,6 @@ export default function Interview({
   onBackButtonClick,
   onQuestionSubmit,
   time,
-  onKeyDown,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isVideoOn, setIsVideoOn] = useState(true);
@@ -151,7 +150,7 @@ export default function Interview({
   }
 
   return (
-    <div onKeyDown={onKeyDown}>
+    <div>
       {isTotalResultModalOn && (
         <Modal onBackgroundClick={onTotalResultModalClose}>
           <InterviewTotalEvaluationModalView

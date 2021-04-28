@@ -32,8 +32,11 @@ export default function useInterviewRecord({
   const handleQuestionTranscriptRecog = useCallback((transcript) => {
     socket.emit("onQuestionRecog", { transcript });
   }, [socket]);
+  
+  console.log(recordStateType);
 
   const setNextRecordStateType = useCallback(() => {
+    console.log(recordStateType);
     switch (recordStateType) {
       case RECORD_STATE_TYPE.INTERVIEW_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
