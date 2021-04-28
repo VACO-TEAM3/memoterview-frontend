@@ -166,6 +166,7 @@ export async function updateInterviewRoomState({ token, projectId, intervieweeId
 }
 
 export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
+  console.log(interviewee);
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`,
     {
@@ -262,8 +263,6 @@ export async function deleteIntervieweeAPI({ token, projectId, intervieweeId }) 
 }
 
 export async function getQuestions({ token, category }) {
-  console.log(24);
-  console.log(category, token);
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_PORT}/api/question/${category}`, {
       method: "GET",
@@ -276,6 +275,7 @@ export async function getQuestions({ token, category }) {
   );
 
   const { data } = await response.json();
-  console.log(data);
+
+  return data;
 }
 
