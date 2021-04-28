@@ -11,12 +11,17 @@ const theme = {
   LinkWater: "#c4cad7",
   Gossamer: "#3aab83",
 
-  ItemHoverGreen: "#D7F1EA",
+  // ItemHoverGreen: "#D7F1EA",
+  ItemColor: "#e0e5ee",
+  ItemHoverColor: "#f5f5f5",
+  ProjectPageBorderBottom: "#bec3cc",
+
   DetailPageBlue: "#D7E7F6",
   ButtonGreen: "#2BC7A3",
   ButtonPink: "#FF928B",
   TotalResultPageButtonGreen: "#10ac84",
   StatusMenuGreen: "#10ac84",
+  MainYellow: "#FFB100",
 
   BabyPowder: "#f9f8f5",
   Aero: "#76b9e4",
