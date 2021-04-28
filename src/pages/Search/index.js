@@ -34,7 +34,7 @@ const SearchResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid ${({ theme }) => theme.LinkWater};
   border-radius: 5px;
 `;
 
