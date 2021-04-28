@@ -52,7 +52,6 @@ function intervieweeDetailNavBar({ backgroundColor, iconColor, size, iconSize, o
 }
 
 intervieweeDetailNavBar.defaultProps = {
-  // hover -> blue
   iconColor: "black",
 };
 

@@ -49,7 +49,6 @@ const InterviewContent = styled.div`
   padding: 30px;
   height: calc(100vh - 250px);
   background: #2181B12e;
-
   border-radius: 10px;
 `;
 
@@ -128,7 +127,7 @@ export default function Interview({
           </InterviewTab>
           <InterviewTab
             isLeft={true}
-            tabName="Recommend"
+            tabName="Recommendation"
             tabIcon={faQuestion}
             onClick={onSQuestionBoardClick}
             isOpened={isQuestionBoardOpened}
