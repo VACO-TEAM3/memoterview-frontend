@@ -38,29 +38,28 @@ export default function useInterviewRecord({
   const setNextRecordStateType = useCallback(() => {
     console.log(recordStateType);
     switch (recordStateType) {
-      case RECORD_STATE_TYPE.INTERVIEW_BEFORE:
+      case RECORD_STATE_TYPE.INTERVIEW_BEFORE: // 스타트 버튼 누름
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
         socket.emit("startInterview");
         break;
       case RECORD_STATE_TYPE.QUESTION_BEFORE:
-        setRecordStateType(RECORD_STATE_TYPE.QUESTIONING);
+        setRecordStateType(RECORD_STATE_TYPE.QUESTIONING); // 녹음 버튼 누름
         startRecognition({ onTranscriptRecog: handleQuestionTranscriptRecog });
-        socket.emit("question", { userId: recordsGlobalsRef.current.userId });
+        socket.emit("question", { userId: recordsGlobalsRef.current.userId }); // 인터뷰어 id
         break;
       case RECORD_STATE_TYPE.QUESTIONING:
         setRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
-        stopRecognition();
-        // recordsGlobalsRef.current.questionText = recordsGlobalsRef.current.recogText;
-        setQuestion(recordsGlobalsRef.current.recogText);
+        stopRecognition(); // 정지
+        setQuestion(recordsGlobalsRef.current.recogText); // 신호 치워야
         socket.emit("endQuestion");
         break;
       case RECORD_STATE_TYPE.ANSWER_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.ANSWERING);
-        socket.emit("requestAnswer");
+        socket.emit("requestAnswer"); // 인터뷰이 id
         break;
       case RECORD_STATE_TYPE.ANSWERING:
         setRecordStateType(RECORD_STATE_TYPE.SAVING);
-        socket.emit("endAnswer");
+        socket.emit("endAnswer"); // 신호 치워야
         break;
       case RECORD_STATE_TYPE.SAVING:
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
@@ -84,7 +83,6 @@ export default function useInterviewRecord({
     });
 
     socket.on("onQuestionRecog", ({ questionerId, transcript }) => {
-      // recordsGlobalsRef.current.questionText = transcript;
       setQuestion(transcript);
     });
 

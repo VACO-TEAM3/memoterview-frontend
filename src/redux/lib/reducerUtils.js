@@ -118,7 +118,7 @@ export const addProjectsByProjectId = (state, action) => {
     const projectId = action.payload.id;
 
     const myProjects = state.visibleProjects.myProjects.concat(projectId);
-    console.log(myProjects);
+    
     return {
       ...state,
       visibleProjects: { ...state.visibleProjects, myProjects },
