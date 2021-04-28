@@ -10,6 +10,10 @@ const Video = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+
+  .video-button {
+    margin-right: 10px;
+  }
 `;
 
 export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children }) {
@@ -24,6 +28,7 @@ export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, ch
           !isUser && (
             <FontAwesomeIcon
               icon={isAudioOn ? faMicrophoneAlt : faMicrophoneAltSlash}
+              className="video-button"
             />
           )
         }
