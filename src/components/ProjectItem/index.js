@@ -7,12 +7,12 @@ const ProjectItemWrapper = styled.div`
   position: relative;
   display: flex;
   height: 50px;
-  border: ${({ theme }) => `${theme.SideBarBackground} 2px solid`};
-  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.Whisper};
+  border-radius: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => `${theme.BabyPowder}`};
+    background-color: ${({ theme }) => theme.AliceBlue }
   }
 
   &:not(:first-child) {
