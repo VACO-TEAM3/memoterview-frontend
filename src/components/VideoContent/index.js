@@ -1,7 +1,10 @@
+import { faMicrophoneAlt, faMicrophoneAltSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 import MainVideo from "../MainVideo";
 import SubVideo from "../SubVideo";
+import VideoContentTag from "../VideoContentTag";
 
 const VideoContentWrapper = styled.div`
   display: grid;
@@ -27,7 +30,7 @@ const VideoContentWrapper = styled.div`
   }
 `;
 
-const VideoContentTag = styled.div`
+const VideoContentTagWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,14 +54,14 @@ export default function VideoContent({ peers, user, isInterviewee }) {
     <VideoContentWrapper>
       <div className="main-video">
         <MainVideo videoRef={user} />
-        <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
+        <VideoContentTagWrapper color={isInterviewee ? "#D3635E" : "#61B153"}>
           {user.current?.username || "ME"}
-        </VideoContentTag>
+        </VideoContentTagWrapper>
       </div>
       {peers?.map((peer) => (
         <div key={peer.username} className="sub-videos">
           <SubVideo peer={peer} />
-          <VideoContentTag color={peer.isInterviewee ? "#D3635E" : "#61B153"}>
+          <VideoContentTag peer={peer}>
             {peer.username || peer.isInterviewee ? "Interviewee" : "Interviewer"}
           </VideoContentTag>
         </div>
