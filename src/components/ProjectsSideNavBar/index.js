@@ -7,7 +7,7 @@ import UserInfo from "../UserInfo";
 const ProjectsSideNavBarWrapper = styled.div`
   position: relative;
   padding: 60px 30px;
-  background-color: ${({ theme }) => theme.SideBarBackground};
+  background-color: ${({ theme }) => theme.GulfBlue};
 `;
 
 const LogoutBtn = styled.div`
@@ -18,10 +18,10 @@ const LogoutBtn = styled.div`
   text-align: center;
   font-size: 1.2rem;
   cursor: pointer;
-  color: ${({ theme }) => theme.SideBarRegularFontColor};
+  color: ${({ theme }) => theme.Mischka};
 
   &:hover {
-    color: ${({ theme }) => theme.SideBarMainFontColor};
+    color: ${({ theme }) => theme.Solitude};
   }
 `;
 
