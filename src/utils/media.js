@@ -24,4 +24,7 @@ export const mediaOptions = {
   videoOn(stream) {
     return stream.getVideoTracks().forEach((track) => (track.enabled = true));
   },
+  stop(stream) {
+    return stream.getTracks().forEach((track) => (track.stop()));
+  },
 };

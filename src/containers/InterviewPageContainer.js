@@ -247,6 +247,7 @@ export default function InterviewPageContainer() {
     return () => {
       if (isStreaming) {
         socket.disconnect({ interviewDuration: time });
+        mediaOptions.stop(stream);
       }
     };
   }, [isStreaming]);
