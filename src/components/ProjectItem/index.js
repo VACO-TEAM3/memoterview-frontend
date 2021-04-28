@@ -12,7 +12,7 @@ const ProjectItemWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.AliceBlue }
+    background-color: ${({ theme }) => theme.ItemHoverGreen }
   }
 
   &:not(:first-child) {
