@@ -5,7 +5,7 @@ export default styled.div`
   padding-right: 50px;
   height: 70px;
   width: 100%;
-  border-bottom: 1px solid ${({ theme }) => theme.BabyPowder};
+  border-bottom: 1px solid ${({ theme }) => theme.Solitude};
   border-radius: 2px;
   box-sizing: border-box;
   cursor: pointer;
@@ -15,6 +15,6 @@ export default styled.div`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.BabyPowder};
+    background-color: ${({ theme }) => theme.BabyPowder };
   }
 `;
