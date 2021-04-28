@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
 import InterviewMenuButton from "../../components/InterviewMenuButton";
-import StyledSideBar from "../../components/shared/StyledSideBar";
+import StyledSideBar from "../../components/shared/StyledLeftSideBar";
 import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
