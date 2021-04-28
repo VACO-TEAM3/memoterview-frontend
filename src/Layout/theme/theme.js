@@ -12,6 +12,7 @@ const theme = {
   LittleBoyBlueDark: "#4f8dc6",
   LittleBoyBlueDeepDark: "#3677b5",
   CircleButtonGray: "#5D5F5F",
+  QuestionContentGray: "#5D5F5F",
   white: "",
 };
 
