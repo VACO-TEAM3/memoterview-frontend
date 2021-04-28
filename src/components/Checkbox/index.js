@@ -16,9 +16,9 @@ const StyledCheckbox = styled.div`
   display: inline-block;
   width: ${(props) => (props.width ? props.width : "16px")};
   height: ${(props) => (props.height ? props.height : "16px")};
-  background: ${(props) => (props.checked ? props.theme.Aero : props.theme.BabyPowder)};
-  border: ${({ theme }) => `1px solid ${theme.Aero}`};
-  border-radius: 3px;
+  background: ${(props) => (props.checked ? props.theme.ButtonGreen : props.theme.BabyPowder)};
+  border: ${({ theme }) => `1px solid ${theme.Whisper}`};
+  border-radius: 4px;
   transition: all 200ms;
   cursor: pointer;
 
