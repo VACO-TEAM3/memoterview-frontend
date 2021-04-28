@@ -14,14 +14,14 @@ const Video = styled.div`
   .video-button {
     margin-right: 10px;
   }
+`;
 
-  .video-bedge {
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    color: rgba(254, 254, 254, 0.8);
-    z-index: 2;
-  }
+const VideoIcon = styled.div`
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  color: rgba(254, 254, 254, 0.8);
+  z-index: 2;
 `;
 
 export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, children, isVideoOn = true }) {
@@ -33,11 +33,11 @@ export default function VideoBlock({ video, isUser, isInterviewee, isAudioOn, ch
       }
       {
         !isVideoOn && (
-          <div className="video-bedge">
+          <VideoIcon>
             <FontAwesomeIcon
               icon={faVideoSlash}
             />
-          </div>
+          </VideoIcon>
         )
       }
       <VideoContentTag color={isInterviewee ? "#D3635E" : "#61B153"}>
