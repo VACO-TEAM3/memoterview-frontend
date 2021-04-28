@@ -17,10 +17,10 @@ export default function LoginPageContainer() {
     dispatch(loginUser(profileObj));
   }
 
-  function onFailure() {
+  function onFailure(error) {
+    console.log(error);
     alert("fail!");
   }
-
   return (
     <>
       <LoginPage onSuccess={onSuccess} onFailure={onFailure} />
