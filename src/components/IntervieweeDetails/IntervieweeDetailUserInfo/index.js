@@ -6,7 +6,7 @@ import UserIcon from "../../UserIcon";
 
 const UserInfo = styled.div`
   display: flex;
-  height: 20%;
+  height: 100%;
 `;
 
 const UserInfoWrapper = styled.div`
@@ -45,6 +45,7 @@ function IntervieweeDetailUserInfo({ name, email, commenterInfo }) {
   const avatarSize = commenterInfo ? "40px" : "80px";
   const nameSize = commenterInfo ? "20px" : "20px";
   const emailSize = commenterInfo ? "20px" : "20px";
+  // const infoColor = commenterInfo ? "ItemHoverGreen" : "none";
 
   return (
     <UserInfo>
