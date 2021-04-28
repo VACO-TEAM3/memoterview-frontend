@@ -42,7 +42,7 @@ const Button = styled.div`
   margin: 5px;
   width: 80px;
   height: 40px;
-  background-color: ${(props) => props.buttonType === "ok" ? props.theme.ButtonGreen : props.theme.CongoPink};
+  background-color: ${(props) => props.buttonType === "ok" ? props.theme.ButtonGreen : props.theme.ButtonPink};
   box-sizing: border-box;
   border-radius: 3px;
   font-weight: bold;
