@@ -79,6 +79,7 @@ export default function InterviewPageContainer() {
   });
   //////////////////////////////////////////////////////
   useEffect(() => {
+    console.log(300000);
     (async function getStreaming() {
       try {
         const localStream = await mediaStream();
@@ -140,6 +141,8 @@ export default function InterviewPageContainer() {
             peerID: user.socketID,
             name: user.username,
             isInterviewee: user.isInterviewee,
+            isVideoOn: true,
+            isAudioOn: true,
           }
         ]);
 
@@ -148,6 +151,8 @@ export default function InterviewPageContainer() {
           peer,
           name: user.username,
           isInterviewee: user.isInterviewee,
+          isVideoOn: true,
+          isAudioOn: true,
         });
       });
     });
@@ -166,13 +171,24 @@ export default function InterviewPageContainer() {
       
       peer.signal(signal);
       
-      setPeers((prev) => [...prev, { peer, peerID: caller, name, isInterviewee }]);
-      console.log(name);
+      setPeers((prev) => [
+        ...prev, 
+        { 
+          peer, 
+          peerID: caller, 
+          name, isInterviewee, 
+          isVideoOn: true, 
+          isAudioOn: true,
+        }
+      ]);
+      
       peersRef.current.push({
         peerID: caller,
         peer,
         name,
         isInterviewee,
+        isVideoOn: true,
+        isAudioOn: true,
       });
     });
 
@@ -198,14 +214,48 @@ export default function InterviewPageContainer() {
       setPeers(filteredPeers);
     });
 
-    socket.on("someUserVideoOff", (userID) => {});
-    socket.on("someUserVideoOn", (userID) => {});
-    socket.on("someUserAudioOff", (userID) => {});
-    socket.on("someUserAudioOn", (userID) => {});
+    socket.on("someUserVideoOff", (userID) => {
+      peersRef.current.forEach((peer) => {
+        if (peer.peerID === userID) {
+          peer.isVideoOn = false;
+        }
+      });
+
+      setPeers(peersRef.current);
+    });
+
+    socket.on("someUserVideoOn", (userID) => {
+      peersRef.current.forEach((peer) => {
+        if (peer.peerID === userID) {
+          peer.isVideoOn = true;
+        }
+      });
+
+      setPeers(peersRef.current);
+    });
+
+    socket.on("someUserAudioOff", (userID) => {
+      peersRef.current.forEach((peer) => {
+        if (peer.peerID === userID) {
+          peer.isAudioOn = false;
+        }
+      });
+
+      setPeers(peersRef.current);
+    });
+
+    socket.on("someUserAudioOn", (userID) => {
+      peersRef.current.forEach((peer) => {
+        if (peer.peerID === userID) {
+          peer.isAudioOn = true;
+        }
+      });
+
+      setPeers(peersRef.current);
+    });
 
     return () => {
       if (isStreaming) {
-        console.log(24);
         socket.disconnect({ interviewDuration: time });
       }
     };
@@ -213,7 +263,7 @@ export default function InterviewPageContainer() {
 
   async function setQuestions() {
     const category = "frontend";
-    const questions = await getQuestions({ token, category }); //project.category
+    const questions = await getQuestions({ token, category: project?.category || category }); //project.category
 
     setQuestionList(questions);
   }
@@ -374,22 +424,26 @@ export default function InterviewPageContainer() {
   function handleVideo() {
     if (isVideoOn) {
       mediaOptions.videoOff(stream);
-      // socket.emit("videoOff", {})
+      console.log(30);
+      socket.emit("videoOff", { roomID: intervieweeId });
     } else {
       mediaOptions.videoOn(stream);
+      console.log(35);
+      socket.emit("videoOn", { roomID: intervieweeId });
     }
-    // socket.emit("VideoOff", );
-    // socket.emit("VideoOn", );
-    // socket.emit("AudioOff", );
-    // socket.emit("AudioOn", );
+
     setIsVideoOn(!isVideoOn);
   }
 
   function handleAudio() {
     if (isAudioOn) {
       mediaOptions.audioOff(stream);
+      console.log(40);
+      socket.emit("audioOff", { roomID: intervieweeId });
     } else {
       mediaOptions.audioOn(stream);
+      console.log(45);
+      socket.emit("audioOn", { roomID: intervieweeId });
     }
 
     setIsAudioOn(!isAudioOn);
