@@ -15,6 +15,6 @@ export default styled.div`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.BabyPowder };
+    background-color: ${({ theme }) => theme.ItemHoverGreen };
   }
 `;
