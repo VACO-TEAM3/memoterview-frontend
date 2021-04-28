@@ -29,20 +29,22 @@ export default function InterviewPageContainer() {
     () => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER),
     []
   );
-  const dispatch = useDispatch();
-
+  
+  const history = useHistory();
   const { intervieweeId, projectId } = useParams();
 
+  const dispatch = useDispatch();
   const { userData } = useSelector(({ user }) => ({ userData: user.userData }));
   const { byId } = useSelector(({ interviewees }) => ({
     byId: interviewees.byId,
   }));
-
   const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, projectId),
   }));
-
   const intervieweeData = byId[intervieweeId];
+
+  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [isAudioOn, setIsAudioOn] = useState(true);
   const [isStreaming, setIsStreaming] = useState(false);
   const [filterScores, setFilterScores] = useState({});
   const [questionRate, setQuestionRate] = useState(0);
@@ -50,16 +52,31 @@ export default function InterviewPageContainer() {
   const [comment, setComment] = useState("");
   const [peers, setPeers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [stream, setStream] = useState(null);
-  const userVideo = useRef();
-  const peersRef = useRef([]);
   const [questionModalFlag, setQuestionModalFlag] = useState(false);
   const [totalResultModalFlag, setTotalResultModalFlag] = useState(false);
+  const [stream, setStream] = useState(null);
+  const [questionList, setQuestionList] = useState([]);
+  const [isResumeOpened, setIsResumeOpened] = useState(false);
+  const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
+  const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
+
+  function handleOpenScriptBoardButton() {
+    setIsScriptBoardOpened((prev) => !prev);
+  }
+
+  function handleOpenResumeButton() {
+    setIsResumeOpened((prev) => !prev);
+  }
+
+  function handleOpenQuestionBoard() {
+    setIsQuestionBoardOpened((prev) => !prev);
+  }
+
+  const userVideo = useRef();
+  const peersRef = useRef([]);
+
   const { time, setIsActive } = useTimer();
   const { token } = useToken();
-  const history = useHistory();
-  const isInterviewee = false;
-  const [questionList, setQuestionList] = useState([]);
 
   //////////////////////////하영작업///////////////////////
   const {
@@ -79,7 +96,6 @@ export default function InterviewPageContainer() {
   });
   //////////////////////////////////////////////////////
   useEffect(() => {
-    console.log(300000);
     (async function getStreaming() {
       try {
         const localStream = await mediaStream();
@@ -134,31 +150,25 @@ export default function InterviewPageContainer() {
           });
         });
 
-        setPeers((prev) => [
-          ...prev,
-          {
-            peer,
-            peerID: user.socketID,
-            name: user.username,
-            isInterviewee: user.isInterviewee,
-            isVideoOn: true,
-            isAudioOn: true,
-          }
-        ]);
-
-        peersRef.current.push({
-          peerID: user.socketID,
+        const settedPeer = {
           peer,
+          peerID: user.socketID,
           name: user.username,
           isInterviewee: user.isInterviewee,
           isVideoOn: true,
           isAudioOn: true,
-        });
+        };
+
+        setPeers((prev) => [
+          ...prev,
+          settedPeer
+        ]);
+
+        peersRef.current.push(settedPeer);
       });
     });
     
     socket.on("joinNewUser", ({ signal, caller, isInterviewee, name }) => {
-      console.log("나는 찍히면 안돼");
       const peer = new Peer({
         initiator: false,
         trickle: false,
@@ -170,26 +180,19 @@ export default function InterviewPageContainer() {
       });
       
       peer.signal(signal);
-      
-      setPeers((prev) => [
-        ...prev, 
-        { 
-          peer, 
-          peerID: caller, 
-          name, isInterviewee, 
-          isVideoOn: true, 
-          isAudioOn: true,
-        }
-      ]);
-      
-      peersRef.current.push({
-        peerID: caller,
-        peer,
-        name,
-        isInterviewee,
-        isVideoOn: true,
+
+      const settedPeer = {
+        peer, 
+        peerID: caller, 
+        name, 
+        isInterviewee, 
+        isVideoOn: true, 
         isAudioOn: true,
-      });
+      };
+      
+      setPeers((prev) => [...prev, settedPeer]);
+      
+      peersRef.current.push(settedPeer);
     });
 
     socket.on("receiveReturnSignal", ({ id, signal }) => {
@@ -202,7 +205,7 @@ export default function InterviewPageContainer() {
       const [currentPeer] = peersRef.current.filter(
         (peer) => peer.peerID === id
       );
-
+      
       currentPeer?.peer.destroy();
 
       const filteredPeers = peersRef.current.filter(
@@ -215,7 +218,7 @@ export default function InterviewPageContainer() {
     });
 
     socket.on("someUserVideoOff", (userID) => {
-      peersRef.current.forEach((peer) => {
+      peersRef.current.forEach((peer) => { // 리팩토링 하며 HOF로 만들기
         if (peer.peerID === userID) {
           peer.isVideoOn = false;
         }
@@ -262,7 +265,7 @@ export default function InterviewPageContainer() {
   }, [isStreaming]);
 
   async function setQuestions() {
-    const category = "frontend";
+    const category = "frontend"; // 테스트용
     const questions = await getQuestions({ token, category: project?.category || category }); //project.category
 
     setQuestionList(questions);
@@ -388,7 +391,6 @@ export default function InterviewPageContainer() {
         },
       })
     );
-
     history.push(`/projects/${projectId}`); // 결과 페이지로 바꿔야함
   }
 
@@ -412,24 +414,21 @@ export default function InterviewPageContainer() {
         interviewer: userData.id,
         category: project.category,
       },
-    });
+    });    
 
     uploadComplete();
     setQuestionModalFlag(false);
   }
 
-  const [isVideoOn, setIsVideoOn] = useState(true);
-  const [isAudioOn, setIsAudioOn] = useState(true);
-
   function handleVideo() {
     if (isVideoOn) {
       mediaOptions.videoOff(stream);
-      console.log(30);
-      socket.emit("videoOff", { roomID: intervieweeId });
+
+      socket.emit("videoOff");
     } else {
       mediaOptions.videoOn(stream);
-      console.log(35);
-      socket.emit("videoOn", { roomID: intervieweeId });
+
+      socket.emit("videoOn");
     }
 
     setIsVideoOn(!isVideoOn);
@@ -438,12 +437,12 @@ export default function InterviewPageContainer() {
   function handleAudio() {
     if (isAudioOn) {
       mediaOptions.audioOff(stream);
-      console.log(40);
-      socket.emit("audioOff", { roomID: intervieweeId });
+
+      socket.emit("audioOff");
     } else {
       mediaOptions.audioOn(stream);
-      console.log(45);
-      socket.emit("audioOn", { roomID: intervieweeId });
+
+      socket.emit("audioOn");
     }
 
     setIsAudioOn(!isAudioOn);
@@ -464,6 +463,12 @@ export default function InterviewPageContainer() {
         />
       ) : (
         <Interview
+          onScriptBoardClick={handleOpenScriptBoardButton}
+          isScriptBoardOpened={isScriptBoardOpened}
+          onSQuestionBoardClick={handleOpenQuestionBoard}
+          isQuestionBoardOpened={isQuestionBoardOpened}
+          onResumeBoardClick={handleOpenResumeButton}
+          isResumeOpened={isResumeOpened}
           questionList={questionList}
           onRefresh={setQuestions}
           isVideoOn={isVideoOn}

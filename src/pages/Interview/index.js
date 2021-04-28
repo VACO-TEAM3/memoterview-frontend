@@ -7,7 +7,6 @@ import {
   faVolumeMute,
   faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import styled from "styled-components";
 
 import CircleButton from "../../components/CircleButton";
@@ -56,19 +55,14 @@ const InterviewContent = styled.div`
 
 export default function Interview({
   user,
-  userData,
   questionTranscript,
   answer,
   intervieweeData,
   interviewers,
   isButtonDisabled,
   recordStateType,
-  recogText,
-  visibilityRecordStateType,
   isInterviewee,
   onProcessBtnClick,
-  onQuestionModalClose,
-  onIntervieweeResumeShowingBtnClick,
   onQuestionRateChange,
   project,
   onTotalRateChange,
@@ -88,34 +82,13 @@ export default function Interview({
   onAudioBtnClick,
   onVideoBtnClick,
   onRefresh,
+  onScriptBoardClick,
+  isScriptBoardOpened,
+  onSQuestionBoardClick,
+  isQuestionBoardOpened,
+  onResumeBoardClick,
+  isResumeOpened,
 }) {
-  // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
-  const [isResumeOpened, setIsResumeOpened] = useState(false);
-  const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
-  const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
-  console.log(interviewers);
-  const [question, setQuestion] = useState("");
-
-  function handleOpenScriptBoardButton() {
-    setIsScriptBoardOpened((prev) => !prev);
-  }
-
-  function handleOpenResumeButton() {
-    setIsResumeOpened((prev) => !prev);
-  }
-
-  function handleOpenQuestionBoard() {
-    setIsQuestionBoardOpened((prev) => !prev);
-  }
-
-  function handleQuestionInputChange(ev) {
-    const {
-      target: { value },
-    } = ev;
-
-    setQuestion(value);
-  }
-
   return (
     <div>
       {isTotalResultModalOn && (
@@ -148,7 +121,7 @@ export default function Interview({
             isLeft={true}
             tabName="Script"
             tabIcon={faFile}
-            onClick={handleOpenScriptBoardButton}
+            onClick={onScriptBoardClick}
             isOpened={isScriptBoardOpened}
           >
             <ScriptBox answer={answer} question={questionTranscript}/>
@@ -157,7 +130,7 @@ export default function Interview({
             isLeft={true}
             tabName="Recommend"
             tabIcon={faQuestion}
-            onClick={handleOpenQuestionBoard}
+            onClick={onSQuestionBoardClick}
             isOpened={isQuestionBoardOpened}
           >
             <QuestionBoard
@@ -196,7 +169,7 @@ export default function Interview({
             isLeft={false}
             tabName="Resume"
             tabIcon={faFile}
-            onClick={handleOpenResumeButton}
+            onClick={onResumeBoardClick}
             isOpened={isResumeOpened}
           >
             <IntervieweeResume resume={intervieweeData?.resumePath} />
