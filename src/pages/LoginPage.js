@@ -3,90 +3,111 @@ import styled from "styled-components";
 import image from "../assets/images/main.png";
 import Header from "../components/Header";
 import LoginButton from "../components/LoginButton";
+import RotateText from "../components/RotatingText";
 
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background-color: ${({ theme }) => theme.Aero};
-
-  .header-button {
-    width: 5rem;
-    height: 2rem;
-    background: white;
-    border: 1px solid gray;
-    cursor: pointer;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.BabyPowder};
-    }
-  }
-
-  .header-right {
-    margin-right: 1em;
-    margin-left: auto;
-    text-align: end;
-  }
-
-  .content {
-    display: flex;
-    margin-top: 11rem;
-    justify-content: center;
-  }
-
-  .main-image {
-    width: 60em;
-  }
-
-  .content-side {
-    display: flex;
-    height: 100%;
-    margin-right: 5rem;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .content-button {
-    text-align: center;
-  }
-
-  .content-text {
-    text-align: center;
-  }
-
-  .content-text-style {
-    color: white;
-  }
+  background-color: ${({ theme }) => theme.White};
 `;
 
-export default function LoginPage({ onSuccess, onFailure }) {
-  function customButton({ onClick, disabled }) {
-    return (
-      <button className="header-button" onClick={onClick} disabled={disabled}>Start</button>
-    );
-  }
+const Content = styled.div`
+  display: flex;
+  margin-top: 3.5rem;
+  height: calc(100vh - 3.5rem);
+`;
 
+const Logo = styled.div`
+  padding-left: 1.8rem;
+  font-family: 'Cutive Mono', monospace;
+  font-size: 1.4rem;
+  color: #1d2546;
+`;
+
+const ContentSide = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30vh;
+  width: 40vw;
+  color: #1d2546;
+`;
+
+const ContentTextWrapper = styled.div`
+  position: absolute;
+  left: 3vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40vw;
+`;
+
+const InfoWrapper = styled.div`
+  margin-top: 40px;
+`;
+
+const ContentImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ContentImage = styled.img`
+  width: 50vw;
+`;
+
+const ContentText = styled.p`
+  margin: 0;
+  font-size: 1.5rem;
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: 60px;
+`;
+
+const rotatingWords = [
+  {
+    color: "#10AC84",
+    text: "interview.",
+  },
+  {
+    color: "#FFB100",
+    text: "question.",
+  },
+  {
+    color: "#8C271E",
+    text: "candidate.",
+  }
+];
+
+export default function LoginPage({ onSuccess, onFailure }) {
   return (
     <PageWrapper>
       <Header>
-        <div className="header-right">
-          <LoginButton onSuccess={onSuccess} onFailure={onFailure} customStyle={customButton} />
-        </div>
+        <Logo>
+          Memoterview
+        </Logo>
       </Header>
-      <div className="content">
-        <div className="content-side">
-          <div className="content-text">
-            <h1 className="content-text-style">Remember your interviewee</h1>
-            <h4 className="content-text-style">Boost your Hire with Memoterview</h4>
-            <h4 className="content-text-style">Save your interviewee, remind your interview</h4>
-          </div>
-          <div className="content-button">
-            <LoginButton onSuccess={onSuccess} onFailure={onFailure} />
-          </div>
-        </div>
-        <img className="main-image" src={image} alt="interviewing people" />
-      </div>
+      <Content>
+        <ContentSide>
+          <ContentTextWrapper>
+            <RotateText staticText={"Memo your"} rotatingWords={rotatingWords} />
+            <InfoWrapper>
+              <ContentText>Boost your Hire with Memoterview</ContentText>
+              <ContentText>Save your interviewee, remind your interview</ContentText>
+            </InfoWrapper>
+            <ButtonWrapper>
+              <LoginButton onSuccess={onSuccess} onFailure={onFailure} />
+            </ButtonWrapper>
+          </ContentTextWrapper>
+        </ContentSide>
+        <ContentImageWrapper>
+          <ContentImage className="main-image" src={image} alt="interviewing people" />
+        </ContentImageWrapper>
+      </Content>
     </PageWrapper>
   );
 }

@@ -18,7 +18,6 @@ export default function LoginPageContainer() {
   }
 
   function onFailure(error) {
-    console.log(error);
     alert("fail!");
   }
   return (
