@@ -22,13 +22,13 @@ export default function ProjectsPageContainer() {
   const dispatch = useDispatch();
   const {
     user: {
-      userData: { id, username, email },
+      userData: { id, username, email, avatar },
     },
   } = useSelector(({ user }) => ({ user }));
   const {
     projects: { byId, visibleProjects, loading },
   } = useSelector(({ projects }) => ({ projects }));
-  
+
   const [projectType, setProjectType] = useState(PROJECT_TYPES.MY_PROJECTS);
   const [modalFlag, setModalFlag] = useState(false);
 
@@ -36,6 +36,7 @@ export default function ProjectsPageContainer() {
   const projects = projectIdsToByIdObjs(visibleProjects[projectType], byId);
 
   const userInfo = {
+    avatar,
     userName: username,
     userEmail: email,
   };

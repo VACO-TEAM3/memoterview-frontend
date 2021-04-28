@@ -6,14 +6,18 @@ import useMenus from "../../hooks/useMenus";
 
 const MenuWrapper = styled.div`
   text-align: center;
-  margin-top: 50px;
+  margin-top: 40px;
 `;
 
 const Menu = styled.div`
   margin: 30px 0;
-  color: ${(props) => (props.active ? props.theme.SpanishBlue : "black")};
+  color: ${(props) => (props.active ? props.theme.SideBarMainFontColor : props.theme.SideBarRegularFontColor)};
   font-size: 1rem;
   cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.SideBarMainFontColor};
+  }
 `;
 
 function ProjectsSideNavMenu({ onMenuChange }) {
