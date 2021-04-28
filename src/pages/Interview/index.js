@@ -26,7 +26,6 @@ import StyledVideoBottomBar from "../../components/shared/StyledVideoBottomBar";
 import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 import { INTERVIEW_STATE } from "../../constants/recordState";
-import { getBackgroundColor, getBorderColor } from "./helper";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -94,7 +93,7 @@ export default function Interview({
   const [isResumeOpened, setIsResumeOpened] = useState(false);
   const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
   const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
-
+  console.log(interviewers);
   const [question, setQuestion] = useState("");
 
   function handleOpenScriptBoardButton() {
