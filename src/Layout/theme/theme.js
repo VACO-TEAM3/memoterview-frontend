@@ -34,7 +34,7 @@ const theme = {
   LittleBoyBlueDeepDark: "#3677b5",
   CircleButtonGray: "#5D5F5F",
   QuestionContentGray: "#5D5F5F",
-  white: "#ffffff",
+  White: "#ffffff",
   Black: "#000000",
 };
 
