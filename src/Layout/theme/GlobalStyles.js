@@ -5,8 +5,7 @@ const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
     margin: 0;
     padding: 0;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Gothic A1', 'Ubuntu', sans-serif;
   }
 
   .hidden {

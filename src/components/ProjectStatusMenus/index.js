@@ -7,14 +7,14 @@ import useMenus from "../../hooks/useMenus";
 const ProjectStatusMenusWrapper = styled.div`
   display: flex;
   align-items: flex-end;
-  padding-left: 50px;
-  padding-bottom: 10px;
+  padding: 0 0 15px 50px;
   height: 40px;
 `;
 
 const StatusMenu = styled.span`
   margin: 0 40px;
-  color: ${(props) => (props.active ? props.theme.SpanishBlue : "black")};
+  color: ${(props) => (props.active ?  props.theme.PictonBlue : props.theme.Black)};
+  font-weight: bolder;
   font-size: 1.3rem;
   cursor: pointer;
 `;

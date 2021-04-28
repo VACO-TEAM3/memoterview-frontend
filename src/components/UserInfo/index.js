@@ -9,9 +9,8 @@ const UserInfoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  color: ${({ theme }) => theme.SideBarMainFontColor};
+  color: ${({ theme }) => theme.Solitude};
   padding-bottom: 30px;
-  border-bottom: 3px solid rgba(0, 0, 0, 0.10);
 `;
 
 const UserName = styled.div`

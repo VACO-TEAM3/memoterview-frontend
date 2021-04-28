@@ -5,7 +5,7 @@ import ProjectItem from "../ProjectItem";
 import ProjectsColumnHeader from "../ProjectsColumnHeader";
 
 const ProjectsEntryWrapper = styled.div`
-  padding: 20px;
+  padding: 0 20px;
 `;
 
 function ProjectsEntry({
