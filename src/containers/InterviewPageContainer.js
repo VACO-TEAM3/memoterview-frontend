@@ -37,7 +37,7 @@ export default function InterviewPageContainer() {
   const { byId } = useSelector(({ interviewees }) => ({
     byId: interviewees.byId,
   }));
-  console.log(projectId);
+
   const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, projectId),
   }));
@@ -59,6 +59,7 @@ export default function InterviewPageContainer() {
   const { token } = useToken();
   const history = useHistory();
   const isInterviewee = false;
+  const [questionList, setQuestionList] = useState([]);
 
   //////////////////////////하영작업///////////////////////
   const {
@@ -91,8 +92,8 @@ export default function InterviewPageContainer() {
         setErrorMessage(error);
       }
     })();
-    
-    getQuestions({ category: project.category, token });
+
+    setQuestions();
   }, []);
 
   useEffect(() => {
@@ -209,6 +210,13 @@ export default function InterviewPageContainer() {
       }
     };
   }, [isStreaming]);
+
+  async function setQuestions() {
+    const category = "frontend";
+    const questions = await getQuestions({ token, category }); //project.category
+
+    setQuestionList(questions);
+  }
 
   function closeTotalResultModal() {
     setTotalResultModalFlag(false);
@@ -402,6 +410,8 @@ export default function InterviewPageContainer() {
         />
       ) : (
         <Interview
+          questionList={questionList}
+          onRefresh={setQuestions}
           isVideoOn={isVideoOn}
           isAudioOn={isAudioOn}
           onAudioBtnClick={handleAudio}

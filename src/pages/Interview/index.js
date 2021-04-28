@@ -80,6 +80,7 @@ export default function Interview({
   isQuestionModalOn,
   isTotalResultModalOn,
   onBackButtonClick,
+  questionList,
   onQuestionSubmit,
   time,
   onKeyDown,
@@ -87,18 +88,14 @@ export default function Interview({
   isAudioOn,
   onAudioBtnClick,
   onVideoBtnClick,
+  onRefresh,
 }) {
-  console.log("project", project);
-  console.log("interviewers", interviewers);
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
   const [isResumeOpened, setIsResumeOpened] = useState(false);
   const [isQuestionBoardOpened, setIsQuestionBoardOpened] = useState(false);
   const [isScriptBoardOpened, setIsScriptBoardOpened] = useState(false);
 
   const [question, setQuestion] = useState("");
-  const [questions, setQuestions] = useState([]);
-
-  const interviewContentBorderColor = getBorderColor(visibilityRecordStateType);
 
   function handleOpenScriptBoardButton() {
     setIsScriptBoardOpened((prev) => !prev);
@@ -110,13 +107,6 @@ export default function Interview({
 
   function handleOpenQuestionBoard() {
     setIsQuestionBoardOpened((prev) => !prev);
-  }
-
-  function handleQuestionSubmit(ev) {
-    ev.preventDefault();
-
-    setQuestions((prev) => [...prev, question]);
-    setQuestion("");
   }
 
   function handleQuestionInputChange(ev) {
@@ -166,16 +156,14 @@ export default function Interview({
           </InterviewTab>
           <InterviewTab
             isLeft={true}
-            tabName="Questions"
+            tabName="Recommend"
             tabIcon={faQuestion}
             onClick={handleOpenQuestionBoard}
             isOpened={isQuestionBoardOpened}
           >
             <QuestionBoard
-              question={question}
-              questions={questions}
-              onChange={handleQuestionInputChange}
-              onSubmit={handleQuestionSubmit}
+              questions={questionList}
+              onChange={onRefresh}
             />
           </InterviewTab>
         </StyledLeftSideBar>
