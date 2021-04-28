@@ -14,6 +14,7 @@ const theme = {
   ItemHoverGreen: "#D7F1EA",
   DetailPageBlue: "#D7E7F6",
   ButtonGreen: "#2BC7A3",
+  ButtonPink: "#FF928B",
   TotalResultPageButtonGreen: "#10ac84",
   StatusMenuGreen: "#10ac84",
 
@@ -22,7 +23,6 @@ const theme = {
   LittleBoyBlue: "#69A3DB",
   SpanishBlue: "#2c72b5",
   OrangeYelloCrayola: "#efcb68",
-  CongoPink: "#FF928B",
   InterviewModalBorder: "#B0AFAD",
   InterviewModalContent: "#666563",
   LittleBoyBlueDark: "#4f8dc6",

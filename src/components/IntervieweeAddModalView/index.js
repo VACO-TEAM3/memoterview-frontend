@@ -50,7 +50,17 @@ const Button = styled.button`
   font-size: 1rem;
   margin: 5px;
   cursor: pointer;
+  background-color: ${(props) =>
+    props.buttonType === "ok"
+      ? props.theme.ButtonGreen
+      : props.theme.ButtonPink};
+  &:hover {
+    opacity: 0.8;
+  }
+  border: 1px solid ${({ theme }) => theme.Solitude };
+  border-radius: 4px;
 `;
+
 
 const BtnGroup = styled.div`
   display: flex;
@@ -98,9 +108,9 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
         </EditField>
         <EditField>
           <Label>이력서</Label>
-          <Input onChange={handleFileSelected} type="file" accept="application/pdf" />
+          <Input onChange={handleFileSelected} type="file" inputType="resume" accept="application/pdf" />
         </EditField>
-        <BtnGroup><Button type="submit">제출</Button><Button onClick={onCancleBtnClick}>취소</Button></BtnGroup>
+        <BtnGroup><Button type="submit" buttonType="ok">제출</Button><Button buttonType="cancel" onClick={onCancleBtnClick}>취소</Button></BtnGroup>
       </Form>
     </ModalView>
   );

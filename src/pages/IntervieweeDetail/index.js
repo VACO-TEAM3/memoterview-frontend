@@ -10,7 +10,6 @@ const MainLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   width: 95%;
   min-height: 2000px;
   margin: 2vw;

@@ -27,11 +27,11 @@ const Button = styled.div`
   margin: 5px;
   cursor: pointer;
   transition: opacity 0.3s linear;
-
+  border-radius: 2px;
   background-color: ${(props) =>
     props.buttonType === "ok"
-      ? props.theme.LittleBoyBlue
-      : props.theme.BabyPowder};
+      ? props.theme.ButtonGreen
+      : props.theme.ButtonPink};
   &:hover {
     opacity: 0.8;
   }
