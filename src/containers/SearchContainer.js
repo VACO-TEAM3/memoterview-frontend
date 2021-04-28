@@ -28,13 +28,18 @@ export default function SearchContainer() {
     setInputText("");
   }
 
+  function handleLogoutClick(e) {
+    console.log("logout click");
+  }
+
   return (
     <>
       <Search
         searchList={searchList}
         inputText={inputText}
         onFormSubmit={handleFormSubmit}
-        onInputChange={handleInputChange}/>
+        onInputChange={handleInputChange}
+        onLogoutClick={handleLogoutClick} />
     </>
   );
 }
