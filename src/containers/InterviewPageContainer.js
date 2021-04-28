@@ -37,7 +37,7 @@ export default function InterviewPageContainer() {
   const { byId } = useSelector(({ interviewees }) => ({
     byId: interviewees.byId,
   }));
-
+  console.log(projectId);
   const { project } = useSelector(({ projects }) => ({
     project: getProjectById(projects, projectId),
   }));
@@ -349,6 +349,7 @@ export default function InterviewPageContainer() {
         answer,
         score: Number(questionRate),
         interviewer: userData.id,
+        category: project.category,
       },
     });
 
@@ -362,14 +363,14 @@ export default function InterviewPageContainer() {
   function handleVideo() {
     if (isVideoOn) {
       mediaOptions.videoOff(stream);
-      socket.emit("videoOff", {})
+      // socket.emit("videoOff", {})
     } else {
       mediaOptions.videoOn(stream);
     }
-    socket.emit("VideoOff", );
-    socket.emit("VideoOn", );
-    socket.emit("AudioOff", );
-    socket.emit("AudioOn", );
+    // socket.emit("VideoOff", );
+    // socket.emit("VideoOn", );
+    // socket.emit("AudioOff", );
+    // socket.emit("AudioOn", );
     setIsVideoOn(!isVideoOn);
   }
 
