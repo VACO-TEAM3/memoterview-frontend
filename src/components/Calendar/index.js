@@ -36,7 +36,7 @@ const TotalResultCalendarWrapper = styled.div`
   }
 
   .react-calendar__month-view__days__day--neighboringMonth {
-    color: ${({ theme }) => theme.ModalBackground};
+    color: ${({ theme }) => theme.ItemColor};
   }
 
   .react-calendar__month-view__days__day--weekend {
