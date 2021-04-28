@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 import StyledVideo from "../shared/StyledVideo";
 
-export default function SubVideo({ peer: { peer } }) {
+export default function SubVideo({ peer }) {
   const ref = useRef();
 
   useEffect(() => {
