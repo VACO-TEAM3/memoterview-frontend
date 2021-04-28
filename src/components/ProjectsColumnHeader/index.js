@@ -5,11 +5,10 @@ const ProjectsColumnHeaderWrapeer = styled.div`
   display: flex;
   height: 50px;
   margin: 0 20px;
-  /* border: ${({ theme }) => `${theme.SideBarBackground} 1px solid`}; */
-  border: 1px solid ${({ theme }) => theme.Snow };
-  background-color: #f5f5f5;
-  border-width: 0px 0px 2px 0px;
-  border-radius: 2px;
+  border-top: 1px solid ${({ theme }) => theme.Snow };
+  border-bottom: 1px solid ${({ theme }) => theme.ProjectPageBorderBottom };
+  background-color: ${({ theme }) => theme.ItemColor };
+  border-radius: 5px;
 `;
 
 const ColumnTitle = styled.span`
