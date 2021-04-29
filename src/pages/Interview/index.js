@@ -57,7 +57,7 @@ export default function Interview({
   questionTranscript,
   answer,
   intervieweeData,
-  interviewers,
+  peers,
   isButtonDisabled,
   recordStateType,
   isInterviewee,
@@ -75,7 +75,6 @@ export default function Interview({
   questionList,
   onQuestionSubmit,
   time,
-  onKeyDown,
   isVideoOn,
   isAudioOn,
   onAudioBtnClick,
@@ -83,7 +82,7 @@ export default function Interview({
   onRefresh,
   onScriptBoardClick,
   isScriptBoardOpened,
-  onSQuestionBoardClick,
+  onQuestionBoardClick,
   isQuestionBoardOpened,
   onResumeBoardClick,
   isResumeOpened,
@@ -129,7 +128,7 @@ export default function Interview({
             isLeft={true}
             tabName="Recommendation"
             tabIcon={faQuestion}
-            onClick={onSQuestionBoardClick}
+            onClick={onQuestionBoardClick}
             isOpened={isQuestionBoardOpened}
           >
             <QuestionBoard
@@ -140,7 +139,7 @@ export default function Interview({
         </StyledLeftSideBar>
         <Timer time={time} />
         <InterviewContent>
-          <VideoContent peers={interviewers} user={user} />
+          <VideoContent peers={peers} user={user} isInterviewee={isInterviewee} />
           <StyledVideoBottomBar>
             <CircleButton
               onClick={onAudioBtnClick}

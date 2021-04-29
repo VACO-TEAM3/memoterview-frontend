@@ -44,26 +44,16 @@ const InterviewContent = styled.div`
 
 export default function InterviewInterviewee({
   user,
-  interviewers,
+  peers,
   onAudioBtnClick,
   onVideoBtnClick,
   onBackButtonClick,
   time,
+  isInterviewee,
+  isAudioOn,
+  isVideoOn,
 }) {
   // 이 부분들은 컨테이너로 다 빠질 것입니다. 컨테이너에서 소켓 작업을 하기 위해 임의로 올리지 않았습니다.
-  const [isVideoOn, setIsVideoOn] = useState(true);
-  const [isAudioOn, setIsAudioOn] = useState(true);
-
-  function handleAudio() {
-    onAudioBtnClick(isAudioOn);
-    setIsAudioOn((prev) => !prev);
-  }
-
-  function handleVideo() {
-    onVideoBtnClick(isVideoOn);
-    setIsVideoOn((prev) => !prev);
-  }
-
   return (
     <>
       <PageWrapper>
@@ -76,17 +66,17 @@ export default function InterviewInterviewee({
         </StyledSideBar>
         <Timer time={time} />
         <InterviewContent>
-          <VideoContent peers={interviewers} user={user} />
+          <VideoContent peers={peers} user={user} isInterviewee={isInterviewee} />
         </InterviewContent>
         <StyledVideoBottomBar>
           <CircleButton
-            onClick={handleAudio}
+            onClick={onAudioBtnClick}
             isClicked={isAudioOn}
             clickedState={faVolumeMute}
             unClickedState={faVolumeUp}
           />
           <CircleButton
-            onClick={handleVideo}
+            onClick={onVideoBtnClick}
             isClicked={isVideoOn}
             clickedState={faVideoSlash}
             unClickedState={faVideo}

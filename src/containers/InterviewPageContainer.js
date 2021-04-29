@@ -207,16 +207,17 @@ export default function InterviewPageContainer() {
     socket.on("someUserVideoOff", (userID) => {
       peersRef.current.forEach((peer) => { // 리팩토링 하며 HOF로 만들기
         if (peer.peerID === userID) {
+          console.log(userID, peer.peerID);
           peer.isVideoOn = false;
         }
       });
-
       setPeers(peersRef.current);
     });
 
     socket.on("someUserVideoOn", (userID) => {
       peersRef.current.forEach((peer) => {
         if (peer.peerID === userID) {
+          console.log(userID, peer.peerID);
           peer.isVideoOn = true;
         }
       });
@@ -227,6 +228,7 @@ export default function InterviewPageContainer() {
     socket.on("someUserAudioOff", (userID) => {
       peersRef.current.forEach((peer) => {
         if (peer.peerID === userID) {
+          console.log(userID, peer.peerID);
           peer.isAudioOn = false;
         }
       });
@@ -237,6 +239,7 @@ export default function InterviewPageContainer() {
     socket.on("someUserAudioOn", (userID) => {
       peersRef.current.forEach((peer) => {
         if (peer.peerID === userID) {
+          console.log(userID, peer.peerID);
           peer.isAudioOn = true;
         }
       });
@@ -453,7 +456,8 @@ export default function InterviewPageContainer() {
       {userData.isInterviewee ? (
         <InterviewInterviewee
           user={userVideo}
-          interviewers={peers}
+          isInterviewee={userData.isInterviewee}
+          peers={peers}
           isVideoOn={isVideoOn}
           isAudioOn={isAudioOn}
           onAudioBtnClick={handleAudio}
@@ -463,9 +467,10 @@ export default function InterviewPageContainer() {
         />
       ) : (
         <Interview
+          isInterviewee={userData.isInterviewee}
           onScriptBoardClick={handleOpenScriptBoardButton}
           isScriptBoardOpened={isScriptBoardOpened}
-          onSQuestionBoardClick={handleOpenQuestionBoard}
+          onQuestionBoardClick={handleOpenQuestionBoard}
           isQuestionBoardOpened={isQuestionBoardOpened}
           onResumeBoardClick={handleOpenResumeButton}
           isResumeOpened={isResumeOpened}
@@ -486,11 +491,10 @@ export default function InterviewPageContainer() {
           recogText={recogText}
           questionTranscript={question}
           answer={answer}
-          interviewers={peers}
+          peers={peers}
           isButtonDisabled={isDisabled}
           recordStateType={recordStateType}
           visibilityRecordStateType={visibilityRecordStateType}
-          isInterviewee={userData.isInterviewee}
           onProcessBtnClick={handleProcessBtnClick}
           onTotalRateChange={handleTotalRate}
           onFilterRateChange={handleFilterRate}
