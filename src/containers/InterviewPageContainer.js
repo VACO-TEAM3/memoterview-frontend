@@ -270,7 +270,7 @@ export default function InterviewPageContainer() {
   }
 
   async function setQuestions() {
-    const questions = await getQuestions({ token, category: project?.category || category }); //project.category
+    const questions = await getQuestions({ token, category: project?.category });
 
     setQuestionList(questions);
   }
