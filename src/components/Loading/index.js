@@ -1,5 +1,8 @@
 import React from "react";
+import Lottie from "react-lottie";
 import styled from "styled-components";
+
+import LoadingAnim from "./loadingaAnimation.json";
 
 const LoadingWrapper = styled.div`
   position: fixed;
@@ -15,19 +18,28 @@ const LoadingWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0);
 `;
 
+const StyledLoading = styled.div`
+  width: 8vw;
+  height: 8vw;
+`;
+
+const lottieOptions = {
+  animationData: LoadingAnim,
+  loop: true,
+  autoplay: true,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+
 function Loading() {
   return (
     <LoadingWrapper>
-      <video
-        src="https://cdnl.iconscout.com/lottie/premium/preview-watermark/employee-review-3575379-3004512.mp4"
-        autoPlay="autoplay"
-        muted="muted"
-        loop="loop"
-        playsInline=""
-        type="video/mp4"
-        width="350px"
-        height="350px"
-      ></video>
+      <StyledLoading>
+        <Lottie
+          options={lottieOptions}
+        />
+      </StyledLoading>
     </LoadingWrapper>
   );
 }
