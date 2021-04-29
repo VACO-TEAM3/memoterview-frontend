@@ -364,11 +364,6 @@ export default function InterviewPageContainer() {
       return;
     }
 
-    console.log("filterScores", filterScores);
-    console.log("totalRate", totalRate);
-    console.log("comment", comment);
-    console.log("timeSecond", timeSecond);
-
     dispatch(
       finishInterview({
         token,
