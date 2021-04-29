@@ -9,7 +9,7 @@ const TimerWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 26px 0 20px;
-  width: 130px;
+  width: 160px;
   height: 40px;
   background-color: #00000069;
   font-weight: bold;

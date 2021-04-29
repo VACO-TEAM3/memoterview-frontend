@@ -4,7 +4,7 @@ import styled from "styled-components";
 const TabButtonWrapper = styled.div`
   width: 1.2rem;
   max-height: 8.5rem;
-  color: #3193C4;
+  color: ${({ theme }) => theme.Arsenic};
   z-index: 2;
   background: white;
   margin-bottom: 0.6rem;
@@ -15,7 +15,7 @@ const TabButtonWrapper = styled.div`
 
   :hover {
     color: white;
-    background: #3193C4;
+    background: #10AC84;
     border: 1px solid white;
   }
 

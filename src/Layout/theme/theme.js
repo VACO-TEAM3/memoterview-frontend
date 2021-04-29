@@ -1,5 +1,6 @@
 const theme = {
   ModalBackground: "rgba(0, 0, 0, 0.3)",
+  Arsenic: "#3b4044",
   GulfBlue: "#39425c",
   Solitude: "#eaf1ff",
   Mischka: "#9b9eab",
