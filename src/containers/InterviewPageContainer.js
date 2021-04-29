@@ -217,18 +217,16 @@ export default function InterviewPageContainer() {
     socket.on("someUserVideoOn", (userID) => {
       peersRef.current.forEach((peer) => {
         if (peer.peerID === userID) {
-          console.log(userID, peer.peerID);
           peer.isVideoOn = true;
         }
       });
-      console.log(24);
+
       setPeers(peersRef.current);
     });
 
     socket.on("someUserAudioOff", (userID) => {
       peersRef.current.forEach((peer) => {
         if (peer.peerID === userID) {
-          console.log(userID, peer.peerID);
           peer.isAudioOn = false;
         }
       });
@@ -239,7 +237,6 @@ export default function InterviewPageContainer() {
     socket.on("someUserAudioOn", (userID) => {
       peersRef.current.forEach((peer) => {
         if (peer.peerID === userID) {
-          console.log(userID, peer.peerID);
           peer.isAudioOn = true;
         }
       });
@@ -268,7 +265,6 @@ export default function InterviewPageContainer() {
   }
 
   async function setQuestions() {
-    const category = "frontend"; // 테스트용
     const questions = await getQuestions({ token, category: project?.category || category }); //project.category
 
     setQuestionList(questions);
@@ -288,22 +284,6 @@ export default function InterviewPageContainer() {
     }
 
     setTotalResultModalFlag(true);
-  }
-
-  function handleVideo(state) {
-    if (state) {
-      mediaOptions.videoOff(stream);
-    } else {
-      mediaOptions.videoOn(stream);
-    }
-  }
-
-  function handleAudio(state) {
-    if (state) {
-      mediaOptions.audioOff(stream);
-    } else {
-      mediaOptions.audioOn(stream);
-    }
   }
 
   const ProcessInterview = useCallback(() => {
@@ -374,7 +354,7 @@ export default function InterviewPageContainer() {
     event.preventDefault();
 
     if (!validateResultSubmit({ filterScores, totalRate, comment })) {
-      setErrorMessage("모든 항목에 체크해주세요!"); // 일괄 적용 필요함.. 뭐라할까나..
+      setErrorMessage("모든 항목에 체크해주세요!"); // 일괄 적용 필요함
 
       return;
     }
@@ -451,6 +431,15 @@ export default function InterviewPageContainer() {
     setIsAudioOn(!isAudioOn);
   }
 
+
+  function getToastMessage(isInterviewee, recordState) {
+    if (isInterviewee) {
+      return INTERVIEWEE_TOAST_MESSAGE[recordState];
+    }
+
+    return INTERVIEWER_TOAST_MESSAGE[recordState];
+  }
+
   return (
     <>
       {userData.isInterviewee ? (
@@ -508,12 +497,4 @@ export default function InterviewPageContainer() {
       )}
     </>
   );
-}
-
-function getToastMessage(isInterviewee, recordState) {
-  if (isInterviewee) {
-    return INTERVIEWEE_TOAST_MESSAGE[recordState];
-  }
-
-  return INTERVIEWER_TOAST_MESSAGE[recordState];
 }
