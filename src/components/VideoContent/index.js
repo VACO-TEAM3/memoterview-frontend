@@ -29,7 +29,7 @@ export default function VideoContent({ peers, user, isInterviewee }) {
       </VideoBlock>
       {peers?.map((peer) => (
         <VideoBlock 
-          key={peer.name} 
+          key={peer.peerID} 
           isVideoOn={peer.isVideoOn} 
           isUser={false} 
           video={peer.peer} 
