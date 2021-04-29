@@ -96,8 +96,8 @@ export default function LoginPage({ onSuccess, onFailure }) {
           <ContentTextWrapper>
             <RotateText staticText={"Memo your"} rotatingWords={rotatingWords} />
             <InfoWrapper>
-              <ContentText>Boost your Hire with Memoterview</ContentText>
-              <ContentText>Save your interviewee, remind your interview</ContentText>
+              <ContentText>Never take notes during your interview again.</ContentText>
+              <ContentText>Just focus on evaluation.</ContentText>
             </InfoWrapper>
             <ButtonWrapper>
               <LoginButton onSuccess={onSuccess} onFailure={onFailure} />
