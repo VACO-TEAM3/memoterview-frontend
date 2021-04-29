@@ -29,7 +29,7 @@ export default function InterviewPageContainer() {
     () => io.connect(process.env.REACT_APP_INTERVIEW_SOCKET_SERVER),
     []
   );
-  
+
   const history = useHistory();
   const { intervieweeId, projectId } = useParams();
 
@@ -73,6 +73,7 @@ export default function InterviewPageContainer() {
     setNextRecordStateType,
     answer,
     question,
+    clearScripts,
     uploadComplete,
     isDisabled,
   } = useInterviewRecord({
@@ -107,18 +108,22 @@ export default function InterviewPageContainer() {
     );
 
     toast(toastMsg);
+
+    if (visibilityRecordStateType === RECORD_STATE_TYPE.QUESTION_BEFORE) {
+      clearScripts();
+    }
   }, [userData.isInterviewee, visibilityRecordStateType]);
 
   useEffect(() => {
     if (!isStreaming) {
       return;
     }
-    
+
     socket.emit("requestJoinRoom", {
       roomID: intervieweeId,
       userData,
     });
-    
+
     socket.on("joinSuccess", (targetUsers) => {
       targetUsers.forEach((user) => {
         const peer = new Peer({
@@ -154,7 +159,7 @@ export default function InterviewPageContainer() {
         peersRef.current.push(settedPeer);
       });
     });
-    
+
     socket.on("joinNewUser", ({ signal, caller, isInterviewee, name }) => {
       const peer = new Peer({
         initiator: false,
@@ -165,20 +170,20 @@ export default function InterviewPageContainer() {
       peer.on("signal", (signal) => {
         socket.emit("returnSignal", { signal, caller });
       });
-      
+
       peer.signal(signal);
 
       const settedPeer = {
-        peer, 
-        peerID: caller, 
-        name, 
-        isInterviewee, 
-        isVideoOn: true, 
+        peer,
+        peerID: caller,
+        name,
+        isInterviewee,
+        isVideoOn: true,
         isAudioOn: true,
       };
-      
+
       setPeers((prev) => [...prev, settedPeer]);
-      
+
       peersRef.current.push(settedPeer);
     });
 
@@ -192,7 +197,7 @@ export default function InterviewPageContainer() {
       const [currentPeer] = peersRef.current.filter(
         (peer) => peer.peerID === id
       );
-      
+
       currentPeer?.peer.destroy();
 
       const filteredPeers = peersRef.current.filter(
@@ -397,7 +402,7 @@ export default function InterviewPageContainer() {
         interviewer: userData.id,
         category: project.category,
       },
-    });    
+    });
 
     uploadComplete();
     setQuestionModalFlag(false);

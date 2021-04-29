@@ -32,7 +32,7 @@ export default function useInterviewRecord({
   const handleQuestionTranscriptRecog = useCallback((transcript) => {
     socket.emit("onQuestionRecog", { transcript });
   }, [socket]);
-  
+
   const setNextRecordStateType = useCallback(() => {
     switch (recordStateType) {
       case RECORD_STATE_TYPE.INTERVIEW_BEFORE:
@@ -208,5 +208,10 @@ export default function useInterviewRecord({
     recordsGlobalsRef.current.isInterviewee = isInterviewee;
   }, [isInterviewee]);
 
-  return { isDisabled, recordStateType, visibilityRecordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question };
+  function clearScripts() {
+    setQuestion("");
+    setAnswer("");
+  }
+
+  return { isDisabled, recordStateType, visibilityRecordStateType, recogText, setNextRecordStateType, uploadComplete, answer, question, clearScripts };
 }
