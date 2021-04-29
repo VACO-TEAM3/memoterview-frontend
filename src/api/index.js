@@ -38,7 +38,7 @@ export async function getMyProjectsAPI({ userId, token }) {
   );
 
   const { data } = await response.json();
-  console.log(data);
+
   return data;
 }
 
@@ -55,7 +55,7 @@ export async function getJoinedProjectsAPI({ userId, token }) {
   );
 
   const { data } = await response.json();
-  console.log(data);
+
   return data;
 }
 
@@ -166,7 +166,6 @@ export async function updateInterviewRoomState({ token, projectId, intervieweeId
 }
 
 export async function updateInterviewee({ token, interviewee, projectId, intervieweeId }) {
-  console.log(interviewee);
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}`,
     {
@@ -205,7 +204,7 @@ export async function createIntervieweeAPI({ pdf, intervieweeInfo, token, projec
   );
 
   const { data } = await response.json();
-  
+
   return data;
 }
 
@@ -226,7 +225,6 @@ export async function updateIntervieweeAnswer({ projectId, intervieweeId, questi
 };
 
 export async function requestSendEmailToInterviewee({ token, projectId, intervieweeId, intervieweeEmail, welcomePageLink }) {
-  console.log(welcomePageLink);
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_PORT}/api/projects/${projectId}/interviewees/${intervieweeId}/invite`, {
       method: "POST",
@@ -241,7 +239,7 @@ export async function requestSendEmailToInterviewee({ token, projectId, intervie
       }),
     }
   );
-  
+
   return await response.json();
 }
 
