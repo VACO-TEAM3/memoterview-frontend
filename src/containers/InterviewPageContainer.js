@@ -63,7 +63,7 @@ export default function InterviewPageContainer() {
   const userVideo = useRef();
   const peersRef = useRef([]);
 
-  const { time, setIsActive } = useTimer();
+  const { timeSecond, time, setIsActive } = useTimer();
   const { token } = useToken();
 
   const {
@@ -251,7 +251,7 @@ export default function InterviewPageContainer() {
 
     return () => {
       if (isStreaming) {
-        socket.disconnect({ interviewDuration: time });
+        socket.disconnect();
         mediaOptions.stop(stream);
       }
     };
@@ -364,6 +364,11 @@ export default function InterviewPageContainer() {
       return;
     }
 
+    console.log("filterScores", filterScores);
+    console.log("totalRate", totalRate);
+    console.log("comment", comment);
+    console.log("timeSecond", timeSecond);
+
     dispatch(
       finishInterview({
         token,
@@ -376,6 +381,7 @@ export default function InterviewPageContainer() {
             score: totalRate,
             commenter: userData.id,
           },
+          interviewDuration: timeSecond,
         },
       })
     );
