@@ -1,6 +1,7 @@
 import { faKiss } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import LoginPage from "../pages/LoginPage";
 import { loginUser } from "../redux/reducers/user";
@@ -18,7 +19,7 @@ export default function LoginPageContainer() {
   }
 
   function onFailure(error) {
-    alert("fail!");
+    toast.error("fail!");
   }
   return (
     <>

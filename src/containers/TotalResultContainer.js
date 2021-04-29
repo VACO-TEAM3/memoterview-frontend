@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
+import { toast } from "react-toastify";
 
 import { requestSendEmailToInterviewee } from "../api";
 import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
@@ -91,14 +92,14 @@ export default function TotalResultContainer() {
 
   function handleLogoutClick() {}
 
-  async function handleIntervieweeInviteBtnClick({
+  function handleIntervieweeInviteBtnClick({
     intervieweeId,
     intervieweeEmail,
   }) {
     const welcomePageLink = getWelcomLink({ intervieweeId, projectId });
 
     try {
-      await requestSendEmailToInterviewee({
+      requestSendEmailToInterviewee({
         token,
         projectId,
         intervieweeId,
@@ -120,10 +121,10 @@ export default function TotalResultContainer() {
   }
 
   function handleInterviewRoomEnterBtnClick({ interviewee }) {
-    const isAlreadyEvaluated = interviewee.comments.find((comment) => comment.commentor === userData.id);
+    const isAlreadyEvaluated = interviewee.comments.find((comment) => comment.commenter._id === userData.id);
 
     if (isAlreadyEvaluated) {
-      alert("이미 평가하셨습니다");
+      toast.error("이미 평가하셨습니다");
       return;
     }
 
