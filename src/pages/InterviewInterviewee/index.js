@@ -76,7 +76,7 @@ export default function InterviewInterviewee({
         </StyledSideBar>
         <Timer time={time} />
         <InterviewContent>
-          <VideoContent interviewers={interviewers} user={user} />
+          <VideoContent peers={interviewers} user={user} />
         </InterviewContent>
         <StyledVideoBottomBar>
           <CircleButton
