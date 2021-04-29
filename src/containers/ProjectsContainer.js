@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import Modal from "../components/Modal";
 import ProjectAddModalView from "../components/ProjectAddModalView";
 import { MENUS, PROJECT_TYPES } from "../constants/projects";
+import useLogout from "../hooks/useLogout";
 import useToken from "../hooks/useToken";
 import Projects from "../pages/Projects";
 import {
@@ -20,6 +21,8 @@ export default function ProjectsPageContainer() {
   const history = useHistory();
   const { token } = useToken();
   const dispatch = useDispatch();
+  const logout = useLogout();
+
   const {
     user: {
       userData: { id, username, email, avatar },
@@ -72,6 +75,7 @@ export default function ProjectsPageContainer() {
   }
 
   function handleLogoutBtnClick() {
+    logout();
   }
 
   function handleProjectItemClick(projectId) {

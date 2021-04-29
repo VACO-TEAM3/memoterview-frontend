@@ -8,6 +8,7 @@ import IntervieweeAddModalView from "../components/IntervieweeAddModalView";
 import Loading from "../components/Loading";
 import Modal from "../components/Modal";
 import TotalResultFilterModalView from "../components/TotalResultFilterModalView";
+import useLogout from "../hooks/useLogout";
 import useToken from "../hooks/useToken";
 import TotalResult from "../pages/TotalResult";
 import {
@@ -39,6 +40,7 @@ export default function TotalResultContainer() {
   const { token } = useToken();
   const history = useHistory();
   const dispatch = useDispatch();
+  const logout = useLogout();
 
   const { userData } = useSelector((state) => state.user);
 
@@ -90,7 +92,9 @@ export default function TotalResultContainer() {
     closeModal();
   }
 
-  function handleLogoutClick() {}
+  function handleLogoutClick() {
+    logout();
+  }
 
   function handleIntervieweeInviteBtnClick({
     intervieweeId,
