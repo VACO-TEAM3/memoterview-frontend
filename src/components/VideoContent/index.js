@@ -28,8 +28,15 @@ export default function VideoContent({ peers, user, isInterviewee }) {
         {user.current?.username || "ME"}
       </VideoBlock>
       {peers?.map((peer) => (
-        <VideoBlock key={peer.username} isVideoOn={peer.isVideoOn} isUser={false} video={peer.peer} isInterviewee={peer.isInterviewee} isAudioOn={peer.isAudioOn}>
-          {peer.username || peer.isInterviewee ? "Interviewee" : "Interviewer"}
+        <VideoBlock 
+          key={peer.name} 
+          isVideoOn={peer.isVideoOn} 
+          isUser={false} 
+          video={peer.peer} 
+          isInterviewee={peer.isInterviewee} 
+          isAudioOn={peer.isAudioOn}
+        >
+          {peer.name}
         </VideoBlock>
       ))}
     </VideoContentWrapper>

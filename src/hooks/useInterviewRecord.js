@@ -33,33 +33,30 @@ export default function useInterviewRecord({
     socket.emit("onQuestionRecog", { transcript });
   }, [socket]);
   
-  console.log(recordStateType);
-
   const setNextRecordStateType = useCallback(() => {
-    console.log(recordStateType);
     switch (recordStateType) {
-      case RECORD_STATE_TYPE.INTERVIEW_BEFORE: // 스타트 버튼 누름
+      case RECORD_STATE_TYPE.INTERVIEW_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
         socket.emit("startInterview");
         break;
       case RECORD_STATE_TYPE.QUESTION_BEFORE:
-        setRecordStateType(RECORD_STATE_TYPE.QUESTIONING); // 녹음 버튼 누름
+        setRecordStateType(RECORD_STATE_TYPE.QUESTIONING);
         startRecognition({ onTranscriptRecog: handleQuestionTranscriptRecog });
-        socket.emit("question", { userId: recordsGlobalsRef.current.userId }); // 인터뷰어 id
+        socket.emit("question", { userId: recordsGlobalsRef.current.userId });
         break;
       case RECORD_STATE_TYPE.QUESTIONING:
         setRecordStateType(RECORD_STATE_TYPE.ANSWER_BEFORE);
-        stopRecognition(); // 정지
-        setQuestion(recordsGlobalsRef.current.recogText); // 신호 치워야
+        stopRecognition();
+        setQuestion(recordsGlobalsRef.current.recogText);
         socket.emit("endQuestion");
         break;
       case RECORD_STATE_TYPE.ANSWER_BEFORE:
         setRecordStateType(RECORD_STATE_TYPE.ANSWERING);
-        socket.emit("requestAnswer"); // 인터뷰이 id
+        socket.emit("requestAnswer");
         break;
       case RECORD_STATE_TYPE.ANSWERING:
         setRecordStateType(RECORD_STATE_TYPE.SAVING);
-        socket.emit("endAnswer"); // 신호 치워야
+        socket.emit("endAnswer");
         break;
       case RECORD_STATE_TYPE.SAVING:
         setRecordStateType(RECORD_STATE_TYPE.QUESTION_BEFORE);
