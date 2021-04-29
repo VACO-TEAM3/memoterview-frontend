@@ -13,6 +13,7 @@ export default function useInterviewRecord({
   onQuestionEnd = () => {},
   onAnswerStart = () => {},
   onAnswerEnd = () => {},
+  onError = () => {},
 }) {
   const { recogText, startRecognition, stopRecognition } = useSpeechRecognition();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -100,7 +101,7 @@ export default function useInterviewRecord({
     });
 
     socket.on("error", ({ message }) => {
-      alert(message);
+      onError(message);
     });
   }, [socket]);
 
