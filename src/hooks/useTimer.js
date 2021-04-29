@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { formatTimeForTimer } from "../utils/date";
 
 export default function useTimer(initialState = 0) {
-  const [time, setTime] = useState(initialState);
+  const [timeSecond, setTimeSecond] = useState(initialState);
   const [isActive, setIsActive] = useState(false);
 
-  const { hour, min } = formatTimeForTimer(time);
+  const { hour, minute, second } = formatTimeForTimer(timeSecond);
 
   useEffect(() => {
     let interval;
 
     if (isActive) {
       interval = window.setInterval(() => {
-        setTime((prev) => prev + 1);
+        setTimeSecond((prev) => prev + 1);
       }, 1000);
     } else {
       clearInterval(interval);
@@ -24,5 +24,5 @@ export default function useTimer(initialState = 0) {
     };
   }, [isActive]);
 
-  return { time: { hour, min }, setIsActive };
+  return { timeSecond, time: { hour, minute, second }, setIsActive };
 }
