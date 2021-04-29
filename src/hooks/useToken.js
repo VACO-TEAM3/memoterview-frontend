@@ -16,8 +16,13 @@ export default function useToken() {
     setToken(accessToken);
   }
 
+  function deleteToken() {
+    localStorage.removeItem("authorization");
+  }
+
   return {
     setToken: saveToken,
     token,
+    deleteToken,
   };
 }

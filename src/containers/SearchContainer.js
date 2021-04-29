@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { searchQuestionsAPI } from "../api";
+import useLogout from "../hooks/useLogout";
 import useToken  from "../hooks/useToken";
 import Search from "../pages/Search";
 
 export default function SearchContainer() {
   const { token } = useToken();
   const { projectId } = useParams();
+  const logout = useLogout();
 
   const [inputText, setInputText] = useState("");
   const [searchList, setSearchList] = useState([]);
@@ -29,6 +31,7 @@ export default function SearchContainer() {
   }
 
   function handleLogoutClick(e) {
+    logout();
   }
 
   return (
