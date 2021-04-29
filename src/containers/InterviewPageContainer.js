@@ -220,7 +220,7 @@ export default function InterviewPageContainer() {
           peer.isVideoOn = true;
         }
       });
-
+      console.log(24);
       setPeers(peersRef.current);
     });
 
@@ -424,11 +424,11 @@ export default function InterviewPageContainer() {
     if (isVideoOn) {
       mediaOptions.videoOff(stream);
 
-      socket.emit("videoOff");
+      socket.emit("videoOff", { roomID: intervieweeId });
     } else {
       mediaOptions.videoOn(stream);
-
-      socket.emit("videoOn");
+      console.log(300);
+      socket.emit("videoOn", { roomID: intervieweeId });
     }
 
     setIsVideoOn(!isVideoOn);
@@ -438,11 +438,11 @@ export default function InterviewPageContainer() {
     if (isAudioOn) {
       mediaOptions.audioOff(stream);
 
-      socket.emit("audioOff");
+      socket.emit("audioOff", { roomID: intervieweeId });
     } else {
       mediaOptions.audioOn(stream);
 
-      socket.emit("audioOn");
+      socket.emit("audioOn", { roomID: intervieweeId });
     }
 
     setIsAudioOn(!isAudioOn);
