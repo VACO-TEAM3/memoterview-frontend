@@ -427,11 +427,11 @@ export default function InterviewPageContainer() {
     if (isVideoOn) {
       mediaOptions.videoOff(stream);
 
-      socket.emit("videoOff", { roomID: intervieweeId });
+      socket.emit("videoOff");
     } else {
       mediaOptions.videoOn(stream);
-      console.log(300);
-      socket.emit("videoOn", { roomID: intervieweeId });
+      
+      socket.emit("videoOn");
     }
 
     setIsVideoOn(!isVideoOn);
@@ -441,11 +441,11 @@ export default function InterviewPageContainer() {
     if (isAudioOn) {
       mediaOptions.audioOff(stream);
 
-      socket.emit("audioOff", { roomID: intervieweeId });
+      socket.emit("audioOff");
     } else {
       mediaOptions.audioOn(stream);
 
-      socket.emit("audioOn", { roomID: intervieweeId });
+      socket.emit("audioOn");
     }
 
     setIsAudioOn(!isAudioOn);
