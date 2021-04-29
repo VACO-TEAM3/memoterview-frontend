@@ -16,6 +16,7 @@ import Timer from "../../components/Timer";
 import VideoContent from "../../components/VideoContent";
 
 const PageWrapper = styled.div`
+  position: fixed;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -25,7 +26,7 @@ const PageWrapper = styled.div`
   justify-items: center;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(50deg, #1572b2, #8cced7) fixed;
+  background: ${({ theme }) => `linear-gradient(50deg, ${theme.Arsenic}, ${theme.Arsenic}) fixed}` };
 `;
 
 const InterviewContent = styled.div`
@@ -37,7 +38,7 @@ const InterviewContent = styled.div`
   justify-content: center;
   padding: 30px;
   height: calc(100vh - 250px);
-  background: #2181B12e;
+  background: #39425d2e;
 
   border-radius: 10px;
 `;
