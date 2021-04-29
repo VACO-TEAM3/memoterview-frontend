@@ -15,8 +15,8 @@ export const INTERVIEW_STATE = {
     message: "버튼을 눌러 면접을 시작하세요",
     icon: faPlay,
     color: {
-      normalColor: "#2181B1",
-      hoverColor: "#056A9B",
+      normalColor: "#10AC84",
+      hoverColor: "#2BC7A3",
       backgroundColor: "#2181B12e",
     },
   },
