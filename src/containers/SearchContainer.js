@@ -29,7 +29,6 @@ export default function SearchContainer() {
   }
 
   function handleLogoutClick(e) {
-    console.log("logout click");
   }
 
   return (
