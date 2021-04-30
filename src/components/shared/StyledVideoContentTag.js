@@ -4,8 +4,8 @@ const VideoContentTag = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 3rem;
-  padding: 0.1rem 0.3rem;
+  min-width: 3em;
+  padding: 0.1rem 0.3em;
   background: #1E1E1E90;
   color: rgba(255, 255, 255);
   position: absolute;

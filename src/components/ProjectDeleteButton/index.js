@@ -9,7 +9,7 @@ const DeleteButton = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  font-size: 1.5rem;
+  font-size: 1.5em;
 
   &:hover {
     color: ${({ theme }) => `${theme.Aero}`}

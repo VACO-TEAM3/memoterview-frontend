@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 const TabButtonWrapper = styled.div`
-  width: 1.2rem;
-  max-height: 8.5rem;
+  width: 1.2em;
+  max-height: 8.5em;
   color: ${({ theme }) => theme.Arsenic};
   z-index: 2;
   background: white;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.6em;
   padding: 0.3rem 0;
   border-radius: ${props => props.borderRadius};
   box-shadow: ${props => props.isLeft ? "10px 15px 12px -5px rgba(0, 0, 0, 0.22)" : "-10px 15px 12px -5px rgba(0, 0, 0, 0.22)"};
@@ -20,17 +20,17 @@ const TabButtonWrapper = styled.div`
   }
 
   .icon {
-    font-size: 1rem;
-    margin-left: 0.2rem;
-    margin-bottom: 0.3rem;
+    font-size: 1em;
+    margin-left: 0.2em;
+    margin-bottom: 0.3em;
   }
 
   .icon-name {
-    font-size: 0.8rem;
+    font-size: 0.8em;
     font-weight: bold;
     writing-mode: vertical-rl;
     line-height: 1.5;
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.05em;
   }
 `;
 

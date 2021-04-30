@@ -15,7 +15,7 @@ const EditField = styled.div`
 
 const Label = styled.div`
   margin: 5px;
-  font-size: 1.3rem;
+  font-size: 1.3em;
   font-weight: 450;
 `;
 
@@ -24,7 +24,7 @@ const Input = styled.input`
   padding: 3px 10px 0;
   width: 80%;
   height: 30px;
-  font-size: 1rem;
+  font-size: 1em;
 `;
 
 const BtnGroup = styled.div`

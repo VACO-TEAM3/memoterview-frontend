@@ -6,7 +6,7 @@ import RatingStars from "../RatingStars";
 const ViewWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  margin-top: 1em;
   text-align: center;
   color: ${({ theme }) => theme.InterviewModalContent};
 
@@ -18,13 +18,13 @@ const ViewWrapper = styled.div`
 const FilterOptions = styled.div`
   display: grid;
   grid-template-columns: 37% auto;
-  margin-top: 0.5rem;
+  margin-top: 0.5em;
 `;
 
 const ButtonWrapper = styled.button`
   width: 100%;
-  height: 3rem;
-  margin-top: 1.1rem;
+  height: 3em;
+  margin-top: 1.1em;
   border: 0;
   cursor: pointer;
   border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
@@ -40,7 +40,7 @@ const ButtonWrapper = styled.button`
 const TotalOptions = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 0.5rem;
+  margin-top: 0.5em;
 
   .interview-input {
     width: 60%;

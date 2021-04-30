@@ -5,8 +5,8 @@ import styled from "styled-components";
 const BoardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 5rem;
-  max-width: 18rem;
+  min-width: 5em;
+  max-width: 18em;
   margin: 15px;
   align-items: center;
   justify-content: center;
@@ -37,8 +37,8 @@ const RefreshButton = styled.button`
   position: absolute;
   right: 10%;
   bottom: 5%;
-  width: 2rem;
-  height: 2rem;
+  width: 2em;
+  height: 2em;
   background: ${({ theme }) => theme.LittleBoyBlueDeepDark};
   color: white;
   border-radius: 175px;

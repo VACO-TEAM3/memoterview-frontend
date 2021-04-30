@@ -26,7 +26,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1.5em;
 `;
 
 const Label = styled.div`
@@ -34,7 +34,7 @@ const Label = styled.div`
   justify-content: center;
   align-items: center;
   width: 100px;
-  font-size: 1.5rem;
+  font-size: 1.5em;
 `;
 
 const EditField = styled.div`
@@ -57,7 +57,7 @@ const Input = styled.input`
   padding: 3px 10px 0;
   width: 70%;
   height: 30px;
-  font-size: 1rem;
+  font-size: 1em;
 `;
 
 const ButtonWrapper = styled.div`

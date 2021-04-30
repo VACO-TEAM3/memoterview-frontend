@@ -22,7 +22,7 @@ const CommentWrapper = styled.div`
 const Comment = styled.div`
   margin: 1vh 4vh;
   list-style: none;
-  font-size: 1.3rem;
+  font-size: 1.3em;
   border-radius: 10px;
 `;
 

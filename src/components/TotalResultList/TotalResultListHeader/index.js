@@ -9,7 +9,7 @@ const TotalResultListHeaderWrapper = styled(TotalResultListRow)`
   position: relative;
   background-color: ${({ theme }) => theme.GulfBlue};
   border: 1px solid gray;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   color: ${({ theme }) => theme.Solitude};
 
   &:hover {
@@ -24,7 +24,7 @@ const TotalResultListFilterWrapper = styled(TotalResultListColumn)`
   height: 100%;
 
   svg {
-    font-size: 1.5rem;
+    font-size: 1.5em;
   }
 `;
 

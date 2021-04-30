@@ -25,7 +25,7 @@ const ColumnItem = styled.span`
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: 1rem;
+  font-size: 1em;
 `;
 
 function ProjectItem({ project, onClick = () => {}, onDeleteBtnClick = () => {} }) {

@@ -15,7 +15,7 @@ const Label = styled.p`
   display: flex;
   width: 20%;
   margin: 1vh 3vh;
-  font-size: 1.5rem;
+  font-size: 1.5em;
 `;
 
 const EvaluationDetailHeader = styled.div`
@@ -26,7 +26,7 @@ const EvaluationDetailHeader = styled.div`
   margin-top: 3vh;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  font-size: 1.3rem;
+  font-size: 1.3em;
 `;
 
 export default function IntervieweeDetailEvaluationEntry({ createStars, comments }) {

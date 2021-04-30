@@ -9,14 +9,14 @@ const ProjectOptionItemWrapper = styled.div`
   margin: 5px 20px;
   width: 80%;
   height: 30px;
-  font-size: 1rem;
+  font-size: 1em;
 `;
 
 const OptionText = styled.span`
   padding: 3px 10px 0;
   width: 80%;
   height: 20px;
-  font-size: .9rem;
+  font-size: .9em;
 `;
 
 const DeleteButton = styled.span`
