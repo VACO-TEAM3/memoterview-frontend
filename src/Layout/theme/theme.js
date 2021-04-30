@@ -37,6 +37,8 @@ const theme = {
   QuestionContentGray: "#5D5F5F",
   White: "#ffffff",
   Black: "#000000",
+
+  CalendarNow: "",
 };
 
 export default theme;
