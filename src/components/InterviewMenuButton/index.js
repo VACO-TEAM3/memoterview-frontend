@@ -5,7 +5,7 @@ const InterviewMenuButtonWrapper = styled.div`
   display: flex;
   color: white;
   align-items: center;
-  font-size: 1.8em;
+  font-size: 1.3em;
   margin: 0.7rem 0 2.5rem 0.3em;
   cursor: pointer;
 

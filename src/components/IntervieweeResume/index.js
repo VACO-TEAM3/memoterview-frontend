@@ -28,7 +28,7 @@ const DownloadPdfButton = styled.div`
   display: flex;
   justify-content: center;
   width: 10%;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
 `;
 

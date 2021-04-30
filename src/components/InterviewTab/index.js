@@ -8,10 +8,15 @@ const TabWrapper = styled.div`
   position: relative;
 
   .tab-content {
-    min-height: 1em;
+    max-height: 60vh;
     background: white;
     border-radius: ${props => props.isLeft ? "0 0 3px 0" : "0 0 0 3px"};
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    overflow-y: scroll;
+  }
+
+  .pdf {
+    max-height: 80vh;
   }
 `;
 
@@ -45,7 +50,7 @@ export default function InterviewTab({
             icon={tabIcon}
             onClick={onClick}
           />
-          {isOpened && <div className="tab-content">{children}</div>}
+          {isOpened && <div className="tab-content pdf">{children}</div>}
         </>
       )}
     </TabWrapper>

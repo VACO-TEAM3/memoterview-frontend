@@ -6,7 +6,7 @@ const BoardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 5em;
-  max-width: 18em;
+  max-width: 20em;
   margin: 15px;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,7 @@ const BoardWrapper = styled.div`
 
 const QuestionWrapper = styled.div`
   margin: 0 2rem 1rem 0;
-  font-size: smaller;
+  font-size: 12px;
   color: ${({ theme }) => theme.QuestionContentGray};
   overflow-y: visible;
 
@@ -27,7 +27,7 @@ const QuestionWrapper = styled.div`
     margin: 10px auto;
 
     .question-list-icon {
-      margin-right: 5px;
+      margin-right: 10px;
       color: ${({ theme }) => theme.QuestionContentGray};
     }
   }
@@ -36,7 +36,7 @@ const QuestionWrapper = styled.div`
 const RefreshButton = styled.button`
   position: absolute;
   right: 10%;
-  bottom: 5%;
+  bottom: 2%;
   width: 2em;
   height: 2em;
   background: ${({ theme }) => theme.LittleBoyBlueDeepDark};

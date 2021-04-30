@@ -3,17 +3,15 @@ import styled from "styled-components";
 
 import ModalView from "../ModalView";
 
-const Title = styled.div`
-  display: flex;
-  width: 20%;
-  margin: 10px;
+const Title = styled.h2`
+  text-align: center;
   font-size: 1.5em;
   font-weight: 500;
 `;
 
 const EditField = styled.div`
   display: flex;
-  margin: 10px;
+  margin: 20px;
 `;
 
 const Form = styled.form`
@@ -21,8 +19,8 @@ const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 70%;
-  margin: 15px;
+  /* height: 70%; */
+  margin-left: 15px;
 `;
 
 const Label = styled.div`
@@ -32,16 +30,17 @@ const Label = styled.div`
   width: 10%;
   align-items: center;
 
-  font-size: 1.3em;
-  font-weight: 450;
+  font-size: 1.1em;
+  font-weight: 400;
 `;
 
 const Input = styled.input`
   margin: 5px 20px;
   padding: 3px 10px 0;
   width: 70%;
-  height: 30px;
+  height: 25px;
   font-size: 1em;
+  /* border-color: ${({ theme }) => theme.Snow} */
 `;
 
 const Button = styled.button`
@@ -51,26 +50,32 @@ const Button = styled.button`
   margin: 5px;
   cursor: pointer;
   background-color: ${(props) =>
-    props.buttonType === "ok"
-      ? props.theme.ButtonGreen
-      : props.theme.ButtonPink};
+    props.buttonType === "ok" ? props.theme.GulfBlue : props.theme.Whisper};
+  color: ${(props) =>
+    props.buttonType === "ok" ? props.theme.Snow : props.theme.GulfBlue};
   &:hover {
     opacity: 0.8;
   }
-  border: 1px solid ${({ theme }) => theme.Solitude };
+  border: 1px solid ${({ theme }) => theme.Solitude};
   border-radius: 4px;
 `;
-
 
 const BtnGroup = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 40px;
+  margin-top: 10px;
+  margin-right: 10px;
 `;
 
-export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancleBtnClick }) {
+export default function IntervieweeAddModalView({
+  onFormSubmitBtnClick,
+  onCancleBtnClick,
+}) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [intervieweeInfo, setIntervieweeInfo] = useState({ name: "", email: "" });
+  const [intervieweeInfo, setIntervieweeInfo] = useState({
+    name: "",
+    email: "",
+  });
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -87,7 +92,7 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
   function handleFileSelected(e) {
     const selectedFile = e.target.files[0];
     setSelectedFile(selectedFile);
-  };
+  }
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -95,23 +100,46 @@ export default function IntervieweeAddModalView({ onFormSubmitBtnClick, onCancle
   }
 
   return (
-    <ModalView padding="40px" width="800px" height="400px">
+    <ModalView padding="20px" width="600px" height="410px">
+      <Title>면접자 등록</Title>
       <Form onSubmit={handleFormSubmit}>
-        <Title>면접자 등록</Title>
         <EditField>
           <Label>이름</Label>
-          <Input name="name" value={intervieweeInfo.name} onChange={handleInputChange} />
+          <Input
+            name="name"
+            value={intervieweeInfo.name}
+            onChange={handleInputChange}
+            required
+          />
         </EditField>
         <EditField>
           <Label>이메일</Label>
-          <Input name="email" value={intervieweeInfo.email} onChange={handleInputChange} />
+          <Input
+            name="email"
+            type="email"
+            value={intervieweeInfo.email}
+            onChange={handleInputChange}
+            required
+          />
         </EditField>
         <EditField>
           <Label>이력서</Label>
-          <Input onChange={handleFileSelected} type="file" accept="application/pdf" />
+          <Input
+            onChange={handleFileSelected}
+            type="file"
+            accept="application/pdf"
+            required
+          />
         </EditField>
-        <BtnGroup><Button type="submit" buttonType="ok">제출</Button><Button buttonType="cancel" onClick={onCancleBtnClick}>취소</Button></BtnGroup>
+        <BtnGroup>
+          <Button buttonType="cancel" onClick={onCancleBtnClick}>
+            취소
+          </Button>
+          <Button type="submit" buttonType="ok">
+            제출
+          </Button>
+        </BtnGroup>
       </Form>
     </ModalView>
   );
-};
+}

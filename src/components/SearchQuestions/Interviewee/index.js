@@ -9,12 +9,13 @@ import { ellipsizeText } from "../../../utils/ellipsizeText";
 const IntervieweeWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5vh 0.5vw;
+  padding: 15px;
 `;
 
 const Label = styled.div`
   display: flex;
   margin-right: 0.5vw;
+  font-weight: 450;
 `;
 
 const DataWrapper = styled.div`
@@ -27,7 +28,7 @@ const ResultWrapper = styled.div`
   align-items: center;
   width: 95%;
   padding: 0.5vh;
-  font-size: 18px;
+  font-size: .9em;
 `;
 
 export default function Interviewee({ searchResult }) {
