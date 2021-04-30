@@ -15,7 +15,7 @@ const StatusMenu = styled.span`
   margin: 0 40px;
   color: ${(props) => (props.active ? props.theme.StatusMenuGreen : props.theme.Black)};
   font-weight: 400;
-  font-size: 1.3rem;
+  font-size: 1.3em;
   cursor: pointer;
 `;
 

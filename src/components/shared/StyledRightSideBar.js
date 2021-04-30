@@ -5,7 +5,7 @@ const StyledRightSideBar = styled.nav`
   right: 0;
   z-index: 1;
   position: absolute;
-  margin-top: 10rem;
+  margin-top: 10em;
 `;
 
 export default StyledRightSideBar;

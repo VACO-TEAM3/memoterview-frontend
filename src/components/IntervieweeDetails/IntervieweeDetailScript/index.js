@@ -25,7 +25,7 @@ const Label = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-left: 1.5vw;
-  font-size: 1.5rem;
+  font-size: 1.5em;
 `;
 
 const ScriptList = styled.div`
@@ -39,7 +39,7 @@ const ScriptList = styled.div`
 const Script = styled.div`
   display: flex;
   margin: 0.5vh;
-  font-size: 1.3rem;
+  font-size: 1.3em;
   font-weight: 300;
 `;
 

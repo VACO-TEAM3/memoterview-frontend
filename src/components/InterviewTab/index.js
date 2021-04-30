@@ -4,11 +4,11 @@ import TabButton from "../TabButton";
 
 const TabWrapper = styled.div`
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5em;
   position: relative;
 
   .tab-content {
-    min-height: 1rem;
+    min-height: 1em;
     background: white;
     border-radius: ${props => props.isLeft ? "0 0 3px 0" : "0 0 0 3px"};
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);

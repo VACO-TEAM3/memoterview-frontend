@@ -5,8 +5,8 @@ const StyledRotateText = styled.div`
   display: flex;
   text-align: left;
   color: #1d2546;
-  font-size: 3.5rem;
   font-weight: 600;
+  font-size: 3.5em;
 
   p {
     margin: 0 7px;
