@@ -32,7 +32,7 @@ const TotalResultCalendarWrapper = styled.div`
   }
 
   .react-calendar__month-view__days__day {
-    color: ${({ theme }) => theme.LittleBoyBlue};
+    color: ${({ theme }) => theme.GulfBlue};
   }
 
   .react-calendar__month-view__days__day--neighboringMonth {
@@ -40,12 +40,23 @@ const TotalResultCalendarWrapper = styled.div`
   }
 
   .react-calendar__month-view__days__day--weekend {
-    color: ${({ theme }) => theme.CongoPink};
+    color: ${({ theme }) => theme.Mischka};
   }
 
-  .react-calendar__tile--active {
-    background: #006edc;
+  .react-calendar__tile--active,
+  .react-calendar__tile--active:enabled:focus {
+    background: ${({ theme }) => theme.ButtonGreen};
     color: white;
+  }
+
+  .react-calendar__tile--now {
+    color: black;
+    background: ${({ theme }) => theme.Solitude};
+
+    &:hover {
+      background: ${({ theme }) => theme.Solitude};
+      color: black;
+    }
   }
 
   .react-calendar__tile {
