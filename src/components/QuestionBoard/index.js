@@ -39,7 +39,7 @@ const RefreshButton = styled.button`
   bottom: 2%;
   width: 2em;
   height: 2em;
-  background: ${({ theme }) => theme.LittleBoyBlueDeepDark};
+  background: ${({ theme }) => theme.StatusMenuGreenDark};
   color: white;
   border-radius: 175px;
   border: 0;
