@@ -22,6 +22,7 @@ const theme = {
   ButtonPink: "#FF928B",
   TotalResultPageButtonGreen: "#10ac84",
   StatusMenuGreen: "#10ac84",
+  StatusMenuGreenDark: "#0e8263",
   MainYellow: "#FFB100",
 
   BabyPowder: "#f9f8f5",
@@ -37,8 +38,6 @@ const theme = {
   QuestionContentGray: "#5D5F5F",
   White: "#ffffff",
   Black: "#000000",
-
-  CalendarNow: "",
 };
 
 export default theme;

@@ -29,9 +29,9 @@ const Button = styled.div`
   transition: opacity 0.3s linear;
   border-radius: 2px;
   background-color: ${(props) =>
-    props.buttonType === "ok"
-      ? props.theme.ButtonGreen
-      : props.theme.ButtonPink};
+    props.buttonType === "ok" ? props.theme.GulfBlue : props.theme.Whisper};
+  color: ${(props) =>
+    props.buttonType === "ok" ? props.theme.Snow : props.theme.GulfBlue};
   &:hover {
     opacity: 0.8;
   }
@@ -65,7 +65,7 @@ export default function TotalResultFilterModalView({
   }
 
   return (
-    <ModalView padding="20px" width="500px" height="500px">
+    <ModalView padding="20px" width="500px" height="440px">
       <Title>결과옵션필터</Title>
       <FilterListWrapper>
         {filterOptions.map((filterOption) => (
