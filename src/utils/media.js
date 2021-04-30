@@ -2,7 +2,9 @@ export async function mediaStream() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
-      audio: true,
+      audio: {
+        echoCancellation: true,
+      },
     });
 
     return stream;
