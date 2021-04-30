@@ -28,13 +28,13 @@ const ButtonWrapper = styled.div`
     align-items: center;
 
     .button-icon {
-      font-size: 1.5rem;
-      margin-right: 0.5rem;
+      font-size: 1.5em;
+      margin-right: 0.5em;
       /* top: 30%; */
     }
 
     .button-name {
-      font-size: 1.7rem;
+      font-size: 1.7em;
     }
   }
 `;

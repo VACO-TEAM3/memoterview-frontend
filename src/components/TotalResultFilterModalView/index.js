@@ -6,7 +6,7 @@ import TotalResultFilterModalCheckBox from "./TotalResultFilterModalItem";
 
 const Title = styled.h1`
   text-align: center;
-  font-size: 1.7rem;
+  font-size: 1.7em;
 `;
 
 const FilterListWrapper = styled.div`
@@ -23,7 +23,7 @@ const Button = styled.div`
   align-items: center;
   width: 70px;
   height: 40px;
-  font-size: 1rem;
+  font-size: 1em;
   margin: 5px;
   cursor: pointer;
   transition: opacity 0.3s linear;

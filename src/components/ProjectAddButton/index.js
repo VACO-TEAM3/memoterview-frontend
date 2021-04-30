@@ -12,7 +12,7 @@ const ProjectAddButtonWrapper = styled.div`
   align-items: center;
   width: 40px;
   height: 40px;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.TotalResultPageButtonGreen };
   color: white;

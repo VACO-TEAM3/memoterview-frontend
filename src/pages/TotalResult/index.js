@@ -7,7 +7,7 @@ import TotalResultContentTop from "../../components/TotalResultContentTop";
 import TotalResultList from "../../components/TotalResultList";
 
 const TotalResultContentWrapper = styled.div`
-  margin: 4.5rem auto 0;
+  margin: 4.5em auto 0;
   min-width: 1200px;
   max-width: 1600px;
   box-sizing: border-box;

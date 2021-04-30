@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const HeaderNavWrapper = styled.div`
 margin: 0 40px;
-font-size: 1.5rem;
+font-size: 1.5em;
 cursor: pointer;
 
 &:first-child {

@@ -15,7 +15,7 @@ const ColumnTitle = styled.span`
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 1.1em;
 `;
 
 function ProjectsColumnHeader({ columnTitles }) {

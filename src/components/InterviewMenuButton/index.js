@@ -5,13 +5,13 @@ const InterviewMenuButtonWrapper = styled.div`
   display: flex;
   color: white;
   align-items: center;
-  font-size: 1.8rem;
-  margin: 0.7rem 0 2.5rem 0.3rem;
+  font-size: 1.8em;
+  margin: 0.7rem 0 2.5rem 0.3em;
   cursor: pointer;
 
   .interview-button-name {
-    margin: 0 0.2rem;
-    font-size: 0.95rem;
+    margin: 0 0.2em;
+    font-size: 0.95em;
   }
 `;
 

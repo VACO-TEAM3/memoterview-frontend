@@ -6,7 +6,7 @@ const SearchItemWrapper = styled.li`
   width: 50%;
   border: 0.5px solid black;
   border-radius: 2px;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   background-color: ${(props) => (props.focus ? props.theme.Aero : "white")};
 `;
 

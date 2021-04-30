@@ -15,14 +15,14 @@ const ViewWrapper = styled.div`
 `;
 
 const ViewContent = styled.div`
-  margin-top: 2.2rem;
+  margin-top: 2.2em;
 `;
 
 const InputButton = styled.button`
   width: 100%;
-  height: 2.8rem;
+  height: 2.8em;
   background: ${({ theme }) => theme.BabyPowder};
-  margin-top: 2.45rem;
+  margin-top: 2.45em;
   color: ${({ theme }) => theme.LittleBoyBlue};
   font-weight: 500;
   border-radius: 0 0 3% 3%;

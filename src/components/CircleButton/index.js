@@ -5,8 +5,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.5em;
+  height: 2.5em;
   background: rgba(93, 95, 95, 0.6);
   color: white;
   border-radius: 75px;

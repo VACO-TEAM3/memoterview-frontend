@@ -11,11 +11,11 @@ const RatingWrapper = styled.div`
 
   label {
     float: right;
-    width: 2rem;
+    width: 2em;
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 2em;
   }
 
   label:before {

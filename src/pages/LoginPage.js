@@ -15,38 +15,33 @@ const PageWrapper = styled.div`
 
 const Content = styled.div`
   display: flex;
-  margin-top: 3.5rem;
-  height: calc(100vh - 3.5rem);
+  margin-top: 3.5em;
+  height: calc(100vh - 3.5em);
 `;
 
 const Logo = styled.div`
-  padding-left: 1.8rem;
+  padding-left: 1.8em;
   font-family: 'Cutive Mono', monospace;
-  font-size: 1.4rem;
+  font-size: 1.4em;
   color: #1d2546;
 `;
 
 const ContentSide = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-top: 30vh;
   width: 40vw;
+  min-width: 590px;
   color: #1d2546;
 `;
 
 const ContentTextWrapper = styled.div`
-  position: absolute;
-  left: 3vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 40vw;
+  position: fixed;
+  left: 10vw;
 `;
 
 const InfoWrapper = styled.div`
   margin-top: 40px;
+  padding-left: 1vw;
 `;
 
 const ContentImageWrapper = styled.div`
@@ -61,10 +56,12 @@ const ContentImage = styled.img`
 
 const ContentText = styled.p`
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.5em;
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   margin-top: 60px;
 `;
 

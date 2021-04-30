@@ -7,7 +7,7 @@ const Title = styled.div`
   display: flex;
   width: 20%;
   margin: 10px;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: 500;
 `;
 
@@ -32,7 +32,7 @@ const Label = styled.div`
   width: 10%;
   align-items: center;
 
-  font-size: 1.3rem;
+  font-size: 1.3em;
   font-weight: 450;
 `;
 
@@ -41,13 +41,13 @@ const Input = styled.input`
   padding: 3px 10px 0;
   width: 70%;
   height: 30px;
-  font-size: 1rem;
+  font-size: 1em;
 `;
 
 const Button = styled.button`
   width: 70px;
   height: 40px;
-  font-size: 1rem;
+  font-size: 1em;
   margin: 5px;
   cursor: pointer;
   background-color: ${(props) =>
