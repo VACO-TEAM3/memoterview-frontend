@@ -222,9 +222,6 @@ function sortByComparisonTarget(array, getComparisonTarget) {
     const compareA = getComparisonTarget(a);
     const compareB = getComparisonTarget(b);
 
-    console.log(compareA);
-    console.log(compareB);
-
     if (compareA < compareB) {
       return -1;
     }

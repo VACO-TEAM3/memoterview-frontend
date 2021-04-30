@@ -212,7 +212,6 @@ export default function InterviewPageContainer() {
     socket.on("someUserVideoOff", (userID) => {
       peersRef.current.forEach((peer) => { // 리팩토링 하며 HOF로 만들기
         if (peer.peerID === userID) {
-          console.log(userID, peer.peerID);
           peer.isVideoOn = false;
         }
       });

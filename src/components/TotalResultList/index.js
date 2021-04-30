@@ -24,14 +24,10 @@ export default function TotalResultList({
   }, [interviewees]);
 
   function handleFilterSortBtnClick(sortFilter) {
-    console.log(sortedInterviewees);
-
     const newSortState =
       sortState.filter === sortFilter
         ? { ...sortState, order: sortState.order * -1 }
         : { filter: sortFilter, order: 1 };
-
-    console.log("sort state", newSortState);
 
     const newSortedInterviewees = sortInterviewees({
       interviewees: sortedInterviewees,
