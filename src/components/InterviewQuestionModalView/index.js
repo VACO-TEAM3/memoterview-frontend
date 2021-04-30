@@ -37,7 +37,7 @@ const InputButton = styled.button`
   height: 23%;
   background: ${({ theme }) => theme.BabyPowder};
   margin-top: 2.45em;
-  color: ${({ theme }) => theme.LittleBoyBlue};
+  color: ${({ theme }) => theme.Arsenic};
   font-weight: 500;
   border-radius: 0 0 3% 3%;
   border: 0;
@@ -46,7 +46,7 @@ const InputButton = styled.button`
 
   :hover {
     color: ${({ theme }) => theme.BabyPowder};
-    background: ${({ theme }) => theme.LittleBoyBlue};
+    background: ${({ theme }) => theme.StatusMenuGreen};
   }
 `;
 

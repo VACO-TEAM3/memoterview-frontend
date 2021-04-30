@@ -15,25 +15,32 @@ const ViewWrapper = styled.div`
   }
 `;
 
+const EvaluationForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const FilterOptions = styled.div`
   display: grid;
   grid-template-columns: 35% auto;
   margin-top: 0.5em;
+  width: 80%;
 `;
 
 const ButtonWrapper = styled.button`
   width: 100%;
   height: 3.5em;
-  margin-top: 1.5em;
+  margin-top: 2em;
   border: 0;
   cursor: pointer;
   border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
   background: ${({ theme }) => theme.BabyPowder};
-  color: ${({ theme }) => theme.LittleBoyBlue};
+  color: ${({ theme }) => theme.Arsenic};
 
   :hover {
     color: ${({ theme }) => theme.BabyPowder};
-    background: ${({ theme }) => theme.LittleBoyBlue};
+    background: ${({ theme }) => theme.StatusMenuGreen};
   }
 `;
 
@@ -41,6 +48,7 @@ const TotalOptions = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 0.5em;
+  width: 100%;
 
   .interview-input {
     width: 60%;
@@ -74,7 +82,7 @@ export default function InterviewTotalEvaluationModalView({
     <ModalView backgroundColor="#f9f8f5" width="500px">
       <ViewWrapper>
         <h3>최종 평가</h3>
-        <form onSubmit={onResultSubmit}>
+        <EvaluationForm onSubmit={onResultSubmit}>
           {filters?.map((filter, index) => (
             <FilterOptions key={index}>
               <h4>{filter}</h4>
@@ -88,7 +96,7 @@ export default function InterviewTotalEvaluationModalView({
             <RatingStars onChange={onTotalRateChange} />
             <ButtonWrapper type="submit">OK</ButtonWrapper>
           </TotalOptions>
-        </form>
+        </EvaluationForm>
       </ViewWrapper>
     </ModalView>
   );

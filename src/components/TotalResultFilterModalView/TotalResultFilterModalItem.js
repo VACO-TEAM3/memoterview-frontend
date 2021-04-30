@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 
 const Label = styled.span`
   margin-left: 10px;
-  font-size: 1.2em;
+  font-size: 1em;
   cursor: pointer;
 `;
 

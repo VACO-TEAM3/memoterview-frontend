@@ -11,7 +11,7 @@ const RatingWrapper = styled.div`
 
   label {
     float: right;
-    width: 1.7em;
+    width: 1.4em;
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
@@ -23,12 +23,12 @@ const RatingWrapper = styled.div`
   }
 
   input:checked ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlue};
+    color: ${({ theme }) => theme.StatusMenuGreen};
   }
 
   label:hover,
   label:hover ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlueDark};
+    color: ${({ theme }) => theme.ButtonGreen};
   }
 
   .rate > input:checked + label:hover,
@@ -36,7 +36,7 @@ const RatingWrapper = styled.div`
   .rate > input:checked ~ label:hover,
   .rate > input:checked ~ label:hover ~ label,
   .rate > label:hover ~ input:checked ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlueDeepDark};
+    color: ${({ theme }) => theme.StatusMenuGreenDark};
   }
 `;
 
