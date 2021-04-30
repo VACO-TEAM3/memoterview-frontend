@@ -19,6 +19,7 @@ export default function LoginPageContainer() {
   }
 
   function onFailure(error) {
+    console.log(error);
     toast.error("fail!");
   }
   return (
