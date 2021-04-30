@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { createStars } from "../../../utils/createStars";
 import IntervieweeDetailUserInfo from "../IntervieweeDetailUserInfo";
 
 const Comments = styled.div`
@@ -36,7 +37,7 @@ function IntervieweeDetailComments({ comments }) {
               <CommentWrapper>
                 <IntervieweeDetailUserInfo commenterInfo={comment.commenter}/>
               </CommentWrapper>
-              <Comment>총평: {comment.score}</Comment>
+              <Comment>평가: {createStars(comment.score)}</Comment>
               <Comment>코멘트: {comment.comment}</Comment>
             </div>
           )

@@ -205,10 +205,13 @@ export function sortInterviewees({ interviewees, filter, order }) {
     case FILTER_TYPES.INTERVIEW_DATE:
       sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.interviewDate);
       break;
-    default: // custom filter
-      sortByComparisonTarget(sortedInterviewees, (interviewee) => interviewee.filterAvgScores
-        ? interviewee.filterAvgScores[filter] && 0
-        : 0);
+    default:
+      sortByComparisonTarget(sortedInterviewees, (interviewee) =>
+      {
+        return interviewee.filterAvgScores
+          ? interviewee.filterAvgScores[filter] || 0
+          : 0;
+      });
   }
 
   return sortedInterviewees;
@@ -218,6 +221,9 @@ function sortByComparisonTarget(array, getComparisonTarget) {
   return array.sort((a, b) => {
     const compareA = getComparisonTarget(a);
     const compareB = getComparisonTarget(b);
+
+    console.log(compareA);
+    console.log(compareB);
 
     if (compareA < compareB) {
       return -1;

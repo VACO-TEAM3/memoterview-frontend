@@ -12,7 +12,7 @@ export function createStars(score) {
 
   while (totalStarNums > 0) {
     if (fullStarNums > 0) {
-      stars.push(<FontAwesomeIcon key={Date.now() * Math.random()} icon={faStar}/>);
+      stars.push(<FontAwesomeIcon key={Date.now() * Math.random()} icon={faStar} color={"#39425c"}/>);
       fullStarNums--;
       totalStarNums--;
       continue;
