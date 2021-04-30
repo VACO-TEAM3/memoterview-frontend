@@ -8,7 +8,7 @@ const ProjectOptionItemWrapper = styled.div`
   align-items: center;
   margin: 5px 20px;
   width: 80%;
-  height: 30px;
+  height: 25px;
   font-size: 1em;
 `;
 

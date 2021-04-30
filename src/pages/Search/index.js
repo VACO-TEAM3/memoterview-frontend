@@ -25,6 +25,7 @@ const ResultWrapper = styled.div`
   display : flex;
   flex-direction: column;
   align-items: center;
+  padding: 30px;
   width: 60%;
   height: 100%;
   overflow-y: scroll;
@@ -33,6 +34,7 @@ const ResultWrapper = styled.div`
 const SearchResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
   width: 90%;
   border: 1px solid ${({ theme }) => theme.LinkWater};
   border-radius: 5px;

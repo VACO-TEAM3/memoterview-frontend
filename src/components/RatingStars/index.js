@@ -11,11 +11,11 @@ const RatingWrapper = styled.div`
 
   label {
     float: right;
-    width: 2em;
+    width: 1.7em;
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
-    font-size: 2em;
+    font-size: 1.7em;
   }
 
   label:before {
@@ -23,12 +23,12 @@ const RatingWrapper = styled.div`
   }
 
   input:checked ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlue};   
+    color: ${({ theme }) => theme.LittleBoyBlue};
   }
 
   label:hover,
   label:hover ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlueDark}; 
+    color: ${({ theme }) => theme.LittleBoyBlueDark};
   }
 
   .rate > input:checked + label:hover,
@@ -36,11 +36,11 @@ const RatingWrapper = styled.div`
   .rate > input:checked ~ label:hover,
   .rate > input:checked ~ label:hover ~ label,
   .rate > label:hover ~ input:checked ~ label {
-    color: ${({ theme }) => theme.LittleBoyBlueDeepDark};  
+    color: ${({ theme }) => theme.LittleBoyBlueDeepDark};
   }
 `;
 
-export default function RatingStars({ onChange, rateOption }) {
+export default function RatingStars({ onChange, rateOption, size }) {
   function handleChange({ target: { name, value } }) {
     onChange(name, value);
   }

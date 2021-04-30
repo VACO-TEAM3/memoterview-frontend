@@ -19,8 +19,8 @@ const LoadingWrapper = styled.div`
 `;
 
 const StyledLoading = styled.div`
-  width: 8vw;
-  height: 8vw;
+  width: 7vw;
+  height: 7vw;
 `;
 
 const lottieOptions = {

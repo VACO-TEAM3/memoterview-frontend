@@ -11,11 +11,12 @@ const PageWrapper = styled.div`
 `;
 
 const InnerPageWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 40vw;;
-  height: 60vh;
+  height: 50vh;
   background-color: ${({ theme }) => theme.Snow};
   color: ${({ theme }) => theme.GulfBlue};
   border-radius: 4px;
@@ -23,8 +24,11 @@ const InnerPageWrapper = styled.div`
 `;
 
 const Title = styled.div`
+  position: absolute;
+  top: 80px;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 1.5em;
 `;
@@ -34,14 +38,14 @@ const Label = styled.div`
   justify-content: center;
   align-items: center;
   width: 100px;
-  font-size: 1.5em;
+  font-size: 1.2em;
 `;
 
 const EditField = styled.div`
   display: flex;
   flex-direction: row;
   width: 70%;
-  margin: 10px;
+  margin: 15px;
 `;
 
 const InputWrapper = styled.div`
@@ -56,14 +60,17 @@ const Input = styled.input`
   margin: 5px 20px;
   padding: 3px 10px 0;
   width: 70%;
-  height: 30px;
+  height: 25px;
   font-size: 1em;
 `;
 
 const ButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const Button = styled.div`

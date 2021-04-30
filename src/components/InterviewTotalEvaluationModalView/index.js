@@ -17,14 +17,14 @@ const ViewWrapper = styled.div`
 
 const FilterOptions = styled.div`
   display: grid;
-  grid-template-columns: 37% auto;
+  grid-template-columns: 35% auto;
   margin-top: 0.5em;
 `;
 
 const ButtonWrapper = styled.button`
   width: 100%;
-  height: 3em;
-  margin-top: 1.1em;
+  height: 3.5em;
+  margin-top: 1.5em;
   border: 0;
   cursor: pointer;
   border-top: 1px solid ${({ theme }) => theme.InterviewModalBorder};
@@ -45,7 +45,7 @@ const TotalOptions = styled.div`
   .interview-input {
     width: 60%;
     height: 20px;
-    margin: 0.5rem auto;
+    margin: 0 auto .5em;
     border: 1px solid ${({ theme }) => theme.InterviewModalBorder};
   }
 
@@ -71,20 +71,20 @@ export default function InterviewTotalEvaluationModalView({
   }
 
   return (
-    <ModalView backgroundColor="#f9f8f5" width="500px" height="500px">
+    <ModalView backgroundColor="#f9f8f5" width="500px">
       <ViewWrapper>
-        <h2>최종 평가</h2>
+        <h3>최종 평가</h3>
         <form onSubmit={onResultSubmit}>
           {filters?.map((filter, index) => (
             <FilterOptions key={index}>
-              <h3>{filter}</h3>
+              <h4>{filter}</h4>
               <RatingStars onChange={onFilterRateChange} rateOption={filter} />
             </FilterOptions>
           ))}
           <TotalOptions>
-            <h3 className="comment-text">코멘트</h3>
-            <input className="interview-input" type="text" onChange={onCommentChange} onKeyDown={handleInputKeyDown}/>
-            <h3>종합 점수</h3>
+            <h4 className="comment-text">코멘트</h4>
+            <input className="interview-input" type="text" onChange={onCommentChange} onKeyDown={handleInputKeyDown} required/>
+            <h4>종합 점수</h4>
             <RatingStars onChange={onTotalRateChange} />
             <ButtonWrapper type="submit">OK</ButtonWrapper>
           </TotalOptions>

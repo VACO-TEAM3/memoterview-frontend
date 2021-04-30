@@ -9,29 +9,35 @@ import ProjectEvaluationOptionAddBar from "../ProjectEvaluationOptionAddBar";
 import ProjectOptionItem from "../ProjectOptionItem";
 import SearchField from "../SearchField";
 
+const Title = styled.h2`
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 500;
+`;
+
 const EditField = styled.div`
-  margin: 50px;
+  margin: 40px 50px;
 `;
 
 const Label = styled.div`
   margin: 5px;
-  font-size: 1.3em;
-  font-weight: 450;
+  font-size: 1.2em;
+  font-weight: 400;
 `;
 
 const Input = styled.input`
   margin: 5px 20px;
   padding: 3px 10px 0;
   width: 80%;
-  height: 30px;
+  height: 25px;
   font-size: 1em;
 `;
 
 const BtnGroup = styled.div`
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
   display: flex;
+  justify-content: flex-end;
+  margin-top: 90px;
+  width: 100%;
 `;
 
 const Button = styled.div`
@@ -42,7 +48,8 @@ const Button = styled.div`
   margin: 5px;
   width: 80px;
   height: 40px;
-  background-color: ${(props) => props.buttonType === "ok" ? props.theme.ButtonGreen : props.theme.ButtonPink};
+  background-color: ${(props) => props.buttonType === "ok" ? props.theme.GulfBlue : props.theme.Whisper};
+  color: ${(props) => props.buttonType === "ok" ? props.theme.Snow : props.theme.GulfBlue};
   box-sizing: border-box;
   border-radius: 3px;
   font-weight: bold;
@@ -123,9 +130,10 @@ export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick
   // 컴포넌트 나누기
   return (
     <ModalView padding="20px" width="700px" height="650px">
+      <Title>면접 생성</Title>
       <EditField>
         <Label>인터뷰 제목</Label>
-        <Input value={title} onChange={handleTitleChange} />
+        <Input value={title} onChange={handleTitleChange} required/>
       </EditField>
       <EditField>
         <Label>평가 옵션</Label>
@@ -162,7 +170,7 @@ export default function ProjectAddModalView({ onCancelBtnClick, onCreateBtnClick
       </EditField>
       <EditField>
         <Label>카테고리</Label>
-        <Input value={category} onChange={handleCategory} />
+        <Input value={category} onChange={handleCategory} required/>
       </EditField>
       <BtnGroup>
         <Button buttonType="cancel" onClick={onCancelBtnClick}>취소</Button>

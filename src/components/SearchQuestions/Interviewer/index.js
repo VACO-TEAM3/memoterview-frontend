@@ -9,7 +9,7 @@ const InterviewerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 0.5vh 0.5vw;
+  padding: 15px;
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   border: 1px solid ${({ theme }) => theme.Solitude};
   border-radius: 3px;
@@ -18,10 +18,12 @@ const InterviewerWrapper = styled.div`
     background-color: ${({ theme }) => theme.ItemHoverColor};
   }
   text-decoration: none;
+  font-size: 1.3em;
 `;
 
 const InterviwerBox = styled.div`
   display: flex;
+  font-size: .8em;
 `;
 
 const InterviwerName = styled.div`
@@ -43,8 +45,8 @@ const Label = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 95%;
-  margin: 0 0.5vw;
-  font-size: 25px;
+  margin: 0 0.5vw 20px;
+  font-size: 1.1em;
 `;
 
 const InterviewerText = styled.div`
@@ -52,7 +54,6 @@ const InterviewerText = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 0.5vw;
-  font-size: 20px;
 `;
 
 export default function Interviewer({ searchResult }) {
@@ -68,7 +69,7 @@ export default function Interviewer({ searchResult }) {
         <Label>질문: {ellipsizedQuestionTitle}</Label>
         <InterviwerBox>
           <InterviewerText>질문자: </InterviewerText>
-          <InterviwerImg size="30px" src={searchResult.interviewerAvatar} />
+          <InterviwerImg size="1.3em" src={searchResult.interviewerAvatar} />
           <InterviwerName>{searchResult.interviewerName}</InterviwerName>
         </InterviwerBox>
       </Link>
