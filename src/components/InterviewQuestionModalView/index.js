@@ -14,13 +14,27 @@ const ViewWrapper = styled.div`
   color: ${({ theme }) => theme.InterviewModalContent};
 `;
 
+const QuestionEvaluationForm = styled.form`
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const ViewContent = styled.div`
-  margin-top: 2.2em;
+  display: flex;
+  height: 100%;
 `;
 
 const InputButton = styled.button`
+  position: absolute;
+  left: 0;
+  bottom: 0px;
   width: 100%;
-  height: 2.8em;
+  height: 23%;
   background: ${({ theme }) => theme.BabyPowder};
   margin-top: 2.45em;
   color: ${({ theme }) => theme.LittleBoyBlue};
@@ -44,12 +58,12 @@ export default function InterviewQuestionModalView({
     <ViewWrapper>
       <ModalView width="400px" height="200px" backgroundColor="#f9f8f5">
         <h3>답변 평가</h3>
-        <form onSubmit={onResultSubmit}>
+        <QuestionEvaluationForm onSubmit={onResultSubmit}>
           <ViewContent>
             <RatingStars onChange={onRateChange} />
           </ViewContent>
           <InputButton type="submit">OK</InputButton>
-        </form>
+        </QuestionEvaluationForm>
       </ModalView>
     </ViewWrapper>
   );

@@ -11,7 +11,6 @@ const MainLayoutWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 95%;
-  min-height: 2000px;
   margin: 2vw;
 `;
 
@@ -20,7 +19,7 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 85vh;
+  min-height: 85vh;
 `;
 
 export default function IntervieweeDetail({

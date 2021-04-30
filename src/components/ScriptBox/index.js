@@ -42,6 +42,7 @@ const Body = styled.div`
   overflow-y: scroll;
   border: 2px solid ${({ theme }) => theme.LinkWater };
   border-radius: 3px;
+  font-size: 12px;
 `;
 
 export default function ScriptBox({ question, answer }) {
