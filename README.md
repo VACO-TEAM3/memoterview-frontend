@@ -1,3 +1,7 @@
+# Presentation
+https://www.youtube.com/watch?v=0G53ypQTac8
+> 38:45 ~ 59:20
+
 # Introduction
 
 Never take notes during your interview again.
