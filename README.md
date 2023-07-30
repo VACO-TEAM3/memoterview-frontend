@@ -1,10 +1,6 @@
 # Sumarry
 Memoterview는 면접관을 위한 면접 플랫폼으로 화상 면접에서 질문과 답변을 음성 인식하여 Note-taking 과정을 간편화하고, 답변 평가와 최종 평가를 실시 간으로 진행 후 면접자들의 결과를 리스트로 볼 수 있습니다. 면접화면에서 이력서를 보거나 질문을 추천받는 편의 기능도 제공합니다.
 
-# Presentation
-https://www.youtube.com/watch?v=0G53ypQTac8
-> 38:45 ~ 59:20
-
 # Deploy
 https://www.memoterview.com/
 
